@@ -1,0 +1,6 @@
+name: component-federate
+title: Component Federate
+version: master
+start_page: ROOT:introduction.adoc
+nav:
+- modules/ROOT/nav.adoc
