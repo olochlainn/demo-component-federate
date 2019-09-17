@@ -1,4 +1,4 @@
-=== Distributed Joins Between Indices
+= Distributed Joins Between Indices
 
 Siren Federate extends the Elasticsearch DSL with a `join` query clause which enables a user to
 execute a join between indices (being virtual or not). The join capabilities are implemented on top of a in-memory
@@ -12,7 +12,7 @@ same type. You can also freely combine and nest multiple joins using boolean ope
 disjunction, negation) to create complex query plans. It is fully integrated with the Elasticsearch API and is
 compatible with distributed environments.
 
-==== How Does Siren Federate Join Compare With Parent-Child
+== How Does Siren Federate Join Compare With Parent-Child
 
 The Siren Federate join is similar in nature to the
 https://www.elastic.co/guide/en/elasticsearch/guide/current/parent-child.html[Parent-Child] feature of
