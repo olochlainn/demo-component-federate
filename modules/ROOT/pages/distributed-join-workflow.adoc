@@ -30,9 +30,9 @@ GET /_siren/companies/search
 
 will produce the following workflow:
 
-[#img-query-workflow]
-[caption="Query Workflow"]
-image::img/siren-federate-architecture-workflow.png[Query Workflow,align="center"]
+
+
+image::siren-federate-architecture-workflow.png
 
 The coordinator will execute a `Search/Project` task on every shard of the `companies` and `articles` indices.
 These tasks will first execute a search query to compute the matching documents, then scan the `id` and `mentions`
