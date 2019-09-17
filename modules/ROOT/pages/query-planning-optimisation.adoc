@@ -1,4 +1,4 @@
-=== Query Planning & Optimisation
+= Query Planning & Optimisation
 
 The coordinator node is leveraging Apache Calcite for planning the job execution. A search request is first parsed
 into an abstract syntax tree before being transformed into a logical relational plan. A set of rules will then be
