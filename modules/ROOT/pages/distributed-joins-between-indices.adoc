@@ -31,7 +31,7 @@ mapped to a purely hierarchical model), then the
 Parent-Child model might be more appropriate. If on the contrary you need to query both directions of a data
 relationship, then the Siren Federate join might be more appropriate.
 
-==== On Which Data Model It Operates
+=== On Which Data Model It Operates
 
 The most important requirement for executing a join is to have a common shared attribute between two indices.
 For example, let's take a simple relational data model composed of two tables, `Articles` and `Companies`, and of one
