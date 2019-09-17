@@ -1,0 +1,15 @@
+= IO
+
+The shuffling and transfer of data produced by a task is handled by a `Collector`. A collector will collect data,
+serialize it into a compact columnar data representation, and transfer it in the form of binary packets.
+Different collector strategies are implemented that are adapted to different tasks. For example, in case of a
+`Hash Join`, a `Search/Project` task will use a collector with a hash partitioning strategy to create small data
+partitions and shuffle these partitions uniformly across the cluster.
+
+On the receiver side, when a packet is received, it is stored as is (without deserialization) in an in-memory data
+store. Tasks, such as the `Join` task, will directly work on top of these binary data packets in order to avoid
+unnecessary data copy and deserialization.
+
+The binary data packets are created, stored and manipulated off-heap. This helps to reduce unnecessary loads on the JVM
+and Garbage Collection when dealing with a large amount of data. We are leveraging the Apache Arrow project for the
+allocation and management of off-heap byte arrays.

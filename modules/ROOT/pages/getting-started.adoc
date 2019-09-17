@@ -1,0 +1,6 @@
+= Getting Started
+
+In this short guide, you will learn how you can quickly install the Siren Federate plugin in Elasticsearch,
+load two collections of documents inter-connected by a common attribute, and execute a relational query across
+the two collections within the Elasticsearch environment.
+

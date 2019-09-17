@@ -1,0 +1,21 @@
+= Architecture
+
+Siren Federate is designed around the following core requirements:
+
+* Low latency, real time interactive response – Siren Federate is designed to power ad hoc interactive, read only
+queries such as those sent from Siren Investigate.
+* Implementation of a fully featured relational algebra, capable of being extended for advanced join conditions, operations
+and statistical optimizations.
+* Flexible in-memory distributed computational framework.
+* Horizontal scaling of fully distributed operations, leveraging all the available nodes in the cluster.
+* Federated – capable of working on data that is not inside the cluster, for example via JDBC connections.
+
+Siren Federate is based on the following high level architecture concepts:
+
+* A coordinator node which is in charge of the query parsing, query planning and query execution. We are leveraging the
+Apache Calcite engine to create a logical plan of the query, optimise the logical plan and execute a physical plan.
+* A set of worker processes that are in charge of executing the physical operations. Depending on the type of physical
+operation, a worker process is spawned on a per node or per shard basis.
+* An in-memory distributed file system that is used by the worker nodes to exchange data, with a compact columnar data
+representation optimized for analytical data processing, zero copy and zero data serialisation.
+
