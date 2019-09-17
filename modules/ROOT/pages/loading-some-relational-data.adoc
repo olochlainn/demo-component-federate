@@ -1,4 +1,4 @@
-=== Loading Some Relational Data
+= Loading Some Relational Data
 
 We will use a simple synthetic dataset for the purpose of this demo. The dataset consists of two collections
 of documents: Articles and Companies. An article is connected to a company with the attribute `mentions`.
