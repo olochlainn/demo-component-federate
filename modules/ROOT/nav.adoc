@@ -1,0 +1,16 @@
+* xref:introduction.adoc[Introduction]
+** xref:federation-of-external-databases.adoc[Federation of External Databases]
+** xref:distributed-joins-between-indices.adoc[Distributed Joins Between Indices]
+* xref:architecture.adoc[Architecture]
+** xref:distributed-join-workflow.adoc[Distributed Join Workflow]
+** xref:query-planning-optimisation.adoc[Query Planning & Optimisation]
+** xref:io.adoc[IO]
+* xref:getting-started.adoc[Getting Started]
+** xref:prerequisites.adoc[Prerequisites]
+** xref:installing-the-siren-federate-plugin.adoc[Installing the Siren Federate Plugin]
+** xref:starting-elasticsearch.adoc[Starting Elasticsearch]
+** xref:loading-some-relational-data.adoc[Loading Some Relational Data]
+** xref:relational-querying-of-the-data.adoc[Relational Querying of the Data]
+
+
+
