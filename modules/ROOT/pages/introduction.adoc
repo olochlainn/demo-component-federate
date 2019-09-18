@@ -4,6 +4,3 @@ The Siren Federate plugin extends Elasticsearch with (1) a federation layer to q
 Elasticsearch API and (2) distributed join capabilities across indices and external databases.
 
 
-It should be straightforward for someone to write an SQL statement to flatten and map relationships into a
-single multi-valued field. We can see that, compared to a traditional database model where a junction table is necessary,
-the model is simplified by leveraging multi-valued fields.
