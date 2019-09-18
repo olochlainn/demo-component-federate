@@ -1,0 +1,81 @@
+= Enhanced search results
+
+// Link to /siren-investigate/visualizations/record-table-visualization.html for both of the next two links
+
+The link:#[Record Table visualization] displays the
+current set of Elasticsearch documents as a table. For example,
+Companies Table is configured to display the following fields:
+
+* Time (foundation date)
+* label (the company name)
+* description
+* category_code
+* founded_year
+* countrycode
+* Why Relevant? (a
+link:[relational
+column])
+
+image:image/15d764ed179247.png[Companies Table]
+
+Select *Edit*, then click Edit (image:image/15d764ed143f43.png[image])
+to choose which fields to display and customize the order of the
+columns. If the index is time based, the Time column will always be
+displayed.
+
+Click the right arrow to expand the first row, then scroll down to the
+homepage_url field and click the Toggle column icon:
+
+image:image/15d764ed1802b8.png[Column positioning.]
+
+You can click the arrows to move the column to the desired position:
+
+image:image/15d764ed185cbd.png[Column positioning.]
+
+
+== Click handlers
+
+You can define click handlers on cells to perform several actions. Let’s
+add a click handler to open the company homepage when clicking the cell
+displaying the URL.
+
+The table is preconfigured with a click handler on `+label+` that is
+used to select an entity in the SQLite database.
+
+. Go into edit mode.
+
+. Scroll through the view options and click *Add click handler*.
+
+. From the Column box, select homepage_url.
+
+. From the On click I want to box, select *Follow the URL*.
+
+. Select homepage_url as the URL field,  then click *Apply
+Changes* (image:image/15d764ed153f9c.png[image]).
+
+You can test the click handler immediately by clicking a cell displaying
+a homepage URL in the preview displayed on the right:
+
+image:image/15d764ed18b533.png[URL click handler.]
+
+== Relational columns
+
+You can enable the relational column to be displayed when an
+Elasticsearch document is matched by a query on the SQLite database. The
+relational column reports on the relationship, based on the queries
+configured.
+
+In the following example, in the _Companies Table_, you can see that
+`+Big Fish+` is listed here because it has competitors.
+
+image:image/15d764ed192202.png[Relational column example.]
+
+image:image/15d764ed197ff1.png[Relational column configuration]
+
+
+== Saving the visualization
+
+Click Save in the top right to save the visualization, then click
+Dashboard to go back to the Companies dashboard. For additional
+documentation about this visualization, see link:#[Enhanced search
+results visualization].

@@ -1,0 +1,17 @@
+= Filtering results
+
+Visualizations can be used to create filters. For example, you can see
+all the articles about _wireless_ or _Wi-Fi_ published by TechCrunch by
+clicking the TechCrunch slice inside the Articles by
+Source link:/document/preview/60259#UUID-6e4c364e-7eac-4815-5abf-8c5d34ff8a18[pie
+chart] visualization:3.5.9 Pie charts
+
+image:image/15d764ed11c8a4.png[Pie slice]
+
+image:image/15d764ed122d27.png[Dashboard with filter on the slice
+applied]
+
+NOTE: To switch off a filter, move the mouse pointer over it and click the
+check box icon. To switch off all the filters applied to the dashboard,
+click Actions then Disable.
+

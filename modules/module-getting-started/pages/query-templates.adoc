@@ -1,0 +1,25 @@
+= Query templates
+
+*Company Info*, which is an instance of a Siren Investigate query viewer
+visualization, displays the results of three SQL queries by rendering
+their results through templates. The queries take the selected entity ID
+as an input and the associated templates are displayed only when an
+entity is selected.
+
+image:image/15d764ed19fbcf.png[Siren Investigate query viewer example]
+
+The association between the query and templates can be set in the
+visualization configuration:
+
+image:image/15d764ed1a55aa.png[Siren Investigate query viewer
+configuration.]
+
+Query templates can be managed by clicking the Management icon, then
+select Advanced Settings followed by Templates.
+
+// Link to /siren-investigate/legacy-rest-datasources.html
+
+// Link to /siren-investigate/visualizations/query-viewer.html
+
+For more information about templates, see link:#[Legacy REST
+datasources]. For more information about visualization see link:#[Siren Investigate query viewer].

@@ -1,0 +1,12 @@
+= User access
+
+You can access the demonstration as three different users:
+
+* `+sirenadmin+` has read access to all data indices and can modify the
+Siren Investigate configuration.
+* `+sirenuser+` has read access to all data indices but cannot modify
+the Siren Investigate configuration.
+* `+sirennoinvestor+` has read access to all data indices except
+`+investor+`. The user has no access to the `+Investors+` dashboard.
+
+The password for all users is `+password+`.

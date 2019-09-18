@@ -1,0 +1,47 @@
+= Opening Siren Investigate
+
+After starting Elasticsearch and Siren Investigate as described in
+link:/document/preview/60105#UUID-ad5acfa5-c766-aa9f-8905-ce328430518d[Setting
+up Siren Investigate], from your web browser navigate to
+http://localhost:5606.
+
+[[UUID-737e589d-09e2-be6f-ad64-32af1f138eea]]
+== Navigation sidebar
+
+The left sidebar is used to navigate between apps in Siren Investigate.
+
+It can be expanded or contracted using the
+expand/contract (image:image/15d764ed104a9c.png[image]) button at the
+bottom of the sidebar.
+
+By default, Siren Investigate displays the *Articles* dashboard.
+link:/document/preview/60374#UUID-5afa51ba-58f9-7db3-2d76-e57e93492ecc[Dashboards]
+can be configured to display multiple
+link:/document/preview/60229#UUID-c031aad7-904c-e18b-ac34-c5e8afe57dbd[visualizations]
+on the documents stored in a specific index or returned by a
+link:/document/preview/60188#UUID-68ef86a4-bb7a-1344-eac2-bf7d24b03a48[saved
+search] on an index pattern.
+
+Each dashboard is represented by a tab containing the dashboard title
+and the number of documents available for visualizations.
+
+image:image/15d764ed10ab1c.png[The articles dashboard.]
+
+You can quickly search specific articles through the search input in the
+navigation bar. For example, let’s find all the articles written about
+_wireless_ or _Wi-Fi_:
+
+image:image/15d764ed11477f.png[The dashboard search bar]
+
+We can immediately see that there are 11595 articles about those topics
+and all the visualizations are refreshed to aggregate data for this
+subset of articles.
+
+NOTE: In addition to simple text, queries in the search bar can be written
+using the Lucene
+https://lucene.apache.org/core/2_9_4/queryparsersyntax.html[query
+syntax], or
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl.html[Elasticsearch
+Query DSL].
+____
+

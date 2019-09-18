@@ -1,0 +1,30 @@
+= Getting started with demo data
+
+Download the Siren Platform preloaded demo from
+https://siren.io/downloads/?product=siren-platform-demo-data[www.siren.io/downloads].
+
+The demonstration includes a ready-to-use Elasticsearch cluster in the
+`+elasticsearch+` folder. The cluster contains the following indices:
+
+[cols=",",]
+|===
+|`+company+` |A collection of companies
+|`+article+` |A collection of articles about companies
+|`+investment+` |A collection of investments in companies
+|`+investor+` |A collection of investors
+|`+.siren+` |Siren Investigate configuration
+|===
+
+The indices were populated with
+https://www.elastic.co/products/logstash[Logstash] from the SQLite
+database in `+siren-investigate/crunchbase.db+`, as described in
+link:#[Legacy REST datasources].
+
+
+
+NOTE: The demonstration data set was built from a sample of articles, which
+were gathered from tech blogs and from data about companies, investments
+and investors in the CrunchBase 2013 Snapshot, which is copyright © 2013
+CrunchBase Inc.
+
+
