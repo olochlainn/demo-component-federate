@@ -42,3 +42,5 @@ a multi-valued field `mentions` with the unique identifiers of the companies men
 In other words, the field `mentions` is a foreign key in the `Articles` table that refers to the primary key of
 the `Companies` table.
 
+It should be straightforward for someone to write an SQL statement to flatten and map relationships into a single multi-valued field. We can see that, compared to a traditional database model where a junction table is necessary, the model is simplified by leveraging multi-valued fields.
+
