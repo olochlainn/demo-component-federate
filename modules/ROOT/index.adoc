@@ -30,7 +30,7 @@ The following diagram shows the relationship between these components. The Inves
 
 The Siren Alert functionality is provided by a plugin, while Siren ML and Siren ER (beta) are Dockers which communicate with the main Siren platform through their APIs.
 
-image::siren_components.png[]
+image::siren-components.png[]
 
 ==Siren Investigate
 
