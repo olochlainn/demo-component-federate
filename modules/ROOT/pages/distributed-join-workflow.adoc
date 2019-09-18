@@ -32,6 +32,7 @@ will produce the following workflow:
 
 image::siren-federate-architecture-workflow.png[]
 
+
 The coordinator will execute a `Search/Project` task on every shard of the `companies` and `articles` indices.
 These tasks will first execute a search query to compute the matching documents, then scan the `id` and `mentions`
 fields of the matching documents and shuffle them to all the nodes of the cluster. Once these tasks are completed,
