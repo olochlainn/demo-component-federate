@@ -43,5 +43,5 @@ https://lucene.apache.org/core/2_9_4/queryparsersyntax.html[query
 syntax], or
 https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl.html[Elasticsearch
 Query DSL].
-____
+
 
