@@ -30,8 +30,6 @@ GET /_siren/companies/search
 
 will produce the following workflow:
 
-
-
 image::siren-federate-architecture-workflow.png[]
 
 The coordinator will execute a `Search/Project` task on every shard of the `companies` and `articles` indices.
