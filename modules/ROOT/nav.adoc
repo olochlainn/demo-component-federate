@@ -11,13 +11,7 @@
 ** xref:starting-elasticsearch.adoc[Starting Elasticsearch]
 ** xref:loading-some-relational-data.adoc[Loading Some Relational Data]
 ** xref:relational-querying-of-the-data.adoc[Relational Querying of the Data]
-* xref:getting-started.adoc[Getting Started]
-* xref:getting-started-with-demo-data[Getting Started With Demo Data]
-** xref:user-access.adoc[User Access]
-** xref:opening-siren-investigate.adoc[Opening Siren Investigate]
-** xref:filtering-results.adoc[Filtering Results]
-** xref:creating-filters-with-the-relational-navigator.adoc[Creating Filters With The Relational Navigator]
-** xref:query-based-aggregations.adoc[Query Based Aggregations]
+
 
 
 
