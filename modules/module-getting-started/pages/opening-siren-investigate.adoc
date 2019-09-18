@@ -11,7 +11,7 @@ http://localhost:5606.
 The left sidebar is used to navigate between apps in Siren Investigate.
 
 It can be expanded or contracted using the
-expand/contract (image:image/15d764ed104a9c.png[image]) button at the
+expand/contract (image:expand-contract-icon.png[]) button at the
 bottom of the sidebar.
 
 By default, Siren Investigate displays the *Articles* dashboard.
