@@ -25,13 +25,13 @@ search] on an index pattern.
 Each dashboard is represented by a tab containing the dashboard title
 and the number of documents available for visualizations.
 
-image:image/15d764ed10ab1c.png[The articles dashboard.]
+image:articles-dashboard.png[]
 
 You can quickly search specific articles through the search input in the
 navigation bar. For example, let’s find all the articles written about
 _wireless_ or _Wi-Fi_:
 
-image:image/15d764ed11477f.png[The dashboard search bar]
+image:dashboard-search-bar.png[]
 
 We can immediately see that there are 11595 articles about those topics
 and all the visualizations are refreshed to aggregate data for this
