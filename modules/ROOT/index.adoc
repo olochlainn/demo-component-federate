@@ -1,0 +1,74 @@
+= Introduction
+
+NOTE: This is the documentation for Siren 10.3.1. For other documentation, visit https://docs.siren.io. For the release notes, visit https://docs.support.siren.io/latest/platform/release-notes.html.
+
+== Investigative intelligence
+
+Sometimes, the answer to a specific question may be simple, but the investigative process is typically complex and unique each time. While business intelligence, enterprise search and knowledge graph are useful for specific tasks, investigative intelligence combines these elements to answer new questions.
+
+Where the nature of data investigation is fluid, the Siren platform provides you with coherent orchestration of information retrieval and semantic technologies that can make use of big data without moving it from your existing infrastructure.
+
+== Siren platform
+
+The Siren platform provides relational cross-index and cross-system capabilities and investigative intelligence features.
+
+The core platform comprises three components:
+
+* *Siren Investigate*: A browser-based visualization tool that provides powerful graphical and analysis capabilities.
+
+* *Siren Alert*: An alerting and reporting component for operational notifications and information.
+
+* *Siren Federate*: A back end that provides the ability to search across Elasticsearch, Hadoop and SQL databases.
+
+In addition, Siren now has two modular components that extend its functionality:
+
+* *Siren ML*: A deep learning-powered AI that provides two main capabilities—predictive analytics/alerting, and time series anomaly detection.
+
+* *Siren ER (beta)*: An AI component that enables entity resolution—the ability to recognize that two or more separate records in the data are referring to the same real-world entity.
+
+The following diagram shows the relationship between these components. The Investigate frontend connects to the Federate backend, which consists of an Elasticsearch cluster with multiple nodes, each with a Federate plugin. One of the nodes is connected through JDBC drivers to external databases, and also to a remote Elasticsearch cluster.
+
+The Siren Alert functionality is provided by a plugin, while Siren ML and Siren ER (beta) are Dockers which communicate with the main Siren platform through their APIs.
+
+image::siren_components.png[]
+
+==Siren Investigate
+
+Siren Investigate is an application for interactive, exploratory investigative intelligence. It ties together the big data that resides in your infrastructure, without moving it, using a semantic data model that defines how data connects.
+
+You edit the data model in Siren Investigate by listing the tables in the remote datasources, such as an RDBMS, an Elasticsearch index, or an Impala table and how these refer to each other in a similar way to a primary/foreign key definition, but across systems.
+
+Siren Investigate provides scalable, smooth and interactive graph analytics without the  need for a separate graph data store. It also provides temporal analytics components to show connected events originating from multiple indices in a single view.
+
+You can cross boundaries of indices and back ends to discover how events and entities are connected. And you can use relational filtering to see time placements of events related to both single entities and groups.
+
+Enterprise-level access control is provided at the index, record and field levels. And end-to-end encryption exists from the user interface down to the inter-cluster communications.
+
+== Siren Alert
+
+Siren Alert provides alerts and reports (PDF emails) to be generated using logic, ranging from simple queries to advanced Complex Event Processing (CEP) scripts. The Siren Investigate user interface enables you to configure watchers (email recipients) and reports.
+
+The Siren Alert scripting capabilities make it easy to implement statistical anomaly detection methodology to determine when alerts should be generated.
+
+== Siren Federate
+
+Siren Federate is a plugin extension for Elasticsearch that adds cluster-distributed and highly optimized cross-index and cross-back end data joins.
+
+These capabilities are exposed by Siren Federate as an extended Elasticsearch API that is backward compatible with the Elasticsearch and Kibana plugin ecosystem.
+
+Siren Federate makes full use of your current systems with the ability to translate analytic and join queries to the language supported by your existing databases and big data infrastructure, or transparently using in-Siren-cluster-nodes memory joins as required.
+
+== Siren ML
+
+Siren ML uses deep learning-powered AI, which can operate on data in Elasticsearch or in any other Federate-supported backend, to provide:
+
+* Predictive analytics and alerting – real-time forecasting of operational data streams and alerting on expected future crossing of thresholds.
+
+* Time series anomaly detection – learning from data to recognize anomalous behavior.
+
+== Siren ER (beta)
+
+Siren ER (beta) is an AI component that can recognize that two or more records in the data (these could be companies, cars, or any other thing) are likely to be referring to the same real-world entity. Conversely, Siren ER (beta) can recognize that two or more separate entities are connected in significant ways. This can remove ambiguity and reveal previously hidden relationships.
+
+NOTE: Siren ML and Siren ER (beta) are the first two modules in a new modular architecture that adds additional capabilities to the Siren platform. This approach encapsulates components into Dockers, which use OS-level virtualization to deliver software functionality in discrete modules that communicate with the main Siren Platform via a documented API.
+
