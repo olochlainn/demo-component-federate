@@ -1,0 +1,14 @@
+= Setting up Siren Investigate (temp file)
+
+This section includes information on how to set up Siren Investigate and get it running, including:
+
+* Downloading
+
+* Installing
+
+* Starting
+
+* Configuring
+
+* Upgrading
+
