@@ -1,2 +1,2 @@
 * xref:siren-investigate.adoc[Siren Investigate]
-** xref:getting started-with-siren-investigate.adoc[Getting Started With Siren Investigate]
+** xref:getting-started-with-siren-investigate.adoc[Getting Started With Siren Investigate]
