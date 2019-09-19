@@ -1,0 +1,11 @@
+WARNING: Equipment damage or loss of data may occur.
+
+CAUTION: Stop before performing the action.
+
+NOTICE: A statutory requirement.
+
+NOTE: Reader take note.
+
+IMPORTANT: A required action.
+
+TIP: A suggested action.
