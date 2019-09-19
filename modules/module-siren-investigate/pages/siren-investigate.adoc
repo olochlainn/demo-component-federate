@@ -1,0 +1,31 @@
+= Siren Investigate
+
+Siren Investigate is the the investigative front-end application of Siren Platform, where you can develop visualizations of your data. It allows editing of the data model, which in turn drives dashboards, search, and link analysis.
+
+Siren Investigate uses all the functionality that is provided by Siren Federate, enabling cross-indexes, semi-join analysis and connectivity to multiple data sources including Oracle, Impala and Spark SQL.
+
+Siren Investigate enables you to perform complex analytics on large volumes of data by providing customizable visualizations (charts, maps, metrics and tables) that can be used to represent different data searches in intuitive fashion. Search results can then be filtered interactively through a variety of techniques like date ranges, full text queries and field value matching. Additionally, by setting up relations between indexes, it is possible to filter search results matching documents in a different dashboard, for example by displaying only companies that received investments in a particular year. Moreover, search results can be filtered and augmented by queries on multiple external data sources such as SQL databases and REST APIs.
+
+In addition to standard visualizations, Siren Investigate provides the following enhancements:
+
+* *Siren Investigate Graph Browser*: provides link analysis, connecting data hosted in Elasticsearch indexes or external JDBC datasources to create dynamic knowledge graphs.
+
+* *Relational Navigator visualization*: enables you to navigate between relationally connected dashboards.
+
+* *Siren Investigate Timeline visualization*: displays a timeline with multiple groups of data coming from different indices.
+
+* *Radar Chart visualization*: a graphical method for displaying multivariate data with multiple groups of data coming from different indices.
+
+* *Bubble Diagram visualization*: displays series of data grouped into packed circles.
+
+* *Scatter Plot visualization*: displays a scatter plot chart in different modes.
+
+* *Box Plot visualization*: displays a box plot chart from the data.
+
+* *Horizontal Bar Chart visualization*: displays a horizontal bar chart.
+
+* *Multichart visualization*: displays different types of charts for the same data and enables saving and selecting multiple aggregation configurations.
+
+* *Enhanced Search Results visualization*: displays query results in a table.
+
+* *Siren Investigate Query Viewer*: enables the visualization of queries on external datasources through Jade or Handlebars templates.
