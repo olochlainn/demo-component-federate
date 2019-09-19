@@ -1,7 +1,7 @@
-name: component-federate
-title: Component Federate
+Planame: component-federate
+title: Siren platform User Guide
 version: master
 start_page: ROOT:index.adoc
 nav:
-- modules/ROOT/nav.adoc
 - modules/module-getting-started/nav.adoc
+- modules/ROOT/nav.adoc
