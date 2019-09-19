@@ -1,6 +1,6 @@
 = Introduction
 
-NOTE: This is the documentation for Siren 10.3.1. For other documentation, visit https://docs.siren.io. For the release notes, visit https://docs.support.siren.io/latest/platform/release-notes.html.
+NOTE: This is the documentation for Siren {siren-version}. For other documentation, visit https://docs.siren.io. For the release notes, visit https://docs.support.siren.io/latest/platform/release-notes.html.
 
 == Investigative intelligence
 
