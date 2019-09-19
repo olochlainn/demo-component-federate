@@ -20,5 +20,5 @@ demo data].
 
 If you are ready to use Siren Platform in a production environment,
 follow the instructions in
-link:/document/preview/92029#UUID-1577d5f7-8f39-0a45-aa83-2409bdc093c0[Setting
+xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting
 up Siren Investigate].
