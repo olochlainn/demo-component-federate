@@ -9,7 +9,7 @@ For example, from *Companies* in the dashboard, you can see that there
 are 470 companies mentioned in TechCrunch articles about _wireless_ or
 _Wi-Fi_.
 
-image:image/15d764ed12ab90.png[Relational filter from articles to
+image:relational-filter-articles-to-companies.png[Relational filter from articles to
 companies]
 
 The relational filter created by clicking the button is displayed in the
@@ -17,10 +17,10 @@ filter bar, and can be switched off or removed, just like any other
 filter. Moving the mouse pointer over the filter will display the list
 of joined indices and their filters:
 
-image:image/15d764ed131429.png[Relational filter in the filter bar]
+image:relational-filter-in-filter-bar.png[Relational filter in the filter bar]
 
 Relational filters can be accumulated. For example, if you click
-Investment rounds -→, you will see data about the 351 investment rounds
+Investment rounds →, you will see data about the 351 investment rounds
 related to a subset of 470 companies mentioned in the TechCrunch
 articles about _wireless_ or _Wi-Fi_. For more information,
 see link:/document/preview/60673#UUID-c416f69d-7cd3-0339-ce86-574af9155197[Relational
