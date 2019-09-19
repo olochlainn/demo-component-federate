@@ -78,8 +78,8 @@ with the new results.
 
 image:add-subbuckets.png[image]
 
-For an in-depth explanation of aggregations, see link:#[3.5.1 Creating a
-visualization].3.5.1 Creating a visualization
+For an in-depth explanation of aggregations, see xref:module-siren-investigate:creating-a-
+visualization.adoc[Creating a visualization].
 
 In addition to defining groups to aggregate, queries can be used as
 filters. To see this click *Dashboard*, then in the *Query on
