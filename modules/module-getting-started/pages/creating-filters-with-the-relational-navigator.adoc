@@ -9,7 +9,6 @@ For example, from *Companies* in the dashboard, you can see that there
 are 470 companies mentioned in TechCrunch articles about _wireless_ or
 _Wi-Fi_.
 
-.Relational filter from articles to companies
 image:relational-filter-articles-to-companies.png[Relational filter from articles to
 companies]
 
@@ -18,7 +17,6 @@ filter bar, and can be switched off or removed, just like any other
 filter. Moving the mouse pointer over the filter will display the list
 of joined indices and their filters:
 
-.Relational filter in the filter bar
 image:relational-filter-in-filter-bar.png[Relational filter in the filter bar]
 
 Relational filters can be accumulated. For example, if you click
