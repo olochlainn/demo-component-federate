@@ -15,7 +15,7 @@ and visualizations.
 * If you want a fully-loaded and configured experience, download the
 https://siren.io/downloads?product=siren-platform-demo-data[Siren
 Platform - A preloaded demo] package and follow the instructions in
-<<getting-started-with-demo-data>>[Getting started with
+xref:getting-started-with-demo-data.adoc[Getting started with
 demo data].
 
 If you are ready to use Siren Platform in a production environment,
