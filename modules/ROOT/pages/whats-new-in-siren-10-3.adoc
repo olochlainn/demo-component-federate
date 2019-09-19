@@ -1,0 +1,31 @@
+= What’s new in Siren 10.3
+
+== Siren Platform
+
+* Investigate and Federate/Elasticsearch compatibility: Siren 10.3 now allows users to upgrade to a newer Investigate version without having to deal with the complexity of simultaneously upgrading their Elasticsearch and Federate backend.
+
+== Siren Investigate
+
+* Dashboard 360: Formerly, a dashboard's visualizations were limited to a single table (search). Siren 10.3 introduces a significant new feature, Dashboard 360. You can now define an internal 'dashboard data model' which enables a dashboard's visualizations to be based on different searches, and to coherently display data from connected records at each step. This provides an integrated 360-degree view showing what is connected, both directly and indirectly.
+
+* Topic Clustering: Topic Clustering is a new visualization in Siren 10.3 which performs significance and clustering analysis on full-text fields, highlighting significant terms whose frequency increases when filters and queries are applied.
+
+* Neo4j Import Wizard (beta): Neo4j is a graph database management system, which uses nodes, relations, and properties to represent data. Siren’s Neo4j Import Wizard (beta) makes ingesting and reflecting Neo4j data a straightforward process, just like importing from any other datasource.
+
+* Graph Browser enhancements: Graph Browser now works with intuitive drag-and-drop operations from dashboards, and enhanced configuration saving.
+
+== Siren ML
+
+* Siren ML deep learning-based prediction and anomaly detection: Siren ML merges Siren’s relational/cross-backend perspective with advanced TensorFlow deep learning technology. It provides two types of machine learning (ML) model—Anomaly Detection and Future Prediction.
+
+Siren ML requires a Docker installation; it also requires a plugin which provides the UI in Siren Investigate.
+
+== Siren ER (beta)
+
+* Siren ER (beta): An AI-powered feature that enables entity resolution—the ability to recognize that records across different tables, datasources, and schemas may be referring to the same entity (which could be a person, company, or any other thing). Siren ER (beta) can remove ambiguity  and reveal previously hidden relationships.
+
+Siren ER (beta) is currently implemented as a Docker installation.
+
+== Siren Federate
+
+* Connecting to remote Elasticsearch clusters: Siren Federate now provides the capability to query data from a remote Elasticsearch cluster through the Remote Clusters Module and the Federate Connector APIs.
