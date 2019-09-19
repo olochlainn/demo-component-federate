@@ -1,4 +1,4 @@
-* xref:siren_federate.adoc[Siren Federate]
+* Siren Federate
 ** xref:introduction.adoc[Introduction]
 *** xref:federation-of-external-databases.adoc[Federation of External Databases]
 *** xref:distributed-joins-between-indices.adoc[Distributed Joins Between Indices]
