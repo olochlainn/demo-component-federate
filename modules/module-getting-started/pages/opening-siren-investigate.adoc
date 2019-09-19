@@ -15,11 +15,11 @@ expand/contract (image:expand-contract-icon.png[]) button at the
 bottom of the sidebar.
 
 By default, Siren Investigate displays the *Articles* dashboard.
-link:/document/preview/60374#UUID-5afa51ba-58f9-7db3-2d76-e57e93492ecc[Dashboards]
+xref:module-siren-investigate:dashboards.adoc[Dashboards]
 can be configured to display multiple
-link:/document/preview/60229#UUID-c031aad7-904c-e18b-ac34-c5e8afe57dbd[visualizations]
+xref:module-siren-investigate:visualizations.adoc[visualizations]
 on the documents stored in a specific index or returned by a
-link:/document/preview/60188#UUID-68ef86a4-bb7a-1344-eac2-bf7d24b03a48[saved
+xref:module-siren-investigate:searching-your-data.adoc[saved
 search] on an index pattern.
 
 Each dashboard is represented by a tab containing the dashboard title
