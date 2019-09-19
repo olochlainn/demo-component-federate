@@ -1,2 +1,2 @@
 # demo-component-federate
-Repo to hold Federate content to be used in Antora demo site
+Repo to hold content to be used in Antora demo site for Siren online help. Originally used just for Federate content, hence name.
