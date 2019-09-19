@@ -32,7 +32,7 @@ The Siren Alert functionality is provided by a plugin, while Siren ML and Siren 
 
 image::siren-components.png[]
 
-==Siren Investigate
+== Siren Investigate
 
 Siren Investigate is an application for interactive, exploratory investigative intelligence. It ties together the big data that resides in your infrastructure, without moving it, using a semantic data model that defines how data connects.
 
