@@ -9,7 +9,7 @@ For example, in the *Query on Companies* visualization you can see that
 41 of the 96 companies have competitors, and eight of them are in the
 top 500 companies by number of employees:
 
-image:image/15d764ed137a6c.png[SQL based aggregations]
+image:query-on-companies-dashboard.png[SQL based aggregations]
 
 *Companies "With competitors"* and *Top 500 companies (HR count)* are
 link:/document/preview/60595#UUID-8c241402-f7cb-01ea-2886-c4d073d2218a[queries]
@@ -21,7 +21,7 @@ To better understand this feature, let’s examine the *Top 500 companies
 (HR count)* query. To see the query, click *Saved Objects* in the
 *Management* menu.
 
-image:image/15d764ed13d9e6.png[image]
+image:saved-objects-in-management-menu.png[image]
 
 The query returns
 the `+id+`, `+label+` and `+number_of_employees+` columns from
@@ -44,13 +44,13 @@ as columns in the table. The *buckets* section defines the groups of
 Elasticsearch documents aggregated by metrics, displayed as row headers
 in the table.
 
-image:image/15d764ed148d71.png[image]
+image:edit-query-on-companies-visualization.png[image]
 
 By expanding the *Split Rows* section inside buckets you can see how the
 queries are used to define groups of Elasticsearch documents. Scroll
 down to see the configuration of the fourth filter:
 
-image:image/15d764ed14ec35.png[image]
+image:filter-configuration.png[image]
 
 The filter is configured to execute the query *Top 500 companies (HR
 count)* on the SQLite database and return the group of Elasticsearch
@@ -68,7 +68,7 @@ Save the visualization by clicking *Save*, then click
 the *Dashboard* tab to see the updated visualization in
 the *Companies* dashboard:
 
-image:image/15d764ed159263.png[image]
+image:save-query-on-companies-visualization.png[image]
 
 Click *Add sub-buckets* at the bottom, then select *Split Rows* as the
 bucket type. Choose the *Terms* aggregation and the *countrycode* field
@@ -76,7 +76,7 @@ from the boxes. Click *Apply
 Changes* (image:image/15d764ed153f9c.png[image]) to add an external ring
 with the new results.
 
-image:image/15d764ed15edf8.png[image]
+image:add-subbuckets.png[image]
 
 For an in-depth explanation of aggregations, see link:#[3.5.1 Creating a
 visualization].3.5.1 Creating a visualization
@@ -87,9 +87,9 @@ Companies* dashboard, move the mouse pointer over the row
 for *Top-500-companies-(HR-count)* and click the plus (*+*) icon that
 appears.
 
-image:image/15d764ed164ce9.png[image]
+image:query-on-companies-dashboard.png[image]
 
 Then you will see only the companies mentioned in the articles which are
 also in the top 500 by number of employees:
 
-image:image/15d764ed16ab3b.png[image]
+image:dashboard-companies.png[image]
