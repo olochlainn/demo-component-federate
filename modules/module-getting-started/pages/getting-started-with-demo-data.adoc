@@ -18,7 +18,7 @@ The demonstration includes a ready-to-use Elasticsearch cluster in the
 The indices were populated with
 https://www.elastic.co/products/logstash[Logstash] from the SQLite
 database in `+siren-investigate/crunchbase.db+`, as described in
-link:#[Legacy REST datasources].
+xref:module-siren-investigate:legacy-rest-datasources.adoc[Legacy REST datasources].
 
 
 
