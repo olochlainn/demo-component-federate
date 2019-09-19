@@ -6,9 +6,9 @@ clicking the TechCrunch slice inside the Articles by
 Source xref:module-siren-investigate:pie-chart.adoc[pie
 chart] visualization.
 
-image:image/pie-slice.png[Pie slice]
+image:pie-slice.png[Pie slice]
 
-image:image/filter-on-slice-applied.png[Dashboard with filter on the slice
+image:filter-on-slice-applied.png[Dashboard with filter on the slice
 applied]
 
 NOTE: To switch off a filter, move the mouse pointer over it and click the
