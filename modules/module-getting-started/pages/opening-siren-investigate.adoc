@@ -1,11 +1,10 @@
 = Opening Siren Investigate
 
 After starting Elasticsearch and Siren Investigate as described in
-link:/document/preview/60105#UUID-ad5acfa5-c766-aa9f-8905-ce328430518d[Setting
+xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting
 up Siren Investigate], from your web browser navigate to
 http://localhost:5606.
 
-[[UUID-737e589d-09e2-be6f-ad64-32af1f138eea]]
 == Navigation sidebar
 
 The left sidebar is used to navigate between apps in Siren Investigate.
