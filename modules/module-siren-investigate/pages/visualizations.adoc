@@ -1148,10 +1148,7 @@ can hide columns, sort rows in a different order, by type and so on.
 When a configuration is modified, a Save button appears in the top right
 of the sidebar.
 
-[cols=",,",]
-|===
-| | |
-|===
+image:15d7bb9d640cd6.png[image]
 
 If you switch to another dashboard without saving, and come back to the
 Graph Browser, the sidebar state remains the same: all configuration
@@ -1500,7 +1497,7 @@ value, or multi-value “tags” mode) as well as value ranges.
 Because input controls do not inherit the current dashboard filters,
 they will always list all possible values.
 
-image:image/15d88cecd60281.png[Input controls]
+image:15d7bb9d662ea1.png[Input controls]
 
 [[UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f]]
 == Analytic table
@@ -1879,13 +1876,13 @@ several ways:
 * Click and hold anywhere on the map and move the cursor to move the map
 center. Hold Shift and drag a bounding box across the map to zoom in on
 the selection.
-* Click *Zoom In/Out* (image:image/15d88cecd67748.png[image]) to change
+* Click *Zoom In/Out* (image:15d88cecd67748.png[image]) to change
 the zoom level manually.
-* Click *Fit Data Bounds* (image:image/15d88cecd6e841.png[image]) to
+* Click *Fit Data Bounds* (image:15d88cecd6e841.png[image]) to
 automatically crop the map boundaries to the geohash buckets that have
 at least one result.
 * Click *Latitude/Longitude Filter*
-(image:image/15d88cecd75088.png[image]), then drag a bounding box across
+(image:15d88cecd75088.png[image]), then drag a bounding box across
 the map, to create a filter for the box coordinates.
 
 [[UUID-95b3d907-1a33-3b33-66c1-9bd600941b15_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
@@ -2112,7 +2109,7 @@ Point of Interest layers::
   creating geo-filters which are applied to aggregations, other POI
   layers and other visualizations when on the dashboards (see *Apply
   filters* below).
-image:image/15d88cecd868e4.png[image]::
+image:15d88cecd868e4.png[image]::
   Configuration options for POI layers:
   +
   * *Saved Search* - Select any elasticsearch index from the dropdown
@@ -2127,7 +2124,7 @@ image:image/15d88cecd868e4.png[image]::
   tools or geo_shape type POI layers, a different visualization on the
   same Dashboard or filters from other Dashboards applied through
   relational Navigator
-image:image/15d88cecd8dd9c.png[image]::
+image:15d88cecd8dd9c.png[image]::
   Configuration options for the use of a third-party mapping service
   that complies with the Web Map Service standard. Multiple layers (or
   layer groups) can be loaded.
@@ -2147,12 +2144,12 @@ image:image/15d88cecd8dd9c.png[image]::
   be ordered, by clicking and dragging ② as below. The layer at the top
   of the list is drawn furthest in the background.
   +
-  image:image/15d88cecd9d429.png[image]
+  image:15d88cecd9d429.png[image]
   ** *If your URL is not a CORS-enabled WMS server* - The UI will remain
   the same. You can order your layers, separated by a comma. The first
   layer you specify will be drawn the furthest in the background.
   +
-  image:image/15d88cecda4097.png[image]
+  image:15d88cecda4097.png[image]
   +
   ____
   *Note*
@@ -2219,7 +2216,7 @@ would like to display
 ** The desired level of zoom ④
 ** Whether changes are applied ⑤ or cancelled ⑥
 
-image:image/15d88cecdb21a7.png[image]
+image:15d88cecdb21a7.png[image]
 
 *Selection tools* - used to create geo filters
 
@@ -2244,7 +2241,7 @@ ____
 For all selection tools, a geo filter is created. This will appear above
 the map canvas:
 
-image:image/15d88cecdca0da.png[image]
+image:15d88cecdca0da.png[image]
 ____
 
 *Marking tools*
@@ -2273,7 +2270,7 @@ maps] in which vector polygons are colored using a gradient.
 Higher-intensity colors indicate larger values, and lower-intensity
 colors indicate smaller values.
 
-image:image/15d88cecdd72d5.png[regionmap]
+image:15d88cecdd72d5.png[regionmap]
 
 [[UUID-57f4e2ec-4ffa-5f78-be13-5f4a719b178a]]
 === Configuration
@@ -2485,7 +2482,7 @@ aggregation framework. Time Series Visual Builder enables you to combine
 an infinite number of aggregations and pipeline aggregations to display
 complex data meaningfully.
 
-image:image/15d88cecddfe12.png[Time Series Visual Builder Interface.]
+image:15d88cecddfe12.png[Time Series Visual Builder Interface.]
 
 [[UUID-08cd565a-680e-1810-1825-810f22c0a67e]]
 === Featured visualizations
@@ -2503,7 +2500,7 @@ thickness and fill opacity. This visualization also supports time
 shifting to compare two time periods. This visualization also supports
 annotations which can be loaded from a separate index based on a query.
 
-image:image/15d88cecde6712.png[Time Series Visualization]
+image:15d88cecde6712.png[Time Series Visualization]
 
 [[UUID-b377c309-184c-4114-2c3e-dc1ffc3a6988]]
 ==== Metric
@@ -2513,7 +2510,7 @@ visualization supports two metrics; a primary metric and a secondary
 metric. The labels and backgrounds can be fully customized based on a
 set of rules.
 
-image:image/15d88cecdedff6.png[Metric Visualization]
+image:15d88cecdedff6.png[Metric Visualization]
 
 [[UUID-7050af0c-e051-e2e8-2ea1-5dff38bf2b9a]]
 ==== Top N
@@ -2523,7 +2520,7 @@ metrics and the x-axis is the latest value in those series; sorted in
 descending order. The color of the bars are fully customizable based on
 set of rules.
 
-image:image/15d88cece01119.png[Top N Visualization]
+image:15d88cece01119.png[Top N Visualization]
 
 [[UUID-fb00c579-2d93-acbb-22e9-585d9e087ea2]]
 ==== Gauge
@@ -2534,7 +2531,7 @@ full-circle. You can customize the thicknesses of the inner and outer
 lines to achieve a desired design aesthetic. The color of the gauge and
 the text are fully customizable based on a set of rules.
 
-image:image/15d88cece08ac5.png[Gauge Visualization]
+image:15d88cece08ac5.png[Gauge Visualization]
 
 [[UUID-fa8967e4-97cc-54ff-a0f7-14b1fa8bdc8c]]
 ==== Markdown
@@ -2544,7 +2541,7 @@ template syntax to customize the Markdown with data based on a set of
 series. This visualization also supports HTML markup along with the
 ability to define a custom style sheet.
 
-image:image/15d88cece103eb.png[Markdown Visualization]
+image:15d88cece103eb.png[Markdown Visualization]
 
 [[UUID-9927c9c7-c2e2-0c94-0e29-a3dc31392793]]
 === Interface Overview
@@ -2572,7 +2569,7 @@ grouped by a term, you can specify a mustache variable of `+{{key}}+` to
 substitute the term. For most visualizations you can also choose a color
 by clicking the swatch, this will display the color picker.
 
-image:image/15d88cece17f1e.png[Label Example]
+image:15d88cece17f1e.png[Label Example]
 
 [[UUID-a8bdadae-2ebb-85a0-d6b3-f8c3780cc3eb]]
 ===== Metrics
@@ -2584,7 +2581,7 @@ be composed using pipeline aggregations. A common use case is to create
 a metric with a "max" aggregation then create a "derivative" metric and
 choose the previous "max" metric as the source; this will create a rate.
 
-image:image/15d88cece1f208.png[Derivative Example]
+image:15d88cece1f208.png[Derivative Example]
 
 [[UUID-ef357066-7f2c-52a2-d04b-19c0f9f49b30]]
 ===== Series options
@@ -2597,7 +2594,7 @@ visualization type you can configure:
 * Time range offset
 * Index pattern, timestamp, and interval override
 
-image:image/15d88cece2691b.png[Default series options]
+image:15d88cece2691b.png[Default series options]
 
 For the Time Series visualization you can also configure:
 
@@ -2607,7 +2604,7 @@ For the Time Series visualization you can also configure:
 * Y-Axis options
 * Split color theme
 
-image:image/15d88cece2d646.png[Time series options]
+image:15d88cece2d646.png[Time series options]
 
 [[UUID-07d30636-7250-61c5-499a-cc7ca935e6f9]]
 ===== Group by controls
@@ -2689,7 +2686,7 @@ Time Series Visualization. You can configure the following options:
 * Format of message.
 * Filtering options at the panel and global level.
 
-image:image/15d88cece35100.png[Annotation tab]
+image:15d88cece35100.png[Annotation tab]
 
 [[UUID-7c967c18-4c48-6f47-d7bf-e6697f91ddde]]
 ==== Markdown Tab
@@ -2702,7 +2699,7 @@ markdown at the cursor position. The mustache syntax uses the
 Handlebar.js processor which is an extended version of the Mustache
 template language.
 
-image:image/15d88cece3c949.png[Markdown tab]
+image:15d88cece3c949.png[Markdown tab]
 
 [[UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80]]
 == Tag clouds
@@ -2768,7 +2765,7 @@ visualization, Topic Clustering highlights significant terms (topics)
 whose frequency in documents increases when current filters and search
 queries are applied.
 
-image:image/15d88cece42ff2.png[image]
+image:15d88cece42ff2.png[image]
 
 The Topic Clustering panel is divided into separate cells, each
 representing a term. Cell size represents the number of documents it
@@ -2795,14 +2792,14 @@ Double-click/tap a cell to open it; this loads its significant sub-terms
 and displays them recursively. It also puts the cell term in a white
 header at the top of the cell.
 
-image:image/15d88cece4d06c.png[image]
+image:15d88cece4d06c.png[image]
 
 Once loaded, cells are automatically opened and closed depending on your
 current level of zoom. However, you can still open a cell explicitly by
 double-clicking on it. Conversely, you can close it by double-clicking
 on the white cell header.
 
-image:image/15d88cece56c5d.png[image]
+image:15d88cece56c5d.png[image]
 
 Loaded cells open/close automatically as you zoom in/out.
 
@@ -2811,7 +2808,7 @@ Loaded cells open/close automatically as you zoom in/out.
 Hovering over a cell displays details such as the number of documents it
 represents and its relevance/significance score:
 
-image:image/15d88cece5fe4a.png[image]
+image:15d88cece5fe4a.png[image]
 
 Tooltip legend
 
@@ -2847,7 +2844,7 @@ For example, you can pair a Topic Clustering with a Record Table next to
 it. Selecting a cell updates the table and displays associated document
 samples.
 
-image:image/15d88cece67f87.png[image]
+image:15d88cece67f87.png[image]
 
 *Setting up the visualization*
 
@@ -2868,7 +2865,7 @@ documentation]. Remember to refresh the Fields list in the Data Model
 page to reflect the changes.
 ____
 
-image:image/15d88cece70fa7.png[image]
+image:15d88cece70fa7.png[image]
 
 Terms extraction can work in Plain mode or Clustering mode:
 
@@ -2885,7 +2882,7 @@ a double-click/tap.
 Changing the Chart Type option to Square renders the visualization as a
 more traditional square treemap:
 
-image:image/15d88cece78052.png[image]
+image:15d88cece78052.png[image]
 
 The following parameters control terms generation:
 
@@ -2916,7 +2913,7 @@ You can provide an additional list of stop-words to be filtered by the
 visualization itself. The list is configured as separate lines in the
 Stop Words tab; each line is a separate stop-word.
 
-image:image/15d88cece810a8.png[image]
+image:15d88cece810a8.png[image]
 
 Regular expressions as stop-words are supported, which can be useful to,
 say, remove all numbers. However, using regular expression stop-words
@@ -2940,7 +2937,7 @@ It is good practice to set the Low Relevance color to a low saturation
 (paler) value of the selected color, and set the High Relevance color to
 a high saturation (more intense) value of the same color.
 
-image:image/15d88cece8a864.png[image]
+image:15d88cece8a864.png[image]
 ____
 
 You can also fine-tune some of the aspects of the rendered chart using
@@ -3251,7 +3248,7 @@ Each event on a timeline becomes a clickable term filter which enables
 you to quickly filter the related data based on what is shown on the
 timeline.
 
-image:image/15d88cece91da3.png[Timeline]
+image:15d88cece91da3.png[Timeline]
 
 *Configuration*
 
@@ -3269,7 +3266,7 @@ position end of the event.
 * *Events number limit* (optional): Limit number of events in this
 group.
 
-image:image/15d88cece9a19b.png[Timeline configuration]
+image:15d88cece9a19b.png[Timeline configuration]
 
 *Advanced option*
 
@@ -3279,11 +3276,11 @@ the advanced option
 
 * *Groups rendered on separate levels*
 
-image:image/15d88cecea32f2.png[Timeline advanced configuration]
+image:15d88cecea32f2.png[Timeline advanced configuration]
 
 In the timeline, each group is rendered on separate level:
 
-image:image/15d88cecea9e60.png[Timeline]
+image:15d88cecea9e60.png[Timeline]
 
 [[UUID-d139b0d7-cf24-a2b5-84db-5ce99fa112d1]]
 == Scatter Plot
@@ -3294,7 +3291,7 @@ aggregator_.
 
 *Straight*
 
-image:image/15d88ceceb1c93.png[image]
+image:15d88ceceb1c93.png[image]
 
 This mode does not use aggregates, it pulls the data directly from
 Elasticsearch using the
@@ -3340,7 +3337,7 @@ the dot size.
 
 *Significant terms*
 
-image:image/15d88cecec4eac.png[Significant term]
+image:15d88cecec4eac.png[Significant term]
 
 In this mode the chart is built from a _Significant terms_ aggregation
 query result. The X values are taken from the *bg_count* field and the Y
@@ -3355,7 +3352,7 @@ values from *doc_count* field.
 
 *Any aggregator*
 
-image:image/15d88cececd8d0.png[Any aggregator]
+image:15d88cececd8d0.png[Any aggregator]
 
 The chart is built from a _Date Histogram_, _Histogram_, _Terms_ or
 _Significant terms_ aggregation query result.
@@ -3395,9 +3392,9 @@ the form of a two-dimensional chart of three or more quantitative
 variables represented on axes starting from the same point. The relative
 position and angle of the axes is typically uninformative.
 
-image:image/15d88cecedb912.png[Radar chart visualization]
+image:15d88cecedb912.png[Radar chart visualization]
 
-image:image/15d88cecee38cb.png[Radar chart settings]
+image:15d88cecee38cb.png[Radar chart settings]
 
 Also known as web chart, spider chart, star chart, the radar chart is a
 https://github.com/sirensolutions/kibi_radar_vis[standalone plugin]
@@ -3409,7 +3406,7 @@ compatible with Siren Investigate 10 and later and Kibana 4.3 and later.
 This visualization displays a box plot chart from the data in the
 current set of Elasticsearch documents.
 
-image:image/15d88ceceeba68.png[Box plot]
+image:15d88ceceeba68.png[Box plot]
 
 Ensure that you have:
 
@@ -3423,7 +3420,7 @@ Ensure that you have:
 
 *Options*
 
-image:image/15d88cecef3525.png[Box plot options]
+image:15d88cecef3525.png[Box plot options]
 
 * *Y Axis Text*: Label for the X axis.
 * *X Axis Text*: Label for the Y axis.
@@ -3446,7 +3443,7 @@ visualization to its previous state.
 The bubble diagram visualization displays series of data grouped into
 packed circles.
 
-image:image/15d88cecf05d61.png[First]
+image:15d88cecf05d61.png[First]
 
 *Bubble size*
 
@@ -3473,7 +3470,7 @@ The parents bubbles are divided by color. If you do a subaggregation
 located near the parent and all have the same color. If you drag a
 bubble, all members of the family will move.
 
-image:image/15d88cecf0da1f.png[Aggregation configuration]
+image:15d88cecf0da1f.png[Aggregation configuration]
 
 *Options*
 
@@ -3490,12 +3487,12 @@ In the diagram there are two options
 All circles gravitate towards the center of the visualization. When you
 drag a circle, its family follows it.
 
-image:image/15d88cecf144af.png[Bubble movement]
+image:15d88cecf144af.png[Bubble movement]
 
 Moving the mouse pointer over a circle shows detailed information in a
 tooltip.
 
-image:image/15d88cecf1b8c6.png[Detailed information on hover]
+image:15d88cecf1b8c6.png[Detailed information on hover]
 
 *Filters*
 
@@ -3511,7 +3508,7 @@ image:image/15d88cecf2b7e6.png[Filter child]
 
 When you double-click a parent, you will see the bubble and its family.
 
-image:image/15d88cecf324d1.png[Filter parent]
+image:15d88cecf324d1.png[Filter parent]
 
 [[UUID-54334d14-beb5-3d8e-ffda-84be7d6f62be]]
 ==== Horizontal Bar Chart
@@ -3519,7 +3516,7 @@ image:image/15d88cecf324d1.png[Filter parent]
 This visualization displays a horizontal bar chart from the data in the
 current set of Elasticsearch documents.
 
-image:image/15d88cecf39552.png[Horizontal bar chart]
+image:15d88cecf39552.png[Horizontal bar chart]
 
 [[UUID-ca5c9adb-2415-d579-2720-7cfeff61e898]]
 == Parallel lines chart
@@ -3540,7 +3537,7 @@ also synchronizes a strip of minified scatterplots between each
 consecutive pair of axis, which is helpful to provide a more traditional
 reference for the represented data.
 
-image:image/15d88cecf406ad.png[A parallel lines chart]
+image:15d88cecf406ad.png[A parallel lines chart]
 
 === Interaction
 
@@ -3560,7 +3557,7 @@ Filters can also be defined on the minified scatterplots by clicking and
 dragging to a rectangle shape. This places two range filters on the axis
 columns.
 
-image:image/15d88cecf4a931.png[A range filter and a value filter]
+image:15d88cecf4a931.png[A range filter and a value filter]
 
 ==== Column interactions
 
@@ -3571,7 +3568,7 @@ You can swap the placement of columns by clicking a column name and
 dragging the column to its new place. This immediately updates the chart
 and the scatterplots strip.
 
-image:image/15d88cecf52661.png[Moving columns]
+image:15d88cecf52661.png[Moving columns]
 
 Columns can be sorted using the associated arrows available before a
 column name when you hover the mouse pointer over it. Sorting a columns
@@ -3687,7 +3684,7 @@ corresponding template will not be rendered.
 The following image shows the configuration and output of a templated
 query viewer visualization for a selected company:
 
-image:image/15d88cecf6ebdb.png[Configuration of a Siren Investigate
+image:15d88cecf6ebdb.png[Configuration of a Siren Investigate
 query viewer visualization]
 
 *Advanced options*
@@ -3715,7 +3712,7 @@ By default, template contents are hidden and can be displayed by
 clicking the _show_ link in the heading; to make template contents
 visible by default, check _Render opened_ box.
 
-image:image/15d88cecf76c56.png[Advanced options]
+image:15d88cecf76c56.png[Advanced options]
 
 [[UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43]]
 == Getting started with GeoServer
@@ -3784,7 +3781,7 @@ latest version currently supported is v2.14.2.
 As GeoServer will be running on a separate domain to Siren, you may get
 a CORS error in your development window, something like:
 
-image:image/15d88cecf8015d.png[image]
+image:15d88cecf8015d.png[image]
 
 To get around this issue:
 
@@ -3816,12 +3813,12 @@ From here you can:
 * Create groups of layers that can be returned in one request
 * Create styling for how your layers will be rendered on a map
 
-image:image/15d88cecf87d75.png[image]
+image:15d88cecf87d75.png[image]
 
 Make sure that WMS and WFS are enabled by selecting both on the
 navigation pane on the left:
 
-image:image/15d88cecf901ea.png[image]
+image:15d88cecf901ea.png[image]
 
 *Creating layer styles for GeoServer*
 
