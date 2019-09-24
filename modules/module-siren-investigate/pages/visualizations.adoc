@@ -1500,7 +1500,7 @@ they will always list all possible values.
 image:15d7bb9d662ea1.png[Input controls]
 
 [[UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f]]
-== Analytic table
+== Analytic Table
 
 For more information, see
 link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
@@ -1566,7 +1566,7 @@ link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185
 Spy].
 
 [[UUID-dc2acbc5-1f69-e985-52b7-f685401fc3e5]]
-== Markdown widget
+== Markdown Widget
 
 The Markdown widget is a box that accepts Markdown text. Siren
 Investigate interprets the Markdown and displays the results on the
@@ -1600,7 +1600,7 @@ link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185
 Spy].
 
 [[UUID-e485b4ec-0964-71ab-98e6-87aa7b847e40]]
-== Goal and gauge
+== Goal and Gauge
 
 A goal visualization displays how your metric progresses toward a fixed
 goal. A gauge visualization displays in which predefined range falls
@@ -1636,7 +1636,7 @@ defined.
 as the range the value falls in.
 
 [[UUID-1568d3ec-7a1c-6f18-f122-def14384108d]]
-== Pie charts
+== Pie Chart
 
 The slice size of a pie chart is determined by the _metrics_
 aggregation. The following aggregations are available for this axis:
@@ -2702,7 +2702,7 @@ template language.
 image:15d88cece3c949.png[Markdown tab]
 
 [[UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80]]
-== Tag clouds
+== Tag Cloud
 
 A tag cloud visualization is a visual representation of text data,
 typically used to visualize free form text. Tags are usually single
@@ -3081,7 +3081,7 @@ aggregate heatmap.
 ____
 
 [[UUID-88523206-1b84-cd03-c133-7bbbecfe53fe]]
-==== Line, area, and bar charts
+== Line, Area, and Bar charts
 
 Line, Area, and Bar charts enable you to plot your data on the X/Y axis.
 
@@ -3511,7 +3511,7 @@ When you double-click a parent, you will see the bubble and its family.
 image:15d88cecf324d1.png[Filter parent]
 
 [[UUID-54334d14-beb5-3d8e-ffda-84be7d6f62be]]
-=== Horizontal Bar Chart
+== Horizontal Bar chart
 
 This visualization displays a horizontal bar chart from the data in the
 current set of Elasticsearch documents.
@@ -3519,7 +3519,7 @@ current set of Elasticsearch documents.
 image:15d88cecf39552.png[Horizontal bar chart]
 
 [[UUID-ca5c9adb-2415-d579-2720-7cfeff61e898]]
-== Parallel lines chart
+== Parallel Lines chart
 
 A parallel lines chart is a type of chart that is well suited for
 visualizing many data dimensions at the same type. This is unlike most
