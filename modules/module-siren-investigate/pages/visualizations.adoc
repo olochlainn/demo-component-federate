@@ -78,7 +78,7 @@ For example, you could add a terms sub aggregation on the `+geo.dest+`
 field to a vertical bar chart to see the locations those requests were
 targeting.
 
-image:image/15d88cecb50b10.png[image]
+image:15d88cecb50b10.png[image]
 
 For more information about working with sub aggregations, see
 https://www.elastic.co/blog/kibana-aggregation-execution-order-and-you[Kibana,
@@ -373,7 +373,8 @@ which the sibling aggregation will run
   https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-filters-aggregation.html[_filters_]
   for the data. You can specify a filter as a query string or in JSON
   format, just as in the Discover search bar. Click *Add Filter* to add
-  another filter. Click *Label* (image:image/15d88cecb57c46.png[image])
+  another filter. Click *Label* (image:
+  15d88cecb57c46.png[image])
   to open the label field, where you can type in a name to display on
   the visualization.
 *Significant Terms*::
@@ -402,7 +403,7 @@ Enter a string in the *Custom Label* field to change the display label.
 You can customize the colors of your visualization by clicking the color
 dot next to each label to display the _color picker_.
 
-image:image/15d88cecb5e22b.png[An array of color dots that users can
+image:15d88cecb5e22b.png[An array of color dots that users can
 select]
 
 Enter a string in the *Custom Label* field to change the display label.
@@ -439,13 +440,13 @@ you choose.
 === Visualization Spy
 
 To display the raw data behind the visualization, click *Spy Open*
-(image:image/15d88cecb65c0d.png[image]) in the bottom left corner of the
+(image:15d88cecb65c0d.png[image]) in the bottom left corner of the
 container. The visualization spy panel will open.
 
 Use the select input (highlighted) to view detailed information about
 the raw data.
 
-image:image/15d88cecb6d85c.png[Spy panel.]
+image:15d88cecb6d85c.png[Spy panel.]
 
 *Table.*
 
@@ -500,7 +501,7 @@ information, see .
 example to open the URL displayed in a cell. For more information, see .
 * To create filters from table rows, see .
 
-image:image/15d88cecb74d2a.png[image]
+image:15d88cecb74d2a.png[image]
 
 *Rename columns*
 
@@ -509,7 +510,7 @@ column.
 
 To enable renaming columns, select the Enable column rename check box.
 
-image:image/15d88cecb7d265.png[image]
+image:15d88cecb7d265.png[image]
 
 To configure the names of columns, you can set these parameters:
 
@@ -532,9 +533,9 @@ document matches the value of the _label_ variable in at least one
 record returned by the query, the name of the query will be displayed
 inside the cell.
 
-image:image/15d88cecb84f48.png[image]
+image:15d88cecb84f48.png[image]
 
-image:image/15d88cecb8e51a.png[image]
+image:15d88cecb8e51a.png[image]
 
 To configure the relational column, you must set these parameters:
 
@@ -581,7 +582,7 @@ the path of a URL on example.org.
 With this configuration, if the _id_ field is set to 11 the resulting
 URL will be _http://example.org/11_.
 
-image:image/15d88cecb9d795.png[image]
+image:15d88cecb9d795.png[image]
 
 *Select an entity*
 
@@ -598,7 +599,7 @@ document here.
 * Redirect to dashboard: If set, clicking the cell selects the entity
 and displays the specified dashboard.
 
-image:image/15d88cecba5524.png[image]
+image:15d88cecba5524.png[image]
 
 *Row filters*
 
@@ -606,7 +607,7 @@ It is possible to create filters from table rows.
 
 To enable the row filters, select the Enable row filters check box.
 
-image:image/15d88cecbac776.png[image]
+image:15d88cecbac776.png[image]
 
 Then, select rows which you wanted to create filters from and click
 Create Filter.
@@ -619,11 +620,11 @@ If you would like to export the documents matched by a query on an
 Elasticsearch index, press the 'Export' link at the bottom of the
 enhanced search results visualization.
 
-image:image/15d88cecbc1d36.png[image]
+image:15d88cecbc1d36.png[image]
 
 This will display a dialog box with several options.
 
-image:image/15d88cecbc8c45.png[image]
+image:15d88cecbc8c45.png[image]
 
 The basic options allow you to choose between CSV (Comma-separated
 values) and JSON export formats.
@@ -641,14 +642,14 @@ display a list of all the fields in the index we’re exporting from.
 Simply select the checkbox next to the name of the fields you want to
 export.
 
-image:image/15d88cecbcfbc6.png[image]
+image:15d88cecbcfbc6.png[image]
 
 The next option is to limit the number of documents to export. By
 default all documents matching a query on an Elasticsearch index will be
 exported, but this can be limited to a specific number by entering it in
 the 'Limit' input box.
 
-image:image/15d88cecbd7590.png[image]
+image:15d88cecbd7590.png[image]
 
 When the 'Export' link at the bottom of the enhanced search results
 visualization is pressed, the time filter is frozen to the range of time
