@@ -1,2 +1,3 @@
 * xref:siren-investigate.adoc[Siren Investigate]
-** xref:setting-up-siren-investigate.adoc[Setting Up Siren Investigate]
+** xref:dashboard.adoc[Dashboards]
+** xref:visualizations.adoc[Visualizations]
