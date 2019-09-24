@@ -59,7 +59,7 @@ horizontal bar chart that shows the distribution of incoming requests by
 geographic location by specifying a term's aggregation on the
 `+geo.src+` field:
 
-image:image/15d88cecb4998c.png[image]
+image:15d88cecb4998c.png[image]
 
 The y-axis shows the number of requests received from each country, and
 the countries are displayed across the x-axis.
