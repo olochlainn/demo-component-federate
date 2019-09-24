@@ -14,7 +14,7 @@ This provides a 360-degree view of a record (or groups of records),
 showing in a single view what is connected, both directly and
 indirectly.
 
-[[UUID-01433ffb-7363-9f80-7f08-02c01a9beffc]]
+
 == The Dashboard Data Model
 
 A Siren Investigate dashboard displays a set of saved visualizations in
