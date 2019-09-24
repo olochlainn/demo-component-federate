@@ -2471,7 +2471,7 @@ rendered.
 * *Show Tooltip*: indicates whether a tool tip should be displayed when
 hovering over a shape.
 
-[[UUID-5bae6e28-a647-cc8f-b491-7ba1f0cca6f8]]
+
 == Time Series Visual Builder
 
 *Experimental feature*
@@ -2701,7 +2701,7 @@ template language.
 
 image:15d88cece3c949.png[Markdown tab]
 
-[[UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80]]
+
 == Tag Cloud
 
 A tag cloud visualization is a visual representation of text data,
@@ -3237,7 +3237,7 @@ For information on displaying the raw data, see
 link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
 Spy].
 
-[[UUID-913916fe-4254-9c36-0e8e-54dea253a75c]]
+
 == Timeline
 
 The Timeline visualization displays series of data coming from different
@@ -3282,7 +3282,7 @@ In the timeline, each group is rendered on separate level:
 
 image:15d88cecea9e60.png[Timeline]
 
-[[UUID-d139b0d7-cf24-a2b5-84db-5ce99fa112d1]]
+
 == Scatter Plot
 
 This visualization displays a scatter plot chart in four different
@@ -3400,7 +3400,7 @@ Also known as web chart, spider chart, star chart, the radar chart is a
 https://github.com/sirensolutions/kibi_radar_vis[standalone plugin]
 compatible with Siren Investigate 10 and later and Kibana 4.3 and later.
 
-[[UUID-94a79740-22b3-fb5e-6b29-3e7a760ea928]]
+
 == Box Plot
 
 This visualization displays a box plot chart from the data in the
@@ -3437,7 +3437,7 @@ When you have finished your changes, click Apply changes to update your
 visualization. Alternatively, click Discard changes to return your
 visualization to its previous state.
 
-[[UUID-7dfb8781-5712-859f-7589-1c4ec05fcbd5]]
+
 == Bubble diagram
 
 The bubble diagram visualization displays series of data grouped into
@@ -3510,7 +3510,7 @@ When you double-click a parent, you will see the bubble and its family.
 
 image:15d88cecf324d1.png[Filter parent]
 
-[[UUID-54334d14-beb5-3d8e-ffda-84be7d6f62be]]
+
 == Horizontal Bar chart
 
 This visualization displays a horizontal bar chart from the data in the
@@ -3518,7 +3518,7 @@ current set of Elasticsearch documents.
 
 image:15d88cecf39552.png[Horizontal bar chart]
 
-[[UUID-ca5c9adb-2415-d579-2720-7cfeff61e898]]
+
 == Parallel Lines chart
 
 A parallel lines chart is a type of chart that is well suited for
