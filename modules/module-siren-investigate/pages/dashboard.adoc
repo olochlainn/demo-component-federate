@@ -54,7 +54,7 @@ _companies_ or _articles_ searches), you select the Dashboard is about a
 search option, and then select the appropriate search from the drop-down
 menu.
 
-image:image/15d88cec9de232.png[image]
+image:15d88cec9de232.png[image]
 
 This effectively binds the dashboard to the search, which enables the
 following:
@@ -70,7 +70,7 @@ _all articles_ dashboard is set to be about the _Articles_ search. This
 makes the Relational Navigator component (blue buttons) work and shows
 the count (646,902) on top and on the sidebar.
 
-image:image/15d88cec9e4bec.png[image]
+image:15d88cec9e4bec.png[image]
 
 *Dashboard 360: Showing data from multiple connected searches on the
 same dashboard*
@@ -89,7 +89,7 @@ is possible to add a visualization (the _Investments by Year_ pie chart)
 based on the _Investments_ search; clicking on the pie chart then
 coherently filters the _Companies by Country_ visualization.
 
-image:image/15d88cec9ebb64.png[image]
+image:15d88cec9ebb64.png[image]
 
 Note how additional icons appear on the top left of each visualization’s
 container in Dashboard 360 mode, indicating the searches that are in
@@ -107,11 +107,11 @@ and select Dashboard 360 with filter strategy (leave the filter strategy
 at Left Join Filter for the moment) ②. You can then click Add Main
 Search ③, which is the same concept as in ‘Dashboard about a search’.
 
-image:image/15d88cec9f3630.png[image]
+image:15d88cec9f3630.png[image]
 
 This opens a dialog that enables you to select the appropriate search.
 
-image:image/15d88ceca076ed.gif[image]
+image:15d88ceca076ed.gif[image]
 
 In the following screenshot, _Companies_ has been added as the Main
 Search. By default, the side panel ② shows the list of Dashboard
@@ -120,13 +120,13 @@ search node.
 
 At this point, neither of the visualizations are assigned yet (① and ②).
 
-image:image/15d88ceca12ccd.png[image]
+image:15d88ceca12ccd.png[image]
 
 To assign a visualization, click the search node to select it; then
 click the + button ① beside the required visualization, as shown in the
 following screenshot.
 
-image:image/15d88ceca1adc7.png[image]
+image:15d88ceca1adc7.png[image]
 
 We are now going to build the dashboard data model in Siren Investigate
 by defining how this search is to be relationally connected with other
@@ -139,7 +139,7 @@ can be reached through those relations. In the case of our demo data,
 these are the options, and we choose _Investments_ ① via the only
 possible relation, _secured_ ②.
 
-image:image/15d88ceca21840.png[image]
+image:15d88ceca21840.png[image]
 
 This adds other searches to the dashboard data model so that
 visualizations can be connected to the appropriate search.
@@ -149,7 +149,7 @@ visualizations look after they have been assigned (notice the icons on
 the top left of each visualization’s container, indicating they have
 been assigned to the appropriate searches).
 
-image:image/15d88ceca295b1.png[image]
+image:15d88ceca295b1.png[image]
 
 Once this is done, and the dashboard saved, filtering will work
 coherently across the visualizations.
@@ -169,7 +169,7 @@ _investors_ searches, then only 5,615 companies remain; each of these is
 guaranteed to be connected to at least one article and one investment
 (which in turn is connected to at least one investor).
 
-image:image/15d88ceca31d78.png[image]
+image:15d88ceca31d78.png[image]
 
 The Inner Filter Join logic can be too restrictive in many scenarios as
 it often removes many records from the main search (all those that are
@@ -188,7 +188,7 @@ Main Search. For example in the following screenshot, the pie chart
 _Investment by Year_ only shows records that are connected to the
 _companies_ search.
 
-image:image/15d88ceca39b61.png[image]
+image:15d88ceca39b61.png[image]
 
 *Understanding a specific visualization context*
 
@@ -201,7 +201,7 @@ screenshot, we see that the _Investment by Year_ visualization is
 relationally filtered to operate on the _Investments_ (41,343 with the
 current filters) that have been secured by _Companies_ (160,026).
 
-image:image/15d88ceca40df9.png[image]
+image:15d88ceca40df9.png[image]
 
 [[UUID-dd885535-5ba7-855b-9200-cf4d10d68dd8]]
 == Creating a dashboard
@@ -211,15 +211,15 @@ you click Dashboard, Siren Investigate displays the first available
 dashboard or, if no dashboards have been defined, the dashboard creation
 screen.
 
-image:image/15d88ceca47f77.png[New Dashboard screen]
+image:15d88ceca47f77.png[New Dashboard screen]
 
 You create a new dashboard by clicking the icon in the dashboard panel:
 
-image:image/15d88ceca4f034.png[Create New Dashboard]
+image:15d88ceca4f034.png[Create New Dashboard]
 
 You can give the dashboard a meaningful name and click Create.
 
-image:image/15d88ceca5736c.png[Creating a New Dashboard]
+image:15d88ceca5736c.png[Creating a New Dashboard]
 
 The dashboard has now been created but it is empty (you will see a
 message saying _This dashboard is empty_); you start building the
@@ -242,7 +242,7 @@ Click Edit in the toolbar panel — the options change to Editing mode.
 
 Click Add, then select a previously created visualization from the list:
 
-image:image/15d88ceca5f22c.png[Adding a visualization to the dashboard]
+image:15d88ceca5f22c.png[Adding a visualization to the dashboard]
 
 You can filter the list of visualizations by typing a filter string into
 the *Visualization Filter* field.
@@ -297,13 +297,13 @@ associated searches, you can save it.
 
 Click *Save* in the toolbar:
 
-image:image/15d88ceca6880e.png[Saving a dashboard]
+image:15d88ceca6880e.png[Saving a dashboard]
 
 If you want to change the dashboard name from the one it was created
 with, type it in the *Title* field.
 
 If *Store time with dashboard* is checked, the time filter currently set
-(for example, image:image/15d88ceca718ce.png[image]) will be restored
+(for example, image:15d88ceca718ce.png[image]) will be restored
 when the dashboard is reopened.
 
 Click the Save button.
@@ -358,19 +358,19 @@ A representation of the underlying data, presented as a paginated data
 grid. You can sort the items in the table by clicking the table headers
 at the top of each column.
 
-image:image/15d88ceca785bf.png[vis spy table]
+image:15d88ceca785bf.png[vis spy table]
 
 **Request*.*
 
 The raw request used to query the server, presented in JSON format.
 
-image:image/15d88ceca7eef2.png[Visual spy request]
+image:15d88ceca7eef2.png[Visual spy request]
 
 **Response*.*
 
 The raw response from the server, presented in JSON format.
 
-image:image/15d88ceca8681f.png[Visual spy response]
+image:15d88ceca8681f.png[Visual spy response]
 
 **Statistics*.*
 
@@ -379,14 +379,14 @@ presented as a data grid. The data grid includes the query duration, the
 request duration, the total number of records found on the server, and
 the index pattern used to make the query.
 
-image:image/15d88ceca904b3.png[Visual spy stats]
+image:15d88ceca904b3.png[Visual spy stats]
 
 **Debug*.*
 
 A summary of the visualization state (for example, visualization
 parameters and aggregations) and other details.
 
-image:image/15d88ceca98046.png[Visual spy debug]
+image:15d88ceca98046.png[Visual spy debug]
 
 To export the raw data behind the visualization as a
 comma-separated-values (CSV) file, click either the *Raw* or *Formatted*
@@ -410,18 +410,18 @@ segment - this will apply a filter based on the value selected.
 When you create a filter, the filter conditions display in an oval under
 the search text entry box:
 
-image:image/15d88ceca9f4f5.png[filter sample]
+image:15d88ceca9f4f5.png[filter sample]
 
 Moving the mouse pointer over the filter oval displays the following
 icons:
 
-image:image/15d88cec936270.png[Filter all buttons.]
+image:15d88cec936270.png[Filter all buttons.]
 
-Enable Filter (image:image/15d88cec93e083.png[image])::
+Enable Filter (image:15d88cec93e083.png[image])::
   Click this icon to switch off the filter without removing it. You can
   enable the filter again by reselecting the icon. Inactive filters are
   displayed with a striped background.
-Pin Filter (image:image/15d88cec945cda.png[image])::
+Pin Filter (image:15d88cec945cda.png[image])::
   Click this icon to _pin_ a filter. Pinned filters persist across Siren
   Investigate tabs. You can pin filters from the _Visualize_ tab; when
   you click the _Discover_ or _Dashboard_ tabs, those filters remain in
@@ -438,30 +438,30 @@ are based on the same underlying index. In this case, the user can
 safely pin and 'drag along' a filter across dashboards in the same
 group.
 
-Toggle Filter (image:image/15d88cec8ed4ee.png[image])::
+Toggle Filter (image:15d88cec8ed4ee.png[image])::
   Click this icon to _toggle_ a filter. By default, filters are
   inclusion filters, and are displayed in green. Only elements that
   match the filter are displayed. To change this to an exclusion filter,
   displaying only elements that _do not_ match, toggle the filter.
   Exclusion filters are displayed in red.
-Remove Filter (image:image/15d88cec94ce8f.png[image])::
+Remove Filter (image:15d88cec94ce8f.png[image])::
   Click this icon to remove a filter.
-Custom Filter (image:image/15d88cec95789d.png[image])::
+Custom Filter (image:15d88cec95789d.png[image])::
   Click this icon to display a text field where you can customize the
   JSON representation of the filter and specify an alias to use for the
   filter name, for example, to filter the data to just the companies
   based in London:
 
-image:image/15d88cecaa69d0.png[London Companies Filter Example.]
+image:15d88cecaa69d0.png[London Companies Filter Example.]
 
 Adding the `+London Companies+` label to the filter displays that label
 on the filter bar:
 
-image:image/15d88cecaad01b.png[London Companies Filter Bar]
+image:15d88cecaad01b.png[London Companies Filter Bar]
 
 Omitting the label displays the filter query in the filter bar:
 
-image:image/15d88cecab4833.png[London Companies Filter Bar]
+image:15d88cecab4833.png[London Companies Filter Bar]
 
 *Visualizations listen to filters*
 
@@ -469,7 +469,7 @@ Most visualizations in Siren Investigate are connected to a search. The
 following screenshot shows two two visualizations (a heatmap and an
 analytic table), both connected to the _company_ search.
 
-image:image/15d88cecabb8cc.png[image]
+image:15d88cecabb8cc.png[image]
 
 When a visualization is backed by a search, it ‘listens to’ and reacts
 to filters or textual queries which are currently on the dashboard.
@@ -479,7 +479,7 @@ when a filter is added (in this case, countrycode=USA). Filters can be
 created either by clicking on the visualizations themselves, or manually
 with the Add a filter + link.
 
-image:image/15d88cecac4861.png[image]
+image:15d88cecac4861.png[image]
 
 There is a limitation with this simple filtering model, however. All the
 visualizations will try to apply the filters to their underlying
@@ -490,7 +490,7 @@ visualizations, even to one that is backed by the _Investment_ search,
 which does not have a countrycode field. This will cause a 'No results
 found' on that visualization.
 
-image:image/15d88cecacb85b.png[image]
+image:15d88cecacb85b.png[image]
 
 For this reason, Investigate dashboards typically group visualizations
 based on the same search (or searches that have identical/compatible
@@ -597,7 +597,7 @@ protected by an authentication proxy.
 
 To share a dashboard, click *Share* to display the _Sharing_ panel.
 
-image:image/15d88cecad27d9.png[sharing panel]
+image:15d88cecad27d9.png[sharing panel]
 
 Click *Copy* to copy the native URL or embed HTML to the clipboard. The
 `+Share Snapshot+` *link* field contains a preshortened URL for sharing
@@ -615,9 +615,9 @@ application. Two options are available, *iframe with no sidebars* and
 You can save a dashboard with specific filters, a custom query, or a
 certain time range.
 
-image:image/15d88cecadab75.png[remove all filters]
+image:15d88cecadab75.png[remove all filters]
 
-If you click *Reset Filter*  (image:image/15d88cecae2ccb.png[image]) in
+If you click *Reset Filter*  (image:15d88cecae2ccb.png[image]) in
 the toolbar panel, the temporary filters/queries/time range set on *all*
 dashboards are removed, and each dashboard reverts to its default state
 with the saved filters/query/time range.
@@ -629,7 +629,7 @@ Dashboards can be organized in dashboard groups. Dashboard groups are
 often used to group together visualizations that are based on the same
 search.
 
-image:image/15d88cecaeada0.png[Dashboard Groups Panel]
+image:15d88cecaeada0.png[Dashboard Groups Panel]
 
 If the dashboard is associated with a saved search, the count of
 documents on the dashboard is displayed next to the dashboard name. Two
@@ -643,7 +643,7 @@ operation was pruned.
 You create a dashboard group by clicking the Create new group icon in
 the dashboard panel.
 
-image:image/15d88cecaf1a15.png[image]
+image:15d88cecaf1a15.png[image]
 
 In the dashboard panel, you can change the order of the dashboard groups
 and move dashboards between groups by dragging and dropping.
@@ -653,7 +653,7 @@ and move dashboards between groups by dragging and dropping.
 Dashboard groups can be managed by right-clicking the dashboard group
 name to get the Edit and Delete options.
 
-image:image/15d88cecb056a5.png[image]
+image:15d88cecb056a5.png[image]
 
 In Edit mode, you can change the title of an existing group, set the
 icon to a custom image by inserting a URL, or use
@@ -669,7 +669,7 @@ with visualizations selected to display the data in those fields.
 
 First the generated dashboard details are shown and can be edited:
 
-image:image/15d88cecb0ca3f.png[Create auto generated dashboard panel]
+image:15d88cecb0ca3f.png[Create auto generated dashboard panel]
 
 Here, you can edit the title of the new dashboard, choose whether to
 store the time with the dashboard (a time filter set on the dashboard
@@ -693,7 +693,7 @@ state.
 Clicking *OK* on the generated dashboard’s details panel opens a panel
 showing the details of the visualizations to be added to the dashboard:
 
-image:image/15d88cecb135e8.png[Generate Dashboard Visualizations Panel]
+image:15d88cecb135e8.png[Generate Dashboard Visualizations Panel]
 
 Here, the visualizations to be applied to the dashboard are listed. You
 can choose whether to add them with the check boxes on the left and you
@@ -702,7 +702,7 @@ the input boxes on the right.
 
 Clicking *OK* here will save and generate your new dashboard.
 
-image:image/15d88cecb1ab8a.png[New Auto Generated Dashboard]
+image:15d88cecb1ab8a.png[New Auto Generated Dashboard]
 
 If you want to resize or reorder your visualizations on the dashboard,
 click *Edit* on the top bar to begin customizing.
@@ -779,7 +779,7 @@ of the nodes outside Siren Investigate.
 
 The exclusion pattern can be set in the advanced settings.
 
-image:image/15d88cecb222e4.png[image]
+image:15d88cecb222e4.png[image]
 
 At this point, ensure you have a saved search associated with this index
 pattern. In Siren 10, a saved search is created automatically after the
@@ -792,7 +792,7 @@ The "search over all" dashboard is a normal dashboard that has the
 "search over all" saved search as its core dashboard (see
 link:#[?xml_title]). Here is an example configuration:
 
-image:image/15d88cecb2a32e.png[image]
+image:15d88cecb2a32e.png[image]
 
 If you have more shared fields across indexes, for example a time stamp,
 then more common widgets such as a timeline histogram for the number
@@ -870,7 +870,7 @@ a dark color theme instead, click *Options* (which you can find on the
 top horizontal menu or by right-clicking the dashboard name) and select
 the *Use dark theme* box.
 
-image:image/15d88cecb3400b.png[image]
+image:15d88cecb3400b.png[image]
 
 NOTE: You can change the default theme in the *Advanced* section of the
 *Settings* tab.
@@ -889,16 +889,16 @@ Filter in the menu bar.
 To set the refresh interval:
 
 [arabic]
-. Click *Time Filter* (image:image/15d88cec89d28c.png[image]).
+. Click *Time Filter* (image:15d88cec89d28c.png[image]).
 . Click the *Refresh Interval* tab.
 . Choose a refresh interval from the list.
 
 To automatically refresh the data, click *Auto-refresh*
-(image:image/15d88cecb3a52c.png[image]) when the time picker is open and
+(image:15d88cecb3a52c.png[image]) when the time picker is open and
 select an auto refresh interval:
 
-image:image/15d88cec8d81f3.png[uto refresh intervals]
+image:15d88cec8d81f3.png[uto refresh intervals]
 
 When auto-refresh is enabled, Siren Investigate’s top bar displays a
-*Pause* (image:image/15d88cecb4125c.png[image]) button and the
+*Pause* (image:15d88cecb4125c.png[image]) button and the
 auto-refresh interval.
