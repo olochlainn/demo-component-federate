@@ -1,5 +1,5 @@
 [[UUID-44c38ee5-aeec-1966-1a50-114cc6bf3fbb]]
-= Dashboard
+= Dashboards
 
 A Siren Investigate dashboard displays a set of saved visualizations in
 a customizable grid layout. Each visualization is normally linked to a
