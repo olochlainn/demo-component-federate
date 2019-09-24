@@ -23,7 +23,7 @@ bar, a filter bar, and (at top right) a ‘time range’.
 
 Investigate provides three types of dashboards:
 
-image:image/15d88cec9cef34.png[image]
+image:15d88cec9cef34.png[image]
 
 *Dashboards that do not represent a search (informational or summary
 dashboards)*
