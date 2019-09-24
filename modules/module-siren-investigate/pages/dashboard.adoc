@@ -35,7 +35,7 @@ or _investments_ in the Siren Community demo.
 The following screenshot from the demo shows an example of this
 informational or summary dashboard:
 
-image:image/15d88cec9d552e.png[image]
+image:15d88cec9d552e.png[image]
 
 Dashboards without a search:
 
