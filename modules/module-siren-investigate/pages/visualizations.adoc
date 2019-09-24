@@ -564,7 +564,7 @@ For example, the following configuration defines a handler that opens
 the URL stored in the field _homepage_url_ when clicking the cell
 displaying the _label_ field.
 
-image:image/15d88cecb950e4.png[image]
+image:15d88cecb950e4.png[image]
 
 To configure a click handler, you must set the following parameters:
 
@@ -612,7 +612,7 @@ image:15d88cecbac776.png[image]
 Then, select rows which you wanted to create filters from and click
 Create Filter.
 
-image:image/15d88cecbb941e.png[image]
+image:15d88cecbb941e.png[image]
 
 *CSV/JSON Export*
 
@@ -660,7 +660,7 @@ Finally, when exporting as CSV, you have the option of applying field
 formatters to fields where they are defined. Simply press 'Yes' next to
 the 'Formatted' option.
 
-image:image/15d88cecbdf003.png[image]
+image:15d88cecbdf003.png[image]
 
 *Exporting Dashboard Visualizations*
 
@@ -670,7 +670,7 @@ To take a snapshot of the dashboard as a PDF or to get a single
 visualization as an image, first click on the 'Export' button to display
 the export panel.
 
-image:image/15d88cecbe7829.png[image]
+image:15d88cecbe7829.png[image]
 
 *PDF snapshot or printing:*
 
@@ -686,7 +686,7 @@ included in the document.
 
 *PNG capture of visualization:*
 
-image:image/15d88cecbeffcc.png[image]
+image:15d88cecbeffcc.png[image]
 
 To export a single visualization as an image, click on the camera button
 seen on dashboard visualizations (the button is available while the
@@ -744,7 +744,7 @@ location /BASE_PATH {
 Graph Browser displays Elasticsearch documents as nodes and Siren
 Investigate relations as links of a graph.
 
-image:image/15d88cecc043d1.png[Graph Browser Example]
+image:15d88cecc043d1.png[Graph Browser Example]
 
 *Configuration*
 
@@ -754,7 +754,7 @@ If a node would expand into more than this configured number of nodes it
 will be considered a big node and the user will be given a choice to
 proceed or to select a sample.
 
-image:image/15d88cecc0d3e5.png[Big Nodes Handling]
+image:15d88cecc0d3e5.png[Big Nodes Handling]
 
 *Relations*
 
@@ -821,7 +821,7 @@ expansion.
 
 To create a new _script_ go to `+Management+` → `+Scripts+`
 
-image:image/15d88cecc15a9f.png[Scripts Management]
+image:15d88cecc15a9f.png[Scripts Management]
 
 Here you can configure new _scripts_ or modify the saved ones.
 
@@ -841,7 +841,7 @@ investigations.
 
 You have several operations available:
 
-image:image/15d88cecc1e641.png[Toolbar]
+image:15d88cecc1e641.png[Toolbar]
 
 [arabic]
 . *Undo*: By default, the Graph Browser saves the last five states. With
@@ -866,16 +866,16 @@ vertices.
 button there is a box that shows the *Remove All* button. This will
 remove the entire graph, regardless of selected elements.
 +
-image:image/15d88cecc25158.png[Remove all]
+image:15d88cecc25158.png[Remove all]
 . *Expand*: Expands the currently selected nodes. Next to the _expand_
 button, there is a box that shows advanced options for the expansion.
 . *Highlight mode*: This toggles the _Highlight mode_. The _Highlight
 mode_ moves everything to the background that is not selected or
 connected to a selected node or link.
 +
-image:image/15d88cecc2c400.png[Highlighting on]
+image:15d88cecc2c400.png[Highlighting on]
 +
-image:image/15d88cecc35dad.png[Highlighting off]
+image:15d88cecc35dad.png[Highlighting off]
 . *Layouts*: Enables you to change the current graph’s layout or redraw
 the current layout:
 * *Standard* (default): Selected nodes preserve their relative position.
@@ -883,9 +883,9 @@ the current layout:
 connections. Requires at least one selected node to work. Selected nodes
 will be moved at the top of the hierarchy.
 +
-image:image/15d88cecc3cdf3.gif[Standard layout]
+image:15d88cecc3cdf3.gif[Standard layout]
 +
-image:image/15d88cecc4f676.gif[Hierarchy layout]
+image:15d88cecc4f676.gif[Hierarchy layout]
 . *Add*: Opens a dialog with the following options:
 * *Selected document*: Add the currently selected document. You can see
 your selected document in the upper right purple selection box.
@@ -909,25 +909,25 @@ nodes geographically on an interactive map. You must set up a script to
 configure the geographic properties of the nodes (See
 link:#[?xml_title]).
 +
-image:image/15d88cecc62fa4.png[Map mode]
+image:15d88cecc62fa4.png[Map mode]
 . *Timebar Mode*: This toggles the _Timebar mode_. This mode displays a
 time bar at the bottom of the graph browser that enables time based
 filtering of nodes. After you enable this mode you can add or remove
 node types to the time bar:
 +
-image:image/15d88cecc6b1bf.png[Timebar filter]
+image:15d88cecc6b1bf.png[Timebar filter]
 +
 You must set up a script to configure the time property of the nodes
 (See link:#[?xml_title]).
 +
-image:image/15d88cecc7204b.png[Timebar mode]
+image:15d88cecc7204b.png[Timebar mode]
 . *Save graph*: Save the current graph.
 +
-image:image/15d88cecc796b3.png[Save graph]
+image:15d88cecc796b3.png[Save graph]
 . *Open graph*: Open a saved graph. Unlike _add from saved graph_, this
 feature preserves the saved graph layout.
 +
-image:image/15d88cecc7fbe0.png[Open Graph]
+image:15d88cecc7fbe0.png[Open Graph]
 
 *Shortcuts*
 
@@ -944,7 +944,7 @@ expandbutton)
 
 *Navigation bar*
 
-image:image/15d88cecc86fc9.png[Navigation bar]
+image:15d88cecc86fc9.png[Navigation bar]
 
 The navigation bar enables you to:
 
@@ -957,7 +957,7 @@ The navigation bar enables you to:
 
 *Side bar*
 
-image:image/15d88cecc8dcd6.png[Side bar]
+image:15d88cecc8dcd6.png[Side bar]
 
 The side bar enables you to:
 
@@ -967,7 +967,7 @@ The side bar enables you to:
 
 **Lenses tab**
 
-image:image/15d88cecc9558f.png[Side bar lenses tab]
+image:15d88cecc9558f.png[Side bar lenses tab]
 
 The lenses tab enables you to make alterations on the displayed
 nodes/links:
@@ -995,14 +995,14 @@ See link:#[?xml_title] for more information on lens expressions.
 
 *Lens parameters*
 
-image:image/15d88cecc9cdcf.png[Lens parameters]
+image:15d88cecc9cdcf.png[Lens parameters]
 
 Each lens has specific parameters which will be used for every graph
 node.
 
 *Conditional lens*
 
-image:image/15d88cecca3b88.png[Conditional lens]
+image:15d88cecca3b88.png[Conditional lens]
 
 A conditional lens can change a property for all the nodes that satisfy
 the condition:
@@ -1029,7 +1029,7 @@ ____
 
 *Associate records based on ontology lens*
 
-image:image/15d88ceccab8be.png[Side bar - associate records based on
+image:15d88ceccab8be.png[Side bar - associate records based on
 ontology lens]
 
 The `+associate records based on ontology+` lens can use the node’s
@@ -1038,16 +1038,16 @@ the relation between two of its children.
 
 *Investment model graph view*
 
-image:image/15d88ceccb4ef6.png[vestment model graph view]
+image:15d88ceccb4ef6.png[vestment model graph view]
 
 After you configure the lens, two nodes and its relationship will be
 displayed. For example, apply this lens an investment node:
 
-image:image/15d88ceccbdd18.png[Investment node]
+image:15d88ceccbdd18.png[Investment node]
 
 You could obtain the associate records based on ontology as a result:
 
-image:image/15d88ceccc60a4.png[Associate records based on ontology
+image:15d88ceccc60a4.png[Associate records based on ontology
 result]
 
 *Expansion tab*
@@ -1064,7 +1064,7 @@ summarize groups of intermediate nodes.
 
 **Selection tab**
 
-image:image/15d88ceccd4017.png[Selection tab]
+image:15d88ceccd4017.png[Selection tab]
 
 The selection tab enables you to show, search, filter, sort, group and
 change node/links data. When this tab is opened, it reacts with your
@@ -1100,14 +1100,14 @@ rows of that column.
 
 *Grid menu*
 
-image:image/15d88ceccdd0aa.png[Grid menu]
+image:15d88ceccdd0aa.png[Grid menu]
 
 This menu enables you to show or hide columns and clear all local
 filters.
 
 *Column menu*
 
-image:image/15d88cecce3eaf.png[Column menu]
+image:15d88cecce3eaf.png[Column menu]
 
 The menu options enable you to:
 
@@ -1164,7 +1164,7 @@ If click the Save button, the current configurations are saved in the
 uiStateJSON of the saved visualizations object related to the Graph
 Browser visualization.
 
-image:image/15d88cecd0ed04.png[image]
+image:15d88cecd0ed04.png[image]
 
 The structure of the saved JSON enables different configurations for the
 Graph Browser in different dashboards. All the configurations are stored
@@ -1176,12 +1176,12 @@ On the Graph Browser dashboard, click the Clone button in the top right.
 A dialog appears that allow to choose the title of the new cloned
 dashboard.
 
-image:image/15d88cecd1633e.png[image]
+image:15d88cecd1633e.png[image]
 
 Type a name and click the Confirm Clone button. This creates a new
 Dashboard with all the same configurations.
 
-image:image/15d88cecd1edb3.png[image]
+image:15d88cecd1edb3.png[image]
 
 The same happens if you click the Edit button (top right) and then save
 the dashboard as new. It is possible to change the new dashboard
@@ -1450,7 +1450,7 @@ and drill down into clusters during analysis.
 For example, the following image shows companies clustered by US state
 in which their headquarters are located.
 
-image:image/15d88cecd26f31.png[Grouping on nodes]
+image:15d88cecd26f31.png[Grouping on nodes]
 
 [[UUID-82a30c72-d16e-c242-6459-6e98f3f3e110]]
 == Multichart
@@ -1458,7 +1458,7 @@ image:image/15d88cecd26f31.png[Grouping on nodes]
 This visualization displays a multiple types of chart according to the
 current selection of multiple configurations.
 
-image:image/15d88cecd3fd4f.png[Multichart]
+image:15d88cecd3fd4f.png[Multichart]
 
 Multichart is not a type of chart by itself. It can contain a set of
 other charts, such as a pie chart. It enables you to switch to other
@@ -1470,7 +1470,7 @@ image:image/15d88cecd497ac.png[Multi configurations]
 
 *Visualize settings*
 
-image:image/15d88cecd513ce.png[Visualize settings]
+image:15d88cecd513ce.png[Visualize settings]
 
 *New configuration*
 
@@ -1478,7 +1478,7 @@ After changing the aggregation settings and setting the desired type of
 chart, you can click Add this configuration to save the configuration as
 a separate one.
 
-image:image/15d88cecd58fb8.png[New configuration]
+image:15d88cecd58fb8.png[New configuration]
 
 Multichart enables you to show or hide certain features. To toggle
 visibility, click:
