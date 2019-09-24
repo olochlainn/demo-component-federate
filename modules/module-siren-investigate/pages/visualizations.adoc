@@ -2255,7 +2255,7 @@ available
 ** Remove all of them by clicking Clear All
 
 [[UUID-81a38cb5-ffb4-5408-5743-15c17f9225b0_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
-====== Viewing detailed information
+==== Viewing detailed information
 
 For information on displaying the raw data, see
 link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
@@ -3511,7 +3511,7 @@ When you double-click a parent, you will see the bubble and its family.
 image:15d88cecf324d1.png[Filter parent]
 
 [[UUID-54334d14-beb5-3d8e-ffda-84be7d6f62be]]
-==== Horizontal Bar Chart
+=== Horizontal Bar Chart
 
 This visualization displays a horizontal bar chart from the data in the
 current set of Elasticsearch documents.
