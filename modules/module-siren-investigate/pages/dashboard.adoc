@@ -203,7 +203,7 @@ current filters) that have been secured by _Companies_ (160,026).
 
 image:15d88ceca40df9.png[image]
 
-[[UUID-dd885535-5ba7-855b-9200-cf4d10d68dd8]]
+
 == Creating a dashboard
 
 Dashboards can be accessed using the home icon or the Siren logo. When
@@ -233,7 +233,7 @@ details, see
 link:#UUID-b1dcfd44-c591-5197-e786-3608f9ad7213[Autogenerate dashboard].
 
 
-[[UUID-cf8eb7f5-1519-4a8d-a6ee-46dd9783dbed]]
+
 == Adding visualizations to a dashboard
 
 Once you have created a new dashboard, you can add visualizations to it.
@@ -289,7 +289,7 @@ Before creating a dashboard based around multiple searches (Dashboard
 link:#UUID-01433ffb-7363-9f80-7f08-02c01a9beffc[The Dashboard Data
 Model] topic, which provides a comprehensive explanation of the feature.
 
-[[UUID-cfe457c3-be84-3271-a173-89b63ccd4047]]
+
 == Saving a dashboard
 
 After you have created a dashboard with some visualizations and
@@ -314,7 +314,7 @@ on the right.
 TIP: When you have multiple dashboards created, you can organize them into
 link:#UUID-f881e88e-ea24-737c-cd42-eed6aa8c34bf[dashboard groups].
 
-[[UUID-b8c4e538-2906-ffbf-5a69-583d74a70435]]
+
 == Customizing the dashboard
 
 Each visualization in your dashboard is stored in a _container_; you can
@@ -395,7 +395,7 @@ contains the data as it is stored in Elasticsearch. A formatted export
 contains the results of any applicable Siren Investigate [field
 formatters].
 
-[[UUID-ef1636cb-f81e-5645-6770-5d67f0909c84]]
+
 == Working with filters
 
 With your visualizations in place, you can now use them to filter the
@@ -582,7 +582,7 @@ To apply any of the filter actions to all the filters currently in
 place, click [.menuchoice]#Actions > Global Filter Actions# and select
 an action.
 
-[[UUID-b99762a4-67c4-1e00-77b1-0a8017e4cc11]]
+
 == Sharing a dashboard
 
 You can share dashboards with other users by sending a link or by
@@ -609,7 +609,7 @@ Copy the embed code from the _Share_ display into your external web
 application. Two options are available, *iframe with no sidebars* and
 *iframe with dashboard navigation sidebar*.
 
-[[UUID-7acbd7ad-2a41-90ec-08ee-fa6ecba2f1b8]]
+
 == Reset all dashboards
 
 You can save a dashboard with specific filters, a custom query, or a
@@ -622,7 +622,7 @@ the toolbar panel, the temporary filters/queries/time range set on *all*
 dashboards are removed, and each dashboard reverts to its default state
 with the saved filters/query/time range.
 
-[[UUID-f881e88e-ea24-737c-cd42-eed6aa8c34bf]]
+
 == Dashboard groups
 
 Dashboards can be organized in dashboard groups. Dashboard groups are
@@ -659,7 +659,7 @@ In Edit mode, you can change the title of an existing group, set the
 icon to a custom image by inserting a URL, or use
 a https://fortawesome.github.io/Font-Awesome/[Font Awesome] icon.
 
-[[UUID-b1dcfd44-c591-5197-e786-3608f9ad7213]]
+
 == Auto generate dashboard
 
 If you have selected fields (or used the auto select fields feature) in
@@ -687,7 +687,7 @@ Discover page. If a saved search is currently open in the Discover page,
 however, you have the option to use it either before or after saving its
 state.
 
-[[UUID-3c182cb1-9ba3-c285-312e-70ca8e3dbdc9]]
+
 == Generate dashboard report
 
 Clicking *OK* on the generated dashboard’s details panel opens a panel
@@ -707,7 +707,7 @@ image:15d88cecb1ab8a.png[New Auto Generated Dashboard]
 If you want to resize or reorder your visualizations on the dashboard,
 click *Edit* on the top bar to begin customizing.
 
-[[UUID-aad52b44-4393-67a6-3c8b-6f31b7d104a5]]
+
 == Create a search over all dashboard
 
 Typically, most Siren
@@ -862,7 +862,7 @@ ranking via field popularity].
 For even more advanced search (semantic, ontology-thesaurus based,
 multilingual, AI - learn to rank), contact your Siren account manager.
 
-[[UUID-ccca4b38-1e63-3793-cd60-78d0b639405d]]
+
 == Dashboard color theme
 
 By default, Siren Investigate dashboards use a light color theme. To use
@@ -876,7 +876,7 @@ NOTE: You can change the default theme in the *Advanced* section of the
 *Settings* tab.
 
 
-[[UUID-1b4b59b8-a0e9-28d9-32ea-5d5314f110fe]]
+
 == Refreshing the search results
 
 You can configure a refresh interval to automatically refresh the page
