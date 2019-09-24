@@ -1,0 +1,3856 @@
+= Visualizations
+
+The Visualize tab opens a page where you can select one or more existing
+visualizations of the data in your Elasticsearch indexes; you can also
+create a new visualization from this page. You can then build
+link:#UUID-44c38ee5-aeec-1966-1a50-114cc6bf3fbb[dashboards] that display
+related visualizations.
+
+Visualizations can also be created directly on a dashboard by selecting
+[.menuchoice]#Edit > Add#.
+
+Siren Investigate visualizations are based on Elasticsearch queries. By
+using a series of Elasticsearch
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations.html[aggregations]
+to extract and process your data, you can create charts that show you
+the trends, spikes, and dips that you need to know about.
+
+You can create visualizations from a search saved from
+link:#UUID-e773bdc8-6973-09d5-6104-6b29f300d19d[Discover], or start with
+a new search query.
+
+[[UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b]]
+== Creating a visualization
+
+[arabic]
+. Click *Visualize* in the side navigation.
+. Click *Create new visualization* or the *+* button.
+. Choose the visualization type. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-510221c1-7f6b-bd94-bc74-57882376f02f[Visualization
+types].
+. Specify a search query to retrieve the data for your visualization:
+* To enter new search criteria, select the index pattern for the indices
+that contain the data you want to visualize. This opens the
+visualization builder with a wildcard query that matches all the
+documents in the selected indices.
+* To build a visualization from a saved search, click the name of the
+saved search you want to use. This opens the visualization builder and
+loads the selected query.
++
+____
+*Note*
+
+When you build a visualization from a saved search, any subsequent
+modifications to the saved search are automatically reflected in the
+visualization. To switch off automatic updates, you can disconnect a
+visualization from the saved search.
+____
+. In the visualization builder, choose the aggregation for the
+visualization’s y-axis. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+. For the visualizations x-axis, select a bucket aggregation. For more
+information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
+aggregations].
+
+For example, if you are indexing Apache server logs, you could build a
+horizontal bar chart that shows the distribution of incoming requests by
+geographic location by specifying a term's aggregation on the
+`+geo.src+` field:
+
+image:image/15d88cecb4998c.png[image]
+
+The y-axis shows the number of requests received from each country, and
+the countries are displayed across the x-axis.
+
+Bar, line, or area chart visualizations use _metrics_ for the y-axis and
+_buckets_ for the x-axis. Buckets are analogous to SQL `+GROUP BY+`
+statements. Pie charts, use the metric for the slice size and the bucket
+for the number of slices.
+
+You can further break down the data by specifying sub aggregations. The
+first aggregation determines the data set for any subsequent
+aggregations. Sub aggregations are applied in order—you can drag the
+aggregations to change the order in which they are applied.
+
+For example, you could add a terms sub aggregation on the `+geo.dest+`
+field to a vertical bar chart to see the locations those requests were
+targeting.
+
+image:image/15d88cecb50b10.png[image]
+
+For more information about working with sub aggregations, see
+https://www.elastic.co/blog/kibana-aggregation-execution-order-and-you[Kibana,
+Aggregation Execution Order, and You].
+
+[[UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-510221c1-7f6b-bd94-bc74-57882376f02f]]
+=== Visualization types
+
+.Charts
+[cols=",",]
+|===
+|link:#UUID-88523206-1b84-cd03-c133-7bbbecfe53fe[Area, Line, and Bar
+Charts] |Compare different series in X/Y charts.
+
+|link:#UUID-94a79740-22b3-fb5e-6b29-3e7a760ea928[Boxplot Chart] |Display
+data in an x/y chart using upper and lower percentiles.
+
+|link:#UUID-7dfb8781-5712-859f-7589-1c4ec05fcbd5[Bubble Diagram] |Show
+data and parent/child relationships as bubbles.
+
+|link:#UUID-e485b4ec-0964-71ab-98e6-87aa7b847e40[Gauge and Goal]
+|Display a gauge.
+
+|link:#UUID-9dfad9e8-a840-762f-74f3-7589c6e4653e[Heat Map] |Shade cells
+within a matrix.
+
+|link:#UUID-82a30c72-d16e-c242-6459-6e98f3f3e110[Multichart] |A
+visualization in which you can switch between other visualizations at
+will.
+
+|link:#UUID-ca5c9adb-2415-d579-2720-7cfeff61e898[Parallel Lines Chart]
+|Arranges several metrics on parallel columns.
+
+|link:#UUID-1568d3ec-7a1c-6f18-f122-def14384108d[Pie Chart] |Display
+each source’s contribution to a total.
+
+|link:#UUID-42232469-e607-25b0-9143-85af0f6f6f7c[Radar Chart] |A
+graphical method of displaying multivariate data in the form of a
+two-dimensional chart of three or more quantitative variables
+represented on axes starting from the same point.
+|===
+
+.Textual
+[cols=",",]
+|===
+|link:#UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f[Analytic Table]
+|Display the raw data of a composed aggregation.
+
+|link:#UUID-dc2acbc5-1f69-e985-52b7-f685401fc3e5[Markdown] |Display
+free-form information or instructions.
+
+|link:#UUID-07c3eacb-b0a4-7e18-a02b-45696eb11277[Metric] |Display a
+single number.
+
+|link:#UUID-f39f4458-a422-c71e-aaf5-a839758dbfc7[Query Viewer] |Display
+the results from multiple queries on external datasources using query
+templates.
+
+|link:#UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80[Tag Cloud] |Display
+words as a cloud in which the size of the word correspond to its
+importance.
+
+|link:#UUID-8548faab-7bd2-ce0a-a3c7-bd09b91f377d[Topic Clustering]
+|Perform significance and clustering analysis on full-text fields.
+|===
+
+.Maps
+[cols=",",]
+|===
+|link:#UUID-8f09fa78-b322-2c20-8e48-937baa0e5018[Coordinate Map]
+|Associate the results of an aggregation with geographic locations.
+
+|link:#UUID-bab747cc-92b6-bf21-65a1-811c52133bcd[Enhanced Coordinate
+Map] |Associate the results of an aggregation with geographic locations.
+
+|link:#UUID-5094f7e0-86e2-ecb3-ec8b-c8d553188e36[Region Map] |Thematic
+maps where a shape’s color intensity corresponds to a metric’s value.
+|===
+
+.Showing individual records
+[cols=",",]
+|===
+|link:#UUID-c781ea33-07ef-8521-35a7-f830e0d1f632[Graph Browser] |Display
+Elasticsearch documents as nodes and Siren Investigate relations as
+links of a graph.
+
+|link:#UUID-ec3bbeec-1c5a-39c9-b6c3-e29c5180a02a[Record Table] |Show the
+documents matched by a query on an Elasticsearch index with enhanced
+features.
+
+|link:#UUID-d139b0d7-cf24-a2b5-84db-5ce99fa112d1[Scatter Plot] |Show
+data in an x/y graph as scattered points.
+|===
+
+.Time series
+[cols=",",]
+|===
+|link:#UUID-6cd65c38-c79a-ff8d-5e4c-c7b1abf0530d[Timelion] |Compute and
+combine data from multiple time series data sets.
+
+|link:#UUID-5bae6e28-a647-cc8f-b491-7ba1f0cca6f8[Visual Builder]
+|Visualize time series data using pipeline aggregations.
+
+|link:#UUID-913916fe-4254-9c36-0e8e-54dea253a75c[Timeline] |Visualize
+events in chronological order.
+|===
+
+.Interactive filters and relational navigation
+[cols=",",]
+|===
+|Controls |Create interactive controls for easy dashboard manipulation.
+
+|Relational Filter |(Deprecated) Configure the relational buttons to
+navigate between dashboards.
+
+|link:#UUID-b1b247d4-7501-2862-37bc-ea9c7aedc7d0[Relational Navigator]
+|Provide navigation between relationally connected dashboards.
+|===
+
+[[UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b]]
+=== Y-axis aggregations
+
+==== Metric aggregations
+
+*Count*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-valuecount-aggregation.html[_count_]
+  aggregation returns a raw count of the elements in the selected index
+  pattern.
+*Average*::
+  This aggregation returns the
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-avg-aggregation.html[_average_]
+  of a numeric field. Select a field from the box.
+*Sum*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-sum-aggregation.html[_sum_]
+  aggregation returns the total sum of a numeric field. Select a field
+  from the box.
+*Min*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-min-aggregation.html[_min_]
+  aggregation returns the minimum value of a numeric field. Select a
+  field from the box.
+*Max*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-max-aggregation.html[_max_]
+  aggregation returns the maximum value of a numeric field. Select a
+  field from the box.
+*Standard Deviation*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-extendedstats-aggregation.html[_extended
+  stats_] aggregation returns the standard deviation of data in a
+  numeric field. Select a field from the box.
+*Unique Count*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-cardinality-aggregation.html[_cardinality_]
+  aggregation returns the number of unique values in a field. Select a
+  field from the box.
+*Median*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-percentile-aggregation.html[_Median_]
+  (50th percentile) aggregation.
+*Percentiles*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-percentile-aggregation.html[_percentile_]
+  aggregation divides the values in a numeric field into percentile
+  bands that you specify. Select a field from the box, then specify one
+  or more ranges in the *Percentiles* fields. Click the *X* to remove a
+  percentile field. Click *+ Add* to add a percentile field.
+*Percentile Rank*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-percentile-rank-aggregation.html[_percentile
+  ranks_] aggregation returns the percentile rankings for the values in
+  the numeric field you specify. Select a numeric field from the box,
+  then specify one or more percentile rank values in the *Values*
+  fields. Click the *X* to remove a values field. Click *+Add* to add a
+  values field.
+*Top Hit*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-top-hits-aggregation.html[_Top
+  hit_] aggregation.
+*Geo Centroid*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-geocentroid-aggregation.html[_Geo
+  centroid_] aggregation.
+
+==== Parent pipeline aggregations
+
+For each of the parent pipeline aggregations you have to define the
+metric for which the aggregation is calculated. That could be one of
+your existing metrics or a new one. You can also nest these
+aggregations, for example to produce a third derivative.
+
+*Derivative*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-derivative-aggregation.html[_derivative_]
+  aggregation calculates the derivative of specific metrics.
+*Cumulative Sum*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-cumulative-sum-aggregation.html[_cumulative
+  sum_] aggregation calculates the cumulative sum of a specified metric
+  in a parent histogram
+*Moving Average*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-movavg-aggregation.html[_moving
+  average_] aggregation will slide a window across the data and show the
+  average value of that window
+*Serial Diff*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-serialdiff-aggregation.html[_serial
+  differencing_] is a technique where values in a time series are
+  subtracted from itself at different time lags or period
+
+==== Sibling pipeline aggregations
+
+Just like with parent pipeline aggregations you need to provide a metric
+for which to calculate the sibling aggregation. On top of that you also
+need to provide a bucket aggregation which will define the buckets on
+which the sibling aggregation will run
+
+*Average Bucket*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-avg-bucket-aggregation.html[_avg
+  bucket_] calculates the (mean) average value of a specified metric in
+  a sibling aggregation
+*Sum Bucket*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-avg-bucket-aggregation.html[_sum
+  bucket_] calculates the sum of values of a specified metric in a
+  sibling aggregation
+*Min Bucket*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-avg-bucket-aggregation.html[_min
+  bucket_] calculates the minimum value of a specified metric in a
+  sibling aggregation
+*Max Bucket*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-pipeline-avg-bucket-aggregation.html[_max
+  bucket_] calculates the maximum value of a specified metric in a
+  sibling aggregation
+
+[[UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c]]
+=== X-axis aggregations
+
+*Date Histogram*::
+  A
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-datehistogram-aggregation.html[_date
+  histogram_] is built from a numeric field and organized by date. You
+  can specify a time frame for the intervals in seconds, minutes, hours,
+  days, weeks, months, or years. You can also specify a custom interval
+  frame by selecting *Custom* as the interval and specifying a number
+  and a time unit in the text field. Custom interval time units are *s*
+  for seconds, *m* for minutes, *h* for hours, *d* for days, *w* for
+  weeks, and *y* for years. Different units support different levels of
+  precision, down to one second. Intervals are labeled at the start of
+  the interval, using the date-key returned by Elasticsearch. For
+  example, the tool tip for a monthly interval will show the first day
+  of the month.
+*Histogram*::
+  A standard
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-histogram-aggregation.html[_histogram_]
+  is built from a numeric field. Specify an integer interval for this
+  field. Select the *Show empty buckets* check box to include empty
+  intervals in the histogram.
+*Range*::
+  With a
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-range-aggregation.html[_range_]
+  aggregation, you can specify ranges of values for a numeric field.
+  Click *Add Range* to add a set of range endpoints. Click the red *(x)*
+  symbol to remove a range.
+*Date Range*::
+  A
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-daterange-aggregation.html[_date
+  range_] aggregation reports values that are within a range of dates
+  that you specify. You can specify the ranges for the dates using
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/common-options.html#date-math[_date
+  math_] expressions. Click *Add Range* to add a set of range endpoints.
+  Click the red *(/)* symbol to remove a range.
+*IPv4 Range*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-iprange-aggregation.html[_IPv4
+  range_] aggregation enables you to specify ranges of IPv4 addresses.
+  Click *Add Range* to add a set of range endpoints. Click the red *(/)*
+  symbol to remove a range.
+*Terms*::
+  A
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-terms-aggregation.html[_terms_]
+  aggregation enables you to specify the top or bottom _n_ elements of a
+  given field to display, ordered by count or a custom metric.
+*Filters*::
+  You can specify a set of
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-filters-aggregation.html[_filters_]
+  for the data. You can specify a filter as a query string or in JSON
+  format, just as in the Discover search bar. Click *Add Filter* to add
+  another filter. Click *Label* (image:image/15d88cecb57c46.png[image])
+  to open the label field, where you can type in a name to display on
+  the visualization.
+*Significant Terms*::
+  Displays the results of the experimental
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-significantterms-aggregation.html[_significant
+  terms_] aggregation. The value of the *Size* parameter defines the
+  number of entries this aggregation returns.
+*Geohash*::
+  The
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html[_geohash_]
+  aggregation displays points based on the geohash coordinates.
+*External query terms filter*::
+  A Siren Investigate aggregator where one can define one or more
+  buckets based on some record value (typically a primary key) matching
+  the results of an external query. Multiple such buckets, corresponding
+  to multiple queries, can be defined. For more information see the
+  _query_ menu in the configuration. This displays the results of the
+  link:#UUID-da4bad96-3043-850c-2758-f1b74cd5a949[external query terms
+  filter] aggregation.
+
+[[UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038]]
+=== Customizing aggregations
+
+Enter a string in the *Custom Label* field to change the display label.
+
+You can customize the colors of your visualization by clicking the color
+dot next to each label to display the _color picker_.
+
+image:image/15d88cecb5e22b.png[An array of color dots that users can
+select]
+
+Enter a string in the *Custom Label* field to change the display label.
+
+You can click the *Advanced* link to display more customization options
+for your metrics or bucket aggregation:
+
+*Exclude Pattern*::
+  Specify a pattern in this field to exclude from the results.
+*Include Pattern*::
+  Specify a pattern in this field to include in the results.
+*JSON Input*::
+  A text field where you can add specific JSON-formatted properties to
+  merge with the aggregation definition, as in the following example:
+
+[source,shell]
+----
+{"script" : "doc['grade'].value * 1.2"}
+----
+
+____
+*Note*
+
+In Elasticsearch releases 1.4.3 and later, this functionality requires
+you to enable
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting.html[dynamic
+Groovy scripting].
+____
+
+The availability of these options varies depending on the aggregation
+you choose.
+
+[[UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a]]
+=== Visualization Spy
+
+To display the raw data behind the visualization, click *Spy Open*
+(image:image/15d88cecb65c0d.png[image]) in the bottom left corner of the
+container. The visualization spy panel will open.
+
+Use the select input (highlighted) to view detailed information about
+the raw data.
+
+image:image/15d88cecb6d85c.png[Spy panel.]
+
+*Table.*
+
+A representation of the underlying data, presented as a paginated data
+grid. You can sort the items in the table by clicking the table headers
+at the top of each column.
+
+*Request.*
+
+The raw request used to query the server, presented in JSON format.
+
+*Response.*
+
+The raw response from the server, presented in JSON format.
+
+*Statistics.*
+
+A summary of the statistics related to the request and the response,
+presented as a data grid. The data grid includes the query duration, the
+request duration, the total number of records found on the server, and
+the index pattern used to make the query.
+
+*Debug.*
+
+The visualization saved state presented in JSON format.
+
+To export the raw data behind the visualization as a
+comma-separated-values (CSV) file, click either the *Raw* or *Formatted*
+links at the bottom of the detailed information tabs. A raw export
+contains the data as it is stored in Elasticsearch. A formatted export
+contains the results of any applicable
+link:#UUID-2599a53c-8593-9921-eb2b-96b541eb51cb[field formatters].
+
+[[UUID-ec3bbeec-1c5a-39c9-b6c3-e29c5180a02a]]
+== Record Table visualization
+
+Record Table is a visualization that shows the documents matched by a
+query on an Elasticsearch index, similar to the stock Discover table.
+
+In addition to column configuration, the visualization provides the
+following features:
+
+* To hide the time column, which represents a time field of the
+Elasticsearch index, select the Hide time column check box.
+* You can set a page size which is a count of rows displayed each page.
+To enable top pagination, select the Show top paginator check box.
+* To use aliases in place of the column names in the data, see .
+* It is possible to enable a column that indicates whether a search
+result is matched by a query on an external datasource. For more
+information, see .
+* It is possible to define click handlers on the cells in a column, for
+example to open the URL displayed in a cell. For more information, see .
+* To create filters from table rows, see .
+
+image:image/15d88cecb74d2a.png[image]
+
+*Rename columns*
+
+It is possible to create an alias and set a minimum width for each
+column.
+
+To enable renaming columns, select the Enable column rename check box.
+
+image:image/15d88cecb7d265.png[image]
+
+To configure the names of columns, you can set these parameters:
+
+* _Alias_ (required): The column alias that is displayed as a column
+name.
+* _Min width_ (optional): The minimum width of the column.
+
+*Relational column*
+
+The relational column can be used to display if a search result is
+matched by a query on an external datasource.
+
+To enable the relational column, select the Enable Relational Column
+check box.
+
+The following image shows the configuration of a relational column named
+_Why Relevant?_ where the value of a cell depends on the query _Top 50
+companies (HR count)_: if the value of the _label_ *index field* of a
+document matches the value of the _label_ variable in at least one
+record returned by the query, the name of the query will be displayed
+inside the cell.
+
+image:image/15d88cecb84f48.png[image]
+
+image:image/15d88cecb8e51a.png[image]
+
+To configure the relational column, you must set these parameters:
+
+* _Column name_: the column name that will be displayed in the table
+header.
+* _Source Field_: the name of the index field that will be compared to a
+variable in the query results.
+* _Target query_: the name of the query to execute.
+* _Target query variable name_: the name of the query variable that will
+be compared to the index field specified in _Source field_.
+
+*Click handlers*
+
+It is possible to define two different actions when clicking a cell;
+
+* Open a URL defined in the corresponding index field.
+* Select an entity in an external datasource matching the corresponding
+index field.
+
+*Follow URL*
+
+Select the Follow URL action to open a URL stored in an index field in a
+new window.
+
+For example, the following configuration defines a handler that opens
+the URL stored in the field _homepage_url_ when clicking the cell
+displaying the _label_ field.
+
+image:image/15d88cecb950e4.png[image]
+
+To configure a click handler, you must set the following parameters:
+
+* Column: The name of the column to which the handler will be bound.
+* On click I want to: The action to perform on click. Select *Follow the
+URL* here.
+* URL field: The name of the field containing the URL.
+* URL format: A custom format string to compose the URL, where _@URL@_
+is replaced with the value of the field set in _URL field_.
+
+URL format can be used to create dynamic URL. The following image shows
+a configuration in which the value of the _id_ field is used to define
+the path of a URL on example.org.
+
+With this configuration, if the _id_ field is set to 11 the resulting
+URL will be _http://example.org/11_.
+
+image:image/15d88cecb9d795.png[image]
+
+*Select an entity*
+
+Select the _Select an entity_ action if you want to select an entity
+stored in an external datasource matching the selected Elasticsearch
+document; for more information about entity selection, see .
+
+To configure an entity selection action you must set the following
+parameters:
+
+* Column: The name of the column to which the handler will be bound.
+* On click I want to: The action to perform on click. Select Select the
+document here.
+* Redirect to dashboard: If set, clicking the cell selects the entity
+and displays the specified dashboard.
+
+image:image/15d88cecba5524.png[image]
+
+*Row filters*
+
+It is possible to create filters from table rows.
+
+To enable the row filters, select the Enable row filters check box.
+
+image:image/15d88cecbac776.png[image]
+
+Then, select rows which you wanted to create filters from and click
+Create Filter.
+
+image:image/15d88cecbb941e.png[image]
+
+*CSV/JSON Export*
+
+If you would like to export the documents matched by a query on an
+Elasticsearch index, press the 'Export' link at the bottom of the
+enhanced search results visualization.
+
+image:image/15d88cecbc1d36.png[image]
+
+This will display a dialog box with several options.
+
+image:image/15d88cecbc8c45.png[image]
+
+The basic options allow you to choose between CSV (Comma-separated
+values) and JSON export formats.
+
+Pressing the 'Export' button in the dialog will begin exporting all the
+documents matching a query on an Elasticsearch index in the format you
+have chosen.
+
+For more control over what gets exported, press the 'additional
+settings' link to list some more advanced options.
+
+By default, all fields of an index will be exported. To limit the export
+to a specific set of fields, press the arrow next to 'Fields'. This will
+display a list of all the fields in the index we’re exporting from.
+Simply select the checkbox next to the name of the fields you want to
+export.
+
+image:image/15d88cecbcfbc6.png[image]
+
+The next option is to limit the number of documents to export. By
+default all documents matching a query on an Elasticsearch index will be
+exported, but this can be limited to a specific number by entering it in
+the 'Limit' input box.
+
+image:image/15d88cecbd7590.png[image]
+
+When the 'Export' link at the bottom of the enhanced search results
+visualization is pressed, the time filter is frozen to the range of time
+as it is when the link is pressed. This can be refreshed by pressing the
+refresh icon.
+
+Finally, when exporting as CSV, you have the option of applying field
+formatters to fields where they are defined. Simply press 'Yes' next to
+the 'Formatted' option.
+
+image:image/15d88cecbdf003.png[image]
+
+*Exporting Dashboard Visualizations*
+
+Dashboard visualizations can be exported as images or as a PDF document.
+
+To take a snapshot of the dashboard as a PDF or to get a single
+visualization as an image, first click on the 'Export' button to display
+the export panel.
+
+image:image/15d88cecbe7829.png[image]
+
+*PDF snapshot or printing:*
+
+Saving a PDF snapshot or printing is available from the export panel.
+Additional options are available, such as 'Include dashboard query in
+output' or 'Include non-graphic panels in output (e.g. tables,
+controls)' to include useful information when you want to create a PDF
+document and download it (Download as PDF) or open in a new window for
+printing (Print).
+
+Note: Panels without results or panels opened in spy mode will not be
+included in the document.
+
+*PNG capture of visualization:*
+
+image:image/15d88cecbeffcc.png[image]
+
+To export a single visualization as an image, click on the camera button
+seen on dashboard visualizations (the button is available while the
+export panel is open).
+
+The exported visualization will be saved as a PNG image.
+
+Note: Panels without results or panels opened in spy mode will not be
+available for capturing.
+
+*Note regarding nginx*
+
+Some settings for nginx can interfere with the functionality of the
+export feature, namely the `+proxy_buffering+` directive.
+
+To avoid any potential issues, we recommend disabling the
+`+proxy_buffering+` directive in your nginx configuration.
+
+Example nginx configuration, where Siren Investigate is running behind
+the proxy on `+basePath = BASE_PATH+`:
+
+[source,conf]
+----
+location /BASE_PATH/export {
+    proxy_buffering off; <---- Here is the important bit
+    auth_basic                  "Restricted";
+    auth_basic_user_file        /etc/nginx/passwords_enterprise;
+    rewrite /kibi/(.*) /$1 break;
+    proxy_pass http://127.0.0.1:15013/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+    client_max_body_size 100M;
+}
+
+location /BASE_PATH {
+    auth_basic                  "Restricted";
+    auth_basic_user_file        /etc/nginx/passwords_enterprise;
+    rewrite /kibi/(.*) /$1 break;
+    proxy_pass http://127.0.0.1:15013/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+    client_max_body_size 100M;
+}
+----
+
+[[UUID-c781ea33-07ef-8521-35a7-f830e0d1f632]]
+== Graph Browser
+
+Graph Browser displays Elasticsearch documents as nodes and Siren
+Investigate relations as links of a graph.
+
+image:image/15d88cecc043d1.png[Graph Browser Example]
+
+*Configuration*
+
+*Big nodes threshold*
+
+If a node would expand into more than this configured number of nodes it
+will be considered a big node and the user will be given a choice to
+proceed or to select a sample.
+
+image:image/15d88cecc0d3e5.png[Big Nodes Handling]
+
+*Relations*
+
+You can configure the ontology relations you want to use in this
+visualization. If no relation gets set, they will all be used.
+
+*Scripts*
+
+The Graph Browser supports three types of scripts:
+
+* *Expansion*: Used to customize the expansion policy. The provided one
+(`+Default Expansion Policy+`) will retrieve the first level connected
+elements to the expanded nodes
+* *Contextual*: Displayed in the contextual menu (shown with a
+`+RIGHT CLICK+`). Enable you to perform operations on the graph.
+Provided _contextual_ scripts:
+** *Expand by relation*: Opens a popup that enables you to choose one or
+more of the available relations and expands the selected elements using
+only the selected ones. This does not override the graph browser
+configuration. You will see only the configured relations (if available
+for the selected nodes).
+** *Expand by top comention*: For use with `+company+` nodes from the
+Siren demonstration data. This script expands the selected nodes using
+an Elasticsearch aggregation to get the top comentioned `+company+`
+nodes.
+** *Replace investment with edge*: For use with the Siren demonstration
+data. This script replaces the investment nodes with a direct link
+between the company nodes and the investor nodes.
+** *Select - All*: Select all the elements (equivalent
+to [.keycombo]#Ctrl+A#).
+** *Select - By edge count*: Select nodes based on their link count. You
+can specify the count through the popup that appears.
+** *Select - By type*: Select nodes based on their type. You can specify
+the type through the popup that appears.
+** *Select - Extend*: Extends the current selection to the sibling
+elements.
+** *Select - Invert*: Inverts the current selection.
+** *Shortest Path*: Calculates the shortest path between two selected
+nodes by fetching the connected elements. See the
+link:#UUID-3eda0d14-2ff0-d57d-36be-d754ef43dc42[limitations for this
+script].
+** *Show nodes count by type*: Shows a popup with information about how
+many nodes per type are currently displayed.
+* *Lenses*:Lenses mutate the visual appearance of graph nodes and edges,
+can be cascaded as well as switched on and off at will during
+investigation. Provided _lens_ scripts:
+** *Size lens*: Set the size for all nodes using an expression.
+** *Color lens*: Define color for all nodes using a field.
+** *Conditional lens*: Set node properties using expressions.
+** *Label lens*: Set the label for all nodes using an expression.
+** *Associate records based on ontology lens*: Replaces a node with
+associated records based on ontology.
+** *Time and location lens*: Set time and location properties.
+* *On Update*: Modify the graph when new nodes are inserted. They can be
+cascaded. Provided _on update_ scripts:
+** *Add time fields*: Adds the time field used by the _timebar mode_.
+** *Add geo-locations for map visualization*: Adds the geographic field
+used by the _map mode_.
+** *Replace investment with edge*: Similar to the _contextual_ script
+`+Replace investment with edge+`, but executed automatically after every
+expansion.
+** *Signal dead companies*: Colors all the _company_ nodes that have a
+`+deadpooled_date+` black.
+
+To create a new _script_ go to `+Management+` → `+Scripts+`
+
+image:image/15d88cecc15a9f.png[Scripts Management]
+
+Here you can configure new _scripts_ or modify the saved ones.
+
+*Fields to exclude*
+
+You can configure a set of fields for each entity that you do not want
+to retrieve. Typically, you will exclude large fields that do not
+contribute to the link analysis (for example large textual blobs,
+technical metadata)for extra performance.
+
+*Navigating the Graph*
+
+After your Graph Browser visualization is ready, you can start your
+investigations.
+
+*Toolbar*
+
+You have several operations available:
+
+image:image/15d88cecc1e641.png[Toolbar]
+
+[arabic]
+. *Undo*: By default, the Graph Browser saves the last five states. With
+this function you can go back one step at a time, until there are no
+more available. You can configure the steps number in
+[.menuchoice]#Management > Advanced Settings#.
+. *Redo*: Revert an undo. Note, if you undo and then perform any
+operation, the redo state will be lost.
+. *Filter*: Add a filter to the current dashboard synchronized with the
+graph selection. This enables you to:
+* Do your investigation on the graph, select the vertices you are
+interested into, activate the filter, pin it and go back to the related
+dashboard to get more detailed information about those vertices.
+* If you have other visualizations in the same dashboard, it will let
+you have more information on the selected nodes. For example, if you
+have the current dashboard associated with a companies saved search, you
+can do your investigation in the graph, activate the filter, select some
+vertices and get the visualizations to show information on the selected
+vertices.
+. *Crop*: Removes every element that is not selected
+. *Remove*: Removes all the selected elements. Next to the _Remove_
+button there is a box that shows the *Remove All* button. This will
+remove the entire graph, regardless of selected elements.
++
+image:image/15d88cecc25158.png[Remove all]
+. *Expand*: Expands the currently selected nodes. Next to the _expand_
+button, there is a box that shows advanced options for the expansion.
+. *Highlight mode*: This toggles the _Highlight mode_. The _Highlight
+mode_ moves everything to the background that is not selected or
+connected to a selected node or link.
++
+image:image/15d88cecc2c400.png[Highlighting on]
++
+image:image/15d88cecc35dad.png[Highlighting off]
+. *Layouts*: Enables you to change the current graph’s layout or redraw
+the current layout:
+* *Standard* (default): Selected nodes preserve their relative position.
+* *Hierarchy*: Nodes are displayed top down according to their
+connections. Requires at least one selected node to work. Selected nodes
+will be moved at the top of the hierarchy.
++
+image:image/15d88cecc3cdf3.gif[Standard layout]
++
+image:image/15d88cecc4f676.gif[Hierarchy layout]
+. *Add*: Opens a dialog with the following options:
+* *Selected document*: Add the currently selected document. You can see
+your selected document in the upper right purple selection box.
+* *Saved graph*: Opens a dialog showing the available saved graphs. This
+feature adds a set of nodes and links, but does not preserve the layout
+you had when you saved the graph.
+* *Manual Entity identifier*: Select an Entity identifier to add as a
+node.
+* *Dashboard*: Select a dashboard from the list to add it to the graph.
++
+____
+*Note*
+
+You can also drag a dashboard from the Dashboard menu on the left and
+drop it onto the graph.
+____
++
+image:image/15d88cecc5ace5.png[Add from saved graph]
+. *Map Mode*: This toggles the _Map mode_. The _Map mode_ will move the
+nodes geographically on an interactive map. You must set up a script to
+configure the geographic properties of the nodes (See
+link:#[?xml_title]).
++
+image:image/15d88cecc62fa4.png[Map mode]
+. *Timebar Mode*: This toggles the _Timebar mode_. This mode displays a
+time bar at the bottom of the graph browser that enables time based
+filtering of nodes. After you enable this mode you can add or remove
+node types to the time bar:
++
+image:image/15d88cecc6b1bf.png[Timebar filter]
++
+You must set up a script to configure the time property of the nodes
+(See link:#[?xml_title]).
++
+image:image/15d88cecc7204b.png[Timebar mode]
+. *Save graph*: Save the current graph.
++
+image:image/15d88cecc796b3.png[Save graph]
+. *Open graph*: Open a saved graph. Unlike _add from saved graph_, this
+feature preserves the saved graph layout.
++
+image:image/15d88cecc7fbe0.png[Open Graph]
+
+*Shortcuts*
+
+The Graph Browser supports shortcuts:
+
+* [.keycombo]#Ctrl+A#: Select every element in the graph.
+* Del: Remove the selected elements (equivalent to the remove button).
+* [.keycombo]#Ctrl+click#: Enables you to add elements to the current
+selection. Can also be used to create an OR filter from a selection.
+* Double-click: Expands the selected nodes (equivalent to the
+expandbutton)
+* `+Arrows+`: Move the selected elements in the input direction.
+* Mouse wheel: Changes the zoom level of the graph.
+
+*Navigation bar*
+
+image:image/15d88cecc86fc9.png[Navigation bar]
+
+The navigation bar enables you to:
+
+[arabic]
+. Move the graph view in the clicked direction.
+. Switch between:
+* *Arrow*: Enables you to select elements.
+* *Hand*: Enables you to move the graph regardless of selected elements.
+. Enables you to change the zoom level.
+
+*Side bar*
+
+image:image/15d88cecc8dcd6.png[Side bar]
+
+The side bar enables you to:
+
+* Show, search, filter, sort, group and change node/links data.
+* Change the current selection.
+* Change node/links attributes (i.e: Color, label, tool tip, and so on).
+
+**Lenses tab**
+
+image:image/15d88cecc9558f.png[Side bar lenses tab]
+
+The lenses tab enables you to make alterations on the displayed
+nodes/links:
+
+* Color: Enables you to select a field which is then used to color the
+nodes using a coloring schema.
+* Conditional: Enables you to change a node property value using
+configurable expressions.
+* Label: Enables you to set the node label using an expression.
+* Size: Use a log scale to adjust the node’s size according to an
+expression.
+* Spatio-Temporal: Enables you to set the node time and/or geographic
+location from field values.
+* Associate records based on ontology: Enables you to replace a node
+with a relation between two of its children.
+* Graph metric: Enables you to apply metrics to the graph including:
+** Betweenness
+** Closeness
+** Connectiveness
+** Degrees
+** Eigenvector
+** Pagerank
+
+See link:#[?xml_title] for more information on lens expressions.
+
+*Lens parameters*
+
+image:image/15d88cecc9cdcf.png[Lens parameters]
+
+Each lens has specific parameters which will be used for every graph
+node.
+
+*Conditional lens*
+
+image:image/15d88cecca3b88.png[Conditional lens]
+
+A conditional lens can change a property for all the nodes that satisfy
+the condition:
+
+* Color
+* Node font icon
+* Node glyphs
+* Hidden
+* Label
+* Location
+* Node image
++
+____
+*Note*
+
+Node icons that link to web images are not always shown properly due to
+security restrictions. You may need to configure the
+link:#UUID-676f4a0f-f7d0-b563-dd3d-f50f778d6484[Image Proxy] feature to
+display them.
+____
+* Size
+* Time
+* Tooltip
+
+*Associate records based on ontology lens*
+
+image:image/15d88ceccab8be.png[Side bar - associate records based on
+ontology lens]
+
+The `+associate records based on ontology+` lens can use the node’s
+underlying model, as in the following example, to replace a node with
+the relation between two of its children.
+
+*Investment model graph view*
+
+image:image/15d88ceccb4ef6.png[vestment model graph view]
+
+After you configure the lens, two nodes and its relationship will be
+displayed. For example, apply this lens an investment node:
+
+image:image/15d88ceccbdd18.png[Investment node]
+
+You could obtain the associate records based on ontology as a result:
+
+image:image/15d88ceccc60a4.png[Associate records based on ontology
+result]
+
+*Expansion tab*
+
+The expansion tab controls how nodes expand when you double-click them
+or select a group of nodes and click Expand.
+
+* Dashboard filters: Restrict nodes produced by an expansion to those
+present in the selected dashboard.
+* Relations - simple: Restrict nodes produced by an expansion to the
+selected relations.
+* Relations - aggregated: Quickly show aggregates on graph edges that
+summarize groups of intermediate nodes.
+
+**Selection tab**
+
+image:image/15d88ceccd4017.png[Selection tab]
+
+The selection tab enables you to show, search, filter, sort, group and
+change node/links data. When this tab is opened, it reacts with your
+current node selection and loads the data in rows and columns.
+
+The main component is the data grid, every grid’s row represents a node
+in the graph and every column a field data related information.
+
+*Document type selection*
+
+The *Main selection* combo box enables selection between the different
+document types in the selected nodes.
+
+*Selection change*
+
+The second column in the grid enables multiple row selection, once
+selected it will reflect on the graph turning each node bigger and
+changing the node’s border to red.
+
+After you complete the selection, you can click the *Make main
+selection* button floating over the grid to remove the non-selected
+nodes.
+
+*Global filter*
+
+Typing in the *Filter* input enables you to search/filter in all rows
+and columns.
+
+*Local filter*
+
+Typing inside of one column’s input enables you to search/filter in all
+rows of that column.
+
+*Grid menu*
+
+image:image/15d88ceccdd0aa.png[Grid menu]
+
+This menu enables you to show or hide columns and clear all local
+filters.
+
+*Column menu*
+
+image:image/15d88cecce3eaf.png[Column menu]
+
+The menu options enable you to:
+
+* Change the sort order -Multiple column order is supported by keeping
+shift key pressed on column selection-.
+* Hide the column.
+* Group the data.
+* Add aggregated function, the result of which will be displayed at the
+bottom.
+* Pin the column to the left or right side of the grid.
+
+*Lens Expressions*
+
+Siren Investigate’s lens expression parser is based on
+https://github.com/TomFrost/Jexl[Jexl].
+
+The expression created within the lens is applied to each node of the
+selection. Each node contains an object named `+payload+` which contains
+the node’s data returned from Elasticsearch.
+
+[[UUID-317e0b15-9ef4-c449-0f78-2b93054aca35]]
+=== Saving the Graph Browser configuration
+
+The Graph Browser panel allows the user to change configurations through
+the sidebar on the right. In the three tabs of the sidebar, the user can
+change Lenses, Expansions, and Selections.
+
+In the Lenses tab, you can add lenses, change the selected lens, remove
+one or more lenses, and modify lens settings.
+
+In the Expansions tab, you can check/uncheck the dashboard filters,
+check/uncheck the simple and the aggregated relations filters, and
+change aggregated relations options.
+
+In the Selection tab, the selected graph items are shown in a grid; you
+can hide columns, sort rows in a different order, by type and so on.
+
+When a configuration is modified, a Save button appears in the top right
+of the sidebar.
+
+[cols=",,",]
+|===
+| | |
+|===
+
+If you switch to another dashboard without saving, and come back to the
+Graph Browser, the sidebar state remains the same: all configuration
+changes are kept and the Save button is still highlighted. In addition,
+the sidebar width and state (opened or closed) are kept. If you leave
+the session (log out) without saving the configurations, the next time
+you log in and open the Graph Browser, the configurations will be lost.
+
+If click the Save button, the current configurations are saved in the
+uiStateJSON of the saved visualizations object related to the Graph
+Browser visualization.
+
+image:image/15d88cecd0ed04.png[image]
+
+The structure of the saved JSON enables different configurations for the
+Graph Browser in different dashboards. All the configurations are stored
+under an id related to the dashboard id.
+
+*Cloning a Graph Browser dashboard*
+
+On the Graph Browser dashboard, click the Clone button in the top right.
+A dialog appears that allow to choose the title of the new cloned
+dashboard.
+
+image:image/15d88cecd1633e.png[image]
+
+Type a name and click the Confirm Clone button. This creates a new
+Dashboard with all the same configurations.
+
+image:image/15d88cecd1edb3.png[image]
+
+The same happens if you click the Edit button (top right) and then save
+the dashboard as new. It is possible to change the new dashboard
+configurations and save it; the original Graph Browser configurations
+will not change.
+
+[[UUID-3eda0d14-2ff0-d57d-36be-d754ef43dc42]]
+=== Shortest Path limitations
+
+You can run a script within Graph Browser to determine the shortest path
+between selected nodes in a dataset.
+
+The time to calculate the shortest path is dependent on the size and
+schema of the dataset. With this script, the ability to calculate the
+shortest path is limited by the graph expansion limit. You can modify
+this setting (`+siren:graphExpansionLimit+`), which is documented in
+link:#UUID-7a1137ad-07bd-6f5d-341c-c20924eba37b[Setting advanced
+options].
+
+____
+*Caution*
+
+Increasing the `+siren:graphExpansionLimit+` value will negatively
+affect the Graph Browser performance.
+____
+
+If you are working with Neo4j data, you can use a Neo4j Shortest Path
+script instead, which should provide better performance. See
+link:#UUID-d5129c24-f5a0-5f39-6c60-53cc27b87ac5[Adding a Shortest Path
+script for Neo4j] for details.
+
+[[UUID-2fb5f13b-40fc-a057-308a-6dba2d1a8f58]]
+=== Jexl operators
+
+There are a number of operators which can be applied to the `+payload+`
+data for transformation, comparison, and so on.
+
+Here are a selection, there are further details at the
+https://github.com/TomFrost/Jexl[Jexl] GitHub page.
+
+*Operators.*
+
+Use these operators to perform mathematical operations on values
+
+[cols=",,",options="header",]
+|===
+|Operation |Symbol |Example
+|Negate |`+!+` |`+!true+` ⇒ `+false+`
+|Add/Concat |`+++` |`+3 + 4+` ⇒ `+7+`
+|Subtract |`+-+` |`+4 - 3+` ⇒ `+1+`
+|Multiply |`+*+` |`+3 * 8+` ⇒ `+24+`
+|Divide |`+/+` |`+15 / 4+` ⇒ `+3.75+`
+|Divide and Floor |`+//+` |`+15 // 4+` ⇒ `+3+`
+|Modulus |`+%+` |`+23 % 2+` ⇒ `+1+`
+|Power of |`+^+` |`+2^3+` ⇒ `+8+`
+|Logical AND |`+&&+` |`+true && true+` ⇒ `+true+`
+|Logical OR |`+||+` |`true
+|===
+
+*Comparisons.*
+
+Use these expressions to compare two values, the Boolean results can be
+used for, for example filtering.
+
+[cols=",,",options="header",]
+|===
+|Operation |Symbol |Example
+|Equal |`+==+` |`+1 == 2+` ⇒ `+false+`
+
+|Not Equal |`+!=+` |`+1 != 2+` ⇒ `+true+`
+
+|Greater Than |`+>+` |`+2 > 3+` ⇒ `+false+`
+
+|Greater Than or Equal |`+>=+` |`+3 >= 3+` ⇒ `+true+`
+
+|Less Than |`+<+` |`+2 < 3+` ⇒ `+true+`
+
+|Less Than or Equal |`+<=+` |`+2 ⇐ 4+` ⇒ `+true+`
+
+|Element in array or string |`+in+`
+|`+"cat" in ["cat", "dog", "mouse"]+` ⇒ `+true+`
+|===
+
+*Conditional Operators.*
+
+Conditional operators return the second or third expression based on the
+result of the first expression. If the first expression
+(`+"Bob" in ["Bob", "Mary"]+` below) return `+true+`, "Yes" is returned.
+If it returns false, "No" is returned.
+
+[cols=",",options="header",]
+|===
+|Example |Result
+|"Bob" `+in+` ["Bob", "Mary"] ? "Yes" : "No" |"Yes"
+|===
+
+*Identifiers.*
+
+Access variables in the payload with dot notation or by using brackets,
+for example:
+
+....
+{
+  name: {
+    first: 'John'
+    last: 'Smith'
+  },
+  age: 55,
+  colleagues: [
+    'Mary',
+    'Bob',
+    'Ted'
+  ],
+  teammate: 2
+}
+....
+
+[cols=",",options="header",]
+|===
+|Example |Result
+|name.first |"John"
+|colleagues[teammate] |"Ted"
+|name['la' + 'st'] |"Smith"
+|===
+
+*Collection filtering.*
+
+Arrays of objects (Collections) can be filtered by including a filter
+expression in brackets. Properties of each collection can be referenced
+by prefixing them with a leading dot. The result is an array of objects
+for which the filter returns a truthy value.
+
+....
+{
+  users: [
+    { first: 'John', last: 'Smith', age: 20},
+    { first: 'Mary', last: 'Jones', age: 46},
+    { first: 'Ted', last: 'Cotter', age: 16},
+    { first: 'Bob', last: 'White', age: 66}
+  ],
+  adult: 21
+}
+....
+
+[cols=",",options="header",]
+|===
+|Example |Result
+|users[.last == 'Jones'] |[\{ first: 'Mary', last: 'Jones', age: 46}]
+
+|users[.age < adult] |[\{ first: 'John', last: 'Smith', age: 20}, first:
+'Ted', last: 'Cotter', age: 16}]
+
+|users[first == 'John'].last |"Smith"
+|===
+
+*Lens Expression Functions*
+
+In addition to the general Jexl parsing functionality, Siren Investigate
+also exposes a number of JavaScript-like functions for use in Lens
+Expressions. Payload values (or the results from earlier parsing) are
+piped into the function using the `+|+` character. These values become
+the `+val+` parameter for the functions below - meaning the `+val+` does
+not need to be added in the `+()+` after the function name. In some
+cases, this value is all that is needed by the function and some
+functions require extra parameters.
+
+Some functions require string inputs and some require integer or
+floating-point inputs
+
+.String Lens Expressions
+[cols=",,",options="header",]
+|===
+|Function |Example |Explanation
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split[split(val,
+delimiter[, limit])] |`+payload.IP | split('.', 3)+` |Splits an IP
+address by the '.' and returns the first 3 entries as an array
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith[endsWith(val,
+substring[, length])] |`+payload.name | endsWith('smith', 10)+` |Returns
+true if `+val+` ends with `+substring+`, if `+length+` is added, that
+number of characters from the beginning of `+val+` is checked.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith[startsWith(val,
+substring[, position])] |`+payload.name | startsWith('smith', 10)+`
+|Returns true if `+val+` begins with `+substring+`, if `+position+` is
+added, the substring from that position to the end of `+val+` is
+checked.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf[indexOf(val,
+substring[, length])] |`+payload.name | indexOf('smith', 10)+` |Returns
+the position of the first character of `+substring+` if `+val+` contains
+`+substring+`, if `+length+` is added, `+val+` is checked from that
+position.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase[upper(val)]
+|`+payload.name | upper+` |Returns `+val+` in upper case.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase[lower(val)]
+|`+payload.name | lower+` |Returns `+val+` in lower case.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring[indexOf(val,
+start, end)] |`+payload.name | substring(5, 10)+` |Returns the string
+within `+val+` found between `+start+` and `+end+`.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace[replace(val,
+substring, newSubString)] |`+payload.name | replace('smith', 'jones')+`
+|Replaces `+substring+` with `+newSubString+` in `+val+`.
+|===
+
+.Number lens Expressions
+[cols=",,",options="header",]
+|===
+|Function |Example |Explanation
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round[round(val)]
+|`+payload.range | round+` |Returns `+val+` rounded to the nearest
+integer.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc[trunc(val)]
+|`+payload.range | trunc+` |Returns the integer part of `+val+`.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt[sqrt(val)]
+|`+payload.range | sqrt+` |Returns `+√val+`.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign[sign(val)]
+|`+payload.range | sign+` |Returns 1 if `+val+` is positive, -1 if
+`+val+` is negative or 0 if `+val+` equals 0.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil[ceil(val)]
+|`+payload.price | ceil+` |Returns the nearest integer greater than
+`+val+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor[floor(val)]
+|`+payload.price | floor+` |Returns the nearest integer less than
+`+val+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs[abs(val)]
+|`+payload.temperature_change | abs+` |Returns the absolute value for a
+Number or 0 if the number is `+null+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/exp[exp(val)]
+|`+payload.difference | exp+` |Returns `+ℯval+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log[log(val)]
+|`+payload.difference | log+` |Returns the natural logarithm of `+val+`,
+for example `+ln(val)+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random[random(val)]
+|`+payload.range | random+` |Returns `+val+` multiplied by a
+floating-point, pseudo-random number between 0 (inclusive) and 1
+(exclusive).
+|===
+
+[[UUID-769b3b8b-ae37-2a08-5b56-a45718934bb5]]
+=== Link analysis
+
+Siren enables you to group nodes manually or automatically based on
+shared properties, for example:
+
+* All records located in France or Germany.
+* All IPs in server room A.
+* All patients from the placebo clinical trial arm.
+
+This can reduce graph clutter and make it easier to discover patterns
+and drill down into clusters during analysis.
+
+For example, the following image shows companies clustered by US state
+in which their headquarters are located.
+
+image:image/15d88cecd26f31.png[Grouping on nodes]
+
+[[UUID-82a30c72-d16e-c242-6459-6e98f3f3e110]]
+== Multichart
+
+This visualization displays a multiple types of chart according to the
+current selection of multiple configurations.
+
+image:image/15d88cecd3fd4f.png[Multichart]
+
+Multichart is not a type of chart by itself. It can contain a set of
+other charts, such as a pie chart. It enables you to switch to other
+types of chart with the same aggregations.
+
+*Multi configurations*
+
+image:image/15d88cecd497ac.png[Multi configurations]
+
+*Visualize settings*
+
+image:image/15d88cecd513ce.png[Visualize settings]
+
+*New configuration*
+
+After changing the aggregation settings and setting the desired type of
+chart, you can click Add this configuration to save the configuration as
+a separate one.
+
+image:image/15d88cecd58fb8.png[New configuration]
+
+Multichart enables you to show or hide certain features. To toggle
+visibility, click:
+
+* *Show type selector*: The button bar for the chart type selection.
+* *Show dropdown menu*: The box for the aggregation configuration
+selection.
+* *Show menu navigation buttons*: The navigation buttons around the box.
+
+*Input controls*
+
+When the priority is to immediately see the most important metadata
+fields and quickly cycle through values, input controls provide a useful
+alternative to multichart.
+
+They enable you to quickly select the top values (with either single
+value, or multi-value “tags” mode) as well as value ranges.
+
+Because input controls do not inherit the current dashboard filters,
+they will always list all possible values.
+
+image:image/15d88cecd60281.png[Input controls]
+
+[[UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f]]
+== Analytic table
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+The rows of the Analytic table are called _buckets_. You can define
+buckets to split the table into rows or to split the table into
+additional tables.
+
+Each bucket type supports the following aggregations:
+
+* Data Histogram
+* Histogram
+* Range
+* Date Range
+* IPV4 Range
+* Terms
+* Filters
+* Significant Terms
+* Geohash
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
+aggregations].
+
+After you have specified a bucket type aggregation, you can define
+sub-buckets to refine the visualization. Click *+ Add sub-buckets* to
+define a sub-bucket, then choose *Split Rows* or *Split Table*, then
+select an aggregation from the list of types.
+
+You can use the up or down arrows to the right of the aggregation’s type
+to change the aggregation’s priority.
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+Select the *Options* tab to change the following aspects of the table:
+
+*Per Page*::
+  This field controls the pagination of the table. The default value is
+  ten rows per page.
+
+Check boxes are available to toggle the following behaviors:
+
+*Show metrics for every bucket/level*::
+  Check this box to display the intermediate results for each bucket
+  aggregation.
+*Show partial rows*::
+  Check this box to display a row even when there is no result.
+
+____
+*Note*
+
+Enabling these behaviors may have a substantial effect on performance.
+____
+
+[[UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+=== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+[[UUID-dc2acbc5-1f69-e985-52b7-f685401fc3e5]]
+== Markdown widget
+
+The Markdown widget is a box that accepts Markdown text. Siren
+Investigate interprets the Markdown and displays the results on the
+dashboard. Click the Help link to go to the
+https://help.github.com/articles/github-flavored-markdown/[help page]
+for GitHub style Markdown. Click Apply to display the rendered text in
+the Preview pane. Alternatively, click or Discard to revert to a
+previous version.
+
+[[UUID-07c3eacb-b0a4-7e18-a02b-45696eb11277]]
+== Metric
+
+A metric visualization displays a single number for each aggregation you
+select.
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+Click the *Options* tab to display the font size slider.
+
+[[UUID-07c3eacb-b0a4-7e18-a02b-45696eb11277_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+=== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+[[UUID-e485b4ec-0964-71ab-98e6-87aa7b847e40]]
+== Goal and gauge
+
+A goal visualization displays how your metric progresses toward a fixed
+goal. A gauge visualization displays in which predefined range falls
+your metric.
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+Click the *Options* tab to change the following options:
+
+* *Gauge Type*: Selects between arc, circle and metric display types.
+* *Percentage Mode*: Shows all values as percentages.
+* *Vertical Split*. Puts the gauges under each other instead of next to
+each other.
+* *Show Labels*: Shows or hides the labels.
+* *Sub Text*: Text for the label that appears below the value.
+* *Auto Extend Range*: Automatically grows the gauge if value is over
+its extents.
+* *Ranges*: You can add custom ranges. Each range is assigned a color.
+If a value falls within that range, it is assigned that color. A chart
+with a single range is called a goal chart. A chart with multiple ranges
+is called a gauge chart.
+* *Color Options*: Define how to color your ranges (which color schema
+to use). Color options are visible only if more than one range is
+defined.
+* *Style - Show Scale*. Shows or hides the scale.
+* *Style - Color Labels*. Whether the labels should have the same color
+as the range the value falls in.
+
+[[UUID-1568d3ec-7a1c-6f18-f122-def14384108d]]
+== Pie charts
+
+The slice size of a pie chart is determined by the _metrics_
+aggregation. The following aggregations are available for this axis:
+
+* Count
+* Sum
+* Unique Count
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+Enter a string in the *Custom Label* field to change the display label.
+
+The _buckets_ aggregations determine what information is being retrieved
+from your data set.
+
+Before you choose a buckets aggregation, specify if you are splitting
+slices within a single chart or splitting into multiple charts. A
+multiple chart split must run before any other aggregations. When you
+split a chart, you can change if the splits are displayed in a row or a
+column by clicking the *Rows | Columns* selector.
+
+You can specify any of the following bucket aggregations for your pie
+chart:
+
+* Date Histogram
+* Histogram
+* Range
+* Date Range
+* IPV4 Range
+* Terms
+* Filters
+* Significant Terms
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
+aggregations].
+
+After defining an initial bucket aggregation, you can define sub-buckets
+to refine the visualization. Click *+ Add sub-buckets* to define a
+sub-aggregation, then choose *Split Slices* to select a sub-bucket from
+the list of types.
+
+When multiple aggregations are defined on a chart’s axis, you can use
+the up or down arrows to the right of the aggregation’s type to change
+the aggregation’s priority.
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+Select the *Options* tab to change the following aspects of the table:
+
+*Donut*::
+  Display the chart as a sliced ring instead of a sliced pie.
+*Show Tooltip*::
+  Check this box to enable the display of tooltips.
+
+After changing options, click *Apply changes* to update your
+visualization, or *Discard changes* to keep your visualization in its
+current state.
+
+[[UUID-1568d3ec-7a1c-6f18-f122-def14384108d_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+=== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+[[UUID-8f09fa78-b322-2c20-8e48-937baa0e5018]]
+== Coordinate Map
+
+A Coordinate Map visualization displays a geographic area overlaid with
+circles keyed to the data determined by the buckets you specify.
+
+____
+*Note*
+
+By default, Siren Investigate uses a demonstration Siren tilemap server
+http://www.openstreetmap.org/[Open Street Maps] service to display map
+tiles. This server has limited features and you should update the
+tilemap settings to another tilemap provider that you have configured,
+especially in a production setting. To use other tile service providers,
+configure the link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[tilemap
+settings] in `+investigate.yml+`.
+____
+
+[[UUID-5911ade4-dc91-d17f-faf5-b0b09f03dfdf]]
+===== Configuration
+
+[[UUID-aa266207-6dfd-596a-d978-fb2a9988476d]]
+==== Configuring external tilemap providers
+
+You can use existing
+https://wiki.openstreetmap.org/wiki/Tile_servers[free] or
+https://switch2osm.org/providers/[paid] tilemap providers or
+https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/[build
+and serve your own tilemap tiles].
+
+After you have setup your own tilemap provider, configure these
+link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[settings] in
+`+investigate.yml+` to have map visualizations render these tiles.
+
+For example, to use an OpenStreetMap default provider, the configuration
+YAML settings would look like:
+
+....
+tilemap:
+  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  options:
+    attribution: '&copy; [OpenStreetMap]("http://www.openstreetmap.org/copyright")'
+    subdomains:
+      - a
+....
+
+[[UUID-664440d1-70ba-97bd-8015-4e5394a75ecf]]
+==== The Data Tab
+
+[[UUID-727d011e-1e37-3a64-779a-1e730b939bf5]]
+===== Metrics
+
+The default _metrics_ aggregation for a coordinate map is the *Count*
+aggregation. You can select any of the following aggregations as the
+metrics aggregation:
+
+* Count
+* Average
+* Sum
+* Min
+* Max
+* Unique Count
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+Enter a string in the *Custom Label* field to change the display label.
+
+[[UUID-d49fd44b-09cf-a14f-1fd2-52c2c0fa99e3]]
+===== Buckets
+
+Coordinate maps use the
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html[_geohash_]
+aggregation. Select a field, typically coordinates, from the box.
+
+* The *Change precision on map zoom* check box is selected by default.
+Clear the check box to switch off this behavior. The _Precision_ slider
+determines the granularity of the results displayed on the map. See the
+documentation for the
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html#_cell_dimensions_at_the_equator[geohash
+grid] aggregation for details on the area specified by each precision
+level.
+
+____
+*Note*
+
+Higher precision increases memory usage for the browser displaying Siren
+Investigate as well as for the underlying Elasticsearch cluster.
+____
+
+* The _place markers off grid (use
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-geocentroid-aggregation.html[geocentroid])_
+box is checked by default. When this box is checked, the markers are
+placed in the center of all the documents in that bucket. When cleared,
+the markers are placed in the center of the geohash grid cell. Leaving
+this checked generally results in a more accurate visualization.
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+[[UUID-95b3d907-1a33-3b33-66c1-9bd600941b15]]
+==== Options
+
+*Map type*::
+  Select one of the following options from the box.
+*_Scaled Circle Markers_*::
+  Scale the size of the markers based on the metric aggregation’s value.
+*_Shaded Circle Markers_*::
+  Displays the markers with different shades based on the metric
+  aggregation’s value.
+*_Shaded Geohash Grid_*::
+  Displays the rectangular cells of the geohash grid instead of circular
+  markers, with different shades based on the metric aggregation’s
+  value.
+*_Heatmap_*::
+  A heat map applies blurring to the circle markers and applies shading
+  based on the amount of overlap. Heatmaps have the following options:
+  +
+  * *Radius*: Sets the size of the individual heatmap dots.
+  * *Blur*: Sets the amount of blurring for the heatmap dots.
+  * *Maximum zoom*: Tilemaps in Siren Investigate support 18 zoom
+  levels. This slider defines the maximum zoom level at which the
+  heatmap dots appear at full intensity.
+  * *Minimum opacity*: Sets the opacity cutoff for the dots.
+  * *Show Tooltip*: Check this box to have a tooltip with the values for
+  a given dot when the cursor is on that dot.
+*Desaturate map tiles*::
+  Desaturates the map’s color to make the markers stand out more
+  clearly.
+*WMS compliant map server*::
+  Check this box to enable the use of a third-party mapping service that
+  complies with the Web Map Service (WMS) standard. Specify the
+  following elements:
+  +
+  * *WMS url*: The URL for the WMS map service.
+  * *WMS layers*: A comma-separated list of the layers to use in this
+  visualization. Each map server provides its own list of layers.
+  * *WMS version*: The WMS version used by this map service.
+  * *WMS format*: The image format used by this map service. The two
+  most common formats are `+image/png+` and `+image/jpeg+`.
+  * *WMS attribution*: An optional, user-defined string that identifies
+  the map source. Maps display the attribution string in the lower right
+  corner.
+  * *WMS styles*: A comma-separated list of the styles to use in this
+  visualization. Each map server provides its own styling options.
+
+After changing options, click *Apply changes* to update your
+visualization, or *Discard changes* to keep your visualization in its
+current state.
+
+____
+*Note*
+
+If you need to display custom layers for the Coordinate Map
+visualization, a geospatial server may provide the solution. See
+link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting started with
+GeoServer].
+____
+
+*Navigating the map*
+
+After your tilemap visualization is ready, you can explore the map in
+several ways:
+
+* Click and hold anywhere on the map and move the cursor to move the map
+center. Hold Shift and drag a bounding box across the map to zoom in on
+the selection.
+* Click *Zoom In/Out* (image:image/15d88cecd67748.png[image]) to change
+the zoom level manually.
+* Click *Fit Data Bounds* (image:image/15d88cecd6e841.png[image]) to
+automatically crop the map boundaries to the geohash buckets that have
+at least one result.
+* Click *Latitude/Longitude Filter*
+(image:image/15d88cecd75088.png[image]), then drag a bounding box across
+the map, to create a filter for the box coordinates.
+
+[[UUID-95b3d907-1a33-3b33-66c1-9bd600941b15_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+===== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+[[UUID-bab747cc-92b6-bf21-65a1-811c52133bcd]]
+== Enhanced Coordinate Map
+
+The Enhanced Coordinate Map visualization (beta) displays a geographic
+area overlaid with circles keyed to the data determined by the buckets
+you specify.
+
+____
+*Note*
+
+By default, Siren Investigate uses a demonstration Siren tilemap server
+http://www.openstreetmap.org/[Open Street Maps] service to display map
+tiles. This server has limited features and you should update the
+tilemap settings to another tilemap provider that you have configured,
+especially in a production setting. To use other tile service providers,
+configure the link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[tilemap
+settings] in `+investigate.yml+`.
+____
+
+[[UUID-b9e905a6-60f7-bacf-a8cc-92b18c8e234d]]
+===== Configuration
+
+[[UUID-56fe2a7b-dbcb-85a0-5db1-233fef4f7e26]]
+=== Configuring external tilemap providers
+
+You can use existing
+https://wiki.openstreetmap.org/wiki/Tile_servers[free] or
+https://switch2osm.org/providers/[paid] tilemap providers or
+https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/[build
+and serve your own tilemap tiles].
+
+After you have setup your own tilemap provider, configure these
+link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[settings] in
+`+investigate.yml+` to have map visualizations render these tiles.
+
+For example, to use an OpenStreetMap default provider, the configuration
+YAML settings would look like:
+
+....
+tilemap:
+  url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  options:
+    attribution: '&copy; [OpenStreetMap]("http://www.openstreetmap.org/copyright")'
+    subdomains:
+      - a
+....
+
+[[UUID-91a4cac3-90ea-1d0b-0070-8924195bc829]]
+=== The Data Tab
+
+[[UUID-329d4968-939b-965e-c4dd-5e57fdd0bf80]]
+=== Metrics
+
+The default _metrics_ aggregation for a coordinate map is the *Count*
+aggregation. You can select any of the following aggregations as the
+metrics aggregation:
+
+* Count (total number of documents present in the aggregation)
+* Average
+* Sum
+* Min
+* Max
+* Unique Count (total number of unique values present in the specified
+field within the aggregation)
+
+____
+*Note*
+
+When you select any of the above aggregations _except_ Count, a Field
+dropdown is displayed from which you can select a field that is valid
+for the selected aggregation).
+____
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+Enter a string in the *Custom Label* field to change the display label.
+
+Clicking Advanced opens a field where you can enter a viable JSON input
+that acts on the field selected for the metrics aggregation. For
+example, the following JSON multiplies the number of employees by 1,000:
+
+`+{"script" : "doc['number_of_employees'].value * 1000"}+`
+
+[[UUID-77bdeced-b7a2-931e-7d0e-f967009abb8c]]
+=== Buckets
+
+Coordinate maps use the
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html[_geohash_]
+aggregation. Select a field, typically coordinates, from the box.
+
+* The *Change precision on map zoom* check box is selected by default.
+Clear the check box to switch off this behavior. The _Precision_ slider
+determines the granularity of the results displayed on the map. See the
+documentation for the
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html#_cell_dimensions_at_the_equator[geohash
+grid] aggregation for details on the area specified by each precision
+level.
+
+____
+*Note*
+
+Higher precision increases memory usage for the browser displaying Siren
+Investigate as well as for the underlying Elasticsearch cluster.
+____
+
+* The _place markers off grid (use
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-geocentroid-aggregation.html[geocentroid])_
+box is checked by default. When this box is checked, the markers are
+placed in the center of all the documents in that bucket. When cleared,
+the markers are placed in the center of the geohash grid cell. Leaving
+this checked generally results in a more accurate visualization.
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+[[UUID-81a38cb5-ffb4-5408-5743-15c17f9225b0]]
+=== The Options Tab
+
+Map Collar Scale::
+  A scaling factor for selecting which documents to use for the
+  aggregation. A setting of 1 will select documents within the map
+  extent, 2 will select documents within 2 times the size of the map
+  extent, while a value of 0.9 will scale the selection to be 0.9 times
+  the size of the map extent. The purpose of this feature is to avoid
+  excessive fetches to Elasticsearch or slower performance due to too
+  many results being fetched.
+Map type::
+  Select one of the following options from the box.
+  +
+  * *Scaled Circle Markers* - Scale the size of the markers based on the
+  metric aggregation’s value.
+  * *Shaded Circle Marker* - Displays the markers with different shades
+  based on the metric aggregation’s value.
+  * *Shaded Geohash Grid* - Displays the rectangular cells of the
+  geohash grid instead of circular markers, with different shades based
+  on the metric aggregation’s value.
+  * *Heatmap* - A heat map applies blurring to the circle markers and
+  applies shading based on the amount of overlap. Heatmaps have the
+  following options:
+  ** *Radius*: Sets the size of the individual heatmap dots.
+  ** *Blur*: Sets the amount of blurring for the heatmap dots.
+  ** *Maximum zoom*: Tilemaps in Siren Investigate support 18 zoom
+  levels. This slider defines the maximum zoom level at which the
+  heatmap dots appear at full intensity.
+  ** *Minimum opacity*: Sets the opacity cutoff for the dots.
+  ** *Show Tooltip*: Check this box to have a tooltip with the values
+  for a given dot when the cursor is on that dot.
+Tooltip Formatter::
+  Select from the following options:
+  +
+  * *Metric Value* - A tooltip containing the coordinates and the metric
+  value specified on the Data tab
+  * *Visualization* - The option to add a Visualization as a tooltip.
+  The contents of the visualization will be an aggregation based on the
+  aggregation the tool tip is being applied to.
+Close tooltip on mouseout::
+  When mouse is hovered over aggregation a tooltip will appear. When the
+  mouse is moved away from aggregation, the tool tip will disappear if
+  this box is ticked; it will remain if unticked.
+Legend Scale::
+  Configuration settings for how the aggregation is displayed on legend
+  +
+  * *Dynamic - Linear* - Each class in the legend has the same size
+  (e.g. values from 0 to 16 and 4 classes, each class has a size of 4)
+  * *Dynamic - Uneven* - Each class will have the same number of
+  documents inside, useful when data is unevenly distributed between the
+  maximum and minimum ranges
+  * *Static* - Manual specification of colors, values and number of
+  classes for the legend scale
+
+::
+
+Scroll Wheel Zoom::
+  When ticked, it is possible to use the mouse scroll wheel to toggle
+  map zoom level. (+ and - work toggle zoom regardless of this)
+Desaturate map tiles::
+  Desaturates the map’s color to make the markers stand out more
+  clearly.
+*WMS compliant map server*::
+  Check this box to enable the use of a third-party mapping service that
+  complies with the Web Map Service (WMS) standard. Specify the
+  following elements:
+  +
+  * *WMS url*: The URL for the WMS map service.
+  * *WMS layers*: A comma-separated list of the layers to use in this
+  visualization. Each map server provides its own list of layers.
+  * *WMS version*: The WMS version used by this map service.
+  * *WMS format*: The image format used by this map service. The two
+  most common formats are `+image/png+` and `+image/jpeg+`.
+  * *WMS attribution*: An optional, user-defined string that identifies
+  the map source. Maps display the attribution string in the lower right
+  corner.
+  * *WMS styles*: A comma-separated list of the styles to use in this
+  visualization. Each map server provides its own styling options.
+
+____
+*Note*
+
+If you need to display custom layers for the Region Map visualization, a
+geospatial server may provide the solution. See
+link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting started with
+GeoServer].
+____
+
+Point of Interest layers::
+  Add any elasticsearch index with a geo_point or geo_shape field as a
+  marker or polygons:
+  +
+  * Geo_point type POI layers can be viewed and can include popups
+  activated and deactivated on mouseover and mouseout.
+  * Geo_shape type POI layers are suitable for viewing, popups and
+  creating geo-filters which are applied to aggregations, other POI
+  layers and other visualizations when on the dashboards (see *Apply
+  filters* below).
+image:image/15d88cecd868e4.png[image]::
+  Configuration options for POI layers:
+  +
+  * *Saved Search* - Select any elasticsearch index from the dropdown
+  menu. Note - will need a geo point field
+  * *Geospatial Field* -  Select a geo point field within the Saved
+  Search
+  * *Styling* - Set color in Hex value form and specify the size of the
+  marker to display on map
+  * *Limit* - The number of markers that are allowed to appear for this
+  Point of Interest layer. The default is 100
+  * *Apply Filters* - Whether or not to include filters from Selection
+  tools or geo_shape type POI layers, a different visualization on the
+  same Dashboard or filters from other Dashboards applied through
+  relational Navigator
+image:image/15d88cecd8dd9c.png[image]::
+  Configuration options for the use of a third-party mapping service
+  that complies with the Web Map Service standard. Multiple layers (or
+  layer groups) can be loaded.
+  +
+  Many third party mapping services are available, and some of these are
+  described in link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting
+  started with Geoserver].
+  +
+  * *Layer Name* - A customizable label to appear in the map’s layer
+  view (image:image/15d88cecd95f92.png[image])
+  * *Url* - The URL for the WMS map service
+  * *Layers* - This is where layers (or layer groups) can be specified
+  from a WMS server. There are two options:
+  ** *If you have added a URL to a CORS-enabled WMS server* -
+  Investigate will internally run a WMS getCapabilities request and will
+  populate a list of layers that can be added by clicking ①. These can
+  be ordered, by clicking and dragging ② as below. The layer at the top
+  of the list is drawn furthest in the background.
+  +
+  image:image/15d88cecd9d429.png[image]
+  ** *If your URL is not a CORS-enabled WMS server* - The UI will remain
+  the same. You can order your layers, separated by a comma. The first
+  layer you specify will be drawn the furthest in the background.
+  +
+  image:image/15d88cecda4097.png[image]
+  +
+  ____
+  *Note*
+
+  You can still see the available layers for the WMS by running a
+  `+getCapabilities+` request. Below is an example from a local instance
+  of Geoserver:
+
+  `+http://localhost:8080/geoserver/wms?SERVICE=WMS&REQUEST=GetCapabilities+`
+  ____
+  * *CQL Filter* - Allows you to query your spatial layers as parameters
+  in WMS requests
+  * *Min Zoom Level* - The minimum zoom level that the WMS request will
+  be visible
+  * *Max Features* - The maximum number of features, up to a maximum of
+  10,000, to be rendered per tile from the specified layer(s). Note -
+  Max features can be configured in the WMS, which overrides this
+  setting
+  * *Styles* - A comma-separated list of the styles for your layer. If
+  you have access to the WMS server, you can assign defaults for these
+  and it is possible for this field to be left blank. Otherwise, each
+  map server provides its own styling options
+  * *Format Options* - The image format to be returned by the WMS. The
+  two most common formats are image/png and image/jpeg. Default is
+  image/png
+  * *Non Tiled* - The option to send the WMS request as one complete
+  image to fit the map extent, or to send it in multiple tiles
+  * *Elasticsearch WMS Options* - Configuration options for WMS request
+  ** Aggregation - Allows for the customization of geohash request from
+  WMS using elasticgeo. Example of aggregation WMS request using the
+  company index in Siren’s classic demo (“location” has a Geo_Point
+  field type):
+  `+{ "agg": { "geohash_grid": { "field": "location" } } }+`
+  ** Sync Filters - When ticked, the WMS response includes the filters
+  made using Selection tools, visualizations in the same and
+  visualizations from other dashboards.
+
+After changing options, click *Apply changes* to update your
+visualization, or *Discard changes* to keep your visualization in its
+current state.
+
+*Navigating the map*
+
+After your tilemap visualization is ready, you can explore the map in
+several ways using various tools:
+
+*Panning the map*
+
+* Click and drag anywhere on the map to move the map center
+* Hold Shift to drag a bounding box across the map to zoom in on a
+desired extent
+* Viewing extent
+** Click *Zoom In/Out* (image:image/15d88cecd67748.png[image]) to change
+the zoom level manually.
+** Click *Fit Data Bounds* (image:image/15d88cecd6e841.png[image]) to
+automatically crop the map boundaries to the geohash buckets that have
+at least one result.
+* Click Set View Location (image:image/15d88cecdab0eb.png[image]) to
+manually specify:
+** Whether latitude and longitude are in decimal degrees (dd) or
+degrees/minutes/seconds (dms) ①
+** The latitude ② and longitude ③ of the centroid of the canvas you
+would like to display
+** The desired level of zoom ④
+** Whether changes are applied ⑤ or cancelled ⑥
+
+image:image/15d88cecdb21a7.png[image]
+
+*Selection tools* - used to create geo filters
+
+* Click Draw a Polygon (image:image/15d88cecdba90e.png[image]), then
+** Click on the map canvas and add vertices; if you add a vertex that
+you don’t want, click the Delete last point option on the menu that
+opens to the right when you clicked Draw a Polygon tool.
+** When complete, either click on the first vertex or double click and
+the polygon will autocomplete. Elasticsearch documents within the drawn
+polygon will be filtered.
+* Click Latitude/Longitude Filter
+(image:image/15d88cecd75088.png[image]), then drag a bounding box across
+the map, to create a filter for the box coordinates. Elasticsearch
+documents within the drawn polygon will be filtered.
+* Click Draw a Circle (image:image/15d88cecdc227a.png[image]), then drag
+a circle and release to select documents. Elasticsearch documents within
+the drawn polygon will be filtered.
+
+____
+*Note*
+
+For all selection tools, a geo filter is created. This will appear above
+the map canvas:
+
+image:image/15d88cecdca0da.png[image]
+____
+
+*Marking tools*
+
+* Click Draw a Marker (image:image/15d88cecdd059b.png[image]), and
+select any point on the map to place a marker. You can add multiple
+markers.
+* After adding at least one marker, the Delete Marker(s) option becomes
+available
+** Point and click to delete individual markers
+** Remove all of them by clicking Clear All
+
+[[UUID-81a38cb5-ffb4-5408-5743-15c17f9225b0_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+====== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+[[UUID-5094f7e0-86e2-ecb3-ec8b-c8d553188e36]]
+== Region Map
+
+Region maps are
+https://www.arcgis.com/apps/MapJournal/index.html?appid=75eff041036d40cf8e70df99641004ca[choropleth
+maps] in which vector polygons are colored using a gradient.
+Higher-intensity colors indicate larger values, and lower-intensity
+colors indicate smaller values.
+
+image:image/15d88cecdd72d5.png[regionmap]
+
+[[UUID-57f4e2ec-4ffa-5f78-be13-5f4a719b178a]]
+=== Configuration
+
+To create a region map, you configure an inner join that joins the
+result of an Elasticsearch terms aggregation and a reference vector file
+based on a shared key.
+
+You can add your own custom polygon vector layers by using the
+`+regionmap+` setting in the `+Investigate.yml+` file. Then, after
+restarting Siren Investigate, you configure the inner join between your
+Elasticsearch index and your polygon vector layer.
+
+____
+*Note*
+
+If you need to display custom layers for the Region Map visualization, a
+geospatial server may provide the solution. See
+link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting started with
+GeoServer].
+____
+
+[[UUID-b4f7547c-44fe-6ddc-e853-7222ff3abdcc]]
+==== The Data Tab
+
+[[UUID-47526504-4b7c-a437-4144-8e96309a997e]]
+===== Metric values
+
+To specify the metric type that will be used for the choropleth, select
+any of the supported _Metric_ or _Sibling Pipeline Aggregations_.
+
+* *Aggregation* - A variety of techniques can be used to summarize or
+aggregate your Date, String, Numerical or Geo data:
+** *Metric values*:
+*** Count - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-valuecount-aggregation.html[count]
+aggregation returns a raw count of the elements in the selected index
+pattern.
+*** Average - This aggregation returns the
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-avg-aggregation.html[average]
+of a numeric field. Select a field from the drop-down menu.
+*** Sum - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-sum-aggregation.html[sum]
+aggregation returns the total sum of a numeric field. Select a field
+from the drop-down menu.
+*** Min - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-min-aggregation.html[min]
+aggregation returns the minimum value of a numeric field. Select a field
+from the drop-down menu.
+*** Max - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-max-aggregation.html[max]
+aggregation returns the maximum value of a numeric field. Select a field
+from the drop-down menu.
+*** Unique Count - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-cardinality-aggregation.html[cardinality]
+aggregation returns the number of unique values in a field. Select a
+field from the drop-down menu.
+*** Standard Deviation - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-extendedstats-aggregation.html[extended
+stats] aggregation returns the standard deviation of data in a numeric
+field. Select a field from the drop-down menu.
+*** Top Hit - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-metrics-top-hits-aggregation.html[top
+hits] aggregation returns one or more of the top values from a specific
+field in your documents. Select a field from the drop-down menu, how you
+want to sort the documents, and choose the top fields and how many
+values should be returned.
+** *Sibling Pipeline Aggregations* - You must provide a metric for which
+to calculate the sibling aggregation. You also need to provide a bucket
+aggregation, which will define the buckets on which the sibling
+aggregation will run.
+*** Average Bucket - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-pipeline-avg-bucket-aggregation.html[avg
+bucket] calculates the (mean) average value of a specified metric in a
+sibling aggregation.
+*** Sum Bucket - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-pipeline-avg-bucket-aggregation.html[sum
+bucket] calculates the sum of values of a specified metric in a sibling
+aggregation.
+*** Min Bucket - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-pipeline-avg-bucket-aggregation.html[min
+bucket] calculates the minimum value of a specified metric in a sibling
+aggregation.
+*** Max Bucket - The
+https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-aggregations-pipeline-avg-bucket-aggregation.html[max
+bucket] calculates the maximum value of a specified metric in a sibling
+aggregation.
+** *Custom label*- The user-specified label that will be used in the
+tooltip.
+* *Advanced mapping features*
+* *JSON Input* - A text field where you can add specific JSON-formatted
+properties to merge with the aggregation definition. Below is a viable
+JSON input for the companies index in metrics on the data tab. *Note*:
+Count cannot be included as it is not an aggregation.
++
+`+{"script" : "doc['number_of_employees'].value * 1000"}+`
+
+____
+*Note*
+
+The entire request, including the Advanced settings, can be viewed by
+selecting the upward arrow icon in the bottom-left of the map canvas and
+selecting *Request* from the dropdown menu.
+____
+
+[[UUID-5018d15f-f18e-12fe-7373-571b35e7ed6b]]
+===== Buckets
+
+The *Shape* field is where the parameters of the join between the
+polygon vector map and the Elasticsearch index are specified.
+
+* *Aggregation* - Specify the _Terms_ aggregation. The term is the _key_
+that is used to join the results to the vector data on the map.
+* *Field*- Specify the Elasticsearch document field to be used for
+joining to the polygon vector layer.
+* *Order By* - The field or metric to order the Elasticsearch query by.
+* *Order* - Specify whether to sort the *Order By* field in ascending or
+descending order.
+* *Size* - Specify the number of polygons that should be rendered on the
+map. This is inclusive of the *Group other values in separate bucket*
+and *Show for missing values* options below.
+* *Group other values in separate bucket* - An option to represent
+documents not displayed in the choropleth. These may not be displayed
+due to the *Size* specification.
+** *Label for other bucket* - If you would like the other values to
+appear on the map, specify a valid *Field* value that isn’t already
+displayed on the choropleth.
+* *Show for missing values* - The option to show documents missing a
+value for the specified *Field*.
+** *Label for missing values* - If you would like the other values to
+appear on the map, specify a valid *Field* value that isn’t already
+displayed on the choropleth.
+
+[[UUID-87a0c9e9-bc7f-0b37-37d6-c37c06b0b38f]]
+===== Advanced mapping features
+
+You can use the *Exclude* and *Include* fields to specify the features
+of the Region map layer to exclude or include in the resulting
+choropleth.
+
+Both fields use
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax[Regular
+Expression Format syntax]. For example, using World Countries (one of
+Siren’s default layers, which can be selected in the *Options* tab),
+joined on companies country code, GBR in the include field would just
+display Great Britain on the resulting choropleth. Similarly, USA|CAN in
+the exclude field would remove USA and Canada from the resulting
+choropleth.
+
+*JSON input* - You have the option to
+https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html[add
+or edit the attributes] of the *Terms* field of the Elasticsearch
+request body. For example, to specify the minimum number of documents
+for the aggregation to be displayed on the choropleth, you could enter
+the following syntax:
+
+`+{ "min_doc_count": 60 }+`
+
+____
+*Note*
+
+The entire request, including the advanced settings, can be viewed by
+selecting the upward arrow icon in the bottom left of the map canvas and
+selecting request from the drop-down menu.
+____
+
+[[UUID-b2b605e8-4957-9459-db74-d691d41a3346]]
+==== Options
+
+[[UUID-6d391f60-3517-34bf-2c2b-9ed7b77e913d]]
+===== Layer settings
+
+* *Vector map*: select from a list of vector maps. This list includes
+the maps that are hosted by the ©
+https://www.elastic.co/elastic-maps-service[Elastic Maps Service], as
+well as your self-hosted layers that are configured in the
+*config/kibana.yml* file. To learn more about how to configure Kibana to
+make self-hosted layers available, see the
+link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[regionmap settings]
+documentation.
+* *Join field*: this is the property from the selected vector map that
+will be used to join on the terms in your terms-aggregation. When terms
+cannot be joined to any of the shapes in the vector layer because there
+is no exact match in the vector layer, Kibana will display a warning. To
+turn off these warnings, go to *Management/Kibana/Advanced Settings* and
+set `+visualization:regionmap:showWarnings+` to `+false+`.
+
+[[UUID-2b8e5e78-c49d-a007-137e-ce48923768ac]]
+===== Style settings
+
+* *Color Schema*: the color range that is used to color the polygons.
+
+[[UUID-3ae75be5-19cf-0608-7a39-81c138c1a412]]
+===== Basic settings
+
+* *Legend Position*: the location on the screen where the legend will be
+rendered.
+* *Show Tooltip*: indicates whether a tool tip should be displayed when
+hovering over a shape.
+
+[[UUID-5bae6e28-a647-cc8f-b491-7ba1f0cca6f8]]
+== Time Series Visual Builder
+
+*Experimental feature*
+
+Time Series Visual Builder is a time series data visualizer with an
+emphasis on enabling you to use the full power of Elasticsearch
+aggregation framework. Time Series Visual Builder enables you to combine
+an infinite number of aggregations and pipeline aggregations to display
+complex data meaningfully.
+
+image:image/15d88cecddfe12.png[Time Series Visual Builder Interface.]
+
+[[UUID-08cd565a-680e-1810-1825-810f22c0a67e]]
+=== Featured visualizations
+
+Time Series Visual Build comes with five different visualization types.
+You can switch between each visualization type using the tabbed picker
+at the top of the interface.
+
+[[UUID-5ef8701d-a27c-d647-4388-469903a6f244]]
+==== Time Series
+
+A histogram visualization that supports area, line, bar, and steps along
+with multiple y-axis. You can fully customize the colors, points, line
+thickness and fill opacity. This visualization also supports time
+shifting to compare two time periods. This visualization also supports
+annotations which can be loaded from a separate index based on a query.
+
+image:image/15d88cecde6712.png[Time Series Visualization]
+
+[[UUID-b377c309-184c-4114-2c3e-dc1ffc3a6988]]
+==== Metric
+
+A visualization for displaying the latest number in a series. This
+visualization supports two metrics; a primary metric and a secondary
+metric. The labels and backgrounds can be fully customized based on a
+set of rules.
+
+image:image/15d88cecdedff6.png[Metric Visualization]
+
+[[UUID-7050af0c-e051-e2e8-2ea1-5dff38bf2b9a]]
+==== Top N
+
+This is a horizontal bar chart where the y-axis is based on a series of
+metrics and the x-axis is the latest value in those series; sorted in
+descending order. The color of the bars are fully customizable based on
+set of rules.
+
+image:image/15d88cece01119.png[Top N Visualization]
+
+[[UUID-fb00c579-2d93-acbb-22e9-585d9e087ea2]]
+==== Gauge
+
+This is a single value gauge visualization based on the latest value in
+a series. The face of the gauge can either be a half-circle gauge or
+full-circle. You can customize the thicknesses of the inner and outer
+lines to achieve a desired design aesthetic. The color of the gauge and
+the text are fully customizable based on a set of rules.
+
+image:image/15d88cece08ac5.png[Gauge Visualization]
+
+[[UUID-fa8967e4-97cc-54ff-a0f7-14b1fa8bdc8c]]
+==== Markdown
+
+This visualization enables you to enter Markdown text and embed Mustache
+template syntax to customize the Markdown with data based on a set of
+series. This visualization also supports HTML markup along with the
+ability to define a custom style sheet.
+
+image:image/15d88cece103eb.png[Markdown Visualization]
+
+[[UUID-9927c9c7-c2e2-0c94-0e29-a3dc31392793]]
+=== Interface Overview
+
+The user interface for each visualization is composed of a "Data" tab
+and "Panel Options". The only exception to that is the Time Series and
+Markdown visualizations; the Time Series has a third tab for annotations
+and the Markdown has a third tab for the editor.
+
+[[UUID-a00476b5-2b48-c8fc-c94a-6f1bbe5e1e5c]]
+==== Data Tab
+
+The data tab is used for configuring the series for each visualization.
+This tab enables you to add multiple series, depending on what the
+visualization supports, with multiple aggregations composed together to
+create a single metric. Here is a breakdown of the significant
+components of the data tab UI.
+
+[[UUID-79324857-681d-873b-76e2-5cc9236f85fc]]
+===== Series label and color
+
+Each series supports a label which will be used for legends and titles
+depending on which visualization type is selected. For series that are
+grouped by a term, you can specify a mustache variable of `+{{key}}+` to
+substitute the term. For most visualizations you can also choose a color
+by clicking the swatch, this will display the color picker.
+
+image:image/15d88cece17f1e.png[Label Example]
+
+[[UUID-a8bdadae-2ebb-85a0-d6b3-f8c3780cc3eb]]
+===== Metrics
+
+Each series supports multiple metrics (aggregations); the last metric
+(aggregation) is the value that will be displayed for the series, this
+is indicated with the "eye" icon to the left of the metric. Metrics can
+be composed using pipeline aggregations. A common use case is to create
+a metric with a "max" aggregation then create a "derivative" metric and
+choose the previous "max" metric as the source; this will create a rate.
+
+image:image/15d88cece1f208.png[Derivative Example]
+
+[[UUID-ef357066-7f2c-52a2-d04b-19c0f9f49b30]]
+===== Series options
+
+Each series also supports a set of options which are dependent on the
+type of visualizations you have selected. Universal across each
+visualization type you can configure:
+
+* Data format
+* Time range offset
+* Index pattern, timestamp, and interval override
+
+image:image/15d88cece2691b.png[Default series options]
+
+For the Time Series visualization you can also configure:
+
+* Chart type
+* Options for each chart type
+* Legend Visibility
+* Y-Axis options
+* Split color theme
+
+image:image/15d88cece2d646.png[Time series options]
+
+[[UUID-07d30636-7250-61c5-499a-cc7ca935e6f9]]
+===== Group by controls
+
+At the bottom of the metrics there is a set of "Group By" controls that
+enables you to specify how the series should be grouped or split. There
+are four choices:
+
+* Everything
+* Filter (single)
+* Filters (multiple with configurable colors)
+* Terms
+
+By default, the series is grouped by everything.
+
+[[UUID-e19d6e63-ee52-4875-7b20-158932d51765]]
+==== Panel options
+
+The panel options tab is used for configuring the entire panel; the set
+of options available is dependent on which visualization you have
+selected. The following is a list of the options available per
+visualization:
+
+*Time Series*
+
+* Index pattern, timestamp, and Interval.
+* Y-Axis min and max.
+* Y-Axis position.
+* Background color.
+* Legend visibility.
+* Legend position.
+* Panel filter.
+
+*Metric*
+
+* Index pattern, timestamp, and interval.
+* Panel filter.
+* Color rules for background and primary value.
+
+*Top N*
+
+* Index pattern, timestamp, and interval.
+* Panel filter.
+* Background color.
+* Item URL.
+* Color rules for bar colors.
+
+*Gauge*
+
+* Index pattern, timestamp, and interval.
+* Panel filter.
+* Background color.
+* Gauge max.
+* Gauge style.
+* Inner gauge color.
+* Inner gauge width.
+* Gauge line width.
+* Color rules for gauge line.
+
+*Markdown*
+
+* Index pattern, timestamp, and interval.
+* Panel filter.
+* Background color.
+* Scroll bar visibility.
+* Vertical alignment of content.
+* Custom Panel CSS with support for Less syntax.
+
+[[UUID-29cb9f6f-7286-649a-b926-7d9691a93df2]]
+==== Annotations
+
+The annotations tab is used for adding annotation datasources to the
+Time Series Visualization. You can configure the following options:
+
+* Index pattern and time field.
+* Annotation color.
+* Annotation icon.
+* Fields to include in message.
+* Format of message.
+* Filtering options at the panel and global level.
+
+image:image/15d88cece35100.png[Annotation tab]
+
+[[UUID-7c967c18-4c48-6f47-d7bf-e6697f91ddde]]
+==== Markdown Tab
+
+The markdown tab is used for editing the source for the Markdown
+visualization. The user interface has an editor on the left side and the
+available variables from the data tab on the right side. You can click
+the variable names to insert the mustache template variable into the
+markdown at the cursor position. The mustache syntax uses the
+Handlebar.js processor which is an extended version of the Mustache
+template language.
+
+image:image/15d88cece3c949.png[Markdown tab]
+
+[[UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80]]
+== Tag clouds
+
+A tag cloud visualization is a visual representation of text data,
+typically used to visualize free form text. Tags are usually single
+words, and the importance of each tag is shown with font size or color.
+
+The font size for each word is determined by the _metrics_ aggregation.
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+The _buckets_ aggregations determine what information is being retrieved
+from your data set.
+
+Before you choose a buckets aggregation, select the *Split Tags* option.
+
+You can specify the following bucket aggregations for tag cloud
+visualization:
+
+*Terms*::
+  A
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-terms-aggregation.html[_terms_]
+  aggregation enables you to specify the top or bottom _n_ elements of a
+  given field to display, ordered by count or a custom metric.
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+Select the *Options* tab to change the following aspects of the chart:
+
+*Text Scale*::
+  You can select *linear*, *log*, or *square root* scales for the text
+  scale. You can use a log scale to display data that varies
+  exponentially or a square root scale to regularize the display of
+  highly variable data sets.
+*Orientation*::
+  You can select how to orientate your text in the tag cloud. You can
+  choose one of the following options: Single, right angles and
+  multiple.
+*Font Size*::
+  Enables you to set minimum and maximum font size to use for this
+  visualization.
+
+[[UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+=== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+[[UUID-8548faab-7bd2-ce0a-a3c7-bd09b91f377d]]
+== Topic Clustering
+
+*Experimental feature*
+
+The Topic Clustering visualization performs significance and clustering
+analysis on full-text fields. While similar to the Tags Cloud
+visualization, Topic Clustering highlights significant terms (topics)
+whose frequency in documents increases when current filters and search
+queries are applied.
+
+image:image/15d88cece42ff2.png[image]
+
+The Topic Clustering panel is divided into separate cells, each
+representing a term. Cell size represents the number of documents it
+matches, while its color represents its relevance to current
+queries/filters.
+
+The visualization can also cluster together mutually significant terms,
+forming groups that denote 'areas of interest' of the text corpus (large
+set of structured texts).
+
+*Interaction*
+
+You can interact with Topic Clustering using mouse or touch:
+
+* Pan the view by click-and-drag/tap-and-drag
+* Zoom in or out using the mouse wheel/pinch-zoom gestures
+* Zoom out to initial view and close all cells with the ESC key
+* Open a cell with a double-click/tap
+* Close a cell by double-clicking its header
+
+*Expanding and collapsing cells*
+
+Double-click/tap a cell to open it; this loads its significant sub-terms
+and displays them recursively. It also puts the cell term in a white
+header at the top of the cell.
+
+image:image/15d88cece4d06c.png[image]
+
+Once loaded, cells are automatically opened and closed depending on your
+current level of zoom. However, you can still open a cell explicitly by
+double-clicking on it. Conversely, you can close it by double-clicking
+on the white cell header.
+
+image:image/15d88cece56c5d.png[image]
+
+Loaded cells open/close automatically as you zoom in/out.
+
+*Tooltip*
+
+Hovering over a cell displays details such as the number of documents it
+represents and its relevance/significance score:
+
+image:image/15d88cece5fe4a.png[image]
+
+Tooltip legend
+
+[arabic]
+. *Path*: Hierarchical position of the cell
+. *Relevance Score*: The term’s relevance/significance score with
+respect to current search query, along with filters and ancestor cells
+. *Size (total)*: Matching documents compared to all searched/filtered
+documents
+. *Size (parent)*: Matching documents compared  to those in the parent
+cell
+. *Parent Coverage*: Union of all documents matched by this and sibling
+cells compared to those in the parent cell.
++
+You can apply either a found term or a full cluster as filters, by
+clicking on the associated buttons on the tooltip. This is useful to
+foreground an interesting area of the corpus that has been identified.
+. *Filter cluster*: Click to apply a dashboard filter matching any of
+the cluster terms.
+. *Filter term*: Click to apply a dashboard filter for the cell term
+only
+
+*Live Filter*
+
+Clicking a cell selects it. In a dashboard, this automatically applies a
+live filter matching the cell's term to other visualizations in that
+dashboard.
+
+The live filter does not apply to the visualization itself, or other
+Topic Clusterings in the same dashboard, which retain their UI state.
+
+For example, you can pair a Topic Clustering with a Record Table next to
+it. Selecting a cell updates the table and displays associated document
+samples.
+
+image:image/15d88cece67f87.png[image]
+
+*Setting up the visualization*
+
+*Data Tab*
+
+The only required input is the text field to operate on, which must be
+set before the visualization can render.
+
+____
+*Tip*
+
+If you can’t see the field you want, check the Management > Data Model
+page to make sure that it’s _aggregatable_. You can make a text field
+aggregatable by enabling the `+fielddata+` mapping property for the
+field, as explained in the
+https://www.elastic.co/guide/en/elasticsearch/reference/current/fielddata.html#enable-fielddata-text-fields[Elasticsearch
+documentation]. Remember to refresh the Fields list in the Data Model
+page to reflect the changes.
+____
+
+image:image/15d88cece70fa7.png[image]
+
+Terms extraction can work in Plain mode or Clustering mode:
+
+* In Plain mode, no clustering is performed, and only a flat selection
+of the most significant terms is displayed.
+* In Clustering mode, significant topics are put in clusters based on
+their mutual significance. This mode can trade off some
+high-significance plain terms in favor of filling up the clusters.
+
+You can select a different extraction mode when retrieving terms at the
+initial (root topics) level, and when expanding cells (sub-topics) with
+a double-click/tap.
+
+Changing the Chart Type option to Square renders the visualization as a
+more traditional square treemap:
+
+image:image/15d88cece78052.png[image]
+
+The following parameters control terms generation:
+
+* *Target Topics Count*: The desired number of terms to calculate and
+display.
+* *Ignore Large Topics*: Specifies how relatively large terms (as
+percentage) will be ignored, as they can be considered trivial.
+* *Maximum Clusters Size*: The maximum number of terms a cluster can
+have.
+* *Per-shard documents (thousands)*: Restricts document analysis to the
+specified number of documents, per shard, chosen among the best matching
+for current search query and filters. Can be used to discard analysis of
+the worst-matching documents to gain a speed boost.
+
+*Stop-Words Tab*
+
+Text field values often contain undesirable or irrelevant terms that
+should be filtered out; these are called stop-words.
+
+Stop-words are best applied at index-time using the appropriate
+Elasticsearch analyzers support.  Check the
+https://www.elastic.co/guide/en/elasticsearch/guide/current/stopwords.html[Elasticsearch
+stop-words documentation] for further details. However, some undesirable
+words will inevitably slip past the indexing phase. Some words may also
+be undesirable only in the context of a particular visualization.
+
+You can provide an additional list of stop-words to be filtered by the
+visualization itself. The list is configured as separate lines in the
+Stop Words tab; each line is a separate stop-word.
+
+image:image/15d88cece810a8.png[image]
+
+Regular expressions as stop-words are supported, which can be useful to,
+say, remove all numbers. However, using regular expression stop-words
+incurs a performance penalty. A single regular expression is sufficient,
+as it will force all stop-words to be included in a regular expression
+separated by | (pipe) conditionals.
+
+*Appearance Tab*
+
+Cell colors are associated with the relevance/significance score
+calculated for each term, while cell size relates to the number of
+documents it matches.
+
+You can change the colors displayed by adjusting two colors representing
+the extremes of the color palette.
+
+____
+*Tip*
+
+It is good practice to set the Low Relevance color to a low saturation
+(paler) value of the selected color, and set the High Relevance color to
+a high saturation (more intense) value of the same color.
+
+image:image/15d88cece8a864.png[image]
+____
+
+You can also fine-tune some of the aspects of the rendered chart using
+the following options.
+
+* *Cell Gradients*: controls the rendering mode of cell backgrounds.
+When enabled, cells will be rendered with a nice-looking smooth-colored
+gradient. You can disable this option to render cells using a flat
+color, which is faster and arguably less distracting.
+* *Colored Cell Headers*: controls coloring of cell headers. When
+enabled, opened cell headers will be rendered with a smooth gradient
+based on the opened cell’s relevance score. When disabled, the header
+will be rendered with a flat white color, to separate it from child
+cells.
+* *Coverage information*: enables/disables the Parent Coverage section
+from the tooltip.
+
+*Limitations*
+
+*String Analysis*
+
+The Topic Clustering visualization only applies to the ElasticSearch
+text datatype, which undergoes string analysis transformations like
+tokenization and stemming at data ingest.
+
+This means that it is not applicable to fields found in JDBC backends,
+which do not support string analysis out of the box.
+
+*Fielddata*
+
+As with Tags Cloud,
+https://www.elastic.co/guide/en/elasticsearch/reference/current/fielddata.html[fielddata]
+support must be enabled on a text field for Topic Clustering to work.
+
+Enabling fielddata can result in high memory usage on the ElasticSearch
+cluster, so refer to the
+https://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html[official
+ElasticSearch guide]for more information on enabling fielddata
+appropriately.
+
+*Additional Notes*
+
+Without a search query or filter, it is not possible to establish a
+foreground/background set pair, so there is nothing to define
+significance against.
+
+In these cases, the visualization adopts alternative relevance score
+functions:
+
+* In Plain terms mode, each term is scored according to its matching
+documents count normalized by the total documents count. This is like
+selecting the largest terms in the field.
+* In Clustered terms mode, each term is scored according to an average
+of its own significant subterms (the significant terms found when it is
+used as a filter).
+
+[[UUID-9dfad9e8-a840-762f-74f3-7589c6e4653e]]
+== Heatmap chart
+
+A heat map is a graphical representation of data where the individual
+values contained in a matrix are represented as colors. The color for
+each matrix position is determined by the _metrics_ aggregation.
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+The _buckets_ aggregations determine what information is being retrieved
+from your data set.
+
+Before you choose a buckets aggregation, specify if you are defining
+buckets for X or Y axis within a single chart or splitting into multiple
+charts. A multiple chart split must run before any other aggregations.
+When you split a chart, you can change if the splits are displayed in a
+row or a column by clicking the *Rows | Columns* selector.
+
+This chart’s X and Y axis supports the following aggregations:
+
+* Date Histogram
+* Histogram
+* Range
+* Date Range
+* IPV4 Range
+* Terms
+* Filters
+* Significant Terms
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
+aggregations].
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+Select the *Options* tab to change the following aspects of the chart:
+
+*Show Tooltips*::
+  Check this box to enable the display of tooltips.
+*Highlight*::
+  Check this box to enable highlighting of elements with same label.
+*Legend Position*::
+  You can select where to display the legend (top, left, right, bottom).
+*Color Schema*::
+  You can select an existing color schema or go for custom and define
+  your own colors in the legend.
+*Reverse Color Schema*::
+  Selecting this check box will reverse the color schema.
+*Color Scale*::
+  You can switch between linear, log and square root scales for color
+  scale.
+*Scale to Data Bounds*::
+  The default Y axis bounds are zero and the maximum value returned by
+  the data. Select this check box to change both upper and lower bounds
+  to match the values returned by the data.
+*Number of Colors*::
+  Number of color buckets to create (2 to 10).
+*Percentage Mode*::
+  Enabling this will show legend values as percentages.
+*Custom Range*::
+  You can define custom ranges for your color buckets. For each of the
+  color bucket you need to specify the minimum value (inclusive) and the
+  maximum value (exclusive) of a range.
+*Show Label*::
+  Enables showing labels with cell values in each cell.
+*Rotate*::
+  Allows rotating the cell value label by 90 degrees.
+
+[[UUID-9dfad9e8-a840-762f-74f3-7589c6e4653e_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+=== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+____
+*Tip*
+
+You can click the map icon to pivot from individual entity mode to
+aggregate heatmap.
+____
+
+[[UUID-88523206-1b84-cd03-c133-7bbbecfe53fe]]
+==== Line, area, and bar charts
+
+Line, Area, and Bar charts enable you to plot your data on the X/Y axis.
+
+First you need to select your _metrics_ which define Value axis.
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+The _buckets_ aggregations determine what information is being retrieved
+from your data set.
+
+Before you choose a buckets aggregation, specify if you are splitting
+slices within a single chart or splitting into multiple charts. A
+multiple chart split must run before any other aggregations. When you
+split a chart, you can change if the splits are displayed in a row or a
+column by clicking the *Rows | Columns* selector.
+
+The X axis of this chart is the _buckets_ axis. You can define buckets
+for the X axis, for a split area on the chart, or for split charts.
+
+This chart’s x-axis supports the following aggregations.
+
+* Date Histogram
+* Histogram
+* Range
+* Date Range
+* IPv4 Range
+* Terms
+* Filters
+* Significant Terms
+* External Query Terms Filter
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
+aggregations].
+
+After you have specified an X axis aggregation, you can define
+sub-aggregations to refine the visualization. Click *+ Add Sub
+Aggregation* to define a sub-aggregation, then choose *Split Area* or
+*Split Chart*, then select a sub-aggregation from the list of types.
+
+When multiple aggregations are defined on a chart’s axis, you can use
+the up or down arrows to the right of the aggregation’s type to change
+the aggregation’s priority.
+
+You can customize your visualization. For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
+aggregations].
+
+[[UUID-c4a2e4f0-fe77-d8c4-2bb3-272cc265e66d]]
+=== Metrics and Axes
+
+Select the *Metrics and Axes* tab to change the way each individual
+metric is shown on the chart. The data series are styled in the
+_Metrics_ section, while the axes are styled in the X and Y axis
+sections.
+
+[[UUID-b34e2de4-9a3a-a51e-7f7b-13bae53e5b43]]
+==== Metrics
+
+Modify how each metric from the Data panel is visualized on the chart.
+
+*Chart type*::
+  Choose between *Area*, *Line*, and *Bar* types.
+*Mode*::
+  Stack the different metrics, or plot them next to each other.
+*Value Axis*::
+  Choose the axis you want to plot this data too (the properties of each
+  are configured under Y-axes).
+*Line mode*::
+  Choose how the outline of lines or bars appear; *smooth*, *straight*,
+  or *stepped*.
+
+[[UUID-47cc60d4-1148-a704-27ac-be3bc71d41b6]]
+==== Y-axis
+
+Style all the Y-axes of the chart.
+
+*Position*::
+  Position of the Y-axis (*left* or *right* for vertical charts, and
+  *top* or *bottom* for horizontal charts).
+*Scale type*::
+  Scaling of the values (*linear*, *log*, or *square root*)
+*Advanced Options*::
+  *Labels - Show Labels*;;
+    Enables you to hide axis labels.
+  *Labels - Filter Labels*;;
+    If filter labels are enabled, some labels will be hidden in case
+    there is not enough space to display them,
+  *Labels - Rotate*;;
+    Number in degrees for how much you want to rotate labels.
+  *Labels - Truncate*;;
+    Size in pixels to which the label is truncated.
+  *Scale to Data Bounds*;;
+    The default Y-axis bounds are zero and the maximum value returned by
+    the data. Check this box to change both upper and lower bounds to
+    match the values returned by the data.
+  *Custom Extents*;;
+    You can define custom minimum and maximum for each axis.
+
+[[UUID-76065b68-10ed-99cb-ca37-873148e9477c]]
+==== X-axis
+
+*Position*::
+  Position of the X-Axis (*left* or *right* for horizontal charts, and
+  *top* or *bottom* for vertical charts).
+*Advanced Options*::
+  *Labels - Show Labels*;;
+    Enables you to hide axis labels.
+  *Labels - Filter Labels*;;
+    If filter labels are enabled, some labels will be hidden in case
+    there is not enough space to display them.
+  *Labels - Rotate*;;
+    You can enter the number in degrees for how much you want to rotate
+    labels.
+  *Labels - Truncate*;;
+    You can enter the size in pixels to which the label is truncated.
+
+[[UUID-0d9edb94-ad1a-2bd4-ae31-f7184e57617f]]
+=== Panel settings
+
+These are options that apply to the entire chart, not just the
+individual data series.
+
+[[UUID-7b5782ef-3081-092f-3515-dbd85b92f0ee]]
+==== Common options
+
+*Legend Position*::
+  Move a legend to the *left*, *right*, *top* or *bottom*.
+*Show Tooltip*::
+  Toggle the display of tool tip when moving the mouse pointer over
+  chart objects.
+*Current Time Marker*::
+  Show a line indicating the current time.
+
+[[UUID-13f90432-15f6-6530-37a6-9316f4a5e558]]
+==== Grid options
+
+You can enable grid on the chart. By default, grid is displayed on the
+category axis only.
+
+*X-axis*::
+  You can switch off the display of grid lines on category axis.
+*Y-axis*::
+  You can choose on which (if any) of the value axes you want to display
+  grid lines.
+
+[[UUID-13f90432-15f6-6530-37a6-9316f4a5e558_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
+===== Viewing detailed information
+
+For information on displaying the raw data, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
+Spy].
+
+[[UUID-913916fe-4254-9c36-0e8e-54dea253a75c]]
+== Timeline
+
+The Timeline visualization displays series of data coming from different
+saved searches on a single timeline component. Events are color-coded to
+distinguish between different groups.
+
+Each event on a timeline becomes a clickable term filter which enables
+you to quickly filter the related data based on what is shown on the
+timeline.
+
+image:image/15d88cece91da3.png[Timeline]
+
+*Configuration*
+
+To configure the visualization, add a new *Group* and select:
+
+* *Saved search id*: Date for this group will be taken from
+corresponding index.
+* *Group label*: Label for the group.
+* *Event label field*: Field value will be used as individual event
+label.
+* *Event start date*: Date from this field will be used to position
+start of the event.
+* *Event end date* (optional): Date from this field will be used to
+position end of the event.
+* *Events number limit* (optional): Limit number of events in this
+group.
+
+image:image/15d88cece9a19b.png[Timeline configuration]
+
+*Advanced option*
+
+By default, events from multiple groups are rendered all mixed together.
+It is possible to show different groups on different levels by enabling
+the advanced option
+
+* *Groups rendered on separate levels*
+
+image:image/15d88cecea32f2.png[Timeline advanced configuration]
+
+In the timeline, each group is rendered on separate level:
+
+image:image/15d88cecea9e60.png[Timeline]
+
+[[UUID-d139b0d7-cf24-a2b5-84db-5ce99fa112d1]]
+== Scatter Plot
+
+This visualization displays a scatter plot chart in four different
+modes: _Straight_, _Significant terms_, _Any aggregator_, _Filtered
+aggregator_.
+
+*Straight*
+
+image:image/15d88ceceb1c93.png[image]
+
+This mode does not use aggregates, it pulls the data directly from
+Elasticsearch using the
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-function-score-query.html[Random
+scoring method] to get a random sample of records.
+
+* *X values*: The value can be String, Date or Numeric.
+* *Y values*: The field value can be String, Date or Numeric.
+* *X axis label*
+* *Y axis label*
+* *X axis scale*: Select *linear*, *log*, or *square root* scales for
+the chart’s X axis. You can use a log scale to display data that varies
+exponentially, such as a compounding interest chart, or a square root
+scale to regularize the display of highly variable data sets. This kind
+of data, where the variability is itself variable over the domain being
+examined, is known as _heteroscedastic_ data. For example, if a data set
+of height versus weight has a relatively narrow range of variability at
+the short end of height, but a wider range at the taller end, the data
+set is heteroscedastic.
+* *Y axis scale*: Select *linear*, *log*, or *square root* scales for
+the chart’s Y axis.
+* *Jitter field*: Deterministic jitter to add pseudo random data
+distribution in the X axis data interval. Jitter is useful for
+distributing the values across X axis. Doing so enables you to show the
+data distributed across the bucket, in that way the dot is more visible.
+* *Jitter scale*: Select *linear*, *log*, or *square root* scales for
+the jitter.
+* *Label*: Dot label.
+** *Display label*: Select this check box to enable the display of a
+label next to the dot.
+** *Label hover effect*: Select this check box to enable the tool tip
+label.
+* *Color*: Dot color.
+* *Color field*: Used as an input to generate the dot colors. Only
+number field types are permitted.
+* *Dot size*
+* *Dot size field*: An input for the dot size. Only number field types
+are permitted.
+* *Dot size scale*: Select *linear*, *log*, or *square root* scales for
+the dot size.
+* *Size*: Number of random records to fetch from an Elasticsearch query.
+* *Shape opacity*: Value from 0 to 1 that defines the dot transparency.
+
+*Significant terms*
+
+image:image/15d88cecec4eac.png[Significant term]
+
+In this mode the chart is built from a _Significant terms_ aggregation
+query result. The X values are taken from the *bg_count* field and the Y
+values from *doc_count* field.
+
+* *Field*: Field that will provide terms to be aggregated.
+* *Size*: Number of significant terms to be aggregated.
+* *X axis label*
+* *Y axis label*
+* *Color*: Dot color.
+* *Shape opacity*: Value from 0 to 1 that defines the dot transparency.
+
+*Any aggregator*
+
+image:image/15d88cececd8d0.png[Any aggregator]
+
+The chart is built from a _Date Histogram_, _Histogram_, _Terms_ or
+_Significant terms_ aggregation query result.
+
+* *Aggregation*
+* *X Metric*: Metric for X axis values.
+* *Y Metric*: Metric for Y axis values.
+* *Color*: Dot color.
+* *Dot size*
+* *Shape opacity*: Value from 0 to 1 that defines the dot transparency.
+
+*Filtered aggregator*
+
+image:image/15d88ceced41c4.png[Filtered aggregator]
+
+The chart is built from a _Date Histogram_, _Histogram_, _Terms_ or
+_Significant terms_ aggregation query result. The X and Y values are
+taken from _Filters_ aggregation results.
+
+* *Aggregation*
+* *Filter X*: X axis filter string.
+* *Filter Y*: Y axis filter string.
+* *Metric*: Metric to be calculated for each filter aggregation.
+* *Color*: Dot color.
+* *Dot size*
+* *Shape opacity*: Value from 0 to 1 that defines the dot transparency.
+
+After changing options, click Apply changes to update your
+visualization. Alternatively, click Discard changes to return your
+visualization to its previous state.
+
+[[UUID-42232469-e607-25b0-9143-85af0f6f6f7c]]
+== Radar chart
+
+A radar chart is a graphical method of displaying multivariate data in
+the form of a two-dimensional chart of three or more quantitative
+variables represented on axes starting from the same point. The relative
+position and angle of the axes is typically uninformative.
+
+image:image/15d88cecedb912.png[Radar chart visualization]
+
+image:image/15d88cecee38cb.png[Radar chart settings]
+
+Also known as web chart, spider chart, star chart, the radar chart is a
+https://github.com/sirensolutions/kibi_radar_vis[standalone plugin]
+compatible with Siren Investigate 10 and later and Kibana 4.3 and later.
+
+[[UUID-94a79740-22b3-fb5e-6b29-3e7a760ea928]]
+== Box Plot
+
+This visualization displays a box plot chart from the data in the
+current set of Elasticsearch documents.
+
+image:image/15d88ceceeba68.png[Box plot]
+
+Ensure that you have:
+
+* One *Percentiles* metric, with three Percentiles defined:
+** Bottom Percentile (Usually around 25%)
+** Mean (Usually around 50%)
+** Top Percentile (Usually around 75%)
+* One *Max* metric
+* One *Min* metric
+* One *Aggregation* (*Optional*)
+
+*Options*
+
+image:image/15d88cecef3525.png[Box plot options]
+
+* *Y Axis Text*: Label for the X axis.
+* *X Axis Text*: Label for the Y axis.
+* *Show values*: Select this check box to enable the display of the
+value next to its box.
+* *Restrict Y axis MAX*: Restricts the domain of the Y axis to a maximum
+value.
+** *Global Max Y Value*: Y axis domain maximum value.
+* *Restrict Y axis MIN*: Restricts the domain of the Y axis to a minimum
+value.
+** *Global Min Y Value*: Y axis domain minimum value.
+
+When you have finished your changes, click Apply changes to update your
+visualization. Alternatively, click Discard changes to return your
+visualization to its previous state.
+
+[[UUID-7dfb8781-5712-859f-7589-1c4ec05fcbd5]]
+== Bubble diagram
+
+The bubble diagram visualization displays series of data grouped into
+packed circles.
+
+image:image/15d88cecf05d61.png[First]
+
+*Bubble size*
+
+The radius of circles depends on the type of metric aggregations.
+
+For more information, see
+link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
+aggregations].
+
+*Buckets aggregations*
+
+The _buckets_ aggregations determine what information is shown in the
+diagram.
+
+You can do a maximum of two aggregations at a time. The first
+aggregation will create the parent circles, while the second aggregation
+will create the child circles.
+
+Parent circles look slightly different to the children ones. Parent
+circles have a thicker border and the label is written in bold.
+
+The parents bubbles are divided by color. If you do a subaggregation
+(child), you will see the bubbles divided by family. Child bubbles are
+located near the parent and all have the same color. If you drag a
+bubble, all members of the family will move.
+
+image:image/15d88cecf0da1f.png[Aggregation configuration]
+
+*Options*
+
+In the diagram there are two options
+
+*Show Parents*::
+  When selected, parent bubbles are visible when doing the
+  subaggregation.
+*Enable Zoom*::
+  Enables zoom on the page. To use the zoom, use the mouse wheel.
+
+*Circles movements*
+
+All circles gravitate towards the center of the visualization. When you
+drag a circle, its family follows it.
+
+image:image/15d88cecf144af.png[Bubble movement]
+
+Moving the mouse pointer over a circle shows detailed information in a
+tooltip.
+
+image:image/15d88cecf1b8c6.png[Detailed information on hover]
+
+*Filters*
+
+You can create filters by double-clicking the bubbles. When you
+double-click a child, you will be asked to confirm the application of
+the filter on the filter bar.
+
+image:image/15d88cecf23ba1.png[Filter child]
+
+Click Apply Now to set the filter and display the bubble and its parent.
+
+image:image/15d88cecf2b7e6.png[Filter child]
+
+When you double-click a parent, you will see the bubble and its family.
+
+image:image/15d88cecf324d1.png[Filter parent]
+
+[[UUID-54334d14-beb5-3d8e-ffda-84be7d6f62be]]
+==== Horizontal Bar Chart
+
+This visualization displays a horizontal bar chart from the data in the
+current set of Elasticsearch documents.
+
+image:image/15d88cecf39552.png[Horizontal bar chart]
+
+[[UUID-ca5c9adb-2415-d579-2720-7cfeff61e898]]
+== Parallel lines chart
+
+A parallel lines chart is a type of chart that is well suited for
+visualizing many data dimensions at the same type. This is unlike most
+classical chart types, which are only able to represent data along two
+coordinate axis, with possibly additional dimensions mapping to size and
+color of the plotted primitives.
+
+To show an arbitrary number of dimensions, the parallel lines chart
+establishes one parallel axis per dimension, and lets a data-point be
+represented as a line passing through each axis at its corresponding
+value.
+
+In addition to the classical parallel coordinates chart, this plugin
+also synchronizes a strip of minified scatterplots between each
+consecutive pair of axis, which is helpful to provide a more traditional
+reference for the represented data.
+
+image:image/15d88cecf406ad.png[A parallel lines chart]
+
+=== Interaction
+
+Hovering the mouse pointer over the chart highlights the nearest line or
+bucket of the dataset, displaying the associated values for each axis
+and the number of documents associated with the line.
+
+==== Filtering lines
+
+Clicking and dragging on columns enables you to define a filter for the
+values of a column. This means that all values outside the defined range
+are dimmed and unselectable. It is also possible to click a single value
+of a column, thus placing a filter on the single value itself, instead
+of a range of values.
+
+Filters can also be defined on the minified scatterplots by clicking and
+dragging to a rectangle shape. This places two range filters on the axis
+columns.
+
+image:image/15d88cecf4a931.png[A range filter and a value filter]
+
+==== Column interactions
+
+The main feature of the parallel lines chart is that it enables you to
+easily identify obvious cases of positive or negative correlation.
+
+You can swap the placement of columns by clicking a column name and
+dragging the column to its new place. This immediately updates the chart
+and the scatterplots strip.
+
+image:image/15d88cecf52661.png[Moving columns]
+
+Columns can be sorted using the associated arrows available before a
+column name when you hover the mouse pointer over it. Sorting a columns
+does not perform an additional server request, it only sorts the already
+retrieved data.
+
+Clicking the *Remove* icon (*X*) after a column name hides the column
+from the visualization. This is useful when you want to concentrate on
+the other columns. Hidden columns can be restored by clicking the *Show*
+icon (image:image/15d88cecf5e55b.png[image]) on the top-right corner of
+the visualization (displayed only when a column is hidden).
+
+==== Expanded scatterplots
+
+Scatterplots can be expanded by clicking the *Expand* icon that becomes
+visible when you hover the mouse pointer over a minified scatterplot. To
+return to the main chart, click the *Minify* icon on the top-right
+corner of an expanded scatterplot.
+
+image:image/15d88cecf652f3.png[An expanded scatterplot]
+
+=== Setting up
+
+==== Data tab
+
+Each metrics and buckets aggregation map to a column of the chart.
+
+To change the name on top of the visualized axis, use the Custom Label
+value of the associated aggregation.
+
+===== Supported metric aggregations
+
+* Count
+* Average
+* Sum
+* Min
+* Max
+* Unique Count
+* Top Hit
+
+===== Supported bucket aggregations
+
+* Date Histogram
+* Histogram
+* Range
+* Date Range
+* Terms
+* Significant Terms
+
+==== Columns tab
+
+This tab displays additional configurable parameters associated to each
+column or axis of the chart. Currently, this is limited to:
+
+*Scale Type*: Defines the type of scale to associate to an axis for
+numeric fields. Choices are linear, log or square root.
+
+==== Options tab
+
+Other general options that configure the appearance of the generated
+visualization:
+
+===== Color settings
+
+* *Low Color Records*: The color to be used for buckets (lines) with the
+lowest number of documents. The color of higher-documents buckets will
+be linearly interpolated from this value.
+* *High Color Records*: The color to be used for buckets (lines) with
+the highest number of documents. The color of lower-documents buckets
+will be linearly interpolated to this value.
+* *Highlighted Record*: The nearest line/bucket to the user’s mouse
+pointer will be highlighted with this color.
+* *Value Tips*: The color used to render the values of each axis/field
+near the highlighted line.
+
+===== Other
+
+* *Ticks Distance (px)*: The desired distance, in pixels, between the
+ticks of each axis. The actual distance is usually respected, depending
+on the cooperation of the scale associated to each axis.
+* *Expanded Scatterplot Points Radius (px)*: The radius of data-points
+displayed in the expanded scatterplot (click on the expand icon when
+hovering a minified scatterplot to expand it)
+* *Show Filtered-Out Records As Shadows*: Whether lines outside
+currently defined column filters should be hidden or displayed with as
+gray 'shadow' lines.
+* *Render Using Html5 Canvas (faster)*: A mostly technical detail,
+defines the kind of rendering to be used for lines (canvas or svg). Will
+be probably removed in future revisions.
+
+[[UUID-f39f4458-a422-c71e-aaf5-a839758dbfc7]]
+== Query Viewer
+
+This visualization displays the results from multiple queries on
+external datasources using query templates.
+
+To add a query to the visualization, click Add query and set the
+following parameters:
+
+* Label: The caption for the table, in case of a table template like
+_kibi-table-jade_. This sets the variable *label* to the given value.
+* Source query: The query used by the template.
+* Template: The template used to render results returned by _Source
+query_.
+
+If one of the source queries requires an entity to be selected, you can
+set an entity URI for testing in the input field above the preview.
+
+If a source query is not
+link:#UUID-da4bad96-3043-850c-2758-f1b74cd5a949[activated], the
+corresponding template will not be rendered.
+
+The following image shows the configuration and output of a templated
+query viewer visualization for a selected company:
+
+image:image/15d88cecf6ebdb.png[Configuration of a Siren Investigate
+query viewer visualization]
+
+*Advanced options*
+
+By clicking the _Advanced_ link, you can set additional rendering
+options.
+
+It is possible to set additional template variables by writing them as
+JSON object properties in the _Template variables_ text area.
+
+For example, to customize the heading of the
+link:#UUID-92fbd47b-36df-9366-c6e5-ca536e139ca2[generic table template]
+(this is done automatically by the _Label_ input field above), which is
+set by default to the id of the source query, you can customize the
+`+label+` variable as follows:
+
+[source,json]
+----
+{
+    "label": "Info"
+}
+----
+
+By default, template contents are hidden and can be displayed by
+clicking the _show_ link in the heading; to make template contents
+visible by default, check _Render opened_ box.
+
+image:image/15d88cecf76c56.png[Advanced options]
+
+[[UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43]]
+== Getting started with GeoServer
+
+*Locally hosting vector layers as WMS and WFS for Siren Investigate*
+
+If you need to display custom layers for Region Map or Coordinate Map
+visualizations, or want to use spatial datasets within Siren
+Investigate, a geospatial server may provide the solution.
+
+A geospatial server can handle the conversion of spatial datasets, layer
+styling options, serve WFS and WMS simultaneously, and can integrate and
+serve Elasticsearch documents. The following sections explain how to set
+up GeoServer, a popular open-source interoperable  geospatial server.
+
+GeoServer can serve information in WMS, WMTS, WFS, or WCS, and is easy
+to install and configure. Vector layers can be imported in multiple
+formats such as ESRI Shapefile, WFS, PostGIS, GeoPackage, and Java
+Properties; in addition, GeoServer can be linked with Elasticsearch
+using the https://github.com/matsjg/elasticgeo[elasticgeo plugin].
+
+The article _https://www.e-education.psu.edu/geog585/node/785[Going
+beyond “dots on a map”]_ provides excellent background information on
+mapping.
+
+*Setting up a web server to serve GeoJSON for Region Maps visualization*
+
+If you just want a quick and easy way to serve GeoJSON vector layers for
+use with the Region Map visualization, you can use “http-server”, a
+https://www.npmjs.com/package/http-server[command-line http server] that
+uses NodeJS. It’s a quick and easy way to serve files locally.
+
+First, you need to https://nodejs.org/en/download/[install NodeJS].
+
+Then, install http-server:
+
+`+npm install http-server -g+`
+
+Navigate to the folder with the GeoJSONs and run http-server as CORs
+enabled, with Port 9000 as shown here:
+
+`+Http-server ./ -p 9000 --cors=”*”+`
+
+Replace the url in the investigate.yml file (also making sure to
+link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[calibrate the remainder
+of the fields] for each GeoJSON), and start Siren Investigate.
+
+`+http://localhost:9000/world_countries_v1.geo.json+`
+
+*Installing GeoServer*
+
+Depending on your OS, follow the instructions at the links below for
+installing GeoServer:
+
+*Ubuntu*
+https://www.google.com/amp/s/www.igismap.com/install-geoserver-ubuntu/amp/
+
+*Windows*
+https://www.igismap.com/install-geoserver-windows-operating-system/
+
+If you would like to link your Elasticsearch index with GeoServer, the
+latest version currently supported is v2.14.2.
+
+*Enabling Cross Origin Resource Sharing (CORS)*
+
+As GeoServer will be running on a separate domain to Siren, you may get
+a CORS error in your development window, something like:
+
+image:image/15d88cecf8015d.png[image]
+
+To get around this issue:
+
+* Edit your web.xml file as is shown in the
+https://docs.geoserver.org/latest/en/user/production/container.html[Enable
+CORs section here].
+* Download the
+https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlets[Jetty-Utility
+Servlets Jar] to match the version of Jetty for the specific version of
+GeoServer.
+* Copy this to webapps/geoserver/WEB-INF/lib inside the
+geoserver-[v.vv.v] directory (or wherever you unpacked the zip file).
+
+*Adding vector layers to GeoServer*
+
+Open your browser and navigate to Port 8080, the default, on your local
+host: `+http://localhost:8080/geoserver+`
+
+Log in with the default credentials:
+
+* Username: admin
+* Password: geoserver
+
+From here you can:
+
+* Add new stores, i.e. sources for your spatial data
+* Create workspaces
+* Add layers to the server (and workspaces) from your stores
+* Create groups of layers that can be returned in one request
+* Create styling for how your layers will be rendered on a map
+
+image:image/15d88cecf87d75.png[image]
+
+Make sure that WMS and WFS are enabled by selecting both on the
+navigation pane on the left:
+
+image:image/15d88cecf901ea.png[image]
+
+*Creating layer styles for GeoServer*
+
+There are many examples for creating styles in the
+https://docs.geoserver.org/stable/en/user/styling/sld/cookbook/[SLD
+cookbook]. If you have a preference for a GUI-based method of styling
+over the XML format of SLD used in GeoServer, Quantum GIS offers a way
+to
+https://docs.geoserver.org/stable/en/user/styling/qgis/index.html[export
+styles created in their GUI to SLD format].
+
+Styles for layers or layer groups are either set as defaults within
+GeoServer or specified as a parameter from Siren Investigate.
+
+*Linking Elasticsearch and GeoServer*
+
+You can add Elasticsearch indexes to your Geoserver instance by
+following the
+https://github.com/ngageoint/elasticgeo/blob/master/gs-web-elasticsearch/doc/index.rst#installation[installation
+and configuration instructions of the elasticgeo plugin].
+
+____
+*Note*
+
+When editing your elasticsearch store, you will need to add siren/ at
+the very beginning of the index_name* field. This is to reference that
+the query should be sent to Siren Federate for processing. For example:
+
+image:image/15d88cecf96f14.png[image]
+____
+
+The most recent version of elasticgeo is v2.14.2, and is compatible with
+GeoServer v2.14.2.
