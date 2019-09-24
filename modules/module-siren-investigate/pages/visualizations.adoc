@@ -1729,7 +1729,7 @@ settings] in `+investigate.yml+`.
 ____
 
 [[UUID-5911ade4-dc91-d17f-faf5-b0b09f03dfdf]]
-===== Configuration
+=== Configuration
 
 [[UUID-aa266207-6dfd-596a-d978-fb2a9988476d]]
 ==== Configuring external tilemap providers
@@ -1915,7 +1915,7 @@ settings] in `+investigate.yml+`.
 ____
 
 [[UUID-b9e905a6-60f7-bacf-a8cc-92b18c8e234d]]
-===== Configuration
+=== Configuration
 
 [[UUID-56fe2a7b-dbcb-85a0-5db1-233fef4f7e26]]
 === Configuring external tilemap providers
