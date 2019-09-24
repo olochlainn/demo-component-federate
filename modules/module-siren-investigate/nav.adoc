@@ -1,4 +1,4 @@
 * xref:siren-investigate.adoc[Siren Investigate]
 ** xref:dashboard.adoc[Dashboards]
-*** xref:dashboard.adoc#The Dashboard Data Model[The Dashboard Data Model]
+*** xref:dashboard.adoc#_the_dashboard_data_model[The Dashboard Data Model]
 ** xref:visualizations.adoc[Visualizations]
