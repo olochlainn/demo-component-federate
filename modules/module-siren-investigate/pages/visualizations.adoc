@@ -1,3 +1,4 @@
+:imagesdir: ../assets/images
 = Visualizations
 
 The Visualize tab opens a page where you can select one or more existing
