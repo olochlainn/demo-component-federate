@@ -145,41 +145,40 @@ importance.
 .Maps
 [cols=",",]
 |===
-|link:#UUID-8f09fa78-b322-2c20-8e48-937baa0e5018[Coordinate Map]
+|<<coordinate-map>>
 |Associate the results of an aggregation with geographic locations.
 
-|link:#UUID-bab747cc-92b6-bf21-65a1-811c52133bcd[Enhanced Coordinate
-Map] |Associate the results of an aggregation with geographic locations.
+|<<enhanced-coordinate-map>> |Associate the results of an aggregation with geographic locations.
 
-|link:#UUID-5094f7e0-86e2-ecb3-ec8b-c8d553188e36[Region Map] |Thematic
+|<<region-map>> |Thematic
 maps where a shape’s color intensity corresponds to a metric’s value.
 |===
 
 .Showing individual records
 [cols=",",]
 |===
-|link:#UUID-c781ea33-07ef-8521-35a7-f830e0d1f632[Graph Browser] |Display
+|<<graph-browser>> |Display
 Elasticsearch documents as nodes and Siren Investigate relations as
 links of a graph.
 
-|link:#UUID-ec3bbeec-1c5a-39c9-b6c3-e29c5180a02a[Record Table] |Show the
+|<<record-table-visualization>> |Show the
 documents matched by a query on an Elasticsearch index with enhanced
 features.
 
-|link:#UUID-d139b0d7-cf24-a2b5-84db-5ce99fa112d1[Scatter Plot] |Show
+|<<scatter-plot>> |Show
 data in an x/y graph as scattered points.
 |===
 
 .Time series
 [cols=",",]
 |===
-|link:#UUID-6cd65c38-c79a-ff8d-5e4c-c7b1abf0530d[Timelion] |Compute and
+|<<getting-started-with-timelion>> |Compute and
 combine data from multiple time series data sets.
 
-|link:#UUID-5bae6e28-a647-cc8f-b491-7ba1f0cca6f8[Visual Builder]
+|<<time-series-visual-builder>>
 |Visualize time series data using pipeline aggregations.
 
-|link:#UUID-913916fe-4254-9c36-0e8e-54dea253a75c[Timeline] |Visualize
+|<<timeline>> |Visualize
 events in chronological order.
 |===
 
