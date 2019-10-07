@@ -88,9 +88,10 @@ Aggregation Execution Order, and You].
 .Charts
 [cols=",",]
 |===
-|<<line-area-and-bar-charts>> |Compare different series in X/Y charts.
 
-|<<box-plot>> |Display
+|<<line-area-and-bar-charts,Line, area and bar charts>> |Compare different series in X/Y charts.
+
+|<<box-plot,Box Plot>> |Display
 data in an x/y chart using upper and lower percentiles.
 
 |<<bubble-diagram>> |Show
