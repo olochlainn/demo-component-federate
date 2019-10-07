@@ -709,7 +709,7 @@ click *Edit* on the top bar to begin customizing.
 == Create a search over all dashboard
 
 Typically, most Siren
-link:#UUID-44c38ee5-aeec-1966-1a50-114cc6bf3fbb[dashboards] have a
+dashboards have a
 search bar at the top for drilling down to the dashboard records that
 match the search.
 
