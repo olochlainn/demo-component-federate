@@ -805,7 +805,7 @@ present in the result and may be unfamiliar to some users. However, the
 OR logic is useful because it enables a more expressive query (for
 example, you can copy and paste a paragraph of text and find documents
 that contain just a few words from it). Typically, the
-link:#UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f[ranking] returns the
+xref:visualizations.adoc#analytic-table[ranking] returns the
 most significant results first, providing a good overall user
 experience.
 * To select one or more documents and go to the specific dashboard, you
