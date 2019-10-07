@@ -731,8 +731,7 @@ Elasticsearch nodes]. Currently, data that is stored outside these
 nodes, for example accessed directly using
 link:/document/preview/60699#UUID-795b7b5f-8ccc-c3f7-3425-1107ed5415cf[Virtual
 Indexes], is not shown in this search and must instead be searched
-independently in their own dashboards.3.9 Indexes and relations
-(legacy)3.11. JDBC datasources
+independently in their own dashboards.
 
 === Prerequisite data in the Siren Elasticsearch nodes
 
@@ -754,8 +753,7 @@ link:/document/preview/60405#UUID-0e9f4457-79b1-19b3-638d-57bc1a6d84c3[pinned]
 and will work when moved from one dashboard to another. It is also
 useful in creating an over-all search engine page because it enables you
 to use widgets (for example an over-all "time stamp" date histogram)
-that work well across the different indexes.3.4.10. Changing the
-Visualization
+that work well across the different indexes.
 
 For the search engine page, you can use a "common denominator" column
 (in the result table) or drill-down widget to refine the search.
