@@ -285,9 +285,7 @@ based around a single search. It is very straightforward, and easy to
 get consistent results.
 
 Before creating a dashboard based around multiple searches (Dashboard
-360), you should read
-link:#UUID-01433ffb-7363-9f80-7f08-02c01a9beffc[The Dashboard Data
-Model] topic, which provides a comprehensive explanation of the feature.
+360), you should read <<The Dashboard Data Model>> topic, which provides a comprehensive explanation of the feature.
 
 
 == Saving a dashboard
