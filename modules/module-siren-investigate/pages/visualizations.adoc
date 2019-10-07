@@ -899,7 +899,8 @@ You can also drag a dashboard from the Dashboard menu on the left and
 drop it onto the graph.
 ____
 +
-image:image/15d88cecc5ace5.png[Add from saved graph]
+image:15d88cecc5ace5.png[Add from saved graph]
+
 . *Map Mode*: This toggles the _Map mode_. The _Map mode_ will move the
 nodes geographically on an interactive map. You must set up a script to
 configure the geographic properties of the nodes (See
