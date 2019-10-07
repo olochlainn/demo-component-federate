@@ -1464,7 +1464,7 @@ types of chart with the same aggregations.
 
 *Multi configurations*
 
-image:image/15d88cecd497ac.png[Multi configurations]
+image:15d88cecd497ac.png[Multi configurations]
 
 *Visualize settings*
 
