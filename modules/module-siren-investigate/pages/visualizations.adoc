@@ -1017,7 +1017,7 @@ ____
 
 Node icons that link to web images are not always shown properly due to
 security restrictions. You may need to configure the
-link:#UUID-676f4a0f-f7d0-b563-dd3d-f50f778d6484[Image Proxy] feature to
+xref:image-proxy.adoc[Image Proxy] feature to
 display them.
 ____
 * Size
