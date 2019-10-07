@@ -109,7 +109,7 @@ will.
 |<<parallel-lines-chart>>
 |Arranges several metrics on parallel columns.
 
-|<<pie-charts>> |Display
+|<<pie-chart>> |Display
 each source’s contribution to a total.
 
 |<<radar-chart>> |A
