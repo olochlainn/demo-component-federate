@@ -310,7 +310,7 @@ The dashboard is saved, and the name is displayed in the dashboard list
 on the right.
 
 TIP: When you have multiple dashboards created, you can organize them into
-link:#UUID-f881e88e-ea24-737c-cd42-eed6aa8c34bf[dashboard groups].
+<<dashboard groups>>.
 
 
 == Customizing the dashboard
