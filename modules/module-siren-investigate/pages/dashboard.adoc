@@ -674,7 +674,7 @@ store the time with the dashboard (a time filter set on the dashboard
 will be stored and retrieved when the dashboard is reloaded).
 
 If you want to add a
-link:#UUID-82a30c72-d16e-c242-6459-6e98f3f3e110[Multichart
+xref:visualizations.adoc#multichart[Multichart
 visualization] to the dashboard, select the check box. Be aware that
 this can slow the generation of the dashboard.
 
