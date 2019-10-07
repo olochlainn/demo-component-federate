@@ -190,7 +190,7 @@ events in chronological order.
 |Relational Filter |(Deprecated) Configure the relational buttons to
 navigate between dashboards.
 
-|link:#UUID-b1b247d4-7501-2862-37bc-ea9c7aedc7d0[Relational Navigator]
+|xref:relational-browsing.adoc#relational-navigator[Relational Navigator]
 |Provide navigation between relationally connected dashboards.
 |===
 
