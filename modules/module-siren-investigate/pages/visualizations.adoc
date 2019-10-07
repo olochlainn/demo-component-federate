@@ -904,7 +904,7 @@ image:15d88cecc5ace5.png[Add from saved graph]
 . *Map Mode*: This toggles the _Map mode_. The _Map mode_ will move the
 nodes geographically on an interactive map. You must set up a script to
 configure the geographic properties of the nodes (See
-link:#[?xml_title]).
+<<graph-browser>>).
 +
 image:15d88cecc62fa4.png[Map mode]
 . *Timebar Mode*: This toggles the _Timebar mode_. This mode displays a
