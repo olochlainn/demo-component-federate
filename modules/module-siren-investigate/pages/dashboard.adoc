@@ -749,7 +749,7 @@ Engine dashboards and across Siren.
 In Siren Investigate, this provides consistency for users in the general
 dashboards when using those attributes, for example creating filters
 that can be
-link:/document/preview/60405#UUID-0e9f4457-79b1-19b3-638d-57bc1a6d84c3[pinned]
+<<working-with-filters,pinned>>
 and will work when moved from one dashboard to another. It is also
 useful in creating an over-all search engine page because it enables you
 to use widgets (for example an over-all "time stamp" date histogram)
