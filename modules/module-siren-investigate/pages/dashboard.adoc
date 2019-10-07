@@ -811,8 +811,7 @@ experience.
 * To select one or more documents and go to the specific dashboard, you
 must:
 ** Click the check box for the creation of individual
-document link:/document/preview/60150#UUID-6c99b59a-ddaa-708c-9536-7ff56550921f[filter].2.1.3.
-Filters
+document link:/document/preview/60150#UUID-6c99b59a-ddaa-708c-9536-7ff56550921f[filter].
 ** Select the documents.
 ** Click Create Filter, and then
 "link:#UUID-bbbac2e6-269e-ea10-ef90-d5f4e92b1d63[pin the filter]". This
