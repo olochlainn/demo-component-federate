@@ -121,24 +121,24 @@ represented on axes starting from the same point.
 .Textual
 [cols=",",]
 |===
-|link:#UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f[Analytic Table]
+|<<analytic-table>>
 |Display the raw data of a composed aggregation.
 
-|link:#UUID-dc2acbc5-1f69-e985-52b7-f685401fc3e5[Markdown] |Display
+|<<markdown-widget>> |Display
 free-form information or instructions.
 
-|link:#UUID-07c3eacb-b0a4-7e18-a02b-45696eb11277[Metric] |Display a
+|<<metric>> |Display a
 single number.
 
-|link:#UUID-f39f4458-a422-c71e-aaf5-a839758dbfc7[Query Viewer] |Display
+|<<query-viewer>> |Display
 the results from multiple queries on external datasources using query
 templates.
 
-|link:#UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80[Tag Cloud] |Display
+|<<tag-cloud>> |Display
 words as a cloud in which the size of the word correspond to its
 importance.
 
-|link:#UUID-8548faab-7bd2-ce0a-a3c7-bd09b91f377d[Topic Clustering]
+|<<topic-clustering>>
 |Perform significance and clustering analysis on full-text fields.
 |===
 
