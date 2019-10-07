@@ -790,7 +790,7 @@ elements.
 ** *Select - Invert*: Inverts the current selection.
 ** *Shortest Path*: Calculates the shortest path between two selected
 nodes by fetching the connected elements. See the
-link:#UUID-3eda0d14-2ff0-d57d-36be-d754ef43dc42[limitations for this
+<<shortest-path-limitations>>[limitations for this
 script].
 ** *Show nodes count by type*: Shows a popup with information about how
 many nodes per type are currently displayed.
