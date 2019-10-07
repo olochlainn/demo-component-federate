@@ -47,12 +47,10 @@ visualization from the saved search.
 ____
 . In the visualization builder, choose the aggregation for the
 visualization’s y-axis. For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
-aggregations].
+<<Y-axis aggregations>>.
 . For the visualizations x-axis, select a bucket aggregation. For more
 information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
-aggregations].
+<<X-axis aggregations>>.
 
 For example, if you are indexing Apache server logs, you could build a
 horizontal bar chart that shows the distribution of incoming requests by
