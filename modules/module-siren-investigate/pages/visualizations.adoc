@@ -88,7 +88,7 @@ Aggregation Execution Order, and You].
 .Charts
 [cols=",",]
 |===
-|<<Line, Area, and Bar charts>>[Area, Line, and Bar
+|<<line-area-and-bar-charts>>[Line, Area, and Bar
 Charts] |Compare different series in X/Y charts.
 
 |link:#UUID-94a79740-22b3-fb5e-6b29-3e7a760ea928[Boxplot Chart] |Display
