@@ -172,7 +172,7 @@ data in an x/y graph as scattered points.
 .Time series
 [cols=",",]
 |===
-|<<getting-started-with-timelion>> |Compute and
+|xref:timelion.adoc#getting-started-with-timelion[Timelion] |Compute and
 combine data from multiple time series data sets.
 
 |<<time-series-visual-builder>>
