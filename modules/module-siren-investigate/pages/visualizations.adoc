@@ -4,7 +4,7 @@
 The Visualize tab opens a page where you can select one or more existing
 visualizations of the data in your Elasticsearch indexes; you can also
 create a new visualization from this page. You can then build
-xref:dashboards.adoc[dashboards] that display
+xref:dashboard.adoc[dashboards] that display
 related visualizations.
 
 Visualizations can also be created directly on a dashboard by selecting
