@@ -988,7 +988,7 @@ with a relation between two of its children.
 ** Eigenvector
 ** Pagerank
 
-See link:#[?xml_title] for more information on lens expressions.
+See <<graph-browser>> for more information on lens expressions.
 
 *Lens parameters*
 
