@@ -17,7 +17,7 @@ to extract and process your data, you can create charts that show you
 the trends, spikes, and dips that you need to know about.
 
 You can create visualizations from a search saved from
-link:#UUID-e773bdc8-6973-09d5-6104-6b29f300d19d[Discover], or start with
+xref:discover.adoc[Discover], or start with
 a new search query.
 
 
@@ -27,8 +27,7 @@ a new search query.
 . Click *Visualize* in the side navigation.
 . Click *Create new visualization* or the *+* button.
 . Choose the visualization type. For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-510221c1-7f6b-bd94-bc74-57882376f02f[Visualization
-types].
+<<Visualization types>>.
 . Specify a search query to retrieve the data for your visualization:
 * To enter new search criteria, select the index pattern for the indices
 that contain the data you want to visualize. This opens the
