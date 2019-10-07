@@ -1145,6 +1145,8 @@ can hide columns, sort rows in a different order, by type and so on.
 When a configuration is modified, a Save button appears in the top right
 of the sidebar.
 
+// This graphic consists of three files side by side.
+
 image:15d7bb9d640cd6.png[image]
 
 If you switch to another dashboard without saving, and come back to the
