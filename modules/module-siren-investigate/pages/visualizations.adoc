@@ -96,23 +96,23 @@ data in an x/y chart using upper and lower percentiles.
 |<<bubble-diagram>> |Show
 data and parent/child relationships as bubbles.
 
-|link:#UUID-e485b4ec-0964-71ab-98e6-87aa7b847e40[Gauge and Goal]
+|<<goal-and-gauge>>
 |Display a gauge.
 
-|link:#UUID-9dfad9e8-a840-762f-74f3-7589c6e4653e[Heat Map] |Shade cells
+|<<heatmap-chart>> |Shade cells
 within a matrix.
 
-|link:#UUID-82a30c72-d16e-c242-6459-6e98f3f3e110[Multichart] |A
+|<<multichart>> |A
 visualization in which you can switch between other visualizations at
 will.
 
-|link:#UUID-ca5c9adb-2415-d579-2720-7cfeff61e898[Parallel Lines Chart]
+|<<parallel-lines-chart>>
 |Arranges several metrics on parallel columns.
 
-|link:#UUID-1568d3ec-7a1c-6f18-f122-def14384108d[Pie Chart] |Display
+|<<pie-charts>> |Display
 each source’s contribution to a total.
 
-|link:#UUID-42232469-e607-25b0-9143-85af0f6f6f7c[Radar Chart] |A
+|<<radar-chart>> |A
 graphical method of displaying multivariate data in the form of a
 two-dimensional chart of three or more quantitative variables
 represented on axes starting from the same point.
