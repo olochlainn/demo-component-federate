@@ -230,8 +230,7 @@ NOTE: If you have selected fields in Discover (or used its Autoselect fields
 feature), you can click Generate Dashboard to auto generate a dashboard
 from those selected fields. This will create a new dashboard with
 visualizations selected to display the data in those fields. For
-details, see
-link:#UUID-b1dcfd44-c591-5197-e786-3608f9ad7213[Autogenerate dashboard].
+details, see <<Auto generate dashboard>>.
 
 
 
