@@ -90,10 +90,10 @@ Aggregation Execution Order, and You].
 |===
 |<<line-area-and-bar-charts>> |Compare different series in X/Y charts.
 
-|link:#UUID-94a79740-22b3-fb5e-6b29-3e7a760ea928[Boxplot Chart] |Display
+|<<box-plot>> |Display
 data in an x/y chart using upper and lower percentiles.
 
-|link:#UUID-7dfb8781-5712-859f-7589-1c4ec05fcbd5[Bubble Diagram] |Show
+|<<bubble-diagram>> |Show
 data and parent/child relationships as bubbles.
 
 |link:#UUID-e485b4ec-0964-71ab-98e6-87aa7b847e40[Gauge and Goal]
