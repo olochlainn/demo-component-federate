@@ -893,19 +893,16 @@ you had when you saved the graph.
 node.
 * *Dashboard*: Select a dashboard from the list to add it to the graph.
 +
-____
-*Note*
-
-You can also drag a dashboard from the Dashboard menu on the left and
+NOTE: You can also drag a dashboard from the Dashboard menu on the left and
 drop it onto the graph.
-____
+
 +
 image:15d88cecc5ace5.png[Add from saved graph]
 
 . *Map Mode*: This toggles the _Map mode_. The _Map mode_ will move the
 nodes geographically on an interactive map. You must set up a script to
 configure the geographic properties of the nodes (See
-<<graph-browser>>).
+<<Graph Browser>>).
 +
 image:15d88cecc62fa4.png[Map mode]
 . *Timebar Mode*: This toggles the _Timebar mode_. This mode displays a
@@ -916,7 +913,7 @@ node types to the time bar:
 image:15d88cecc6b1bf.png[Timebar filter]
 +
 You must set up a script to configure the time property of the nodes
-(See link:#[?xml_title]).
+(See <<Graph Browser>>).
 +
 image:15d88cecc7204b.png[Timebar mode]
 . *Save graph*: Save the current graph.
@@ -1198,12 +1195,9 @@ this setting (`+siren:graphExpansionLimit+`), which is documented in
 link:#UUID-7a1137ad-07bd-6f5d-341c-c20924eba37b[Setting advanced
 options].
 
-____
-*Caution*
-
-Increasing the `+siren:graphExpansionLimit+` value will negatively
+CAUTION: Increasing the `+siren:graphExpansionLimit+` value will negatively
 affect the Graph Browser performance.
-____
+
 
 If you are working with Neo4j data, you can use a Neo4j Shortest Path
 script instead, which should provide better performance. See
