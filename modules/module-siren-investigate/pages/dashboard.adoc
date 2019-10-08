@@ -786,7 +786,7 @@ over all".
 
 The "search over all" dashboard is a normal dashboard that has the
 "search over all" saved search as its core dashboard (see
-link:#[?xml_title]). Here is an example configuration:
+<<Dashboards>>). Here is an example configuration:
 
 image:15d88cecb2a32e.png[image]
 
