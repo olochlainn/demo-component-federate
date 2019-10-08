@@ -1194,7 +1194,7 @@ The time to calculate the shortest path is dependent on the size and
 schema of the dataset. With this script, the ability to calculate the
 shortest path is limited by the graph expansion limit. You can modify
 this setting (`+siren:graphExpansionLimit+`), which is documented in
-link:#UUID-7a1137ad-07bd-6f5d-341c-c20924eba37b[Setting advanced
+xref:management.adoc#_setting_advanced_options[Setting advanced
 options].
 
 CAUTION: Increasing the `+siren:graphExpansionLimit+` value will negatively
@@ -1203,7 +1203,7 @@ affect the Graph Browser performance.
 
 If you are working with Neo4j data, you can use a Neo4j Shortest Path
 script instead, which should provide better performance. See
-link:#UUID-d5129c24-f5a0-5f39-6c60-53cc27b87ac5[Adding a Shortest Path
+xref:data-reflection.adoc#_integrating_neo4j_data[Adding a Shortest Path
 script for Neo4j] for details.
 
 [[UUID-2fb5f13b-40fc-a057-308a-6dba2d1a8f58]]
