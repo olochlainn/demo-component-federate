@@ -3810,15 +3810,12 @@ following the
 https://github.com/ngageoint/elasticgeo/blob/master/gs-web-elasticsearch/doc/index.rst#installation[installation
 and configuration instructions of the elasticgeo plugin].
 
-____
-*Note*
-
-When editing your elasticsearch store, you will need to add siren/ at
+NOTE: When editing your elasticsearch store, you will need to add siren/ at
 the very beginning of the index_name* field. This is to reference that
 the query should be sent to Siren Federate for processing. For example:
 
 image:image/15d88cecf96f14.png[image]
-____
+
 
 The most recent version of elasticgeo is v2.14.2, and is compatible with
 GeoServer v2.14.2.
