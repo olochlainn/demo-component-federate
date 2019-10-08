@@ -674,7 +674,7 @@ store the time with the dashboard (a time filter set on the dashboard
 will be stored and retrieved when the dashboard is reloaded).
 
 If you want to add a
-xref:visualizations.adoc#multichart[Multichart
+xref:visualizations.adoc#_multichart[Multichart
 visualization] to the dashboard, select the check box. Be aware that
 this can slow the generation of the dashboard.
 
