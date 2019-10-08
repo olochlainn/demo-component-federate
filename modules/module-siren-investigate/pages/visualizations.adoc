@@ -2175,12 +2175,12 @@ several ways using various tools:
 * Hold Shift to drag a bounding box across the map to zoom in on a
 desired extent
 * Viewing extent
-** Click *Zoom In/Out* (image:image/15d88cecd67748.png[image]) to change
+** Click *Zoom In/Out* (image:15d88cecd67748.png[image]) to change
 the zoom level manually.
-** Click *Fit Data Bounds* (image:image/15d88cecd6e841.png[image]) to
+** Click *Fit Data Bounds* (image:15d88cecd6e841.png[image]) to
 automatically crop the map boundaries to the geohash buckets that have
 at least one result.
-* Click Set View Location (image:image/15d88cecdab0eb.png[image]) to
+* Click Set View Location (image:15d88cecdab0eb.png[image]) to
 manually specify:
 ** Whether latitude and longitude are in decimal degrees (dd) or
 degrees/minutes/seconds (dms) ①
@@ -2193,7 +2193,7 @@ image:15d88cecdb21a7.png[image]
 
 *Selection tools* - used to create geo filters
 
-* Click Draw a Polygon (image:image/15d88cecdba90e.png[image]), then
+* Click Draw a Polygon (image:15d88cecdba90e.png[image]), then
 ** Click on the map canvas and add vertices; if you add a vertex that
 you don’t want, click the Delete last point option on the menu that
 opens to the right when you clicked Draw a Polygon tool.
