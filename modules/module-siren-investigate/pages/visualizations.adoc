@@ -1349,38 +1349,38 @@ floating-point inputs
 |===
 |Function |Example |Explanation
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split[split(val,
-delimiter[, limit])] |`+payload.IP | split('.', 3)+` |Splits an IP
+delimiter[, limit])] |`+payload.IP BAR split('.', 3)+` |Splits an IP
 address by the '.' and returns the first 3 entries as an array
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith[endsWith(val,
-substring[, length])] |`+payload.name | endsWith('smith', 10)+` |Returns
+substring[, length])] |`+payload.name BAR endsWith('smith', 10)+` |Returns
 true if `+val+` ends with `+substring+`, if `+length+` is added, that
 number of characters from the beginning of `+val+` is checked.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith[startsWith(val,
-substring[, position])] |`+payload.name | startsWith('smith', 10)+`
+substring[, position])] |`+payload.name BAR startsWith('smith', 10)+`
 |Returns true if `+val+` begins with `+substring+`, if `+position+` is
 added, the substring from that position to the end of `+val+` is
 checked.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf[indexOf(val,
-substring[, length])] |`+payload.name | indexOf('smith', 10)+` |Returns
+substring[, length])] |`+payload.name BAR indexOf('smith', 10)+` |Returns
 the position of the first character of `+substring+` if `+val+` contains
 `+substring+`, if `+length+` is added, `+val+` is checked from that
 position.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase[upper(val)]
-|`+payload.name | upper+` |Returns `+val+` in upper case.
+|`+payload.name BAR upper+` |Returns `+val+` in upper case.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase[lower(val)]
-|`+payload.name | lower+` |Returns `+val+` in lower case.
+|`+payload.name BAR lower+` |Returns `+val+` in lower case.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring[indexOf(val,
-start, end)] |`+payload.name | substring(5, 10)+` |Returns the string
+start, end)] |`+payload.name BAR substring(5, 10)+` |Returns the string
 within `+val+` found between `+start+` and `+end+`.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace[replace(val,
-substring, newSubString)] |`+payload.name | replace('smith', 'jones')+`
+substring, newSubString)] |`+payload.name BAR replace('smith', 'jones')+`
 |Replaces `+substring+` with `+newSubString+` in `+val+`.
 |===
 
