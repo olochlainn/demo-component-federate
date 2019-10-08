@@ -187,7 +187,7 @@ events in chronological order.
 .Interactive filters and relational navigation
 [cols=",",]
 |===
-|Controls |Create interactive controls for easy dashboard manipulation.
+
 
 |Controls |Create interactive controls for easy dashboard manipulation.
 
