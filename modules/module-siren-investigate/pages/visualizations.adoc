@@ -122,24 +122,24 @@ represented on axes starting from the same point.
 .Textual
 [cols=",",]
 |===
-|<<analytic-table>>
+|<<_analytic_table,Analytic Table>>
 |Display the raw data of a composed aggregation.
 
-|<<markdown-widget>> |Display
+|<<_markdown_widget,Markdown Widget>> |Display
 free-form information or instructions.
 
-|<<metric>> |Display a
+|<<_metric,Metric>> |Display a
 single number.
 
-|<<query-viewer>> |Display
+|<<_query_viewer,Query Viewer>> |Display
 the results from multiple queries on external datasources using query
 templates.
 
-|<<tag-cloud>> |Display
+|<<_tag_cloud,Tag Cloud>> |Display
 words as a cloud in which the size of the word correspond to its
 importance.
 
-|<<topic-clustering>>
+|<<_topic_clustering,Topic Clustering>>
 |Perform significance and clustering analysis on full-text fields.
 |===
 
