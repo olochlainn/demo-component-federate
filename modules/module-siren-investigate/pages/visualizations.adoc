@@ -89,7 +89,7 @@ Aggregation Execution Order, and You].
 [cols=",",]
 |===
 
-|<<_line-area-and-bar-charts,Line, area and bar charts>> |Compare different series in X/Y charts.
+|<<_line_area_and_bar_charts,Line, area and bar charts>> |Compare different series in X/Y charts.
 
 |<<_box_plot,Box Plot>> |Display
 data in an x/y chart using upper and lower percentiles.
@@ -1449,7 +1449,6 @@ in which their headquarters are located.
 
 image:15d88cecd26f31.png[Grouping on nodes]
 
-[[UUID-82a30c72-d16e-c242-6459-6e98f3f3e110]]
 == Multichart
 
 This visualization displays a multiple types of chart according to the
