@@ -189,6 +189,8 @@ events in chronological order.
 |===
 |Controls |Create interactive controls for easy dashboard manipulation.
 
+|Controls |Create interactive controls for easy dashboard manipulation.
+
 |Relational Filter |(Deprecated) Configure the relational buttons to
 navigate between dashboards.
 
