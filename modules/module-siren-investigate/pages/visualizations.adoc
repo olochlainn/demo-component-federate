@@ -2123,15 +2123,16 @@ image:15d88cecd8dd9c.png[image]::
   the same. You can order your layers, separated by a comma. The first
   layer you specify will be drawn the furthest in the background.
   +
-  +
+  
   image:15d88cecda4097.png[image]
-  +  
+  + 
+  ----
   NOTE: You can still see the available layers for the WMS by running a
   `+getCapabilities+` request. Below is an example from a local instance
   of Geoserver:
 
   `+http://localhost:8080/geoserver/wms?SERVICE=WMS&REQUEST=GetCapabilities+`
-  ____
+  ----
   * *CQL Filter* - Allows you to query your spatial layers as parameters
   in WMS requests
   * *Min Zoom Level* - The minimum zoom level that the WMS request will
