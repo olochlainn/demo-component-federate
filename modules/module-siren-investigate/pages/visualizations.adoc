@@ -2205,14 +2205,11 @@ documents within the drawn polygon will be filtered.
 a circle and release to select documents. Elasticsearch documents within
 the drawn polygon will be filtered.
 
-____
-*Note*
-
-For all selection tools, a geo filter is created. This will appear above
+NOTE: For all selection tools, a geo filter is created. This will appear above
 the map canvas:
 
 image:15d88cecdca0da.png[image]
-____
+
 
 *Marking tools*
 
@@ -2254,14 +2251,10 @@ You can add your own custom polygon vector layers by using the
 restarting Siren Investigate, you configure the inner join between your
 Elasticsearch index and your polygon vector layer.
 
-____
-*Note*
-
-If you need to display custom layers for the Region Map visualization, a
+NOTE: If you need to display custom layers for the Region Map visualization, a
 geospatial server may provide the solution. See
-link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting started with
-GeoServer].
-____
+<<Getting started with GeoServer>>.
+
 
 [[UUID-b4f7547c-44fe-6ddc-e853-7222ff3abdcc]]
 ==== The Data Tab
@@ -2338,13 +2331,10 @@ Count cannot be included as it is not an aggregation.
 +
 `+{"script" : "doc['number_of_employees'].value * 1000"}+`
 
-____
-*Note*
-
-The entire request, including the Advanced settings, can be viewed by
+NOTE: The entire request, including the Advanced settings, can be viewed by
 selecting the upward arrow icon in the bottom-left of the map canvas and
 selecting *Request* from the dropdown menu.
-____
+
 
 [[UUID-5018d15f-f18e-12fe-7373-571b35e7ed6b]]
 ===== Buckets
@@ -2399,13 +2389,10 @@ the following syntax:
 
 `+{ "min_doc_count": 60 }+`
 
-____
-*Note*
-
-The entire request, including the advanced settings, can be viewed by
+NOTE: The entire request, including the advanced settings, can be viewed by
 selecting the upward arrow icon in the bottom left of the map canvas and
 selecting request from the drop-down menu.
-____
+
 
 [[UUID-b2b605e8-4957-9459-db74-d691d41a3346]]
 ==== Options
@@ -2823,17 +2810,14 @@ image:15d88cece67f87.png[image]
 The only required input is the text field to operate on, which must be
 set before the visualization can render.
 
-____
-*Tip*
-
-If you can’t see the field you want, check the Management > Data Model
+TIP: If you can’t see the field you want, check the Management > Data Model
 page to make sure that it’s _aggregatable_. You can make a text field
 aggregatable by enabling the `+fielddata+` mapping property for the
 field, as explained in the
 https://www.elastic.co/guide/en/elasticsearch/reference/current/fielddata.html#enable-fielddata-text-fields[Elasticsearch
 documentation]. Remember to refresh the Fields list in the Data Model
 page to reflect the changes.
-____
+
 
 image:15d88cece70fa7.png[image]
 
@@ -2900,15 +2884,12 @@ documents it matches.
 You can change the colors displayed by adjusting two colors representing
 the extremes of the color palette.
 
-____
-*Tip*
-
-It is good practice to set the Low Relevance color to a low saturation
+TIP: It is good practice to set the Low Relevance color to a low saturation
 (paler) value of the selected color, and set the High Relevance color to
 a high saturation (more intense) value of the same color.
 
 image:15d88cece8a864.png[image]
-____
+
 
 You can also fine-tune some of the aspects of the rendered chart using
 the following options.
