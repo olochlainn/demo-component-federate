@@ -1853,8 +1853,7 @@ current state.
 
 NOTE: If you need to display custom layers for the Coordinate Map
 visualization, a geospatial server may provide the solution. See
-<<Getting started with
-GeoServer>>.
+<<Getting started with GeoServer>>.
 
 
 *Navigating the map*
@@ -1882,23 +1881,21 @@ link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185
 Spy].
 
 
+
 == Enhanced Coordinate Map
 
 The Enhanced Coordinate Map visualization (beta) displays a geographic
 area overlaid with circles keyed to the data determined by the buckets
 you specify.
 
-____
-*Note*
-
-By default, Siren Investigate uses a demonstration Siren tilemap server
+NOTE: By default, Siren Investigate uses a demonstration Siren tilemap server
 http://www.openstreetmap.org/[Open Street Maps] service to display map
 tiles. This server has limited features and you should update the
 tilemap settings to another tilemap provider that you have configured,
 especially in a production setting. To use other tile service providers,
 configure the link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[tilemap
 settings] in `+investigate.yml+`.
-____
+
 
 [[UUID-b9e905a6-60f7-bacf-a8cc-92b18c8e234d]]
 === Configuration
@@ -1946,10 +1943,7 @@ metrics aggregation:
 * Unique Count (total number of unique values present in the specified
 field within the aggregation)
 
-____
-*Note*
-
-When you select any of the above aggregations _except_ Count, a Field
+NOTE: When you select any of the above aggregations _except_ Count, a Field
 dropdown is displayed from which you can select a field that is valid
 for the selected aggregation).
 ____
@@ -1981,12 +1975,9 @@ https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-
 grid] aggregation for details on the area specified by each precision
 level.
 
-____
-*Note*
-
-Higher precision increases memory usage for the browser displaying Siren
+NOTE: Higher precision increases memory usage for the browser displaying Siren
 Investigate as well as for the underlying Elasticsearch cluster.
-____
+
 
 * The _place markers off grid (use
 https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-geocentroid-aggregation.html[geocentroid])_
@@ -2012,7 +2003,7 @@ Map Collar Scale::
   many results being fetched.
 Map type::
   Select one of the following options from the box.
-  +
+  
   * *Scaled Circle Markers* - Scale the size of the markers based on the
   metric aggregation’s value.
   * *Shaded Circle Marker* - Displays the markers with different shades
@@ -2033,7 +2024,7 @@ Map type::
   for a given dot when the cursor is on that dot.
 Tooltip Formatter::
   Select from the following options:
-  +
+  
   * *Metric Value* - A tooltip containing the coordinates and the metric
   value specified on the Data tab
   * *Visualization* - The option to add a Visualization as a tooltip.
@@ -2053,8 +2044,6 @@ Legend Scale::
   maximum and minimum ranges
   * *Static* - Manual specification of colors, values and number of
   classes for the legend scale
-
-::
 
 Scroll Wheel Zoom::
   When ticked, it is possible to use the mouse scroll wheel to toggle
@@ -2079,19 +2068,16 @@ Desaturate map tiles::
   * *WMS styles*: A comma-separated list of the styles to use in this
   visualization. Each map server provides its own styling options.
 
-____
-*Note*
-
-If you need to display custom layers for the Region Map visualization, a
+NOTE: If you need to display custom layers for the Region Map visualization, a
 geospatial server may provide the solution. See
 link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting started with
 GeoServer].
-____
+
 
 Point of Interest layers::
   Add any elasticsearch index with a geo_point or geo_shape field as a
   marker or polygons:
-  +
+  
   * Geo_point type POI layers can be viewed and can include popups
   activated and deactivated on mouseover and mouseout.
   * Geo_shape type POI layers are suitable for viewing, popups and
@@ -2100,7 +2086,7 @@ Point of Interest layers::
   filters* below).
 image:15d88cecd868e4.png[image]::
   Configuration options for POI layers:
-  +
+  
   * *Saved Search* - Select any elasticsearch index from the dropdown
   menu. Note - will need a geo point field
   * *Geospatial Field* -  Select a geo point field within the Saved
@@ -2116,14 +2102,11 @@ image:15d88cecd868e4.png[image]::
 image:15d88cecd8dd9c.png[image]::
   Configuration options for the use of a third-party mapping service
   that complies with the Web Map Service standard. Multiple layers (or
-  layer groups) can be loaded.
-  +
-  Many third party mapping services are available, and some of these are
-  described in link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting
-  started with Geoserver].
-  +
+  layer groups) can be loaded. Many third party mapping services are available, and some of these are
+  described in <<Getting started with GeoServer>>.
+  
   * *Layer Name* - A customizable label to appear in the map’s layer
-  view (image:image/15d88cecd95f92.png[image])
+  view (image:15d88cecd95f92.png[image])
   * *Url* - The URL for the WMS map service
   * *Layers* - This is where layers (or layer groups) can be specified
   from a WMS server. There are two options:
@@ -2132,18 +2115,16 @@ image:15d88cecd8dd9c.png[image]::
   populate a list of layers that can be added by clicking ①. These can
   be ordered, by clicking and dragging ② as below. The layer at the top
   of the list is drawn furthest in the background.
-  +
+    
   image:15d88cecd9d429.png[image]
+  
   ** *If your URL is not a CORS-enabled WMS server* - The UI will remain
   the same. You can order your layers, separated by a comma. The first
   layer you specify will be drawn the furthest in the background.
-  +
+   
   image:15d88cecda4097.png[image]
-  +
-  ____
-  *Note*
-
-  You can still see the available layers for the WMS by running a
+    
+  NOTE: You can still see the available layers for the WMS by running a
   `+getCapabilities+` request. Below is an example from a local instance
   of Geoserver:
 
