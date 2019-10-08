@@ -1946,7 +1946,7 @@ field within the aggregation)
 NOTE: When you select any of the above aggregations _except_ Count, a Field
 dropdown is displayed from which you can select a field that is valid
 for the selected aggregation).
-____
+
 
 For more information, see
 link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
