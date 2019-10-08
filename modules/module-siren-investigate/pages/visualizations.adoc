@@ -2124,14 +2124,14 @@ image:15d88cecd8dd9c.png[image]::
   
   image:15d88cecda4097.png[image]
  
-  ----
+  
   NOTE: You can still see the available layers for the WMS by running a
   `+getCapabilities+` request. Below is an example from a local instance
   of Geoserver:
 
   `+http://localhost:8080/geoserver/wms?SERVICE=WMS&REQUEST=GetCapabilities+`
   
-  ----
+  
   
   * *CQL Filter* - Allows you to query your spatial layers as parameters
   in WMS requests
