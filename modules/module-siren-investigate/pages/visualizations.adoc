@@ -1708,17 +1708,14 @@ Spy].
 A Coordinate Map visualization displays a geographic area overlaid with
 circles keyed to the data determined by the buckets you specify.
 
-____
-*Note*
-
-By default, Siren Investigate uses a demonstration Siren tilemap server
+NOTE: By default, Siren Investigate uses a demonstration Siren tilemap server
 http://www.openstreetmap.org/[Open Street Maps] service to display map
 tiles. This server has limited features and you should update the
 tilemap settings to another tilemap provider that you have configured,
 especially in a production setting. To use other tile service providers,
-configure the link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[tilemap
+configure the xref:setting-up-siren-investigate.adoc#_configuring_siren_investigate[tilemap
 settings] in `+investigate.yml+`.
-____
+
 
 [[UUID-5911ade4-dc91-d17f-faf5-b0b09f03dfdf]]
 === Configuration
@@ -1733,7 +1730,7 @@ https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/[build
 and serve your own tilemap tiles].
 
 After you have setup your own tilemap provider, configure these
-link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[settings] in
+xref:setting-up-siren-investigate.adoc#_configuring_siren_investigate[settings] in
 `+investigate.yml+` to have map visualizations render these tiles.
 
 For example, to use an OpenStreetMap default provider, the configuration
@@ -1854,14 +1851,11 @@ After changing options, click *Apply changes* to update your
 visualization, or *Discard changes* to keep your visualization in its
 current state.
 
-____
-*Note*
-
-If you need to display custom layers for the Coordinate Map
+NOTE: If you need to display custom layers for the Coordinate Map
 visualization, a geospatial server may provide the solution. See
-link:#UUID-0bb1b6c6-db62-e8be-b15c-4f5689966c43[Getting started with
-GeoServer].
-____
+<<Getting started with
+GeoServer>>.
+
 
 *Navigating the map*
 
