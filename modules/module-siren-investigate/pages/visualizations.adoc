@@ -3043,12 +3043,9 @@ For information on displaying the raw data, see
 link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
 Spy].
 
-____
-*Tip*
-
-You can click the map icon to pivot from individual entity mode to
+TIP: You can click the map icon to pivot from individual entity mode to
 aggregate heatmap.
-____
+
 
 
 == Line, Area, and Bar charts
