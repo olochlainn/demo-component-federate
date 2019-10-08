@@ -792,7 +792,7 @@ elements.
 ** *Shortest Path*: Calculates the shortest path between two selected
 nodes by fetching the connected elements. See the
 <<_shortest_path_limitations,limitations for this
-script>>.
+script>> or <<shortest-path-limitations,colons instead of underscores>> or <<shortest-path-limitations>>.
 ** *Show nodes count by type*: Shows a popup with information about how
 many nodes per type are currently displayed.
 * *Lenses*:Lenses mutate the visual appearance of graph nodes and edges,
