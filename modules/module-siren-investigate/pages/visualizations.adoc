@@ -2132,7 +2132,9 @@ image:15d88cecd8dd9c.png[image]::
   of Geoserver:
 
   `+http://localhost:8080/geoserver/wms?SERVICE=WMS&REQUEST=GetCapabilities+`
+  
   ----
+  
   * *CQL Filter* - Allows you to query your spatial layers as parameters
   in WMS requests
   * *Min Zoom Level* - The minimum zoom level that the WMS request will
