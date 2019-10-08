@@ -1185,7 +1185,7 @@ the dashboard as new. It is possible to change the new dashboard
 configurations and save it; the original Graph Browser configurations
 will not change.
 
-[[UUID-3eda0d14-2ff0-d57d-36be-d754ef43dc42]]
+
 === Shortest Path limitations
 
 You can run a script within Graph Browser to determine the shortest path
