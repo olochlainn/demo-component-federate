@@ -21,6 +21,7 @@ xref:discover.adoc[Discover], or start with
 a new search query.
 
 
+
 == Creating a visualization
 
 [arabic]
@@ -421,14 +422,11 @@ for your metrics or bucket aggregation:
 {"script" : "doc['grade'].value * 1.2"}
 ----
 
-____
-*Note*
-
-In Elasticsearch releases 1.4.3 and later, this functionality requires
+NOTE: In Elasticsearch releases 1.4.3 and later, this functionality requires
 you to enable
 https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting.html[dynamic
 Groovy scripting].
-____
+
 
 The availability of these options varies depending on the aggregation
 you choose.
@@ -476,6 +474,7 @@ links at the bottom of the detailed information tabs. A raw export
 contains the data as it is stored in Elasticsearch. A formatted export
 contains the results of any applicable
 xref:mamagement.adoc#_managing_fields[field formatters].
+
 
 
 == Record Table visualization
@@ -736,6 +735,7 @@ location /BASE_PATH {
 ----
 
 
+
 == Graph Browser
 
 Graph Browser displays Elasticsearch documents as nodes and Siren
@@ -792,7 +792,7 @@ elements.
 ** *Shortest Path*: Calculates the shortest path between two selected
 nodes by fetching the connected elements. See the
 <<_shortest_path_limitations,limitations for this
-script>> or <<shortest-path-limitations,colons instead of underscores>> or <<Shortest Path limitations>>.
+script>>.
 ** *Show nodes count by type*: Shows a popup with information about how
 many nodes per type are currently displayed.
 * *Lenses*:Lenses mutate the visual appearance of graph nodes and edges,
