@@ -1349,38 +1349,38 @@ floating-point inputs
 |===
 |Function |Example |Explanation
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split[split(val,
-delimiter[, limit])] |`+payload.IP BAR split('.', 3)+` |Splits an IP
+delimiter[, limit])] |`+payload.IP \| split('.', 3)+` |Splits an IP
 address by the '.' and returns the first 3 entries as an array
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith[endsWith(val,
-substring[, length])] |`+payload.name BAR endsWith('smith', 10)+` |Returns
+substring[, length])] |`+payload.name \| endsWith('smith', 10)+` |Returns
 true if `+val+` ends with `+substring+`, if `+length+` is added, that
 number of characters from the beginning of `+val+` is checked.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith[startsWith(val,
-substring[, position])] |`+payload.name BAR startsWith('smith', 10)+`
+substring[, position])] |`+payload.name \| startsWith('smith', 10)+`
 |Returns true if `+val+` begins with `+substring+`, if `+position+` is
 added, the substring from that position to the end of `+val+` is
 checked.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf[indexOf(val,
-substring[, length])] |`+payload.name BAR indexOf('smith', 10)+` |Returns
+substring[, length])] |`+payload.name \| indexOf('smith', 10)+` |Returns
 the position of the first character of `+substring+` if `+val+` contains
 `+substring+`, if `+length+` is added, `+val+` is checked from that
 position.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase[upper(val)]
-|`+payload.name BAR upper+` |Returns `+val+` in upper case.
+|`+payload.name \| upper+` |Returns `+val+` in upper case.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase[lower(val)]
-|`+payload.name BAR lower+` |Returns `+val+` in lower case.
+|`+payload.name \| lower+` |Returns `+val+` in lower case.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring[indexOf(val,
-start, end)] |`+payload.name BAR substring(5, 10)+` |Returns the string
+start, end)] |`+payload.name \| substring(5, 10)+` |Returns the string
 within `+val+` found between `+start+` and `+end+`.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace[replace(val,
-substring, newSubString)] |`+payload.name BAR replace('smith', 'jones')+`
+substring, newSubString)] |`+payload.name \| replace('smith', 'jones')+`
 |Replaces `+substring+` with `+newSubString+` in `+val+`.
 |===
 
@@ -1389,40 +1389,40 @@ substring, newSubString)] |`+payload.name BAR replace('smith', 'jones')+`
 |===
 |Function |Example |Explanation
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round[round(val)]
-|`+payload.range | round+` |Returns `+val+` rounded to the nearest
+|`+payload.range \| round+` |Returns `+val+` rounded to the nearest
 integer.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc[trunc(val)]
-|`+payload.range | trunc+` |Returns the integer part of `+val+`.
+|`+payload.range \| trunc+` |Returns the integer part of `+val+`.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt[sqrt(val)]
-|`+payload.range | sqrt+` |Returns `+√val+`.
+|`+payload.range \| sqrt+` |Returns `+√val+`.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign[sign(val)]
-|`+payload.range | sign+` |Returns 1 if `+val+` is positive, -1 if
+|`+payload.range \| sign+` |Returns 1 if `+val+` is positive, -1 if
 `+val+` is negative or 0 if `+val+` equals 0.
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil[ceil(val)]
-|`+payload.price | ceil+` |Returns the nearest integer greater than
+|`+payload.price \| ceil+` |Returns the nearest integer greater than
 `+val+`
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor[floor(val)]
-|`+payload.price | floor+` |Returns the nearest integer less than
+|`+payload.price \| floor+` |Returns the nearest integer less than
 `+val+`
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs[abs(val)]
-|`+payload.temperature_change | abs+` |Returns the absolute value for a
+|`+payload.temperature_change \| abs+` |Returns the absolute value for a
 Number or 0 if the number is `+null+`
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/exp[exp(val)]
-|`+payload.difference | exp+` |Returns `+ℯval+`
+|`+payload.difference \| exp+` |Returns `+ℯval+`
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log[log(val)]
-|`+payload.difference | log+` |Returns the natural logarithm of `+val+`,
+|`+payload.difference \| log+` |Returns the natural logarithm of `+val+`,
 for example `+ln(val)+`
 
 |https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random[random(val)]
-|`+payload.range | random+` |Returns `+val+` multiplied by a
+|`+payload.range \| random+` |Returns `+val+` multiplied by a
 floating-point, pseudo-random number between 0 (inclusive) and 1
 (exclusive).
 |===
