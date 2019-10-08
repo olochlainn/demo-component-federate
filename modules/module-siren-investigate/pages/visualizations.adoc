@@ -2115,7 +2115,7 @@ image:15d88cecd8dd9c.png[image]::
   populate a list of layers that can be added by clicking ①. These can
   be ordered, by clicking and dragging ② as below. The layer at the top
   of the list is drawn furthest in the background.
-    
+  +  
   image:15d88cecd9d429.png[image]
   
   ** *If your URL is not a CORS-enabled WMS server* - The UI will remain
