@@ -91,29 +91,29 @@ Aggregation Execution Order, and You].
 
 |<<_line-area-and-bar-charts,Line, area and bar charts>> |Compare different series in X/Y charts.
 
-|<<_box-plot,Box Plot>> |Display
+|<<_box_plot,Box Plot>> |Display
 data in an x/y chart using upper and lower percentiles.
 
-|<<_bubble-diagram,Bubble Diagram>> |Show
+|<<_bubble_diagram,Bubble Diagram>> |Show
 data and parent/child relationships as bubbles.
 
-|<<_goal-and-gauge,Goal and Gauge>>
+|<<_goal_and_gauge,Goal and Gauge>>
 |Display a gauge.
 
-|<<_heatmap-chart,Heatmap Chart>> |Shade cells
+|<<_heatmap_chart,Heatmap Chart>> |Shade cells
 within a matrix.
 
 |<<_multichart,Multichart>> |A
 visualization in which you can switch between other visualizations at
 will.
 
-|<<_parallel-lines-chart,Parallel Lines Chart>>
+|<<_parallel_lines_chart,Parallel Lines Chart>>
 |Arranges several metrics on parallel columns.
 
-|<<_pie-chart,Pie Chart>> |Display
+|<<_pie_chart,Pie Chart>> |Display
 each source’s contribution to a total.
 
-|<<_radar-chart,Radar Chart>> |A
+|<<_radar_chart,Radar Chart>> |A
 graphical method of displaying multivariate data in the form of a
 two-dimensional chart of three or more quantitative variables
 represented on axes starting from the same point.
