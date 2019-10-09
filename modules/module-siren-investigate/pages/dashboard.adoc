@@ -1,4 +1,3 @@
-[[UUID-44c38ee5-aeec-1966-1a50-114cc6bf3fbb]]
 :imagesdir: ../assets/images
 = Dashboards
 
