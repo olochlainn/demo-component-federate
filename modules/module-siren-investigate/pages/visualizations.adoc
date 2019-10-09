@@ -3709,7 +3709,7 @@ enabled, with Port 9000 as shown here:
 `+Http-server ./ -p 9000 --cors=”*”+`
 
 Replace the url in the investigate.yml file (also making sure to
-link:#UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98[calibrate the remainder
+xref:setting-up-siren-investigate.adoc#_configuring_siren_investigate[calibrate the remainder
 of the fields] for each GeoJSON), and start Siren Investigate.
 
 `+http://localhost:9000/world_countries_v1.geo.json+`
