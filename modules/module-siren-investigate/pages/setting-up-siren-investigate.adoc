@@ -1060,38 +1060,37 @@ standardization].
 
 An existing Siren Investigate installation can be upgraded as follows:
 
-Backup the 10.1.x `+.siren+` index.
+. Backup the 10.1.x `+.siren+` index.
 
-Backup the Siren Investigate configuration file
+. Backup the Siren Investigate configuration file
 (`+config/investigate.yml+`).
 
-Backup the `+.sirenaccess+` if ACL (Access Control Layer) is enabled
+. Backup the `+.sirenaccess+` if ACL (Access Control Layer) is enabled
 
-If you are running Elasticsearch 6.3.2, you can optionally upgrade to
+. If you are running Elasticsearch 6.3.2, you can optionally upgrade to
 version 6.8.0
 (https://www.elastic.co/guide/en/elasticsearch/reference/6.5/setup-upgrade.html).
 
-Before restarting each Elasticsearch node, ensure you install a
+. Before restarting each Elasticsearch node, ensure you install a
 compatible version of the
 link:/document/preview/104019#UUID-443698b7-dcb2-87fb-fd89-3e672f069521[Siren
 Federate] plugin and access control plugins (Searchguard or X-pack
-security) if requiredIntroduction
+security) if required
 
-Download and extract the new Siren Investigate version.
+. Download and extract the new Siren Investigate version.
 
-Copy the previous configuration file to the `+config+` folder of the new
+. Copy the previous configuration file to the `+config+` folder of the new
 installation.
 
-Check for breaking changes to the configuration. Please see
+. Check for breaking changes to the configuration. Please see
 link:/document/preview/74614#UUID-614c3407-2425-bbec-d555-cf99fc9605ff[Breaking
 Changes] and the link:#UUID-c90c7882-8ae2-2392-260c-ef61485f6027[Search
-Guard Integration and Siren Investigate access control]8. Breaking
-changes
+Guard Integration and Siren Investigate access control]
 
-Install the compatible versions of third party Siren Investigate/Kibana
+. Install the compatible versions of third party Siren Investigate/Kibana
 plugins that you may need into the `+/plugins+` folder.
 
-Execute the link:#UUID-582f3fa4-41af-affb-3f9e-67a2ee70b071[upgrade
+. Execute the link:#UUID-582f3fa4-41af-affb-3f9e-67a2ee70b071[upgrade
 command].
 
 NOTE: Elasticsearch requires a matching version of Search Guard. For example,
