@@ -1,4 +1,5 @@
 * xref:siren-investigate.adoc[Siren Investigate]
+** xref:setting-up-siren-investigate.adoc[Setting up Siren Investigate]
 ** xref:dashboard.adoc[Dashboards]
 *** xref:dashboard.adoc#_the_dashboard_data_model[The Dashboard Data Model]
 *** xref:dashboard.adoc#_creating_a_dashboard[Creating a dashboard]
