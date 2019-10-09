@@ -3805,3 +3805,18 @@ image::15d88cecf96f14.png[image]
 
 The most recent version of elasticgeo is v2.14.2, and is compatible with
 GeoServer v2.14.2.
+
+
+== Test Page
+
+Page for testing Asciidoctoring formatting and how it is rendered in GitHib and Antora pages.
+
+Here's the first test, an extended Note...
+
+[NOTE]
+.Extended Note
+====
+Here is a note.
+
+Followed by this.
+====
