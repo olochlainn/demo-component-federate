@@ -818,11 +818,11 @@ using Siren Investigate with your production nodes, see
 link:#[?xml_title].
 
 
-Point your browser at port 5606 to access the Siren Investigate user
+. Point your browser at port 5606 to access the Siren Investigate user
 interface. For example,
 http://localhost:5606 or http://example.com:5606[http://YOURDOMAIN.com:5606].
 
-Specify an index pattern search that matches the name of one or more of
+. Specify an index pattern search that matches the name of one or more of
 your Elasticsearch indices. You may have to access the index pattern
 search management in
 the link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Management] tab. By
@@ -833,16 +833,16 @@ default `+logstash-*+` as your index pattern search. The asterisk
 Elasticsearch indices follow some other naming convention, enter an
 appropriate pattern. The "pattern" can also be the name of a single
 index.
-
++
 image:15d88cec7d2c63.png[image]
 
-Select the index field that contains the timestamp that you want to use
+. Select the index field that contains the timestamp that you want to use
 to perform time-based comparisons. Siren Investigate reads the index
 mapping to list all the fields that contain a timestamp. If your index
 does not have time-based data, switch off the  *Index contains
 time-based events* option.
 
-Click *Create* to add the index pattern search. This first pattern is
+. Click *Create* to add the index pattern search. This first pattern is
 automatically configured as the default. When you have more than one
 index pattern search, you can designate which one to use as the default
 by clicking on the star icon above the index pattern search title from
