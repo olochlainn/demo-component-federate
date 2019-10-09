@@ -12,3 +12,1334 @@ This section includes information on how to set up Siren Investigate and get it 
 
 * Upgrading
 
+NOTE: The instructions in this section are relevant for production deployments
+only.
+
+
+*Supported platforms*
+
+Packages of Siren Investigate are provided for and tested with Linux and
+Windows. Because Siren Investigate runs on Node.js, the required Node.js
+binaries for these platforms are included. Running Siren Investigate
+against a separately maintained version of Node.js is not supported.
+
+*Version compatibility*
+
+Siren 10.3 introduced a new capability that allows users to upgrade to a
+newer Investigate version without having to upgrade their Elasticsearch
+and Federate backend. Upgrading the backend is a complex procedure as
+the Elasticsearch version has to be upgraded with every major/minor
+Federate release. By removing the dependence on a specific backend,
+users can benefit from new advanced features by upgrading to the latest
+Investigate version, without the complexity of a simultaneous
+Federate/Elasticsearch upgrade.
+
+Each Investigate version now supports several Elasticsearch/Federate
+versions in the following way:
+
+* Minimum supported Elasticsearch/Federate version - runs the set of
+Siren features compatible with the Elasticsearch version used. This
+includes all the features available in Siren 10.1, and all the features
+in 10.2 except Data Reflection, Neo4j Support, Ingestion, and
+Export/Scroll API.
+* Feature complete Elasticsearch/Federate version - runs all current
+Siren features
+* Target Elasticsearch/Federate version - runs all current Siren
+features and, being the most up-to-date version, is recommended in most
+cases
+
+*Siren 10.3 compatibility*
+
+[cols=",",options="header",]
+|===
+|Compatibility Level |Federate Version
+|Minimum |5.6.10 - 10.1.1
+|Feature Complete |6.8.0 - 10.3.0
+|Target |6.8.0 - 10.3.0
+|===
+
+____
+*Note*
+
+If the Elasticsearch/Federate backend is more recent than the
+Investigate version, it has to be within a minor release from
+Investigate Target version so as not to break APIs.
+____
+
+When Investigate starts up, it checks the version of Federate it is
+working with and compares with a compatibility matrix. It detects the
+features that cannot be supported and switches them off in the user
+interface. This is logged in the Investigate server, and the user can
+see which features are unsupported by checking the About section (click
+Management to see this section).
+
+[cols=",,",options="header",]
+|===
+|Feature |Description |Minimum Federate Version
+|Datasource Reflection |Import and mapping of data to Elasticsearch from
+registered datasources |6.5.4-10.2.0
+
+|Neo4j Compatibility |Ability to register a Neo4j datasource, which can
+be used in Data Reflection |6.5.4-10.2.0
+
+|Remote ES Connector |Ability to register a remote Elasticsearch cluster
+as a datasource and create virtual indices on it |6.8.0-10.3.0
+|===
+
+*Earlier version compatibility*
+
+.Version compatibility matrix
+[cols=",,",options="header",]
+|===
+|Siren Investigate |Siren Federate |Elasticsearch
+|10.2.4 |Siren Federate 6.8.0-10.2.4 |6.8.0
+|Siren Federate 6.5.4-10.2.4 |6.5.4 |
+|10.2.3 |Siren Federate 6.8.0-10.2.3 |6.8.0
+|Siren Federate 6.5.4-10.2.3 |6.5.4 |
+|10.2.2 |Siren Federate 6.5.4-10.2.2 |6.5.4
+|10.2.1 |Siren Federate 6.5.4-10.2.1 |6.5.4
+|10.2.0 |Siren Federate 6.5.4-10.2.0 |6.5.4
+|10.1.3 |Siren Federate 6.3.2-10.1.3-1 |6.3.2
+|Siren Federate 5.6.16-10.1.3-1 |5.6.16 |
+|10.1.2 |Siren Federate 6.3.2-10.1.2 |6.3.2
+|Siren Federate 5.6.14-10.1.2 |5.6.14 |
+|10.1.1 |Siren Federate 6.3.2-10.1.1 |6.3.2
+|Siren Federate 5.6.10-10.1.1 |5.6.10 |
+|===
+
+Running different major version releases of Siren Investigate and
+Elasticsearch, for example Siren Investigate 10.x and Elasticsearch 2.x,
+is not supported, nor is running a minor version of Siren Investigate
+that is newer than the version of Elasticsearch, for example Siren
+Investigate 10.0.x and Elasticsearch 5.0.x.
+
+Running a minor version of Elasticsearch that is higher than supported
+version will generally work to facilitate an upgrade process where
+Elasticsearch is upgraded first, for example Siren Investigate 10.0.x
+and Elasticsearch 5.7.x. In this configuration, a warning will be logged
+on Siren Investigate server startup, so it is only meant to be temporary
+until Siren Investigate is upgraded to the same version as
+Elasticsearch.
+
+Running different patch version releases of Siren Investigate and
+Elasticsearch, for example Siren Investigate 10.0.0-1 and Elasticsearch
+5.6, is generally supported, though we encourage users to run the
+supported versions of Siren Investigate and Elasticsearch down to the
+patch version.
+
+
+
+
+
+
+
+
+[[UUID-a014aae1-5714-26fb-7132-e6ea60748276]]
+==== Installing Siren Investigate
+
+Siren Investigate is provided in the following package formats:
+
+[cols=",",]
+|===
+|`+zip+` a|
+The `+zip+` packages are provided for installation on Linux and Windows
+and are the easiest choice for getting started with Siren Investigate.
+
+link:#[?xml_title] or link:#[?xml_title]
+
+|`+docker+` a|
+Siren Investigate Docker images are available at
+https://hub.docker.com/u/sirensolutions/.
+
+https://www.elastic.co/guide/en/kibana/5.6/docker.html[Running Kibana on
+Docker]
+
+|===
+
+____
+*Important*
+
+If your Elasticsearch installation is protected by
+https://www.elastic.co/guide/en/x-pack/5.6/xpack-security.html[X-Pack
+Security] see
+https://www.elastic.co/guide/en/x-pack/5.6/kibana.html[Using Kibana with
+X-Pack Security] for additional setup instructions.
+____
+
+[[UUID-c8082842-27f2-99d0-8075-084dc59d0c35]]
+==== Running Siren Investigate on Docker
+
+Docker images for Siren Investigate are available from the
+https://hub.docker.com/u/sirensolutions/[sirensolutions] organization on
+https://hub.docker.com[Dockerhub].
+
+[[UUID-3335905b-5590-bf00-508a-03a558fe4358]]
+===== Pulling the Image
+
+Obtaining Siren Investigate for Docker is as simple as issuing a docker
+pull command.
+
+The Docker image for the latest Siren Investigate can be retrieved with
+the following command:
+
+[source,sh]
+----
+docker pull sirensolutions/siren-platform:latest
+docker run -d -p 5606:5606 -p 9220:9220 sirensolutions/siren-platform:latest
+----
+
+Or for specific version, for example 10.0.0:
+
+[source,sh]
+----
+docker pull sirensolutions/siren-platform:10.0.0
+docker run -d -p 5606:5606 -p 9220:9220 sirensolutions/siren-platform:10.0.0
+----
+
+For an image pre-populated with demonstration data:
+
+[source,sh]
+----
+docker pull sirensolutions/siren-platform-demo-data:latest
+docker run -d -p 5606:5606 -p 9220:9220 sirensolutions/siren-platform-demo-data:latest
+----
+
+[[UUID-80b084a9-4ec2-14c1-d950-6748a6658111]]
+====== Environment variable configuration
+
+Under Docker, Siren Investigate can be configured using environment
+variables. When the container starts, a helper process checks the
+environment for variables that can be mapped to Siren Investigate
+command-line arguments.
+
+For compatibility with container orchestration systems, these
+environment variables are written in all capitals, with underscores as
+word separators. The helper translates these names to valid Siren
+Investigate setting names.
+
+Some example translations are shown here:
+
+.Example Docker Environment Variables
+[cols=",",]
+|===
+|*Environment Variable* |*Siren Investigate Setting*
+|`+SERVER_NAME+` |`+server.name+`
+|`+KIBANA_DEFAULTAPPID+` |`+kibana.defaultAppId+`
+|`+XPACK_MONITORING_ENABLED+` |`+xpack.monitoring.enabled+`
+|===
+
+In general, any setting listed in link:#[?xml_title] or
+https://www.elastic.co/guide/en/x-pack/5.6/xpack-settings.html[X-Pack
+Settings] can be configured with this technique.
+
+These variables can be set with docker-compose like this:
+
+[source,yaml]
+----
+services:
+  investigate:
+    image: docker.elastic.co/kibana/kibana:10.0.0
+    environment:
+      SERVER_NAME: siren.example.org
+      ELASTICSEARCH_URL: http://elasticsearch.example.org
+----
+
+Because environment variables are translated to CLI arguments, they take
+precedence over settings configured in `+investigate.yml+`.
+
+[[UUID-732a115b-09ba-6b12-2b12-f064586e682d]]
+====== Docker defaults
+
+The default settings when using the `+siren-investigate+` image
+(standalone Siren Investigate image) are:
+
+[cols=",",]
+|===
+|`+elasticsearch.url+` |http://localhost:9220
+|`+server.basepath+` |`+""+`
+|`+kibana.index+` |`+.siren+`
+|===
+
+[[UUID-5d9af5fb-1612-a639-71c2-6b3bcad94d08]]
+===== Install Siren Investigate with ZIP package
+
+Siren Investigate is provided for Linux and Windows as a `+.zip+`
+package. These packages are the easiest formats to use when trying out
+Siren Investigate.
+
+The latest stable version of Siren Investigate can be found on the
+https://support.siren.io[Siren Support Portal]. Descriptions of the
+separate demonstration packages are also available there.
+
+[[UUID-eeeb8e5a-2925-3e4f-8506-d0062797571d]]
+====== Download and install the Linux 64-bit package
+
+After you have
+https://support.siren.io/support/solutions/articles/17000057493-get-your-license[obtained
+your license], you should have access to the
+https://support.siren.io[Siren Support Portal]'s download pages. The
+`+siren-investigate+` package can be downloaded from there, either by
+clicking the package link in the browser or, right click the link, then
+use the copied link as `+investigate-link+` as follows:
+
+[source,sh]
+----
+wget {investigate-link}.zip
+sha1sum siren-investigate-10.0.0-linux-x86_64.zip 
+unzip siren-investigate-10.0.0-linux-x86_64.zip -d .
+cd siren-investigate-10.0.0-linux-x86_64/ 
+----
+
+* Compare the SHA produced by `+sha1sum+` or `+shasum+` with the
+published `+sha1.txt+` (found on the Siren Investigate download page on
+the https://support.siren.io[Siren Support Portal]).
+* This folder is known as `+$INVESTIGATE_HOME+`.
+
+[[UUID-63326b06-b6e8-ca10-d001-ff2e6c2d763f]]
+====== Running Siren Investigate from the command prompt
+
+Siren Investigate can be started from the command prompt as follows:
+
+[source,sh]
+----
+./bin/investigate
+----
+
+By default, Siren Investigate runs in the foreground, prints its logs to
+the standard output (`+stdout+`), and can be stopped by
+pressing [.keycombo]#Ctrl+C#.
+
+[[UUID-5a573e31-4b51-c2a1-1c49-806417e17f10]]
+====== Siren Investigate configuration
+
+Siren Investigate loads its configuration from the
+`+$INVESTIGATE_HOME/config/investigate.yml+` file by default. The format
+of this configuration file is explained in link:#[?xml_title].
+
+[[UUID-e4bd5125-be0f-be00-3dc9-71a7cc065b8f]]
+====== Folder layout of Linux ZIP archive
+
+The `+.zip+` packages are entirely self-contained.
+
+This is very convenient because you do not have to create any
+directories to start using Siren Investigate, and uninstalling is as
+easy as removing the folder. However, it is advisable to change the
+default locations of the configuration and data folders so that you do
+not remove important data later on.
+
+[cols=",,,",options="header",]
+|===
+|Type |Description |Default Location |Setting
+|*home* |Siren Investigate home folder or `+$INVESTIGATE_HOME+` |Folder
+created by unpacking the archive; in demonstration distributions, the
+folder is `+siren-investigate+`. |
+
+|*bin* |Binary scripts including `+kibi+` to start the Siren Investigate
+server and `+kibi-plugin+` to install plugins |`+$INVESTIGATE_HOME\bin+`
+|
+
+|*config* |Configuration files including `+investigate.yml+`
+|`+$INVESTIGATE_HOME\config+` |
+
+|*data* |The location of the data files written to disk by Siren
+Investigate and its plugins |`+$INVESTIGATE_HOME\data+` |
+
+|*optimize* |Transpiled source code. Certain administrative actions, for
+example `+plugin install+`, result in the source code being retranspiled
+on the fly. |`+$INVESTIGATE_HOME\optimize+` |
+
+|*plugins* |The location of the plugin files. Each plugin will be
+contained in a subfolder. |`+$INVESTIGATE_HOME\plugins+` |
+|===
+
+[[UUID-214e3ba0-b367-de9a-52fe-713af2ade367]]
+===== Install Siren Investigate on Windows
+
+Siren Investigate can be installed on Windows using the `+.zip+`
+package; zip packages can be downloaded from the
+https://support.siren.io[download page]. The demonstration versions
+contain a preconfigured Elasticsearch cluster in addition to Siren
+Investigate.
+
+[[UUID-4e64cecb-c94a-0a69-3fdb-39d1a1324426]]
+====== Running Siren Investigate from the command prompt
+
+Siren Investigate can be started from the command prompt as follows:
+
+[source,sh]
+----
+.\bin\investigate.bat
+----
+
+By default, Siren Investigate runs in the foreground, prints its logs to
+`+STDOUT+`, and can be stopped by pressing [.keycombo]#Ctrl+C#.
+
+[[UUID-3708dc53-135b-3a28-99fe-3b26dee4ed68]]
+====== Siren Investigate configuration
+
+Siren Investigate loads its configuration from the
+`+$INVESTIGATE_HOME/config/investigate.yml+` file by default. The format
+of this configuration file is explained in link:#[?xml_title].
+
+[[UUID-5ebcef3b-7895-cf8a-2fe4-575aa035bc5a]]
+====== Folder layout of Windows ZIP archive
+
+The `+.zip+` package is entirely self-contained.
+
+This is very convenient because you do not have to create any
+directories to start using Siren Investigate, and uninstalling Siren
+Investigate is as easy as removing the folder. However, it is advisable
+to change the default locations of the configuration and data folders so
+that you do not remove important data later on.
+
+[cols=",,,",options="header",]
+|===
+|Type |Description |Default Location |Setting
+|*home* |Siren Investigate home folder or `+%INVESTIGATE_HOME%+` |Folder
+created by unpacking the archive; in demonstration distributions, the
+folder is `+kibi+`. |
+
+|*bin* |Binary scripts including `+kibi+` to start the Siren Investigate
+server and `+kibi-plugin+` to install plugins
+|`+%INVESTIGATE_HOME%\bin+` |
+
+|*config* |Configuration files including `+investigate.yml+`
+|`+%INVESTIGATE_HOME%\config+` |
+
+|*data* |The location of the data files written to disk by Siren
+Investigate and its plugins |`+%INVESTIGATE_HOME%\data+` |
+
+|*optimize* |Transpiled source code. Certain administrative actions, for
+example `+plugin install+`, result in the source code being retranspiled
+on the fly. |`+%INVESTIGATE_HOME%\optimize+` |
+
+|*plugins* |The location of the plugin files. Each plugin will be
+contained in a subfolder. |`+%INVESTIGATE_HOME%\plugins+` |
+|===
+
+[[UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98]]
+==== Configuring Siren Investigate
+
+The Siren Investigate server reads properties from the
+`+investigate.yml+` file on startup. The default settings configure
+Siren Investigate to run on `+localhost:5606+`. To change the host or
+port number, or connect to Elasticsearch running on a different machine,
+you must update your `+investigate.yml+` file. You can also enable SSL
+and set a variety of other options.
+
+External datasource configuration is documented in the link:#[3.11. JDBC
+datasources] and link:#[?xml_title] sections, while access control
+configuration is documented in the link:#[?xml_title] section.3.11. JDBC
+datasources
+
+*Environment Variable Placeholders.*
+
+It is possible to use environment variable placeholders in configuration
+settings. The syntax of placeholders is `+${ENV_VARIABLE_NAME}+`.
+
+For example, to set `+elasticsearch.url+` to the value of the
+environment variable `+ES_URL+`, edit `+config/investigate.yml+` as
+follows:
+
+[source,yaml]
+----
+elasticsearch.url: ${ES_URL}
+----
+
+.Configuration Settings
+[cols=",",options="header",]
+|===
+|Setting |Description
+|`+server.port:+` |Default: `+5606+`. Siren Investigate is served by a
+back end server. This setting specifies the port to use.
+
+|`+server.host:+` |Default: `+localhost+`. This setting specifies the
+host of the back end server.
+
+|`+server.basePath:+` |Enables you to specify a path to mount Siren
+Investigate as if you are running behind a proxy. This only affects the
+URLs generated by Siren Investigate, your proxy is expected to remove
+the basePath value before forwarding requests to Siren Investigate. This
+setting cannot end in a slash (`+/+`).
+
+|`+server.maxPayloadBytes:+` |Default: `+1048576+`. The maximum payload
+size in bytes for incoming server requests.
+
+|`+server.name:+` |Default: `+your-hostname.+` A human-readable display
+name that identifies this Siren Investigate instance.
+
+|`+server.defaultRoute:+` |Default: `+/app/kibana+`. This setting
+specifies the default route when opening Siren Investigate. You can use
+this setting to modify the landing page when opening Siren Investigate.
+
+|`+elasticsearch.url:+` |Default: `+http://localhost:9220+`. The URL of
+the Elasticsearch instance to use for all your queries.
+
+|`+elasticsearch.preserveHost:+` |Default: `+true+`. When this setting’s
+value is true Siren Investigate uses the hostname specified in the
+`+server.host+` setting. When the value of this setting is `+false+`,
+Siren Investigate uses the hostname of the host that connects to this
+Siren Investigate instance.
+
+|`+kibana.index:+` |Default: `+.siren+`. Siren Investigate uses an index
+in Elasticsearch to store saved searches, visualizations and dashboards.
+Siren Investigate creates a new index if the index does not already
+exist.
+
+|`+kibana.defaultAppId:+` |Default: `+discover+`. The default
+application to load.
+
+|`+tilemap+` a|
+The tilemap is the base layer the map visualizations. To increase max
+zoom level for mapping visualizations, copy the following object in the
+`+investigate.yml+`file, this will increase the zoom level to 19 from
+the default of 15.
+
+tilemap: url: "https://\{s}.tile.openstreetmap.org/\{z}/\{x}/\{y}.png"
+options: attribution:
+'&copy;[OpenStreetMap("http://www.openstreetmap.org/copyright")'
+subdomains: ['a'] minZoom: 0 maxZoom: 19
+
+|`+tilemap.url:+` |The URL to the tile service that Siren Investigate
+uses to display map tiles in tilemap visualizations. By default, Siren
+Investigate reads this URL from an external metadata service, but users
+can still link:#UUID-aa266207-6dfd-596a-d978-fb2a9988476d[override this
+parameter] to use their own Tile Map Service.
+
+|`+tilemap.options.minZoom:+` |Default: `+1+`. The minimum zoom level.
+
+|`+tilemap.options.maxZoom:+` |Default: `+15+`. The maximum zoom level.
+
+|`+tilemap.options.attribution:+` |Default:
+`+© [OpenStreetMap]("http://www.openstreetmap.org/copyright")+`. The map
+attribution string.
+
+|`+tilemap.options.subdomains:+` |An array of subdomains used by the
+tile service. Specify the position of the subdomain in the URL with the
+token `+{s}+`.
+
+|`+regionmap+` a|
+Specifies additional vector layers for use in
+link:#UUID-5094f7e0-86e2-ecb3-ec8b-c8d553188e36[Region Map]
+visualizations. Each layer object points to an external vector file that
+contains a GeoJSON FeatureCollection. The file must use the
+https://en.wikipedia.org/wiki/World_Geodetic_System[WGS84 coordinate
+reference system] and only include polygons. If the file is hosted on a
+separate domain from Siren Investigate, the server needs to be CORS
+(Cross Origin Request Security) enabled so that Siren Investigate can
+download the file. The following example shows a valid regionmap
+configuration.
+
+regionmap: layers: name: "Departments of France" url:
+"http://my.cors.enabled.server.org/france_departements.geojson"
+attribution: "INRAP" fields: name: "department" description: "Full
+department name" name: "INSEE" description: "INSEE numeric identifier"
+
+|`+regionmap.layers.name:+` |Mandatory. A description of the map being
+provided.
+
+|`+regionmap.layers.url:+` |Mandatory. The location of the GeoJSON file
+as provided by a web server.
+
+|`+regionmap.layers.attribution:+` |Optional. References the originating
+source of the GeoJSON file.
+
+|`+regionmap.layers.fields:+` |Mandatory. Each layer can contain
+multiple fields to indicate what properties from the geojson features
+you want to expose. This example shows how to define multiple
+properties.
+
+|`+regionmap.layers.fields.name:+` |Mandatory. This value is used to do
+an inner-join between the document stored in Elasticsearch and the
+GeoJSON file. For example, if the field in the GeoJSON is called
+`+Location+` and has city names, there must be a field in Elasticsearch
+that holds the same values that Siren Investigate can then use to lookup
+for the GeoShape data.
+
+|`+regionmap.layers.fields.description:+` |Mandatory. The human readable
+text that is shown under the Options tab when building the Region Map
+visualization.
+
+|`+elasticsearch.username:+` and `+elasticsearch.password:+` |If your
+Elasticsearch is protected with basic authentication, these settings
+provide the username and password that the Siren Investigate server uses
+to perform maintenance on the Siren Investigate index at startup. Your
+Siren Investigate users still need to authenticate with Elasticsearch,
+which is proxied through the Siren Investigate server.
+
+|`+server.ssl.enabled+` |Default: `+false+`. Enables SSL for incoming
+requests from the browser to Siren Investigate. When set to `+true+`,
+`+server.ssl.certificate+` and `+server.ssl.key+` are required
+
+|`+server.ssl.certificate:+` and `+server.ssl.key:+` |Paths to the
+PEM-format SSL certificate and SSL key files, respectively.
+
+|`+server.ssl.keyPassphrase:+` |The passphrase that will be used to
+decrypt the private key. This value is optional as the key may not be
+encrypted.
+
+|`+server.ssl.certificateAuthorities:+` |List of paths to PEM encoded
+certificate files that should be trusted.
+
+|`+server.ssl.supportedProtocols:+` |Default:
+`+TLSv1, TLSv1.1, TLSv1.2+`. Supported protocols with versions. Valid
+protocols: `+TLSv1+`, `+TLSv1.1+`, `+TLSv1.2+`
+
+|`+server.ssl.cipherSuites:+` |Default:
+`+ECDHE-RSA-AES128-GCM-SHA256, ECDHE-ECDSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-ECDSA-AES256-GCM-SHA384, DHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES128-SHA256, DHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, DHE-RSA-AES256-SHA384, ECDHE-RSA-AES256-SHA256, DHE-RSA-AES256-SHA256, HIGH,!aNULL, !eNULL, !EXPORT, !DES, !RC4, !MD5, !PSK, !SRP, !CAMELLIA+`.
+For more information on the format, and valid options, refer to the
+OpenSSL cipher list format documentation
+(https://www.openssl.org/docs/man1.0.2/apps/ciphers.html#CIPHER-LIST-FORMAT).
+
+|`+elasticsearch.ssl.certificate:+` and `+elasticsearch.ssl.key:+`
+|Optional settings that provide the paths to the PEM-format SSL
+certificate and key files. These files are used to verify the identity
+of Siren Investigate to Elasticsearch and are required when
+`+xpack.ssl.verification_mode+` in Elasticsearch is set to either
+`+certificate+` or `+full+`.
+
+|`+elasticsearch.ssl.keyPassphrase:+` |The passphrase that will be used
+to decrypt the private key. This value is optional as the key may not be
+encrypted.
+
+|`+elasticsearch.ssl.certificateAuthorities:+` |Optional setting that
+enables you to specify a list of paths to the PEM file for the
+certificate authority for your Elasticsearch instance.
+
+|`+elasticsearch.ssl.verificationMode:+` |Default: `+full+`. Controls
+the verification of certificates presented by Elasticsearch. Valid
+values are `+none+`, `+certificate+`, and `+full+`. `+full+` performs
+hostname verification, and `+certificate+` does not.
+
+|`+elasticsearch.pingTimeout:+` |Default: the value of the
+`+elasticsearch.requestTimeout+` setting. Time in milliseconds to wait
+for Elasticsearch to respond to pings.
+
+|`+elasticsearch.requestTimeout:+` |Default: `+30000+`. Time in
+milliseconds to wait for responses from the back end or Elasticsearch.
+This value must be a positive integer.
+
+|`+elasticsearch.requestHeadersWhitelist:+` |Default:
+`+[ 'authorization' ]+`. List of Siren Investigate client-side headers
+to send to Elasticsearch. To send _no_ client-side headers, set this
+value to [] (an empty list).
+
+|`+elasticsearch.customHeaders:+` |Default: `+{}+`. Header names and
+values to send to Elasticsearch. Any custom headers cannot be
+overwritten by client-side headers, regardless of the
+`+elasticsearch.requestHeadersWhitelist+` configuration.
+
+|`+elasticsearch.shardTimeout:+` |Default: `+0+`. Time in milliseconds
+for Elasticsearch to wait for responses from shards. Set to 0 to switch
+off.
+
+|`+elasticsearch.startupTimeout:+` |Default: `+5000+`. Time in
+milliseconds to wait for Elasticsearch at Siren Investigate startup
+before retrying.
+
+|`+pid.file:+` |Specifies the path where Siren Investigate creates the
+process ID file.
+
+|`+path.data:+` |Default: `+./data+`. The path where Siren Investigate
+stores persistent data not saved in Elasticsearch
+
+|`+logging.dest:+` |Default: `+stdout+`. Enables you specify a file
+where Siren Investigate stores log output.
+
+|`+logging.silent:+` |Default: `+false+`. Set the value of this setting
+to `+true+` to suppress all logging output.
+
+|`+logging.quiet:+` |Default: `+false+`. Set the value of this setting
+to `+true+` to suppress all logging output other than error messages.
+
+|`+logging.verbose:+` |Default: `+false+`. Set the value of this setting
+to `+true+` to log all events, including system usage information and
+all requests.
+
+|`+ops.interval:+` |Default: `+5000+`. Set the interval in milliseconds
+to sample system and process performance metrics. The minimum value is
+100.
+
+|`+status.allowAnonymous:+` |Default: `+false+`. If authentication is
+enabled, setting this to `+true+` allows unauthenticated users to access
+the Siren Investigate server status API and status page.
+
+|`+cpu.cgroup.path.override:+` |Override for cgroup cpu path when
+mounted in manner that is inconsistent with `+/proc/self/cgroup+`
+
+|`+cpuacct.cgroup.path.override:+` |Override for cgroup cpuacct path
+when mounted in manner that is inconsistent with `+/proc/self/cgroup+`
+
+|`+console.enabled+` |Default: `+true+`. Set to false to disable
+Console. Toggling this will cause the server to regenerate assets on the
+next startup, which may cause a delay before pages start being served.
+
+|`+elasticsearch.tribe.url:+` |Optional URL of the Elasticsearch tribe
+instance to use for all your queries.
+
+|`+elasticsearch.tribe.username:+` and `+elasticsearch.tribe.password:+`
+|If your Elasticsearch is protected with basic authentication, these
+settings provide the username and password that the Siren Investigate
+server uses to perform maintenance on the Siren Investigate index at
+startup. Your Siren Investigate users still need to authenticate with
+Elasticsearch, which is proxied through the Siren Investigate server.
+
+|`+elasticsearch.tribe.ssl.cert:+` and `+elasticsearch.tribe.ssl.key:+`
+|Optional settings that provide the paths to the PEM-format SSL
+certificate and key files. These files validate that your Elasticsearch
+backend uses the same key files.
+
+|`+elasticsearch.tribe.ssl.keyPassphrase:+` |The passphrase that will be
+used to decrypt the private key. This value is optional as the key may
+not be encrypted.
+
+|`+elasticsearch.tribe.ssl.certificateAuthorities:+` |Optional setting
+that enables you to specify a path to the PEM file for the certificate
+authority for your tribe Elasticsearch instance.
+
+|`+elasticsearch.tribe.ssl.verificationMode:+` |Default: `+full+`.
+Controls the verification of certificates. Valid values are `+none+`,
+`+certificate+`, and `+full+`. While `+full+` performs hostname
+verification, `+certificate+` does not.
+
+|`+elasticsearch.tribe.pingTimeout:+` |Default: the value of the
+`+elasticsearch.tribe.requestTimeout+` setting. Time in milliseconds to
+wait for Elasticsearch to respond to pings.
+
+|`+elasticsearch.tribe.requestTimeout:+` |Default: `+30000+`. Time in
+milliseconds to wait for responses from the back end or Elasticsearch.
+This value must be a positive integer.
+
+|`+elasticsearch.tribe.requestHeadersWhitelist:+` |Default:
+`+[ 'authorization' ]+`.  List of Siren Investigate client-side headers
+to send to Elasticsearch. To send _no_ client-side headers, set this
+value to [] (an empty list).
+
+|`+elasticsearch.tribe.customHeaders:+` |Default: `+{}+`. Header names
+and values to send to Elasticsearch. Any custom headers cannot be
+overwritten by client-side headers, regardless of the
+`+elasticsearch.tribe.requestHeadersWhitelist+` configuration.
+|===
+
+[[UUID-55ac173b-2871-9697-a6c3-acd805c2b891]]
+==== Accessing Siren Investigate
+
+Siren Investigate is a web application that you access through port
+5606. All you need to do is point your web browser at the machine where
+Siren Investigate is running and specify the port number. For example,
+http://localhost:5606 or
+http://example.com:5606[http://YOURDOMAIN.com:5606].
+
+When you access Siren Investigate, the
+link:#UUID-e773bdc8-6973-09d5-6104-6b29f300d19d[Discover] page loads by
+default with the default index pattern selected. The time filter is set
+to the last 15 minutes and the search query is set to match-all (`+*+`).
+
+If you do not see any documents, try
+link:#UUID-658a3f51-e66c-3bd6-f7f7-7d68bf3b9e01[setting the time filter]
+to a wider time range. If you still do not see any results, it is
+possible that you do not _have_ any documents.
+
+[[UUID-75679216-bac8-98d7-fa82-9c835bcc7d3b]]
+===== Checking Siren Investigate status
+
+You can reach the Siren Investigate server’s status page by navigating
+to http://localhost:5606/status. The status page displays information
+about the server’s resource usage and lists the installed plugins.
+
+image:image/15d88cec7b682e.png[Siren Investigate status page.]
+
+[[UUID-651d9cd4-5185-09a0-2bf2-5a35c6e75f77]]
+===== Collecting Elasticsearch diagnostics
+
+Click *Elasticsearch diagnostics* to generate a single file by
+collecting different metrics about your Elasticsearch cluster. All
+collected information are saved to a local file and never transferred
+over a network. You can see a full list of Elasticsearch API calls by
+clicking the more info icon.
+
+image:image/15d88cec7bfa48.png[Siren Investigate status page diagnostics
+help.]
+
+____
+*Note*
+
+For JSON formatted server status details, use the API endpoint at
+`+http://localhost:5601/api/status+`.
+____
+
+[[UUID-0182e64b-f238-9c70-7edd-9d70cc84c5d9]]
+==== Connecting Siren Investigate to backend datasources
+
+Siren can visualize data that is accessible by the Siren backend, which
+is an Elasticsearch cluster enhanced by the Federate plugin.
+
+The following diagram represents this concept. On the frontend, a user
+looks at data, for example data in a dashboard or on the Graph Link
+Analysis system. This data comes from Siren "searches", which reflect
+queries that are sent to indices that are on the Elasticsearch backend.
+
+It is useful to distinguish between two types of searches:
+
+* *Index Pattern Searches*: Root definitions that describe which
+Elasticsearch indices will be used. They can be as simple as the name of
+the index itself or can be “patterns” e.g. _new_*_ to indicate “all the
+indices that begin with news_”. For more information and examples, see
+link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Index Pattern Searches].
+* *Other searches*: These are defined by filtering an Index Pattern
+Search, for example starting from a “News” Index Pattern Search, one
+might create a “News that contain the word Brexit” search.
+
+Inside the main Elasticsearch cluster (the one that the NodeJS Siren
+application is connected to), indices can be of two types:
+
+* *Physical indices*: These are regular Elasticsearch indices, typically
+created via external ETL (e.g. Logstash) or via the Siren reflection
+process (an ETL that keeps external tables in sync). For more
+information, see link:#UUID-a3983e8d-32a4-da37-1763-6a0be76b3a38[Data
+Reflection].
+* *Virtual indices*: These will simulate Elasticsearch indices but will
+not copy data; instead, they will send queries to the remote backends
+and will translate the query results.
+
+Both physical and virtual indices can be used to create index patterns
+(although in Siren 10.3, you cannot create wildcard patterns (*)
+including virtual indices).
+
+image:image/15d88cec7c9538.png[image]
+
+Before you can start using Siren Investigate, you need to tell it which
+Elasticsearch indices you want to explore. The first time you access
+Siren Investigate, you are prompted to define an _index pattern search_
+that matches the name of one or more of your indices. That is it. That
+is all you need to configure to start using Siren Investigate. You can
+create index pattern searches at any time from the
+link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Management] tab.
+
+____
+*Tip*
+
+By default, Siren Investigate connects to the Elasticsearch instance
+running on `+localhost+`. To connect to a different Elasticsearch
+instance, modify the Elasticsearch URL in the `+investigate.yml+`
+configuration file and restart Siren Investigate. For information about
+using Siren Investigate with your production nodes, see
+link:#[?xml_title].
+____
+
+Point your browser at port 5606 to access the Siren Investigate user
+interface. For example,
+http://localhost:5606 or http://example.com:5606[http://YOURDOMAIN.com:5606].
+
+Specify an index pattern search that matches the name of one or more of
+your Elasticsearch indices. You may have to access the index pattern
+search management in
+the link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Management] tab. By
+default, Siren Investigate guesses that you are working with data being
+fed into Elasticsearch by Logstash. If that’s the case, you can use the
+default `+logstash-*+` as your index pattern search. The asterisk
+(`+*+`) matches zero or more characters in an index’s name. If your
+Elasticsearch indices follow some other naming convention, enter an
+appropriate pattern. The "pattern" can also be the name of a single
+index.
+
+image:image/15d88cec7d2c63.png[image]
+
+Select the index field that contains the timestamp that you want to use
+to perform time-based comparisons. Siren Investigate reads the index
+mapping to list all the fields that contain a timestamp. If your index
+does not have time-based data, switch off the  *Index contains
+time-based events* option.
+
+Click *Create* to add the index pattern search. This first pattern is
+automatically configured as the default. When you have more than one
+index pattern search, you can designate which one to use as the default
+by clicking on the star icon above the index pattern search title from
+[.menuchoice]#Management > Data Model#.
+
+All done. Siren Investigate is now connected to your Elasticsearch data.
+Siren Investigate displays a read-only list of fields configured for the
+matching index.
+
+____
+*Note*
+
+Siren Investigate relies on dynamic mapping to use fields in
+visualizations and manage the `+.siren+` index. If you have switched off
+dynamic mapping, you need to manually provide mappings for the fields
+that Siren Investigate uses to create visualizations. For more
+information, see link:#UUID-0182e64b-f238-9c70-7edd-9d70cc84c5d9[Siren
+Investigate and Elasticsearch Dynamic Mapping].
+____
+
+*Start exploring your data*
+
+You are ready to dive in to your data:
+
+* Search and browse your data interactively from the
+link:#UUID-e773bdc8-6973-09d5-6104-6b29f300d19d[Discover] page.
+* Chart and map your data from the
+link:/document/preview/60229#UUID-c031aad7-904c-e18b-ac34-c5e8afe57dbd[Visualize]
+page.3.5. Visualize
+* Create and view custom dashboards from the
+link:#UUID-44c38ee5-aeec-1966-1a50-114cc6bf3fbb[Dashboard] page.
+
+For a step-by-step introduction to these core Siren Investigate
+concepts, see the
+link:/document/preview/60141#UUID-697eb485-b896-3d67-f862-e125d7226e0b[Getting
+Started] tutorial.Getting started
+
+*Siren Investigate and Elasticsearch dynamic mapping*
+
+By default, Elasticsearch enables
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/dynamic-mapping.html[dynamic
+mapping] for fields. Siren Investigate needs dynamic mapping to use
+fields in visualizations correctly, as well as to manage the `+.siren+`
+index where saved searches, visualizations, and dashboards are stored.
+
+If your Elasticsearch use case requires you to switch off dynamic
+mapping, you need to manually provide mappings for fields that Siren
+Investigate uses to create visualizations. You also need to manually
+enable dynamic mapping for the `+.siren+` index.
+
+The following procedure assumes that the `+.siren+` index does not
+already exist in Elasticsearch and that the `+index.mapper.dynamic+`
+setting in `+elasticsearch.yml+` is set to `+false+`:
+
+[arabic]
+. Start Elasticsearch.
+. Create the `+.siren+` index with dynamic mapping enabled just for that
+index:
++
+[source,shell]
+----
+PUT .siren
+{
+  "index.mapper.dynamic": true
+}
+----
+. Start Siren Investigate and navigate to the web UI and verify that
+there are no error messages related to dynamic mapping.
+
+[[UUID-536f87e6-1068-56fe-b68a-f52a10bbcb20]]
+==== Using Siren Investigate with tribe nodes
+
+____
+*Note*
+
+While tribe nodes have been deprecated in Elasticsearch in favor of
+link:#[?xml_title], you can still use Siren Investigate with tribe nodes
+until Elasticsearch version 7.0. Unlike tribe nodes, using cross cluster
+search in Siren Investigate requires no server-side configurations and
+does not switch off functionality like link:#[?xml_title].
+____
+
+Siren Investigate can be configured to connect to a
+https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-tribe.html[tribe
+node] for data retrieval. Because tribe nodes cannot create indices,
+Siren Investigate additionally requires a separate connection to a node
+to maintain state. When configured, searches and visualizations will
+retrieve data using the tribe node and administrative actions (such as
+saving a dashboard) will be sent to non-tribe node.
+
+*Configuring Siren Investigate for tribe nodes*
+
+Tribe nodes take all of the same configuration options used when
+configuring Elasticsearch in `+investigate.yml+`. Tribe options are
+prefixed with `+elasticsearch.tribe+` and at a minimum requires a URL:
+
+[source,text]
+----
+elasticsearch.url: "<your_administration_node>"
+elasticsearch.tribe.url: "<your_tribe_node>"
+----
+
+When configured to use a tribe node, actions that modify Siren
+Investigate’s state will be sent to the node at `+elasticsearch.url+`.
+Searches and visualizations will retrieve data from the node at
+`+elasticsearch.tribe.url+`. It’s acceptable to use a node for
+`+elasticsearch.url+` that is part of one of the clusters that a tribe
+node is pointing to.
+
+The full list of configurations can be found at
+https://www.elastic.co/guide/en/kibana/5.6/settings.html[Configuring
+Kibana].
+
+*Limitations*
+
+Due to the ambiguity of which cluster is being used, certain features
+are switched off in Siren Investigate:
+
+* Console
+* Managing users and roles with the x-pack plugin
+
+[[UUID-ef3a5e79-ec24-eb65-5858-d8e12f18715d]]
+==== Using Siren Investigate in a production environment
+
+How you deploy Siren Investigate largely depends on your use case. If
+you are the only user, you can run it on your local machine and
+configure it to point to whatever Elasticsearch instance you want to
+interact with. Conversely, if you have a large number of heavy users,
+you may need to load balance across multiple instances that are all
+connected to the same Elasticsearch cluster.
+
+While Siren Investigate is not terribly resource intensive, we still
+recommend running Siren Investigate separate from your Elasticsearch
+data or master nodes.
+
+Make sure to set the configuration file as readable only to the user
+running the Siren Investigate process as it contains encryption keys to
+protect configuration settings stored in Elasticsearch; if you are
+connecting Siren Investigate to external datasources, we also recommend
+to use credentials with no write privileges as they are not required by
+the system.
+
+*Access control*
+
+Siren Investigate is compatible with Elastic x-pack and Search Guard to
+enable index and document level access control.
+
+For more information about access control features, see the
+link:#UUID-a59771c0-3789-ea1c-beb1-64790476628d[Access Control] section.
+
+*Load balancing across multiple Elasticsearch nodes*
+
+If you have multiple nodes in your Elasticsearch cluster, the easiest
+way to distribute Siren Investigate requests across the nodes is to run
+an Elasticsearch _client_ node on the same machine as Siren Investigate.
+Elasticsearch client nodes are essentially smart load balancers that are
+part of the cluster. They process incoming HTTP requests, redirect
+operations to the other nodes in the cluster as needed, and gather and
+return the results. For more information, see
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-node.html[Node]
+in the Elasticsearch reference.
+
+To use a local client node to load balance Siren Investigate requests:
+
+[arabic]
+. Install Elasticsearch on the same machine as Siren Investigate.
+. Configure the node as a client node. In `+elasticsearch.yml+`, set
+both `+node.data+` and `+node.master+` to `+false+`:
++
+....
+# 3. You want this node to be neither master nor data node, but
+#    to act as a "search load balancer" (fetching data from nodes,
+#    aggregating results, and so on)
+#
+node.master: false
+node.data: false
+node.ingest: false
+....
+. Configure the client node to join your Elasticsearch cluster. In
+`+elasticsearch.yml+`, set the `+cluster.name+` to the name of your
+cluster.
++
+....
+cluster.name: "my_cluster"
+....
+. Make sure Siren Investigate is configured to point to your local
+client node. In `+investigate.yml+`, the `+elasticsearch.url+` should be
+set to `+http://localhost:9220+`.
++
+....
+# The Elasticsearch instance to use for all your queries.
+elasticsearch.url: "http://localhost:9220"
+....
+
+[[UUID-582f3fa4-41af-affb-3f9e-67a2ee70b071]]
+==== Upgrading from Investigate 10.1.x or 10.2.x
+
+You can migrate directly from Investigate 10.1.3 and higher to 10.3.0.
+If upgrading from an earlier version of Investigate, it is recommended
+that you first upgrade to 10.1.3 (which also supports Elasticsearch
+5.x). You can then upgrade from 10.1.3 to 10.3.0.
+
+____
+*Note*
+
+When upgrading both Investigate and Elasticsearch, you should upgrade
+the Investigate objects first, and only then upgrade Elasticsearch.
+____
+
+The recommended version of Elasticsearch is 6.8.0 (version 6.5.4 is also
+supported). Please see
+link:/document/preview/74614#UUID-614c3407-2425-bbec-d555-cf99fc9605ff[Breaking
+Changes] and the link:#UUID-c90c7882-8ae2-2392-260c-ef61485f6027[Search
+Guard Integration and Siren Investigate access control] to configure
+Searchguard security settings correctly for Elasticsearch 6.8.0.8.
+Breaking changes
+
+____
+*Important*
+
+Before you upgrade Siren Investigate, you must take account of the
+security implications of the new features installed. Details of the
+necessary security procedures can be found in
+link:#UUID-43028529-accb-ba05-df2a-f1c0c0f82b5b[Security
+standardization].
+____
+
+An existing Siren Investigate installation can be upgraded as follows:
+
+Backup the 10.1.x `+.siren+` index.
+
+Backup the Siren Investigate configuration file
+(`+config/investigate.yml+`).
+
+Backup the `+.sirenaccess+` if ACL (Access Control Layer) is enabled
+
+If you are running Elasticsearch 6.3.2, you can optionally upgrade to
+version 6.8.0
+(https://www.elastic.co/guide/en/elasticsearch/reference/6.5/setup-upgrade.html).
+
+Before restarting each Elasticsearch node, ensure you install a
+compatible version of the
+link:/document/preview/104019#UUID-443698b7-dcb2-87fb-fd89-3e672f069521[Siren
+Federate] plugin and access control plugins (Searchguard or X-pack
+security) if requiredIntroduction
+
+Download and extract the new Siren Investigate version.
+
+Copy the previous configuration file to the `+config+` folder of the new
+installation.
+
+Check for breaking changes to the configuration. Please see
+link:/document/preview/74614#UUID-614c3407-2425-bbec-d555-cf99fc9605ff[Breaking
+Changes] and the link:#UUID-c90c7882-8ae2-2392-260c-ef61485f6027[Search
+Guard Integration and Siren Investigate access control]8. Breaking
+changes
+
+Install the compatible versions of third party Siren Investigate/Kibana
+plugins that you may need into the `+/plugins+` folder.
+
+Execute the link:#UUID-582f3fa4-41af-affb-3f9e-67a2ee70b071[upgrade
+command].
+
+____
+*Note*
+
+Elasticsearch requires a matching version of Search Guard. For example,
+Elasticsearch 6 requires Search Guard 6. For information on upgrading
+Search Guard, see https://docs.search-guard.com/latest/upgrading-560.
+____
+
+*Backing up and restoring the Siren Investigate indices*
+
+Before upgrading, you should have a backup of the `+.siren+` index; the
+recommended way to perform regular backups of Elasticsearch indexes is
+through the
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-snapshots.html[snapshot
+and restore modules].
+
+Siren Investigate ships with a command line interface for creating dumps
+of the `+.siren+` index and, in case the `+ACL+` is enabled, the
+`+.sirenaccess+` index as well. An index dump is composed of two parts:
+its mappings and its data.
+
+*Backup*
+
+The backup command requires a running Elasticsearch instance and the
+path to a folder where the dumps will be written to.
+
+You can find out more about its options by executing the following:
+
+[source,shell]
+----
+$ ./bin/investigate backup --help
+----
+
+For example, the following line will dump in `+<MY_FOLDER>+` the
+`+.siren+` index and the `+.sirenaccess+` index if the option
+`+investigate_access_control.acl.enabled+` is true in
+`+investigate.yml+`:
+
+[source,shell]
+----
+$ ./bin/investigate backup --backup-dir <MY_FOLDER>
+----
+
+*Restore*
+
+The restore command requires a running Elasticsearch instance and the
+path to a folder where the dumps were written to by the previous backup
+command.
+
+You can find out more about its options by executing the following:
+
+[source,shell]
+----
+$ ./bin/investigate restore --help
+----
+
+For example, you can restore the previously saved indices by executing
+the command and pointing to the dump folder, with `+.sirenaccess+` as
+well if the option `+investigate_access_control.acl.enabled+` is true in
+`+investigate.yml+`:
+
+[source,shell]
+----
+$ ./bin/investigate restore --backup-dir <MY_FOLDER>
+----
+
+*Upgrading the Siren index*
+
+To upgrade the objects in the `+.siren+` index (dashboards,
+visualizations, and so on), move to the folder in which Siren
+Investigate is installed and execute the following command:
+
+[source,shell]
+----
+bin/investigate upgrade
+----
+
+The command will look for out of date objects and upgrade them, for
+example:
+
+[source,shell]
+----
+$ bin/investigate upgrade
+  log   [17:58:33.494] [info][status][plugin:elasticsearch] Status changed from uninitialized to yellow - Waiting for Elasticsearch
+  log   [17:58:36.127] [info][migrations] Executing migration "Upgrade scripts from version 1 to version 2"
+  log   [17:58:36.141] [info][migrations] Executed migration "Upgrade scripts from version 1 to version 2"
+  log   [17:58:36.142] [info][migrations] Executing migration "Upgrade graph browser visualization to version 2."
+  log   [17:58:36.157] [info][migrations] Executed migration "Upgrade graph browser visualization to version 2."
+  log   [17:58:36.158] [info][migrations] Executing migration "Upgrade saved queries from version 1 to version 2"
+  log   [17:58:36.242] [info][migrations] Executed migration "Upgrade saved queries from version 1 to version 2"
+  log   [17:58:36.242] [info][migrations] Executing migration "Upgrade saved templates from version 1 to version 2"
+  log   [17:58:36.303] [info][migrations] Executed migration "Upgrade saved templates from version 1 to version 2"
+  log   [17:58:36.303] [info][migrations] Executing migration "Upgrade saved queries definitions in external query terms aggregation, enhanced search results and query viewer."
+  log   [17:58:36.400] [info][migrations] Executed migration "Upgrade saved queries definitions in external query terms aggregation, enhanced search results and query viewer."
+Upgraded 20 objects.
+----
+
+It is possible to run the command multiple times, however running the
+command at the same time from multiple machines is not supported.
+
+The `+upgrade+` command runs an automatic backup of the siren indices
+(`+.siren+`, `+.sirenaccess+`) and restores them (after deleting the
+existing index) in the event of a problem in the `+upgrade+` process -
+ensuring the system is not left in an unusable state. In the event of a
+successful upgrade, the backup is removed but if there is an issue, the
+backed up indexes are stored in the backup folder (defaults to the
+`+/data+` folder).
+
+You can specify various flags to control the backup/restore process.
+
+* `+--backup-dir <path>+`: Custom backup folder path to store the index
+backup.
+* `+--config <path>+`: Path to the configuration file.
+* `+--delete-backup+`: Deletes the backup of the indexes after the
+upgrade process completes.
+* `+--dont-backup+`: Runs the upgrade process without creating a backup
+of the indexes.
+* `+-y+`: Accepts all of the options, for example, backup the indexes
+and remove the indexes before restoring.
+
+[[UUID-43028529-accb-ba05-df2a-f1c0c0f82b5b]]
+==== Security standardization
+
+The purpose of security standardization is to provide standard security
+configuration for all possible backends, and full support for
+Investigate 10.3.0.
+
+This entails standardizing both action groups and role mappings.
+
+*Procedure*
+
+To standardize your security according to new action groups:
+
+* Download the applicable security bundle below.
+* Add any new client-specific roles or action groups you have added (if
+any) based on the action group and action name changes listed below.
+* Put the modified configuration files in the
+./elasticsearch/config/sgconfig/ folder and
+link:#UUID-069f8c67-99e9-efec-09aa-529ba8431c78[upload the configuration
+to the cluster].
+* Ensure that you explicitly specify your ACL admin_role and Sentinl
+user_role in investigate.yml as defaults may have changed.
+
+*Standard sgconfig bundles*
+
+The following sgconfig bundles are available:
+
+* https://drive.google.com/file/d/1pwN6HEysCvYNefeuMEob689DHHts4bmq/view?usp=sharing[sgconfig-standard-10.1.x]
+* https://drive.google.com/file/d/1KmSrFXsyHvcHUYNtFrz6rc0PvOo947Jb/view?usp=sharing[sgconfig-standard-10.2.x]
+
+*Action Group changes*
+
+[cols=",",options="header",]
+|===
+|Removed |Can be (loosely) replaced by
+|ALL |INDICES_ALL
+
+|CREATE_INDEX |WRITE, MANAGE
+
+|MANAGE_ALIASES |VIEW_INDEX_METADATA
+
+|MONITOR |MANAGE
+
+|INDICES_MONITOR |VIEW_INDEX_METADATA
+
+|DATA_ACCESS |WRITE, READ, VIEW_INDEX_METADATA
+
+|DELETE |WRITE
+
+|CRUD |READ, WRITE
+
+|SEARCH |READ
+
+|SUGGEST |READ
+
+|INDEX |WRITE
+
+|GET |READ
+
+|SIREN_READONLY |READ, VIEW_INDEX_METADATA
+
+|SIREN_READWRITE |READ, WRITE, VIEW_INDEX_METADATA
+
+|SIREN_CLUSTER |CLUSTER_MANAGE, CLUSTER_MONITOR,
+CLUSTER_COMPOSITE_OPS_RO
+|===
+
+*Elasticsearch Action Name Changes*
+
+*ES 6.3.x onwards:*
+
+Index-level actions:
+
+* `+indices:data/write/bulk+` to -> `+indices:data/write/bulk[s]+` or
+you may just use `+indices:data/write/bulk*+`.
+* `+indices:data/read/coordinate-msearch*+` deprecated (not used by
+Siren).
+
+*Federate Action Name Changes*
+
+*Federate 10.2.0 onwards:*
+
+Index-level actions:
+
+* `+indices:siren/plan*+` to ->
+`+indices:data/read/federate/planner/search*+`
+* `+indices:siren/mplan*+` to ->
+`+indices:data/read/federate/planner/msearch*+`
+* `+indices:data/siren/connector/mappings/get*+` to ->
+`+indices:admin/mappings/federate/connector/get*+`
+* `+indices:data/siren/connector/mappings/fields/get*+` to ->
+`+indices:admin/mappings/federate/connector/fields/get*+`
+
+Cluster-level actions:
+
+* `+indices:siren/plan*+` to ->
+`+indices:data/read/federate/planner/search*+`
+* `+indices:siren/mplan*+` to ->
+`+indices:data/read/federate/planner/msearch*+`
+* `+cluster:siren/internal*+` to -> `+cluster:internal/federate/*+`
+* `+cluster:admin/plugin/siren/license/get+` to ->
+`+cluster:admin/federate/license/get+`, or you may just use
+`+cluster:admin/federate/*+`
+* `+indices:data/siren/connector/*+` to ->
+`+indices:data/read/federate/*+`, `+indices:admin/federate/*+` and
+`+cluster:admin/federate/*+`
+
+
