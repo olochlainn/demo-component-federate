@@ -1031,7 +1031,7 @@ set to `+http://localhost:9220+`.
 elasticsearch.url: "http://localhost:9220"
 ....
 
-[[UUID-582f3fa4-41af-affb-3f9e-67a2ee70b071]]
+
 == Upgrading from Investigate 10.1.x or 10.2.x
 
 You can migrate directly from Investigate 10.1.3 and higher to 10.3.0.
@@ -1211,7 +1211,7 @@ of the indexes.
 * `+-y+`: Accepts all of the options, for example, backup the indexes
 and remove the indexes before restoring.
 
-[[UUID-43028529-accb-ba05-df2a-f1c0c0f82b5b]]
+
 == Security standardization
 
 The purpose of security standardization is to provide standard security
