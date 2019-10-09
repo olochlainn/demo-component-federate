@@ -2116,17 +2116,14 @@ image:15d88cecd8dd9c.png[image]::
   be ordered, by clicking and dragging ② as below. The layer at the top
   of the list is drawn furthest in the background.
   +
-  
-  image:15d88cecd9d429.png[image]
+  image::15d88cecd9d429.png[image]
   
   ** *If your URL is not a CORS-enabled WMS server* - The UI will remain
   the same. You can order your layers, separated by a comma. The first
   layer you specify will be drawn the furthest in the background.
+  +  
+  image::15d88cecda4097.png[image]
   +
-  
-  image:15d88cecda4097.png[image]
- 
-  
   [NOTE]
   ====
   You can still see the available layers for the WMS by running a
