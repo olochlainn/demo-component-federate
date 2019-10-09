@@ -153,24 +153,21 @@ Docker]
 
 |===
 
-____
-*Important*
-
-If your Elasticsearch installation is protected by
+IMPORTANT: If your Elasticsearch installation is protected by
 https://www.elastic.co/guide/en/x-pack/5.6/xpack-security.html[X-Pack
 Security] see
 https://www.elastic.co/guide/en/x-pack/5.6/kibana.html[Using Kibana with
 X-Pack Security] for additional setup instructions.
-____
 
 
-== Running Siren Investigate on Docker
+
+=== Running Siren Investigate on Docker
 
 Docker images for Siren Investigate are available from the
 https://hub.docker.com/u/sirensolutions/[sirensolutions] organization on
 https://hub.docker.com[Dockerhub].
 
-[[UUID-3335905b-5590-bf00-508a-03a558fe4358]]
+
 === Pulling the Image
 
 Obtaining Siren Investigate for Docker is as simple as issuing a docker
@@ -244,7 +241,7 @@ services:
 Because environment variables are translated to CLI arguments, they take
 precedence over settings configured in `+investigate.yml+`.
 
-[[UUID-732a115b-09ba-6b12-2b12-f064586e682d]]
+
 ==== Docker defaults
 
 The default settings when using the `+siren-investigate+` image
@@ -257,7 +254,7 @@ The default settings when using the `+siren-investigate+` image
 |`+kibana.index+` |`+.siren+`
 |===
 
-[[UUID-5d9af5fb-1612-a639-71c2-6b3bcad94d08]]
+
 === Install Siren Investigate with ZIP package
 
 Siren Investigate is provided for Linux and Windows as a `+.zip+`
@@ -268,7 +265,7 @@ The latest stable version of Siren Investigate can be found on the
 https://support.siren.io[Siren Support Portal]. Descriptions of the
 separate demonstration packages are also available there.
 
-[[UUID-eeeb8e5a-2925-3e4f-8506-d0062797571d]]
+
 ==== Download and install the Linux 64-bit package
 
 After you have
@@ -292,8 +289,8 @@ published `+sha1.txt+` (found on the Siren Investigate download page on
 the https://support.siren.io[Siren Support Portal]).
 * This folder is known as `+$INVESTIGATE_HOME+`.
 
-[[UUID-63326b06-b6e8-ca10-d001-ff2e6c2d763f]]
-===== Running Siren Investigate from the command prompt
+
+==== Running Siren Investigate from the command prompt
 
 Siren Investigate can be started from the command prompt as follows:
 
@@ -306,15 +303,15 @@ By default, Siren Investigate runs in the foreground, prints its logs to
 the standard output (`+stdout+`), and can be stopped by
 pressing [.keycombo]#Ctrl+C#.
 
-[[UUID-5a573e31-4b51-c2a1-1c49-806417e17f10]]
-===== Siren Investigate configuration
+
+==== Siren Investigate configuration
 
 Siren Investigate loads its configuration from the
 `+$INVESTIGATE_HOME/config/investigate.yml+` file by default. The format
 of this configuration file is explained in link:#[?xml_title].
 
-[[UUID-e4bd5125-be0f-be00-3dc9-71a7cc065b8f]]
-===== Folder layout of Linux ZIP archive
+
+==== Folder layout of Linux ZIP archive
 
 The `+.zip+` packages are entirely self-contained.
 
@@ -349,8 +346,8 @@ on the fly. |`+$INVESTIGATE_HOME\optimize+` |
 contained in a subfolder. |`+$INVESTIGATE_HOME\plugins+` |
 |===
 
-[[UUID-214e3ba0-b367-de9a-52fe-713af2ade367]]
-===== Install Siren Investigate on Windows
+
+==== Install Siren Investigate on Windows
 
 Siren Investigate can be installed on Windows using the `+.zip+`
 package; zip packages can be downloaded from the
@@ -358,8 +355,8 @@ https://support.siren.io[download page]. The demonstration versions
 contain a preconfigured Elasticsearch cluster in addition to Siren
 Investigate.
 
-[[UUID-4e64cecb-c94a-0a69-3fdb-39d1a1324426]]
-====== Running Siren Investigate from the command prompt
+
+==== Running Siren Investigate from the command prompt
 
 Siren Investigate can be started from the command prompt as follows:
 
@@ -371,15 +368,15 @@ Siren Investigate can be started from the command prompt as follows:
 By default, Siren Investigate runs in the foreground, prints its logs to
 `+STDOUT+`, and can be stopped by pressing [.keycombo]#Ctrl+C#.
 
-[[UUID-3708dc53-135b-3a28-99fe-3b26dee4ed68]]
-====== Siren Investigate configuration
+
+===== Siren Investigate configuration
 
 Siren Investigate loads its configuration from the
 `+$INVESTIGATE_HOME/config/investigate.yml+` file by default. The format
 of this configuration file is explained in link:#[?xml_title].
 
-[[UUID-5ebcef3b-7895-cf8a-2fe4-575aa035bc5a]]
-====== Folder layout of Windows ZIP archive
+
+==== Folder layout of Windows ZIP archive
 
 The `+.zip+` package is entirely self-contained.
 
@@ -414,8 +411,8 @@ on the fly. |`+%INVESTIGATE_HOME%\optimize+` |
 contained in a subfolder. |`+%INVESTIGATE_HOME%\plugins+` |
 |===
 
-[[UUID-d3a341cd-4152-1d47-a3d0-c95e7a6afb98]]
-==== Configuring Siren Investigate
+
+== Configuring Siren Investigate
 
 The Siren Investigate server reads properties from the
 `+investigate.yml+` file on startup. The default settings configure
@@ -718,8 +715,8 @@ overwritten by client-side headers, regardless of the
 `+elasticsearch.tribe.requestHeadersWhitelist+` configuration.
 |===
 
-[[UUID-55ac173b-2871-9697-a6c3-acd805c2b891]]
-==== Accessing Siren Investigate
+
+== Accessing Siren Investigate
 
 Siren Investigate is a web application that you access through port
 5606. All you need to do is point your web browser at the machine where
@@ -737,8 +734,8 @@ link:#UUID-658a3f51-e66c-3bd6-f7f7-7d68bf3b9e01[setting the time filter]
 to a wider time range. If you still do not see any results, it is
 possible that you do not _have_ any documents.
 
-[[UUID-75679216-bac8-98d7-fa82-9c835bcc7d3b]]
-===== Checking Siren Investigate status
+
+=== Checking Siren Investigate status
 
 You can reach the Siren Investigate server’s status page by navigating
 to http://localhost:5606/status. The status page displays information
@@ -746,8 +743,8 @@ about the server’s resource usage and lists the installed plugins.
 
 image:15d88cec7b682e.png[Siren Investigate status page.]
 
-[[UUID-651d9cd4-5185-09a0-2bf2-5a35c6e75f77]]
-===== Collecting Elasticsearch diagnostics
+
+=== Collecting Elasticsearch diagnostics
 
 Click *Elasticsearch diagnostics* to generate a single file by
 collecting different metrics about your Elasticsearch cluster. All
@@ -765,8 +762,8 @@ For JSON formatted server status details, use the API endpoint at
 `+http://localhost:5601/api/status+`.
 ____
 
-[[UUID-0182e64b-f238-9c70-7edd-9d70cc84c5d9]]
-==== Connecting Siren Investigate to backend datasources
+
+== Connecting Siren Investigate to backend datasources
 
 Siren can visualize data that is accessible by the Siren backend, which
 is an Elasticsearch cluster enhanced by the Federate plugin.
@@ -803,7 +800,7 @@ Both physical and virtual indices can be used to create index patterns
 (although in Siren 10.3, you cannot create wildcard patterns (*)
 including virtual indices).
 
-image:image/15d88cec7c9538.png[image]
+image:15d88cec7c9538.png[image]
 
 Before you can start using Siren Investigate, you need to tell it which
 Elasticsearch indices you want to explore. The first time you access
@@ -912,7 +909,7 @@ PUT .siren
 . Start Siren Investigate and navigate to the web UI and verify that
 there are no error messages related to dynamic mapping.
 
-[[UUID-536f87e6-1068-56fe-b68a-f52a10bbcb20]]
+
 == Using Siren Investigate with tribe nodes
 
 NOTE: While tribe nodes have been deprecated in Elasticsearch in favor of
@@ -961,7 +958,7 @@ are switched off in Siren Investigate:
 * Console
 * Managing users and roles with the x-pack plugin
 
-[[UUID-ef3a5e79-ec24-eb65-5858-d8e12f18715d]]
+
 == Using Siren Investigate in a production environment
 
 How you deploy Siren Investigate largely depends on your use case. If
