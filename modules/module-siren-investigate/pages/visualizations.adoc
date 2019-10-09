@@ -3824,7 +3824,7 @@ Followed by this.
 ====
 
 
-Here's the second, copied from AUG...
+Here's the second, copied from AUG... then I added the png...
 
 * The header in AsciiDoc must start with a document title.
 +
@@ -3833,6 +3833,8 @@ Here's the second, copied from AUG...
 ----
 +
 Keep in mind that the header is optional.
++
+image::15d88cecf96f14.png[image]
 
 * Optional Author and Revision information immediately follows the header title.
 +
