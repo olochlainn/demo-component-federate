@@ -744,7 +744,7 @@ You can reach the Siren Investigate server’s status page by navigating
 to http://localhost:5606/status. The status page displays information
 about the server’s resource usage and lists the installed plugins.
 
-image:image/15d88cec7b682e.png[Siren Investigate status page.]
+image:15d88cec7b682e.png[Siren Investigate status page.]
 
 [[UUID-651d9cd4-5185-09a0-2bf2-5a35c6e75f77]]
 ===== Collecting Elasticsearch diagnostics
@@ -755,7 +755,7 @@ collected information are saved to a local file and never transferred
 over a network. You can see a full list of Elasticsearch API calls by
 clicking the more info icon.
 
-image:image/15d88cec7bfa48.png[Siren Investigate status page diagnostics
+image:15d88cec7bfa48.png[Siren Investigate status page diagnostics
 help.]
 
 ____
@@ -813,16 +813,13 @@ is all you need to configure to start using Siren Investigate. You can
 create index pattern searches at any time from the
 link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Management] tab.
 
-____
-*Tip*
-
-By default, Siren Investigate connects to the Elasticsearch instance
+TIP: By default, Siren Investigate connects to the Elasticsearch instance
 running on `+localhost+`. To connect to a different Elasticsearch
 instance, modify the Elasticsearch URL in the `+investigate.yml+`
 configuration file and restart Siren Investigate. For information about
 using Siren Investigate with your production nodes, see
 link:#[?xml_title].
-____
+
 
 Point your browser at port 5606 to access the Siren Investigate user
 interface. For example,
@@ -840,7 +837,7 @@ Elasticsearch indices follow some other naming convention, enter an
 appropriate pattern. The "pattern" can also be the name of a single
 index.
 
-image:image/15d88cec7d2c63.png[image]
+image:15d88cec7d2c63.png[image]
 
 Select the index field that contains the timestamp that you want to use
 to perform time-based comparisons. Siren Investigate reads the index
@@ -858,16 +855,13 @@ All done. Siren Investigate is now connected to your Elasticsearch data.
 Siren Investigate displays a read-only list of fields configured for the
 matching index.
 
-____
-*Note*
-
-Siren Investigate relies on dynamic mapping to use fields in
+NOTE: Siren Investigate relies on dynamic mapping to use fields in
 visualizations and manage the `+.siren+` index. If you have switched off
 dynamic mapping, you need to manually provide mappings for the fields
 that Siren Investigate uses to create visualizations. For more
 information, see link:#UUID-0182e64b-f238-9c70-7edd-9d70cc84c5d9[Siren
 Investigate and Elasticsearch Dynamic Mapping].
-____
+
 
 *Start exploring your data*
 
@@ -919,17 +913,14 @@ PUT .siren
 there are no error messages related to dynamic mapping.
 
 [[UUID-536f87e6-1068-56fe-b68a-f52a10bbcb20]]
-==== Using Siren Investigate with tribe nodes
+== Using Siren Investigate with tribe nodes
 
-____
-*Note*
-
-While tribe nodes have been deprecated in Elasticsearch in favor of
+NOTE: While tribe nodes have been deprecated in Elasticsearch in favor of
 link:#[?xml_title], you can still use Siren Investigate with tribe nodes
 until Elasticsearch version 7.0. Unlike tribe nodes, using cross cluster
 search in Siren Investigate requires no server-side configurations and
 does not switch off functionality like link:#[?xml_title].
-____
+
 
 Siren Investigate can be configured to connect to a
 https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-tribe.html[tribe
@@ -971,7 +962,7 @@ are switched off in Siren Investigate:
 * Managing users and roles with the x-pack plugin
 
 [[UUID-ef3a5e79-ec24-eb65-5858-d8e12f18715d]]
-==== Using Siren Investigate in a production environment
+== Using Siren Investigate in a production environment
 
 How you deploy Siren Investigate largely depends on your use case. If
 you are the only user, you can run it on your local machine and
@@ -1051,12 +1042,9 @@ If upgrading from an earlier version of Investigate, it is recommended
 that you first upgrade to 10.1.3 (which also supports Elasticsearch
 5.x). You can then upgrade from 10.1.3 to 10.3.0.
 
-____
-*Note*
-
-When upgrading both Investigate and Elasticsearch, you should upgrade
+NOTE: When upgrading both Investigate and Elasticsearch, you should upgrade
 the Investigate objects first, and only then upgrade Elasticsearch.
-____
+
 
 The recommended version of Elasticsearch is 6.8.0 (version 6.5.4 is also
 supported). Please see
@@ -1066,15 +1054,12 @@ Guard Integration and Siren Investigate access control] to configure
 Searchguard security settings correctly for Elasticsearch 6.8.0.8.
 Breaking changes
 
-____
-*Important*
-
-Before you upgrade Siren Investigate, you must take account of the
+IMPORTANT: Before you upgrade Siren Investigate, you must take account of the
 security implications of the new features installed. Details of the
 necessary security procedures can be found in
 link:#UUID-43028529-accb-ba05-df2a-f1c0c0f82b5b[Security
 standardization].
-____
+
 
 An existing Siren Investigate installation can be upgraded as follows:
 
@@ -1112,13 +1097,10 @@ plugins that you may need into the `+/plugins+` folder.
 Execute the link:#UUID-582f3fa4-41af-affb-3f9e-67a2ee70b071[upgrade
 command].
 
-____
-*Note*
-
-Elasticsearch requires a matching version of Search Guard. For example,
+NOTE: Elasticsearch requires a matching version of Search Guard. For example,
 Elasticsearch 6 requires Search Guard 6. For information on upgrading
 Search Guard, see https://docs.search-guard.com/latest/upgrading-560.
-____
+
 
 *Backing up and restoring the Siren Investigate indices*
 
@@ -1233,7 +1215,7 @@ of the indexes.
 and remove the indexes before restoring.
 
 [[UUID-43028529-accb-ba05-df2a-f1c0c0f82b5b]]
-==== Security standardization
+== Security standardization
 
 The purpose of security standardization is to provide standard security
 configuration for all possible backends, and full support for
