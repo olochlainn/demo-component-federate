@@ -3824,7 +3824,7 @@ Followed by this.
 ====
 
 
-Here's the second, copied from AUG... then I added the png...
+Here's the second, copied from AUG... then I added the png... then I put it in a sub-bullet...
 
 * The header in AsciiDoc must start with a document title.
 +
@@ -3833,6 +3833,10 @@ Here's the second, copied from AUG... then I added the png...
 ----
 +
 Keep in mind that the header is optional.
++
+image::15d88cecf96f14.png[image]
+
+** Here is the sub-bullet.
 +
 image::15d88cecf96f14.png[image]
 
