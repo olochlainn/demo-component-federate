@@ -1,4 +1,4 @@
-= Setting up Siren Investigate (temp file)
+= Setting up Siren Investigate
 
 This section includes information on how to set up Siren Investigate and get it running, including:
 
@@ -58,13 +58,10 @@ cases
 |Target |6.8.0 - 10.3.0
 |===
 
-____
-*Note*
-
-If the Elasticsearch/Federate backend is more recent than the
+NOTE: If the Elasticsearch/Federate backend is more recent than the
 Investigate version, it has to be within a minor release from
 Investigate Target version so as not to break APIs.
-____
+
 
 When Investigate starts up, it checks the version of Federate it is
 working with and compares with a compatibility matrix. It detects the
@@ -93,18 +90,18 @@ as a datasource and create virtual indices on it |6.8.0-10.3.0
 |===
 |Siren Investigate |Siren Federate |Elasticsearch
 |10.2.4 |Siren Federate 6.8.0-10.2.4 |6.8.0
-|Siren Federate 6.5.4-10.2.4 |6.5.4 |
+| |Siren Federate 6.5.4-10.2.4 |6.5.4
 |10.2.3 |Siren Federate 6.8.0-10.2.3 |6.8.0
-|Siren Federate 6.5.4-10.2.3 |6.5.4 |
+| |Siren Federate 6.5.4-10.2.3 |6.5.4
 |10.2.2 |Siren Federate 6.5.4-10.2.2 |6.5.4
 |10.2.1 |Siren Federate 6.5.4-10.2.1 |6.5.4
 |10.2.0 |Siren Federate 6.5.4-10.2.0 |6.5.4
 |10.1.3 |Siren Federate 6.3.2-10.1.3-1 |6.3.2
-|Siren Federate 5.6.16-10.1.3-1 |5.6.16 |
+|| Siren Federate 5.6.16-10.1.3-1 |5.6.16
 |10.1.2 |Siren Federate 6.3.2-10.1.2 |6.3.2
-|Siren Federate 5.6.14-10.1.2 |5.6.14 |
+|| Siren Federate 5.6.14-10.1.2 |5.6.14
 |10.1.1 |Siren Federate 6.3.2-10.1.1 |6.3.2
-|Siren Federate 5.6.10-10.1.1 |5.6.10 |
+| |Siren Federate 5.6.10-10.1.1 |5.6.10
 |===
 
 Running different major version releases of Siren Investigate and
@@ -134,8 +131,8 @@ patch version.
 
 
 
-[[UUID-a014aae1-5714-26fb-7132-e6ea60748276]]
-==== Installing Siren Investigate
+
+== Installing Siren Investigate
 
 Siren Investigate is provided in the following package formats:
 
@@ -166,15 +163,15 @@ https://www.elastic.co/guide/en/x-pack/5.6/kibana.html[Using Kibana with
 X-Pack Security] for additional setup instructions.
 ____
 
-[[UUID-c8082842-27f2-99d0-8075-084dc59d0c35]]
-==== Running Siren Investigate on Docker
+
+== Running Siren Investigate on Docker
 
 Docker images for Siren Investigate are available from the
 https://hub.docker.com/u/sirensolutions/[sirensolutions] organization on
 https://hub.docker.com[Dockerhub].
 
 [[UUID-3335905b-5590-bf00-508a-03a558fe4358]]
-===== Pulling the Image
+=== Pulling the Image
 
 Obtaining Siren Investigate for Docker is as simple as issuing a docker
 pull command.
@@ -205,7 +202,7 @@ docker run -d -p 5606:5606 -p 9220:9220 sirensolutions/siren-platform-demo-data:
 ----
 
 [[UUID-80b084a9-4ec2-14c1-d950-6748a6658111]]
-====== Environment variable configuration
+==== Environment variable configuration
 
 Under Docker, Siren Investigate can be configured using environment
 variables. When the container starts, a helper process checks the
@@ -248,7 +245,7 @@ Because environment variables are translated to CLI arguments, they take
 precedence over settings configured in `+investigate.yml+`.
 
 [[UUID-732a115b-09ba-6b12-2b12-f064586e682d]]
-====== Docker defaults
+==== Docker defaults
 
 The default settings when using the `+siren-investigate+` image
 (standalone Siren Investigate image) are:
@@ -261,7 +258,7 @@ The default settings when using the `+siren-investigate+` image
 |===
 
 [[UUID-5d9af5fb-1612-a639-71c2-6b3bcad94d08]]
-===== Install Siren Investigate with ZIP package
+=== Install Siren Investigate with ZIP package
 
 Siren Investigate is provided for Linux and Windows as a `+.zip+`
 package. These packages are the easiest formats to use when trying out
@@ -272,7 +269,7 @@ https://support.siren.io[Siren Support Portal]. Descriptions of the
 separate demonstration packages are also available there.
 
 [[UUID-eeeb8e5a-2925-3e4f-8506-d0062797571d]]
-====== Download and install the Linux 64-bit package
+==== Download and install the Linux 64-bit package
 
 After you have
 https://support.siren.io/support/solutions/articles/17000057493-get-your-license[obtained
