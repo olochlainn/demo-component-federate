@@ -805,16 +805,16 @@ present in the result and may be unfamiliar to some users. However, the
 OR logic is useful because it enables a more expressive query (for
 example, you can copy and paste a paragraph of text and find documents
 that contain just a few words from it). Typically, the
-xref:visualizations.adoc#analytic-table[ranking] returns the
+xref:visualizations.adoc#_analytic_table[ranking] returns the
 most significant results first, providing a good overall user
 experience.
 * To select one or more documents and go to the specific dashboard, you
 must:
-** Click the check box for the creation of individual
-document link:/document/preview/60150#UUID-6c99b59a-ddaa-708c-9536-7ff56550921f[filter].
+** Click the check box for the creation of an individual
+document xref:getting-started.adoc#_filtering_results[filter].
 ** Select the documents.
 ** Click Create Filter, and then
-"link:#UUID-bbbac2e6-269e-ea10-ef90-d5f4e92b1d63[pin the filter]". This
+"xref:discover.adoc#_filtering_by_field[pin the filter]". This
 makes it possible to then go to the destination dashboard and see the
 search results in that environment.
 * The top right time filter has no effect unless a time filter variable
@@ -826,7 +826,7 @@ documents will not be shown.
 
 The "search over all" dashboard works well in conjunction with the graph
 browser. All the results can be added at once using the standard graph
-browser "link:#UUID-c781ea33-07ef-8521-35a7-f830e0d1f632[add document]"
+browser xref:visualizations.adoc#_graph_browser[add document]
 mechanism.
 
 === Search over all and relational links
