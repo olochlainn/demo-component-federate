@@ -2202,10 +2202,10 @@ opens to the right when you clicked Draw a Polygon tool.
 the polygon will autocomplete. Elasticsearch documents within the drawn
 polygon will be filtered.
 * Click Latitude/Longitude Filter
-(image:image/15d88cecd75088.png[image]), then drag a bounding box across
+(image:15d88cecd75088.png[image]), then drag a bounding box across
 the map, to create a filter for the box coordinates. Elasticsearch
 documents within the drawn polygon will be filtered.
-* Click Draw a Circle (image:image/15d88cecdc227a.png[image]), then drag
+* Click Draw a Circle (image:15d88cecdc227a.png[image]), then drag
 a circle and release to select documents. Elasticsearch documents within
 the drawn polygon will be filtered.
 
@@ -2217,7 +2217,7 @@ image:15d88cecdca0da.png[image]
 
 *Marking tools*
 
-* Click Draw a Marker (image:image/15d88cecdd059b.png[image]), and
+* Click Draw a Marker (image:15d88cecdd059b.png[image]), and
 select any point on the map to place a marker. You can add multiple
 markers.
 * After adding at least one marker, the Delete Marker(s) option becomes
@@ -2264,7 +2264,7 @@ geospatial server may provide the solution. See
 ==== The Data Tab
 
 [[UUID-47526504-4b7c-a437-4144-8e96309a997e]]
-===== Metric values
+==== Metric values
 
 To specify the metric type that will be used for the choropleth, select
 any of the supported _Metric_ or _Sibling Pipeline Aggregations_.
@@ -2341,7 +2341,7 @@ selecting *Request* from the dropdown menu.
 
 
 [[UUID-5018d15f-f18e-12fe-7373-571b35e7ed6b]]
-===== Buckets
+==== Buckets
 
 The *Shape* field is where the parameters of the join between the
 polygon vector map and the Elasticsearch index are specified.
@@ -2369,7 +2369,7 @@ appear on the map, specify a valid *Field* value that isn’t already
 displayed on the choropleth.
 
 [[UUID-87a0c9e9-bc7f-0b37-37d6-c37c06b0b38f]]
-===== Advanced mapping features
+==== Advanced mapping features
 
 You can use the *Exclude* and *Include* fields to specify the features
 of the Region map layer to exclude or include in the resulting
@@ -2402,7 +2402,7 @@ selecting request from the drop-down menu.
 ==== Options
 
 [[UUID-6d391f60-3517-34bf-2c2b-9ed7b77e913d]]
-===== Layer settings
+==== Layer settings
 
 * *Vector map*: select from a list of vector maps. This list includes
 the maps that are hosted by the ©
@@ -2420,12 +2420,12 @@ turn off these warnings, go to *Management/Kibana/Advanced Settings* and
 set `+visualization:regionmap:showWarnings+` to `+false+`.
 
 [[UUID-2b8e5e78-c49d-a007-137e-ce48923768ac]]
-===== Style settings
+==== Style settings
 
 * *Color Schema*: the color range that is used to color the polygons.
 
 [[UUID-3ae75be5-19cf-0608-7a39-81c138c1a412]]
-===== Basic settings
+==== Basic settings
 
 * *Legend Position*: the location on the screen where the legend will be
 rendered.
@@ -2522,7 +2522,7 @@ create a single metric. Here is a breakdown of the significant
 components of the data tab UI.
 
 [[UUID-79324857-681d-873b-76e2-5cc9236f85fc]]
-===== Series label and color
+==== Series label and color
 
 Each series supports a label which will be used for legends and titles
 depending on which visualization type is selected. For series that are
@@ -2545,7 +2545,7 @@ choose the previous "max" metric as the source; this will create a rate.
 image:15d88cece1f208.png[Derivative Example]
 
 [[UUID-ef357066-7f2c-52a2-d04b-19c0f9f49b30]]
-===== Series options
+==== Series options
 
 Each series also supports a set of options which are dependent on the
 type of visualizations you have selected. Universal across each
@@ -3452,11 +3452,11 @@ You can create filters by double-clicking the bubbles. When you
 double-click a child, you will be asked to confirm the application of
 the filter on the filter bar.
 
-image:image/15d88cecf23ba1.png[Filter child]
+image:15d88cecf23ba1.png[Filter child]
 
 Click Apply Now to set the filter and display the bubble and its parent.
 
-image:image/15d88cecf2b7e6.png[Filter child]
+image:15d88cecf2b7e6.png[Filter child]
 
 When you double-click a parent, you will see the bubble and its family.
 
@@ -3530,7 +3530,7 @@ retrieved data.
 Clicking the *Remove* icon (*X*) after a column name hides the column
 from the visualization. This is useful when you want to concentrate on
 the other columns. Hidden columns can be restored by clicking the *Show*
-icon (image:image/15d88cecf5e55b.png[image]) on the top-right corner of
+icon (image:15d88cecf5e55b.png[image]) on the top-right corner of
 the visualization (displayed only when a column is hidden).
 
 ==== Expanded scatterplots
@@ -3540,7 +3540,7 @@ visible when you hover the mouse pointer over a minified scatterplot. To
 return to the main chart, click the *Minify* icon on the top-right
 corner of an expanded scatterplot.
 
-image:image/15d88cecf652f3.png[An expanded scatterplot]
+image:15d88cecf652f3.png[An expanded scatterplot]
 
 === Setting up
 
