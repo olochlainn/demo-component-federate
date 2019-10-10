@@ -861,28 +861,29 @@ NOTE: Siren Investigate relies on dynamic mapping to use fields in
 visualizations and manage the `+.siren+` index. If you have switched off
 dynamic mapping, you need to manually provide mappings for the fields
 that Siren Investigate uses to create visualizations. For more
-information, see <<Connecting Siren Investigate to backend datasources>>[Siren
-Investigate and Elasticsearch Dynamic Mapping].
+information, see <<Siren
+Investigate and Elasticsearch Dynamic Mapping>>.
 
 
-*Start exploring your data*
+=== Start exploring your data
 
 You are ready to dive in to your data:
 
 * Search and browse your data interactively from the
-link:#UUID-e773bdc8-6973-09d5-6104-6b29f300d19d[Discover] page.
+xref:discover.adoc[Discover] page.
 * Chart and map your data from the
-link:/document/preview/60229#UUID-c031aad7-904c-e18b-ac34-c5e8afe57dbd[Visualize]
-page.3.5. Visualize
+xref:visualizations.adoc[Visualizations]
+page.
 * Create and view custom dashboards from the
-link:#UUID-44c38ee5-aeec-1966-1a50-114cc6bf3fbb[Dashboard] page.
+xref:dashboard.adoc[Dashboard] page.
 
 For a step-by-step introduction to these core Siren Investigate
 concepts, see the
 link:/document/preview/60141#UUID-697eb485-b896-3d67-f862-e125d7226e0b[Getting
-Started] tutorial.Getting started
+Started] tutorial.
 
-*Siren Investigate and Elasticsearch dynamic mapping*
+
+=== Siren Investigate and Elasticsearch dynamic mapping
 
 By default, Elasticsearch enables
 https://www.elastic.co/guide/en/elasticsearch/reference/5.6/dynamic-mapping.html[dynamic
@@ -915,13 +916,14 @@ PUT .siren
 there are no error messages related to dynamic mapping.
 
 
+
 == Using Siren Investigate with tribe nodes
 
 NOTE: While tribe nodes have been deprecated in Elasticsearch in favor of
-link:#[?xml_title], you can still use Siren Investigate with tribe nodes
-until Elasticsearch version 7.0. Unlike tribe nodes, using cross cluster
+xref:management.adoc#_cross_cluster_search[Cross-cluster search], you can still use Siren Investigate with tribe nodes
+until Elasticsearch version 7.0. Unlike tribe nodes, using cross-cluster
 search in Siren Investigate requires no server-side configurations and
-does not switch off functionality like link:#[?xml_title].
+does not switch off functionality like xref:dev-tools.adoc#_console[Console].
 
 
 Siren Investigate can be configured to connect to a
