@@ -522,10 +522,19 @@ separate domain from Siren Investigate, the server needs to be CORS
 download the file. The following example shows a valid regionmap
 configuration.
 
-regionmap: layers: name: "Departments of France" url:
+----
+regionmap:
+  layers:
+       name: "Departments of France" 
+       url:
 "http://my.cors.enabled.server.org/france_departements.geojson"
-attribution: "INRAP" fields: name: "department" description: "Full
-department name" name: "INSEE" description: "INSEE numeric identifier"
+       attribution: "INRAP" 
+       fields: 
+          name: "department" 
+          description: "Full department name" 
+          name: "INSEE" 
+          description: "INSEE numeric identifier"
+----
 
 |`+regionmap.layers.name:+` |Mandatory. A description of the map being
 provided.
