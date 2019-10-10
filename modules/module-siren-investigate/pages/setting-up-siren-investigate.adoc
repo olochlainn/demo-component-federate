@@ -161,14 +161,14 @@ X-Pack Security] for additional setup instructions.
 
 
 
-=== Running Siren Investigate on Docker
+== Running Siren Investigate on Docker
 
 Docker images for Siren Investigate are available from the
 https://hub.docker.com/u/sirensolutions/[sirensolutions] organization on
 https://hub.docker.com[Dockerhub].
 
 
-==== Pulling the Image
+=== Pulling the Image
 
 Obtaining Siren Investigate for Docker is as simple as issuing a docker
 pull command.
@@ -199,7 +199,7 @@ docker run -d -p 5606:5606 -p 9220:9220 sirensolutions/siren-platform-demo-data:
 ----
 
 
-==== Environment variable configuration
+=== Environment variable configuration
 
 Under Docker, Siren Investigate can be configured using environment
 variables. When the container starts, a helper process checks the
@@ -266,7 +266,7 @@ https://support.siren.io[Siren Support Portal]. Descriptions of the
 separate demonstration packages are also available there.
 
 
-==== Download and install the Linux 64-bit package
+=== Download and install the Linux 64-bit package
 
 After you have
 https://support.siren.io/support/solutions/articles/17000057493-get-your-license[obtained
@@ -290,7 +290,7 @@ the https://support.siren.io[Siren Support Portal]).
 <2> This folder is known as `+$INVESTIGATE_HOME+`.
 
 
-==== Running Siren Investigate from the command prompt
+=== Running Siren Investigate from the command prompt
 
 Siren Investigate can be started from the command prompt as follows:
 
@@ -298,13 +298,13 @@ Siren Investigate can be started from the command prompt as follows:
 ----
 ./bin/investigate
 ----
-
+:experimental:
 By default, Siren Investigate runs in the foreground, prints its logs to
 the standard output (`+stdout+`), and can be stopped by
 pressing [.keycombo]#Ctrl+C# or kbd:[Ctrl + C].
 
 
-==== Siren Investigate configuration
+=== Siren Investigate configuration
 
 Siren Investigate loads its configuration from the
 `+$INVESTIGATE_HOME/config/investigate.yml+` file by default. The format
@@ -347,7 +347,7 @@ contained in a subfolder. |`+$INVESTIGATE_HOME\plugins+` |
 |===
 
 
-==== Install Siren Investigate on Windows
+=== Install Siren Investigate on Windows
 
 Siren Investigate can be installed on Windows using the `+.zip+`
 package; zip packages can be downloaded from the
@@ -356,7 +356,7 @@ contain a preconfigured Elasticsearch cluster in addition to Siren
 Investigate.
 
 
-==== Running Siren Investigate from the command prompt
+=== Running Siren Investigate from the command prompt
 
 Siren Investigate can be started from the command prompt as follows:
 
