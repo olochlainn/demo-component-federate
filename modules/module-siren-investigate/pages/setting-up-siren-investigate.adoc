@@ -301,7 +301,7 @@ Siren Investigate can be started from the command prompt as follows:
 
 By default, Siren Investigate runs in the foreground, prints its logs to
 the standard output (`+stdout+`), and can be stopped by
-pressing [.keycombo]#Ctrl+C#.
+pressing [.keycombo]#Ctrl+C# or kbd:[Ctrl + C].
 
 
 ==== Siren Investigate configuration
