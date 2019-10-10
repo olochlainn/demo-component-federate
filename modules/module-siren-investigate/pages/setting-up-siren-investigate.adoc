@@ -963,7 +963,8 @@ Due to the ambiguity of which cluster is being used, certain features
 are switched off in Siren Investigate:
 
 * Console
-* Managing users and roles with the x-pack plugin
+* Managing users and roles with the X-pack plugin
+
 
 
 == Using Siren Investigate in a production environment
@@ -986,15 +987,15 @@ connecting Siren Investigate to external datasources, we also recommend
 to use credentials with no write privileges as they are not required by
 the system.
 
-*Access control*
+=== Access control
 
 Siren Investigate is compatible with Elastic x-pack and Search Guard to
 enable index and document level access control.
 
 For more information about access control features, see the
-link:#UUID-a59771c0-3789-ea1c-beb1-64790476628d[Access Control] section.
+xref:authentication-and-access-control.adoc[Access Control] section.
 
-*Load balancing across multiple Elasticsearch nodes*
+=== Load balancing across multiple Elasticsearch nodes
 
 If you have multiple nodes in your Elasticsearch cluster, the easiest
 way to distribute Siren Investigate requests across the nodes is to run
@@ -1014,7 +1015,7 @@ To use a local client node to load balance Siren Investigate requests:
 both `+node.data+` and `+node.master+` to `+false+`:
 +
 ....
-# 3. You want this node to be neither master nor data node, but
+#    You want this node to be neither master nor data node, but
 #    to act as a "search load balancer" (fetching data from nodes,
 #    aggregating results, and so on)
 #
@@ -1061,8 +1062,7 @@ Breaking changes
 IMPORTANT: Before you upgrade Siren Investigate, you must take account of the
 security implications of the new features installed. Details of the
 necessary security procedures can be found in
-link:#UUID-43028529-accb-ba05-df2a-f1c0c0f82b5b[Security
-standardization].
+<<Security standardization>>.
 
 
 An existing Siren Investigate installation can be upgraded as follows:
@@ -1091,21 +1091,20 @@ installation.
 
 . Check for breaking changes to the configuration. Please see
 link:/document/preview/74614#UUID-614c3407-2425-bbec-d555-cf99fc9605ff[Breaking
-Changes] and the link:#UUID-c90c7882-8ae2-2392-260c-ef61485f6027[Search
+Changes] and the xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search
 Guard Integration and Siren Investigate access control]
 
 . Install the compatible versions of third party Siren Investigate/Kibana
 plugins that you may need into the `+/plugins+` folder.
 
-. Execute the link:#UUID-582f3fa4-41af-affb-3f9e-67a2ee70b071[upgrade
-command].
+. Execute the `upgrade` command.
 
 NOTE: Elasticsearch requires a matching version of Search Guard. For example,
 Elasticsearch 6 requires Search Guard 6. For information on upgrading
 Search Guard, see https://docs.search-guard.com/latest/upgrading-560.
 
 
-*Backing up and restoring the Siren Investigate indices*
+=== Backing up and restoring the Siren Investigate indices
 
 Before upgrading, you should have a backup of the `+.siren+` index; the
 recommended way to perform regular backups of Elasticsearch indexes is
@@ -1118,7 +1117,7 @@ of the `+.siren+` index and, in case the `+ACL+` is enabled, the
 `+.sirenaccess+` index as well. An index dump is composed of two parts:
 its mappings and its data.
 
-*Backup*
+==== Backup
 
 The backup command requires a running Elasticsearch instance and the
 path to a folder where the dumps will be written to.
@@ -1140,7 +1139,7 @@ For example, the following line will dump in `+<MY_FOLDER>+` the
 $ ./bin/investigate backup --backup-dir <MY_FOLDER>
 ----
 
-*Restore*
+==== Restore
 
 The restore command requires a running Elasticsearch instance and the
 path to a folder where the dumps were written to by the previous backup
@@ -1163,7 +1162,7 @@ well if the option `+investigate_access_control.acl.enabled+` is true in
 $ ./bin/investigate restore --backup-dir <MY_FOLDER>
 ----
 
-*Upgrading the Siren index*
+=== Upgrading the Siren index
 
 To upgrade the objects in the `+.siren+` index (dashboards,
 visualizations, and so on), move to the folder in which Siren
@@ -1235,7 +1234,7 @@ To standardize your security according to new action groups:
 any) based on the action group and action name changes listed below.
 * Put the modified configuration files in the
 ./elasticsearch/config/sgconfig/ folder and
-link:#UUID-069f8c67-99e9-efec-09aa-529ba8431c78[upload the configuration
+xref:authentication-and-access-control.adoc#_uploading_the_configuration_to_the_cluster[upload the configuration
 to the cluster].
 * Ensure that you explicitly specify your ACL admin_role and Sentinl
 user_role in investigate.yml as defaults may have changed.
