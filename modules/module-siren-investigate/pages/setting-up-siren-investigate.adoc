@@ -279,15 +279,15 @@ use the copied link as `+investigate-link+` as follows:
 [source,sh]
 ----
 wget {investigate-link}.zip
-sha1sum siren-investigate-10.0.0-linux-x86_64.zip 
+sha1sum siren-investigate-10.0.0-linux-x86_64.zip // <1> 
 unzip siren-investigate-10.0.0-linux-x86_64.zip -d .
-cd siren-investigate-10.0.0-linux-x86_64/ 
+cd siren-investigate-10.0.0-linux-x86_64/ // <2> 
 ----
 
-* Compare the SHA produced by `+sha1sum+` or `+shasum+` with the
+<1> Compare the SHA produced by `+sha1sum+` or `+shasum+` with the
 published `+sha1.txt+` (found on the Siren Investigate download page on
 the https://support.siren.io[Siren Support Portal]).
-* This folder is known as `+$INVESTIGATE_HOME+`.
+<2> This folder is known as `+$INVESTIGATE_HOME+`.
 
 
 ==== Running Siren Investigate from the command prompt
