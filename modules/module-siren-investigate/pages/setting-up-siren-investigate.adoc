@@ -301,17 +301,17 @@ Siren Investigate can be started from the command prompt as follows:
 :experimental:
 By default, Siren Investigate runs in the foreground, prints its logs to
 the standard output (`+stdout+`), and can be stopped by
-pressing [.keycombo]#Ctrl+C# or kbd:[Ctrl + C].
+pressing kbd:[Ctrl + C].
 
 
 === Siren Investigate configuration
 
 Siren Investigate loads its configuration from the
 `+$INVESTIGATE_HOME/config/investigate.yml+` file by default. The format
-of this configuration file is explained in link:#[?xml_title].
+of this configuration file is explained in <<Configuring Siren Investigate>>.
 
 
-==== Folder layout of Linux ZIP archive
+=== Folder layout of Linux ZIP archive
 
 The `+.zip+` packages are entirely self-contained.
 
@@ -366,14 +366,14 @@ Siren Investigate can be started from the command prompt as follows:
 ----
 
 By default, Siren Investigate runs in the foreground, prints its logs to
-`+STDOUT+`, and can be stopped by pressing [.keycombo]#Ctrl+C#.
+`+STDOUT+`, and can be stopped by pressing kbd:[Ctrl + C].
 
 
-===== Siren Investigate configuration
+=== Siren Investigate configuration
 
 Siren Investigate loads its configuration from the
 `+$INVESTIGATE_HOME/config/investigate.yml+` file by default. The format
-of this configuration file is explained in link:#[?xml_title].
+of this configuration file is explained in <<Configuring Siren Investigate>>.
 
 
 ==== Folder layout of Windows ZIP archive
@@ -421,10 +421,8 @@ port number, or connect to Elasticsearch running on a different machine,
 you must update your `+investigate.yml+` file. You can also enable SSL
 and set a variety of other options.
 
-External datasource configuration is documented in the link:#[3.11. JDBC
-datasources] and link:#[?xml_title] sections, while access control
-configuration is documented in the link:#[?xml_title] section.3.11. JDBC
-datasources
+External datasource configuration is documented in the xref:working-with-jdbc-datasources.adoc[Working with JDBC datasources] and xref:legacy-rest-datasources.adoc[Legacy REST datasources] sections, while access control
+configuration is documented in xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control.
 
 *Environment Variable Placeholders.*
 
