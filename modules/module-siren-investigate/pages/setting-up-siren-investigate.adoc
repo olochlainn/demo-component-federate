@@ -68,7 +68,7 @@ working with and compares with a compatibility matrix. It detects the
 features that cannot be supported and switches them off in the user
 interface. This is logged in the Investigate server, and the user can
 see which features are unsupported by checking the About section (click
-Management to see this section).
+*Management* to see the About section).
 
 [cols=",,",options="header",]
 |===
@@ -142,7 +142,7 @@ Siren Investigate is provided in the following package formats:
 The `+zip+` packages are provided for installation on Linux and Windows
 and are the easiest choice for getting started with Siren Investigate.
 
-link:#[?xml_title] or link:#[?xml_title]
+<<Running Siren Investigate on Docker>> or <<Install Siren Investigate on Windows>>
 
 |`+docker+` a|
 Siren Investigate Docker images are available at
