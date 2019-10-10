@@ -723,21 +723,22 @@ overwritten by client-side headers, regardless of the
 |===
 
 
+
 == Accessing Siren Investigate
 
 Siren Investigate is a web application that you access through port
 5606. All you need to do is point your web browser at the machine where
 Siren Investigate is running and specify the port number. For example,
-http://localhost:5606 or
-http://example.com:5606[http://YOURDOMAIN.com:5606].
+\http://localhost:5606 or
+\http://example.com:5606[http://YOURDOMAIN.com:5606].
 
 When you access Siren Investigate, the
-link:#UUID-e773bdc8-6973-09d5-6104-6b29f300d19d[Discover] page loads by
+xref:discover.adoc[Discover] page loads by
 default with the default index pattern selected. The time filter is set
 to the last 15 minutes and the search query is set to match-all (`+*+`).
 
 If you do not see any documents, try
-link:#UUID-658a3f51-e66c-3bd6-f7f7-7d68bf3b9e01[setting the time filter]
+xref:discover.adoc#_setting_the_time_filter[setting the time filter]
 to a wider time range. If you still do not see any results, it is
 possible that you do not _have_ any documents.
 
@@ -757,17 +758,14 @@ Click *Elasticsearch diagnostics* to generate a single file by
 collecting different metrics about your Elasticsearch cluster. All
 collected information are saved to a local file and never transferred
 over a network. You can see a full list of Elasticsearch API calls by
-clicking the more info icon.
+clicking the more info (*i*) icon.
 
 image:15d88cec7bfa48.png[Siren Investigate status page diagnostics
 help.]
 
-____
-*Note*
-
-For JSON formatted server status details, use the API endpoint at
+NOTE: For JSON formatted server status details, use the API endpoint at
 `+http://localhost:5601/api/status+`.
-____
+
 
 
 == Connecting Siren Investigate to backend datasources
@@ -786,7 +784,7 @@ It is useful to distinguish between two types of searches:
 Elasticsearch indices will be used. They can be as simple as the name of
 the index itself or can be “patterns” e.g. _new_*_ to indicate “all the
 indices that begin with news_”. For more information and examples, see
-link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Index Pattern Searches].
+xref:management.adoc#_index_pattern_searches[Index Pattern Searches].
 * *Other searches*: These are defined by filtering an Index Pattern
 Search, for example starting from a “News” Index Pattern Search, one
 might create a “News that contain the word Brexit” search.
@@ -797,7 +795,7 @@ application is connected to), indices can be of two types:
 * *Physical indices*: These are regular Elasticsearch indices, typically
 created via external ETL (e.g. Logstash) or via the Siren reflection
 process (an ETL that keeps external tables in sync). For more
-information, see link:#UUID-a3983e8d-32a4-da37-1763-6a0be76b3a38[Data
+information, see xref:data-reflection.adoc[Data
 Reflection].
 * *Virtual indices*: These will simulate Elasticsearch indices but will
 not copy data; instead, they will send queries to the remote backends
@@ -815,14 +813,14 @@ Siren Investigate, you are prompted to define an _index pattern search_
 that matches the name of one or more of your indices. That is it. That
 is all you need to configure to start using Siren Investigate. You can
 create index pattern searches at any time from the
-link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Management] tab.
+xref:management.adoc#_index_pattern_searches[Management] tab.
 
 TIP: By default, Siren Investigate connects to the Elasticsearch instance
 running on `+localhost+`. To connect to a different Elasticsearch
 instance, modify the Elasticsearch URL in the `+investigate.yml+`
 configuration file and restart Siren Investigate. For information about
 using Siren Investigate with your production nodes, see
-link:#[?xml_title].
+<<Using Siren Investigate in a production environment>>.
 
 
 . Point your browser at port 5606 to access the Siren Investigate user
@@ -832,7 +830,7 @@ http://localhost:5606 or http://example.com:5606[http://YOURDOMAIN.com:5606].
 . Specify an index pattern search that matches the name of one or more of
 your Elasticsearch indices. You may have to access the index pattern
 search management in
-the link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Management] tab. By
+the Management tab. By
 default, Siren Investigate guesses that you are working with data being
 fed into Elasticsearch by Logstash. If that’s the case, you can use the
 default `+logstash-*+` as your index pattern search. The asterisk
@@ -863,7 +861,7 @@ NOTE: Siren Investigate relies on dynamic mapping to use fields in
 visualizations and manage the `+.siren+` index. If you have switched off
 dynamic mapping, you need to manually provide mappings for the fields
 that Siren Investigate uses to create visualizations. For more
-information, see link:#UUID-0182e64b-f238-9c70-7edd-9d70cc84c5d9[Siren
+information, see <<Connecting Siren Investigate to backend datasources>>[Siren
 Investigate and Elasticsearch Dynamic Mapping].
 
 
