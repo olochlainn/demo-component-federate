@@ -422,7 +422,7 @@ you must update your `+investigate.yml+` file. You can also enable SSL
 and set a variety of other options.
 
 External datasource configuration is documented in the xref:working-with-jdbc-datasources.adoc[Working with JDBC datasources] and xref:legacy-rest-datasources.adoc[Legacy REST datasources] sections, while access control
-configuration is documented in xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control.
+configuration is documented in xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search Guard integration and Siren Investigate access control].
 
 *Environment Variable Placeholders.*
 
@@ -495,7 +495,7 @@ subdomains: ['a'] minZoom: 0 maxZoom: 19
 |`+tilemap.url:+` |The URL to the tile service that Siren Investigate
 uses to display map tiles in tilemap visualizations. By default, Siren
 Investigate reads this URL from an external metadata service, but users
-can still link:#UUID-aa266207-6dfd-596a-d978-fb2a9988476d[override this
+can still xref:visualizations.adoc#_coordinate_map[override this
 parameter] to use their own Tile Map Service.
 
 |`+tilemap.options.minZoom:+` |Default: `+1+`. The minimum zoom level.
@@ -512,7 +512,7 @@ token `+{s}+`.
 
 |`+regionmap+` a|
 Specifies additional vector layers for use in
-link:#UUID-5094f7e0-86e2-ecb3-ec8b-c8d553188e36[Region Map]
+xref:visualizations.adoc#_region_map[Region Map]
 visualizations. Each layer object points to an external vector file that
 contains a GeoJSON FeatureCollection. The file must use the
 https://en.wikipedia.org/wiki/World_Geodetic_System[WGS84 coordinate
