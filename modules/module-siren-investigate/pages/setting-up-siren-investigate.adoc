@@ -148,14 +148,14 @@ and are the easiest choice for getting started with Siren Investigate.
 Siren Investigate Docker images are available at
 https://hub.docker.com/u/sirensolutions/.
 
-https://www.elastic.co/guide/en/kibana/5.6/docker.html[Running Kibana on
-Docker]
+See also https://www.elastic.co/guide/en/kibana/5.6/docker.html[Running Kibana on
+Docker].
 
 |===
 
 IMPORTANT: If your Elasticsearch installation is protected by
 https://www.elastic.co/guide/en/x-pack/5.6/xpack-security.html[X-Pack
-Security] see
+Security], see
 https://www.elastic.co/guide/en/x-pack/5.6/kibana.html[Using Kibana with
 X-Pack Security] for additional setup instructions.
 
@@ -168,7 +168,7 @@ https://hub.docker.com/u/sirensolutions/[sirensolutions] organization on
 https://hub.docker.com[Dockerhub].
 
 
-=== Pulling the Image
+==== Pulling the Image
 
 Obtaining Siren Investigate for Docker is as simple as issuing a docker
 pull command.
@@ -182,7 +182,7 @@ docker pull sirensolutions/siren-platform:latest
 docker run -d -p 5606:5606 -p 9220:9220 sirensolutions/siren-platform:latest
 ----
 
-Or for specific version, for example 10.0.0:
+Or for a specific version, for example 10.0.0:
 
 [source,sh]
 ----
@@ -198,7 +198,7 @@ docker pull sirensolutions/siren-platform-demo-data:latest
 docker run -d -p 5606:5606 -p 9220:9220 sirensolutions/siren-platform-demo-data:latest
 ----
 
-[[UUID-80b084a9-4ec2-14c1-d950-6748a6658111]]
+
 ==== Environment variable configuration
 
 Under Docker, Siren Investigate can be configured using environment
@@ -222,7 +222,7 @@ Some example translations are shown here:
 |`+XPACK_MONITORING_ENABLED+` |`+xpack.monitoring.enabled+`
 |===
 
-In general, any setting listed in link:#[?xml_title] or
+In general, any setting listed in <<Configuring Siren Investigate>> or
 https://www.elastic.co/guide/en/x-pack/5.6/xpack-settings.html[X-Pack
 Settings] can be configured with this technique.
 
@@ -249,7 +249,7 @@ The default settings when using the `+siren-investigate+` image
 
 [cols=",",]
 |===
-|`+elasticsearch.url+` |http://localhost:9220
+|`+elasticsearch.url+` |\http://localhost:9220
 |`+server.basepath+` |`+""+`
 |`+kibana.index+` |`+.siren+`
 |===
