@@ -88,6 +88,7 @@ have a timestamp of the form `+YYYY.MM.DD+` appended to the prefix
 .Date Format Tokens
 [cols=",",]
 |===
+
 |`+M+` |Month - cardinal: 1 2 3 … 12
 
 |`+Mo+` |Month - ordinal: 1st 2nd 3rd … 12th
