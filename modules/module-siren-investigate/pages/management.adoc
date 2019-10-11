@@ -48,16 +48,13 @@ of your Elasticsearch indices. By default, Siren Investigate guesses
 that you are working with log data being fed into Elasticsearch by
 Logstash.
 +
-____
-*Note*
-
-When you switch between top-level tabs, Siren Investigate remembers
+NOTE: When you switch between top-level tabs, Siren Investigate remembers
 where you were. For example, if you view a particular index pattern
 search from the Settings tab, switch to the Discover tab, and then go
 back to the Settings tab, Siren Investigate displays the index pattern
 search you last looked at. To get to the create pattern form, click Add
 in the Index Pattern Search list.
-____
+
 . If your index contains a timestamp field that you want to use to
 perform time-based comparisons, select the *Index contains time-based
 events* option and select the index field that contains the timestamp.
@@ -71,15 +68,12 @@ switch off this behavior.
 . To designate the new pattern as the default pattern to load when you
 view the Discover tab, click Favorite.
 
-____
-*Note*
-
-When you define an index pattern search, indices that match that pattern
+NOTE: When you define an index pattern search, indices that match that pattern
 must exist in Elasticsearch. Those indices must contain data.
 
 Note that the colon ':' has been deprecated in index names, and should
 not be used.
-____
+
 
 To use an event time in an index name, enclose the static text in the
 pattern and specify the date format using the tokens described in the
@@ -208,12 +202,9 @@ To set a different default index pattern search:
 the list.
 . Click Favorite.
 
-____
-*Note*
-
-You can also manually set the default index pattern search in
+NOTE: You can also manually set the default index pattern search in
 [.menuchoice]#Management > Advanced Settings#.
-____
+
 
 === Reloading the index fields list
 
@@ -248,11 +239,8 @@ Elasticsearch supports the ability to run search and aggregation
 requests across multiple clusters using a module called _cross cluster
 search_.
 
-____
-*Note*
+NOTE: Siren Federate does not currently support cross cluster search.
 
-Siren Federate does not currently support cross cluster search.
-____
 
 To take advantage of cross cluster search, you must configure your
 Elasticsearch clusters accordingly. Refer to the corresponding
