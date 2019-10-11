@@ -282,7 +282,7 @@ Investigate take advantage of cross cluster search.
 == Advanced settings for relations
 
 From  [.menuchoice]#Management > Data Model#., click *Edit*
-(image:image/15da06c5760c37.png[image]) to open the advanced settings
+(image:15da06c5760c37.png[image]) to open the advanced settings
 for each relation. Here you can set the maximum time spent by each join
 task for that relation in milliseconds. After the timeout has expired,
 the task passes the documents accumulated at that point on to the next
