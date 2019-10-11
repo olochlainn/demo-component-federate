@@ -708,6 +708,7 @@ field.
 . Confirm that you really want to remove the field.
 
 
+
 === Setting advanced options
 
 The *Advanced Settings* page enables you to directly edit settings that
@@ -1126,7 +1127,6 @@ objects to import.
 . Click *Open* after selecting the JSON file.
 . If any objects in the set would overwrite objects already present in
 Siren Investigate, confirm the action.
-
 
 
 === Adding custom icon packs
