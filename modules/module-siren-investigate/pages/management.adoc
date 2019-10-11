@@ -1,4 +1,4 @@
-=== Management
+= Management
 
 The Management application is where you perform your run time
 configuration of Siren Investigate, including both the initial setup and
@@ -12,7 +12,7 @@ the box capabilities, packs such as Siren Investigate Access Control and
 X-Pack can add additional management capabilities.
 
 
-==== Index pattern searches
+== Index pattern searches
 
 To use Siren Investigate, you have to tell it about the Elasticsearch
 indices that you want to explore by configuring one or more index
@@ -27,7 +27,7 @@ advanced options, as it is possible to set values that are incompatible
 with one another.
 * Configure Siren Investigate for a production environment
 
-*Creating an index pattern search to connect to Elasticsearch*
+=== Creating an index pattern search to connect to Elasticsearch
 
 An _index pattern search_ identifies one or more Elasticsearch indices
 that you want to explore with Siren Investigate. Siren Investigate looks
@@ -192,7 +192,7 @@ have a timestamp of the form `+YYYY.MM.DD+` appended to the prefix
 |`+x+` |Unix Millisecond Timestamp: 1360013296123
 |===
 
-*Setting the default index pattern search*
+=== Setting the default index pattern search
 
 The default index pattern search is loaded automatically when you view
 the Discover tab. Siren Investigate displays a star to the left of the
@@ -215,7 +215,7 @@ You can also manually set the default index pattern search in
 [.menuchoice]#Management > Advanced Settings#.
 ____
 
-*Reloading the index fields list*
+=== Reloading the index fields list
 
 When you add an index mapping, Siren Investigate automatically scans the
 indices that match the pattern to display a list of the index fields.
@@ -233,7 +233,7 @@ To reload the index fields list:
 . Select an index pattern search from the list.
 . Click Reload.
 
-*Removing an index pattern search*
+=== Removing an index pattern search
 
 [arabic]
 . Go to  [.menuchoice]#Management > Data Model#.
@@ -241,8 +241,8 @@ To reload the index fields list:
 . Click Delete.
 . Confirm that you want to remove the index pattern search.
 
-[[UUID-fdd1549b-a16e-75d6-0d00-b3e5d589a93b]]
-===== Cross cluster search
+
+=== Cross cluster search
 
 Elasticsearch supports the ability to run search and aggregation
 requests across multiple clusters using a module called _cross cluster
@@ -288,8 +288,9 @@ After an index pattern is configured using the cross cluster search
 syntax, all searches and aggregations using that index pattern in Siren
 Investigate take advantage of cross cluster search.
 
-[[UUID-92caeebf-3885-6a59-3692-1700f928f195]]
-==== Advanced settings for relations
+
+
+== Advanced settings for relations
 
 From  [.menuchoice]#Management > Data Model#., click *Edit*
 (image:image/15da06c5760c37.png[image]) to open the advanced settings
@@ -312,8 +313,8 @@ Setting the limit here to `+-1+` here sets the limit to the default
 `+siren:joinTaskTimeout+` set in the *Advanced Settings* and setting the
 limit to `+0+` here removes the limit entirely.
 
-[[UUID-92caeebf-3885-6a59-3692-1700f928f195_kibi-join-type]]
-===== Join type
+
+=== Join type
 
 Siren Federate provides two types of join algorithms. The plugin tries
 to pick the best algorithm for a given join automatically. However, you
@@ -327,7 +328,7 @@ link:/document/preview/71728#UUID-c3dd12bd-07a3-f3a3-9bd5-df370568893f[Siren
 Federate] plugin documentation.5. Siren Federate
 
 [[UUID-3aa2ec89-f5a2-3127-acf8-3fe197028df1]]
-==== Datasources
+== Datasources
 
 For an overview of datasources, see
 link:#UUID-0c844311-d945-8795-6219-2e817cadba1d[Siren Investigate
@@ -335,13 +336,13 @@ datasource configuration] and
 link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[Legacy REST
 datasources].
 
-[[UUID-8bd9a5bb-0650-da26-fd51-d27b07edcad0]]
-==== Queries
+
+== Queries
 
 For an overview of queries, see link:#[?xml_title].
 
-[[UUID-c87e29c9-6bef-f336-7b19-40b46a24c7cc]]
-==== Templates
+
+== Templates
 
 You can define templates to format the results of a query on an
 link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[external datasource] and
@@ -378,10 +379,10 @@ query you selected, the
 link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[_EntityURI_] may need to
 be set.
 
-image:image/15da06c613eb0a.png[Query template editor]
+image:15da06c613eb0a.png[Query template editor]
 
-[[UUID-e324048b-f31c-0911-3e07-4414895ac4bf]]
-==== Managing fields
+
+== Managing fields
 
 The fields for the index pattern are listed in a table. Click a column
 header to sort the table by that column. Click *Controls* in the
@@ -400,8 +401,8 @@ Siren Investigate has field formatters for the following field types:
 * link:#UUID-b9a5c22a-1072-633b-5f86-dc0581afa0f2[Geopoints]
 * link:#UUID-044c2cc0-9dd8-e543-910e-a8e2d864181b[Numbers]
 
-[[UUID-c5f2da52-0ed3-aad2-dadf-ade61e23e5d6]]
-===== String field formatters
+
+=== String field formatters
 
 String fields support the `+String+` and `+URL+` formatters.
 
@@ -544,8 +545,8 @@ following example:
 |`+com.organizations.project.ClassName+` |`+c.o.p.ClassName+`
 |===
 
-[[UUID-044c2cc0-9dd8-e543-910e-a8e2d864181b]]
-===== Numeric field formatters
+
+=== Numeric field formatters
 
 Numeric fields support the `+URL+`, `+Bytes+`, `+Duration+`, `+Number+`,
 `+Percentage+`, `+String+`, and `+Color+` formatters.
@@ -645,8 +646,8 @@ choose the display formats of numbers in this field using the
 https://adamwdraper.github.io/Numeral-js/[numeral.js] standard format
 definitions.
 
-[[UUID-8247f80e-8818-ebee-1cfb-dd9c0facb272]]
-===== Scripted fields
+
+=== Scripted fields
 
 Scripted fields compute data on the fly from the data in your
 Elasticsearch indices. Scripted field data is shown on the Discover tab
@@ -724,8 +725,8 @@ field.
 . Click *Delete* for the scripted field you want to remove.
 . Confirm that you really want to remove the field.
 
-[[UUID-687cefb0-27b8-b4b7-ddc3-bbb852b782fb]]
-==== Setting advanced options
+
+=== Setting advanced options
 
 The *Advanced Settings* page enables you to directly edit settings that
 control the behavior of the Siren Investigate application. For example,
@@ -1069,8 +1070,8 @@ possibly leading to suboptimal overall results. It does not apply to
 virtual indices. |`+5000+`
 |===
 
-[[UUID-435b7178-175b-dc5a-71ae-754e56d71d7c]]
-==== Managing saved searches, visualizations, and dashboards
+
+=== Managing saved searches, visualizations, and dashboards
 
 You can view, edit, and remove saved searches, visualizations, and
 dashboards from *Settings > Objects*. You can also export or import sets
@@ -1153,20 +1154,18 @@ objects to import.
 . If any objects in the set would overwrite objects already present in
 Siren Investigate, confirm the action.
 
-[[UUID-1a862344-88f1-0db9-cff0-734b1f1f7c49]]
-==== Adding custom icon packs
+
+
+=== Adding custom icon packs
 
 This document provides the steps how SVG images are imported as icons
 into Siren Investigate. This document assumes that the user is familiar
 with the use of command line tools on either Linux, MAC or Windows
 operating systems.
 
-____
-*Note*
-
-FontCustom installation requires that you are familiar with the command
+NOTE: FontCustom installation requires that you are familiar with the command
 line tools for the operating system being used.
-____
+
 
 *Step 1: Installing FontCustom*
 
@@ -1190,20 +1189,17 @@ images and run the following command on the command line:
 * The --name flag defines the font-family name
 * The --selector flag defines the icon prefix
 
-____
-*Important*
-
-Ensure that both of these flags are unique every time an icon pack is
+IMPORTANT: Ensure that both of these flags are unique every time an icon pack is
 created. In this example, `+.my-icon-+` is the prefix (note the dot),
 while `+{{glyph}}+` is the placeholder for the icon name. Please keep
 the dot and placeholder as shown – the FontCustom utility will raise an
 error if this is not done.
-____
+
 
 After running the command (ensuring that the conditions of unique flags
 and placeholder are met), the output should look something like this:
 
-image:image/15da06c6149dce.png[image]
+image:15da06c6149dce.png[image]
 
 The icon pack has been created in the same folder. The name of the
 folder will be the same as the `+--name+` flag used in the command. Do
@@ -1216,13 +1212,10 @@ Go to Management Icon Packs Import and select the .zip file created in
 the last step. The upload once successful will show the list of uploaded
 icon packs.
 
-image:image/15da06c614e28d.png[image]
+image:15da06c614e28d.png[image]
 
-____
-*Tip*
+TIP: If you need to delete an icon pack, click its bin icon.
 
-If you need to delete an icon pack, click its bin icon.
-____
 
 *Step 4: Using the custom icons*
 
@@ -1232,13 +1225,13 @@ uploaded. To use this icon, you go to Data Model and, in the Icon text
 box, search for “snowman” (or your icon name), select the icon, and
 click Save.
 
-image:image/15da06c6152ee9.png[image]
+image:15da06c6152ee9.png[image]
 
 Once selected and saved, the icons are displayed wherever the data model
 is used across the application. The following two screenshots show the
 snowman icon being used in the Graph Browser and the Data Model Graph,
 respectively.
 
-image:image/15da06c6155a82.png[image]
+image:15da06c6155a82.png[image]
 
-image:image/15da06c615c571.png[image]
+image:15da06c615c571.png[image]
