@@ -1,0 +1,1244 @@
+=== Management
+
+The Management application is where you perform your run time
+configuration of Siren Investigate, including both the initial setup and
+ongoing configuration of index patterns, advanced settings that tweak
+the behaviors of Siren Investigate itself, and the various "objects"
+that you can save throughout Siren Investigate such as searches,
+visualizations, and dashboards.
+
+The management section supports plugins, so in addition to the out of
+the box capabilities, packs such as Siren Investigate Access Control and
+X-Pack can add additional management capabilities.
+
+[[UUID-e9f92f41-6f82-c48b-5096-a2538a257f28]]
+==== Index pattern searches
+
+To use Siren Investigate, you have to tell it about the Elasticsearch
+indices that you want to explore by configuring one or more index
+pattern searches. You can also:
+
+* Create scripted fields that are computed on the fly from your data.
+You can browse and visualize scripted fields, but you cannot search
+them.
+* Set advanced options such as the number of rows to show in a table and
+how many of the most popular fields to show. Use caution when modifying
+advanced options, as it is possible to set values that are incompatible
+with one another.
+* Configure Siren Investigate for a production environment
+
+*Creating an index pattern search to connect to Elasticsearch*
+
+An _index pattern search_ identifies one or more Elasticsearch indices
+that you want to explore with Siren Investigate. Siren Investigate looks
+for index names that match the specified pattern. An asterisk (`+*+`) in
+the pattern matches zero or more characters. For example, the pattern
+`+myindex-*+` matches all indices whose names start with `+myindex-+`,
+such as `+myindex-1+` and `+myindex-2+`.
+
+An index pattern search can also be the name of a single index.
+
+To create an index pattern search to connect to Elasticsearch:
+
+[arabic]
+. Go to [.menuchoice]#Management > Data Model#.
+. Click Create Index Pattern Search.
+. Specify an index pattern search that matches the name of one or more
+of your Elasticsearch indices. By default, Siren Investigate guesses
+that you are working with log data being fed into Elasticsearch by
+Logstash.
++
+____
+*Note*
+
+When you switch between top-level tabs, Siren Investigate remembers
+where you were. For example, if you view a particular index pattern
+search from the Settings tab, switch to the Discover tab, and then go
+back to the Settings tab, Siren Investigate displays the index pattern
+search you last looked at. To get to the create pattern form, click Add
+in the Index Pattern Search list.
+____
+. If your index contains a timestamp field that you want to use to
+perform time-based comparisons, select the *Index contains time-based
+events* option and select the index field that contains the timestamp.
+Siren Investigate reads the index mapping to list all the fields that
+contain a timestamp.
+. By default, Siren Investigate restricts wildcard expansion of
+time-based index patterns to indices with data within the currently
+selected time range. Click *Do not expand index pattern when search* to
+switch off this behavior.
+. Click *Create* to add the index pattern.
+. To designate the new pattern as the default pattern to load when you
+view the Discover tab, click Favorite.
+
+____
+*Note*
+
+When you define an index pattern search, indices that match that pattern
+must exist in Elasticsearch. Those indices must contain data.
+
+Note that the colon ':' has been deprecated in index names, and should
+not be used.
+____
+
+To use an event time in an index name, enclose the static text in the
+pattern and specify the date format using the tokens described in the
+following table.
+
+For example, `+[logstash-]YYYY.MM.DD+` matches all indices whose names
+have a timestamp of the form `+YYYY.MM.DD+` appended to the prefix
+`+logstash-+`, such as `+logstash-2015.01.31+` and
+`+logstash-2015-02-01+`.
+
+.Date Format Tokens
+[cols=",",]
+|===
+|`+M+` |Month - cardinal: 1 2 3 … 12
+
+|`+Mo+` |Month - ordinal: 1st 2nd 3rd … 12th
+
+|`+MM+` |Month - two digit: 01 02 03 … 12
+
+|`+MMM+` |Month - abbreviation: Jan Feb Mar … Dec
+
+|`+MMMM+` |Month - full: January February March … December
+
+|`+Q+` |Quarter: 1 2 3 4
+
+|`+D+` |Day of Month - cardinal: 1 2 3 … 31
+
+|`+Do+` |Day of Month - ordinal: 1st 2nd 3rd … 31st
+
+|`+DD+` |Day of Month - two digit: 01 02 03 … 31
+
+|`+DDD+` |Day of Year - cardinal: 1 2 3 … 365
+
+|`+DDDo+` |Day of Year - ordinal: 1st 2nd 3rd … 365th
+
+|`+DDDD+` |Day of Year - three digit: 001 002 … 364 365
+
+|`+d+` |Day of Week - cardinal: 0 1 3 … 6
+
+|`+do+` |Day of Week - ordinal: 0th 1st 2nd … 6th
+
+|`+dd+` |Day of Week - 2-letter abbreviation: Su Mo Tu … Sa
+
+|`+ddd+` |Day of Week - 3-letter abbreviation: Sun Mon Tue … Sat
+
+|`+dddd+` |Day of Week - full: Sunday Monday Tuesday … Saturday
+
+|`+e+` |Day of Week (locale): 0 1 2 … 6
+
+|`+E+` |Day of Week (ISO): 1 2 3 … 7
+
+|`+w+` |Week of Year - cardinal (locale): 1 2 3 … 53
+
+|`+wo+` |Week of Year - ordinal (locale): 1st 2nd 3rd … 53rd
+
+|`+ww+` |Week of Year - 2-digit (locale): 01 02 03 … 53
+
+|`+W+` |Week of Year - cardinal (ISO): 1 2 3 … 53
+
+|`+Wo+` |Week of Year - ordinal (ISO): 1st 2nd 3rd … 53rd
+
+|`+WW+` |Week of Year - two-digit (ISO): 01 02 03 … 53
+
+|`+YY+` |Year - two digit: 70 71 72 … 30
+
+|`+YYYY+` |Year - four digit: 1970 1971 1972 … 2030
+
+|`+gg+` |Week Year - two digit (locale): 70 71 72 … 30
+
+|`+gggg+` |Week Year - four digit (locale): 1970 1971 1972 … 2030
+
+|`+GG+` |Week Year - two digit (ISO): 70 71 72 … 30
+
+|`+GGGG+` |Week Year - four digit (ISO): 1970 1971 1972 … 2030
+
+|`+A+` |AM/PM: AM PM
+
+|`+a+` |am/pm: am pm
+
+|`+H+` |Hour: 0 1 2 … 23
+
+|`+HH+` |Hour - two digit: 00 01 02 … 23
+
+|`+h+` |Hour - 12-hour clock: 1 2 3 … 12
+
+|`+hh+` |Hour - 12-hour clock, 2 digit: 01 02 03 … 12
+
+|`+m+` |Minute: 0 1 2 … 59
+
+|`+mm+` |Minute - two-digit: 00 01 02 … 59
+
+|`+s+` |Second: 0 1 2 … 59
+
+|`+ss+` |Second - two-digit: 00 01 02 … 59
+
+|`+S+` |Fractional Second - 10ths: 0 1 2 … 9
+
+|`+SS+` |Fractional Second - 100ths: 0 1 … 98 99
+
+|`+SSS+` |Fractional Seconds - 1000ths: 0 1 … 998 999
+
+|`+Z+` |Timezone - zero UTC offset (hh:mm format): -07:00 -06:00 -05:00
+.. +07:00
+
+|`+ZZ+` |Timezone - zero UTC offset (hhmm format): -0700 -0600 -0500 …
++0700
+
+|`+X+` |Unix Timestamp: 1360013296
+
+|`+x+` |Unix Millisecond Timestamp: 1360013296123
+|===
+
+*Setting the default index pattern search*
+
+The default index pattern search is loaded automatically when you view
+the Discover tab. Siren Investigate displays a star to the left of the
+name of the default pattern in the Index Pattern Search list on
+the [.menuchoice]#Management > Data Model# tab. The first pattern you
+create is automatically designated as the default pattern.
+
+To set a different default index pattern search:
+
+[arabic]
+. Go to [.menuchoice]#Management > Data Model#.
+. Select the index pattern search you want to set as the default from
+the list.
+. Click Favorite.
+
+____
+*Note*
+
+You can also manually set the default index pattern search in
+[.menuchoice]#Management > Advanced Settings#.
+____
+
+*Reloading the index fields list*
+
+When you add an index mapping, Siren Investigate automatically scans the
+indices that match the pattern to display a list of the index fields.
+You can reload the index fields list to pick up any newly-added fields.
+
+Reloading the index fields list also resets Siren Investigate’s
+popularity counters for the fields. The popularity counters keep track
+of the fields you have used most often within Siren Investigate and are
+used to sort fields within lists.
+
+To reload the index fields list:
+
+[arabic]
+. Go to  [.menuchoice]#Management > Data Model#.
+. Select an index pattern search from the list.
+. Click Reload.
+
+*Removing an index pattern search*
+
+[arabic]
+. Go to  [.menuchoice]#Management > Data Model#.
+. Select the index pattern search you want to remove in the list.
+. Click Delete.
+. Confirm that you want to remove the index pattern search.
+
+[[UUID-fdd1549b-a16e-75d6-0d00-b3e5d589a93b]]
+===== Cross cluster search
+
+Elasticsearch supports the ability to run search and aggregation
+requests across multiple clusters using a module called _cross cluster
+search_.
+
+____
+*Note*
+
+Siren Federate does not currently support cross cluster search.
+____
+
+To take advantage of cross cluster search, you must configure your
+Elasticsearch clusters accordingly. Refer to the corresponding
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-cross-cluster-search.html[Elasticsearch
+documentation] before attempting to use cross cluster search in Siren
+Investigate.
+
+After your Elasticsearch clusters are configured for cross cluster
+search, you can create specific index patterns in Siren Investigate to
+search across the clusters of your choosing. Using the same syntax that
+you would use in a raw cross cluster search request in Elasticsearch,
+create your index pattern in Siren Investigate with the convention
+`+<cluster-names>:<pattern>+`.
+
+For example, if you want to query logstash indices across two of the
+Elasticsearch clusters that you set up for cross cluster search, which
+were named `+cluster_one+` and `+cluster_two+`, you would use
+`+cluster_one:logstash-*,cluster_two:logstash-*+` as your index pattern
+in Siren Investigate.
+
+Just like in raw search requests in Elasticsearch, you can use wildcards
+in your cluster names to match any number of clusters, so if you wanted
+to search logstash indices across any clusters named `+cluster_foo+`,
+`+cluster_bar+`, and so on, you would use `+cluster_*:logstash-*+` as
+your index pattern in Siren Investigate.
+
+If you want to query across all Elasticsearch clusters that have been
+configured for cross cluster search, then use a standalone wildcard for
+your cluster name in your Siren Investigate index pattern:
+`+*:logstash-*+`.
+
+After an index pattern is configured using the cross cluster search
+syntax, all searches and aggregations using that index pattern in Siren
+Investigate take advantage of cross cluster search.
+
+[[UUID-92caeebf-3885-6a59-3692-1700f928f195]]
+==== Advanced settings for relations
+
+From  [.menuchoice]#Management > Data Model#., click *Edit*
+(image:image/15da06c5760c37.png[image]) to open the advanced settings
+for each relation. Here you can set the maximum time spent by each join
+task for that relation in milliseconds. After the timeout has expired,
+the task passes the documents accumulated at that point on to the next
+task.
+
+This is a per-task time limit and as each join contains several tasks,
+the overall response to the request can be a number of multiples of the
+`+joinTaskTimeout+`.
+
+As a semi-join, these documents will be filtered based on the presence
+of a *non-empty* value for the `+join+` field in the other index pattern
+in the relation.
+
+The index pattern in question is then filtered by the values returned.
+
+Setting the limit here to `+-1+` here sets the limit to the default
+`+siren:joinTaskTimeout+` set in the *Advanced Settings* and setting the
+limit to `+0+` here removes the limit entirely.
+
+[[UUID-92caeebf-3885-6a59-3692-1700f928f195_kibi-join-type]]
+===== Join type
+
+Siren Federate provides two types of join algorithms. The plugin tries
+to pick the best algorithm for a given join automatically. However, you
+can force the selection by choosing one of the available options:
+
+* HASH_JOIN: Distributed join using hash join algorithm.
+* BROADCAST_JOIN: Broadcast join.
+
+A detailed description of each algorithm can be found in the
+link:/document/preview/71728#UUID-c3dd12bd-07a3-f3a3-9bd5-df370568893f[Siren
+Federate] plugin documentation.5. Siren Federate
+
+[[UUID-3aa2ec89-f5a2-3127-acf8-3fe197028df1]]
+==== Datasources
+
+For an overview of datasources, see
+link:#UUID-0c844311-d945-8795-6219-2e817cadba1d[Siren Investigate
+datasource configuration] and
+link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[Legacy REST
+datasources].
+
+[[UUID-8bd9a5bb-0650-da26-fd51-d27b07edcad0]]
+==== Queries
+
+For an overview of queries, see link:#[?xml_title].
+
+[[UUID-c87e29c9-6bef-f336-7b19-40b46a24c7cc]]
+==== Templates
+
+You can define templates to format the results of a query on an
+link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[external datasource] and
+the results of an Elasticsearch query in a
+link:#UUID-c8b34217-c8bf-2cd2-34ec-708f21d3266d[Enhanced search results
+visualization].
+
+Siren Investigate supports three template engines:
+
+* http://jade-lang.com/[jade]
+* http://handlebarsjs.com/[handlebars]
+* html-angular
+
+There are four pre-defined templates:
+
+* _kibi-json-jade_: this template presents the query results as a
+pretty-printed JSON object using the _jade_ engine. This is useful to
+test queries while writing them.
+* _kibi-table-jade_: this template displays the query results in a
+table, using the _jade_ engine.
+* _kibi-table-handlebars_: like _kibi-table-jade_, using the
+_handlebars_ engine instead.
+* _kibi-html-angular_: this template for each document displays a panel
+* populated with all property values (Currently supported only in
+Enhanced
+* search results visualization)
+
+You can define your own custom template by clicking the _Settings /
+Templates_ tab.
+
+Then, pick the engine you prefer and write the template; to see a
+preview, click *Save* and select a query from the list; depending on the
+query you selected, the
+link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[_EntityURI_] may need to
+be set.
+
+image:image/15da06c613eb0a.png[Query template editor]
+
+[[UUID-e324048b-f31c-0911-3e07-4414895ac4bf]]
+==== Managing fields
+
+The fields for the index pattern are listed in a table. Click a column
+header to sort the table by that column. Click *Controls* in the
+rightmost column for a given field to edit the field’s properties. You
+can manually set the field’s format from the *Format* box. Format
+options vary based on the field’s type.
+
+You can also set the field’s popularity value in the *Popularity* text
+entry box to any desired value. Click *Update Field* to confirm your
+changes or *Cancel* to return to the list of fields.
+
+Siren Investigate has field formatters for the following field types:
+
+* link:#UUID-c5f2da52-0ed3-aad2-dadf-ade61e23e5d6[Strings]
+* link:#UUID-0ee80568-f50b-e154-d0a3-67c8ac525844[Dates]
+* link:#UUID-b9a5c22a-1072-633b-5f86-dc0581afa0f2[Geopoints]
+* link:#UUID-044c2cc0-9dd8-e543-910e-a8e2d864181b[Numbers]
+
+[[UUID-c5f2da52-0ed3-aad2-dadf-ade61e23e5d6]]
+===== String field formatters
+
+String fields support the `+String+` and `+URL+` formatters.
+
+The `+String+` field formatter can apply the following transformations
+to the field’s contents:
+
+* Convert to lowercase.
+* Convert to uppercase.
+* Convert to title case.
+* Apply the short dots transformation, which replaces the content before
+a `+.+` character with the first character of that content, as in the
+following example:
+
+[cols=",",]
+|===
+|*Original* |*Becomes*
+|`+com.organizations.project.ClassName+` |`+c.o.p.ClassName+`
+|===
+
+The `+URL+` field formatter can take on the following types:
+
+* The *Link* type turn the contents of the field into a URL.
+* The *Image* type can be used to specify an image folder where a
+specified image is located.
+
+You can customize either type of URL field formats with templates. A
+_URL template_ enables you to add specific values to a partial URL. Use
+the string `+{{value}}+` to add the contents of the field to a fixed
+URL.
+
+For example, when:
+
+* A field contains a user ID.
+* That field uses the `+URL+` field formatter.
+* The URI template is
+`+http://company.net/profiles?user_id={­{value}­}+`.
+
+The resulting URL replaces `+{{value}}+` with the user ID from the
+field.
+
+The `+{{value}}+` template string URL-encodes the contents of the field.
+When a field encoded into a URL contains non-ASCII characters, these
+characters are replaced with a `+%+` character and the appropriate
+hexadecimal code. For example, field contents `+users/admin+` result in
+the URL template adding `+users%2Fadmin+`.
+
+When the formatter type is set to *Image*, the `+{{value}}+` template
+string specifies the name of an image at the specified URI.
+
+To pass unescaped values directly to the URL, use the `+{{rawValue}}+`
+string.
+
+A _Label Template_ enables you to specify a text string that displays
+instead of the raw URL. You can use the `+{{value}}+` template string
+normally in label templates. You can also use the `+{{url}}+` template
+string to display the formatted URL.
+
+
+[[UUID-0ee80568-f50b-e154-d0a3-67c8ac525844]]
+===== Date field formatters
+
+Date fields support the `+Date+`, `+Url+`, and `+String+` formatters.
+
+The `+Date+` formatter enables you to choose the display format of date
+stamps using the https://momentjs.com/[moment.js] standard format
+definitions.
+
+The `+String+` field formatter can apply the following transformations
+to the field’s contents:
+
+* Convert to lowercase
+* Convert to uppercase
+* Convert to title case
+* Apply the short dots transformation, which replaces the content before
+a `+.+` character with the first character of that content, as in the
+following example:
+
+[cols=",",]
+|===
+|*Original* |*Becomes*
+|`+com.organizations.project.ClassName+` |`+c.o.p.ClassName+`
+|===
+
+The `+URL+` field formatter can take on the following types:
+
+* The *Link* type turn the contents of the field into a URL.
+* The *Image* type can be used to specify an image folder where a
+specified image is located.
+
+You can customize either type of URL field formats with templates. A
+_URL template_ enables you to add specific values to a partial URL. Use
+the string `+{{value}}+` to add the contents of the field to a fixed
+URL.
+
+For example, when:
+
+* A field contains a user ID.
+* That field uses the `+URL+` field formatter.
+* The URI template is
+`+http://company.net/profiles?user_id={­{value}­}+`.
+
+The resulting URL replaces `+{{value}}+` with the user ID from the
+field.
+
+The `+{{value}}+` template string URL-encodes the contents of the field.
+When a field encoded into a URL contains non-ASCII characters, these
+characters are replaced with a `+%+` character and the appropriate
+hexadecimal code. For example, field contents `+users/admin+` result in
+the URL template adding `+users%2Fadmin+`.
+
+When the formatter type is set to *Image*, the `+{{value}}+` template
+string specifies the name of an image at the specified URI.
+
+To pass unescaped values directly to the URL, use the `+{{rawValue}}+`
+string.
+
+A _Label Template_ enables you to specify a text string that displays
+instead of the raw URL. You can use the `+{{value}}+` template string
+normally in label templates. You can also use the `+{{url}}+` template
+string to display the formatted URL.
+
+[[UUID-b9a5c22a-1072-633b-5f86-dc0581afa0f2]]
+===== Geographic point field formatters
+
+Geographic point fields support the `+String+` formatter.
+
+The `+String+` field formatter can apply the following transformations
+to the field’s contents:
+
+* Convert to lowercase
+* Convert to uppercase
+* Convert to title case
+* Apply the short dots transformation, which replaces the content before
+a `+.+` character with the first character of that content, as in the
+following example:
+
+[cols=",",]
+|===
+|*Original* |*Becomes*
+|`+com.organizations.project.ClassName+` |`+c.o.p.ClassName+`
+|===
+
+[[UUID-044c2cc0-9dd8-e543-910e-a8e2d864181b]]
+===== Numeric field formatters
+
+Numeric fields support the `+URL+`, `+Bytes+`, `+Duration+`, `+Number+`,
+`+Percentage+`, `+String+`, and `+Color+` formatters.
+
+The `+URL+` field formatter can take on the following types:
+
+* The *Link* type turn the contents of the field into a URL.
+* The *Image* type can be used to specify an image folder where a
+specified image is located.
+
+You can customize either type of URL field formats with templates. A
+_URL template_ enables you to add specific values to a partial URL. Use
+the string `+{{value}}+` to add the contents of the field to a fixed
+URL.
+
+For example, when:
+
+* A field contains a user ID
+* That field uses the `+URL+` field formatter
+* The URI template is
+`+http://company.net/profiles?user_id={­{value}­}+`
+
+The resulting URL replaces `+{{value}}+` with the user ID from the
+field.
+
+The `+{{value}}+` template string URL-encodes the contents of the field.
+When a field encoded into a URL contains non-ASCII characters, these
+characters are replaced with a `+%+` character and the appropriate
+hexadecimal code. For example, field contents `+users/admin+` result in
+the URL template adding `+users%2Fadmin+`.
+
+When the formatter type is set to *Image*, the `+{{value}}+` template
+string specifies the name of an image at the specified URI.
+
+To pass unescaped values directly to the URL, use the `+{{rawValue}}+`
+string.
+
+A _Label Template_ enables you to specify a text string that displays
+instead of the raw URL. You can use the `+{{value}}+` template string
+normally in label templates. You can also use the `+{{url}}+` template
+string to display the formatted URL.
+
+The `+String+` field formatter can apply the following transformations
+to the field’s contents:
+
+* Convert to lowercase
+* Convert to uppercase
+* Convert to title case
+* Apply the short dots transformation, which replaces the content before
+a `+.+` character with the first character of that content, as in the
+following example:
+
+[cols=",",]
+|===
+|*Original* |*Becomes*
+|`+com.organizations.project.ClassName+` |`+c.o.p.ClassName+`
+|===
+
+The `+Duration+` field formatter can display the numeric value of a
+field in the following increments:
+
+* Picoseconds
+* Nanoseconds
+* Microseconds
+* Milliseconds
+* Seconds
+* Minutes
+* Hours
+* Days
+* Weeks
+* Months
+* Years
+
+You can specify these increments with up to 20 decimal places for both
+input and output formats. The default number of decimals for the Number
+format is 3, i.e. 0,0.[000]. If there are values smaller than this, but
+larger than 1e-7, they will be rounded to 0. The fix is to change the
+Numeral.js format pattern to: 0,0.[0000000]
+
+The `+Color+` field formatter enables you to specify colors with
+specific ranges of values for a numeric field.
+
+When you select the `+Color+` field formatter, Siren Investigate
+displays the *Range*, *Font Color*, *Background Color*, and *Example*
+fields.
+
+Click *Add Color* to add a range of values to associate with a
+particular color. You can click in the *Font Color* and *Background
+Color* fields to display a color picker. You can also enter a specific
+hex code value in the field. The effect of your current color choices
+are displayed in the *Example* field.
+
+image:image/15da06c6145780.png[image]
+
+The `+Bytes+`, `+Number+`, and `+Percentage+` formatters enable you to
+choose the display formats of numbers in this field using the
+https://adamwdraper.github.io/Numeral-js/[numeral.js] standard format
+definitions.
+
+[[UUID-8247f80e-8818-ebee-1cfb-dd9c0facb272]]
+===== Scripted fields
+
+Scripted fields compute data on the fly from the data in your
+Elasticsearch indices. Scripted field data is shown on the Discover tab
+as part of the document data, and you can use scripted fields in your
+visualizations. Scripted field values are computed at query time so they
+are not indexed and cannot be searched. Note that Siren Investigate
+cannot query scripted fields.
+
+____
+*Caution*
+
+Computing data on the fly with scripted fields can be very resource
+intensive and can have a direct impact on Siren Investigate’s
+performance. Keep in mind that there’s no built-in validation of a
+scripted field. If your scripts are buggy, you will get exceptions
+whenever you try to view the dynamically generated data.
+____
+
+When you define a scripted field in Siren Investigate, you have a choice
+of scripting languages. Starting with 5.0, the default options are
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-expression.html[Lucene
+expressions] and
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-painless.html[Painless].
+While you can use other scripting languages if you enable dynamic
+scripting for them in Elasticsearch, this is not recommended because
+they cannot be sufficiently
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-security.html[sandboxed].
+
+____
+*Note*
+
+Use of Groovy, Javascript, and Python scripting is deprecated starting
+in Elasticsearch 5.0, and support for those scripting languages will be
+removed in the future.
+____
+
+You can reference any single value numeric field in your expressions,
+for example:
+
+....
+doc['field_name'].value
+....
+
+For more background on scripted fields and additional examples, refer to
+https://www.elastic.co/blog/using-painless-kibana-scripted-fields[Using
+Painless in Kibana scripted fields].
+
+*Creating a scripted field*
+
+[arabic]
+. Go to *Settings > Indices*.
+. Select the index pattern you want to add a scripted field to.
+. Go to the pattern’s *Scripted Fields* tab.
+. Click *Add Scripted Field*.
+. Enter a name for the scripted field.
+. Enter the expression that you want to use to compute a value on the
+fly from your index data.
+. Click *Save Scripted Field*.
+
+For more information about scripted fields in Elasticsearch, see
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting.html[Scripting].
+
+*Modifying a scripted field*
+
+[arabic]
+. Go to *Settings > Indices*
+. Click *Edit* for the scripted field you want to change.
+. Make your changes and then click *Save Scripted Field* to update the
+field.
+
+*Deleting a scripted field*
+
+[arabic]
+. Go to *Settings > Indices*.
+. Click *Delete* for the scripted field you want to remove.
+. Confirm that you really want to remove the field.
+
+[[UUID-687cefb0-27b8-b4b7-ddc3-bbb852b782fb]]
+==== Setting advanced options
+
+The *Advanced Settings* page enables you to directly edit settings that
+control the behavior of the Siren Investigate application. For example,
+you can change the format used to display dates, specify the default
+index pattern, and set the precision for displayed decimal values.
+
+[arabic]
+. Go to  [.menuchoice]#Management > Advanced Settings#.
+. Click *Edit* for the option you want to modify.
+. Enter a new value for the option.
+. Click *Save*.
+
+____
+*Warning*
+
+Modifying the following settings can significantly affect Siren
+Investigate’s performance and cause problems that are difficult to
+diagnose. Setting a property’s value to a blank field will revert to the
+default behavior, which may not be compatible with other configuration
+settings. Deleting a custom setting removes it from Siren Investigate
+permanently.
+____
+
+.Common settings
+[cols=",,",options="header",]
+|===
+|Name |Description |Example
+|`+sentinl:experimental+` |Enable experimental features in Siren Alert.
+|`+false+`
+
+|`+query:queryString:options+`
+|https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html[Options]
+for the Lucene query string parser. |`+{ "analyze_wildcard": true }+`
+
+|`+sort:options+`
+|https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html[Options]
+for the Elasticsearch
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-request-sort.html[sort]
+parameter. |`+{ "unmapped_type": "boolean" }+`
+
+|`+dateFormat+` |The
+http://momentjs.com/docs/#/displaying/format/[format] to use for
+displaying formatted dates. |`+DD/MM/YYYY+`
+
+|`+dateFormat:tz+` |The timezone that Siren Investigate uses. The
+default value of `+Browser+` uses the timezone detected by the browser.
+|`+Browser+`
+
+|`+dateFormat:scaled+` |These values define the format used to render
+ordered time-based data. Formatted timestamps must adapt to the interval
+between measurements. Keys are
+http://en.wikipedia.org/wiki/ISO_8601#Time_intervals[ISO8601 intervals].
+|`+[ ["", "HH:mm:ss.SSS"], ["PT1S", "HH:mm:ss"], ["PT1M", "HH:mm"], ["PT1H", "YYYY-MM-DD HH:mm"], ["P1DT", "YYYY-MM-DD"], ["P1YT", "YYYY"] ] +`
+
+|`+dateFormat:dow+` |This property defines what day weeks should start
+on. |`+Sunday+`
+
+|`+defaultIndex+` |Default is `+null+`. This property specifies the
+default index. |`+index-pattern:company +`
+
+|`+defaultColumns+` |Default is `+_source+`. Defines the columns that
+appear by default on the Discover page. |`+_source+`
+
+|`+metaFields+` |An array of fields outside of `+_source+`. Siren
+Investigate merges these fields into the document when displaying the
+document. |`+_source, _id, _type, _index, _score+`
+
+|`+discover:sampleSize+` |The number of rows to show in the Discover
+table. |`+50+`
+
+|`+discover:aggs:terms:size+` |Determines how many terms will be
+visualized when clicking the "visualize" button, in the field boxes, in
+the discover sidebar. The default value is `+20+`. |`+20+`
+
+|`+doc_table:highlight+` |Highlight results in Discover and Saved
+Searches Dashboard. Highlighting makes request slow when working on big
+documents. Set this property to `+false+` to switch off highlighting.
+|`+true+`
+
+|`+doc_table:highlight:all_fields+` |Improves highlighting by using a
+separate `+highlight_query+` that uses `+all_fields+` mode on
+`+query_string+` queries. Set to `+false+` if you are using a
+`+default_field+` in your index. |`+true+`
+
+|`+courier:maxSegmentCount+` |Siren Investigate splits requests in the
+Discover page into segments to limit the size of requests sent to the
+Elasticsearch cluster. This setting constrains the length of the segment
+list. Long segment lists can significantly increase request processing
+time. |`+30+`
+
+|`+courier:ignoreFilterIfFieldNotInIndex+` |Set this property to
+`+true+` to skip filters that apply to fields that do not exist in a
+visualization’s index. Useful when dashboards consist of visualizations
+from multiple index patterns. |`+false+`
+
+|`+fields:popularLimit+` |This setting governs how many of the top most
+popular fields are shown. |`+10+`
+
+|`+histogram:barTarget+` |When date histograms use the `+auto+`
+interval, Siren Investigate attempts to generate this number of bars.
+|`+50+`
+
+|`+histogram:maxBars+` |Date histograms are not generated with more bars
+than the value of this property, scaling values when necessary. |`+100+`
+
+|`+visualization:tileMap:maxPrecision+` |The maximum geohash precision
+displayed on tile maps: 7 is high, 10 is very high, 12 is the maximum.
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html#_cell_dimensions_at_the_equator[Explanation
+of cell dimensions]. |`+7+`
+
+|`+visualization:tileMap:WMSdefaults+` |Default
+http://leafletjs.com/reference.html#tilelayer-wms[properties] for the
+WMS map server support in the coordinate map.
+|`+{ "enabled": false, "url": "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer", "options": { "version": "1.3.0", "layers": "0", "format": "image/png", "transparent": true, "attribution": "Maps provided by USGS", "styles": "" } }+`
+
+|`+visualization:regionmap:showWarnings+` |Whether the region map shows
+a warning when terms cannot be joined to a shape on the map. |`+true+`
+
+|`+visualization:colorMapping+` |Maps values to specified colors within
+visualizations. |`+{"Count":"#6eadc1"}+`
+
+|`+visualization:loadingDelay+` |Time to wait before dimming
+visualizations during query. |`+2s+`
+
+|`+visualization:dimmingOpacity+` |When part of a visualization is
+highlighted, by moving the mouse pointer over it for example, this is
+the opacity applied to the other elements. A higher number means other
+elements will be less opaque. |`+0.5+`
+
+|`+csv:separator+` |A string that serves as the separator for exported
+values. |`+,+`
+
+|`+csv:quoteValues+` |Set this property to `+true+` to quote exported
+values. |`+true+`
+
+|`+history:limit+` |In fields that have history, such as query inputs,
+the value of this property limits how many recent values are shown.
+|`+10+`
+
+|`+shortDots:enable+` |Set this property to `+true+` to shorten long
+field names in visualizations. For example, instead of `+foo.bar.baz+`,
+show `+f.b.baz+`. |`+false+`
+
+|`+truncate:maxHeight+` |This property specifies the maximum height that
+a cell occupies in a table. A value of 0 switches off truncation.
+|`+115+`
+
+|`+indexPattern:fieldMapping:lookBack+` |The value of this property sets
+the number of recent matching patterns to query the field mapping for
+index patterns with names that contain timestamps. |`+5+`
+
+|`+format:defaultTypeMap+` |A map of the default format name for each
+field type. Field types that are not explicitly mentioned use
+"_default_".
+|`+{ "ip": { "id": "ip", "params": {} }, "date": { "id": "date", "params": {} }, "number": { "id": "number", "params": {} }, "boolean": { "id": "boolean", "params": {} }, "_source": { "id": "_source", "params": {} }, "_default_": { "id": "string", "params": {} } }+`
+
+|`+format:number:defaultPattern+` |Default http://numeraljs.com/[numeral
+format] for the "number" format. |`+0,0.[000]+`
+
+|`+format:bytes:defaultPattern+` |Default http://numeraljs.com/[numeral
+format]  numeral format for the "bytes" format. |`+0,0.[000]b+`
+
+|`+format:percent:defaultPattern+`
+|Default http://numeraljs.com/[numeral format]  numeral format for the
+"percent" format. |`+0,0.[000]%+`
+
+|`+format:currency:defaultPattern+`
+|Default http://numeraljs.com/[numeral format]  numeral format for the
+"currency" format. |`+($0,0.[00])+`
+
+|`+savedObjects:perPage+` |The number of objects shown on each page of
+the list of saved objects. The default value is 5. |`+5+`
+
+|`+savedObjects:listingLimit+` |Number of objects to fetch for the
+listing pages. |`+1000+`
+
+|`+timepicker:timeDefaults+` |The default time filter selection.
+|`+{ "from": "now-15m", "to": "now", "mode": "quick" }+`
+
+|`+timepicker:refreshIntervalDefaults+` |The time filter’s default
+refresh interval. |`+{ "display": "Off", "pause": false, "value": 0 }+`
+
+|`+dashboard:defaultDarkTheme+` |Set this property to `+true+` to make
+new dashboards use the dark theme by default. |`+false+`
+
+|`+filters:pinnedByDefault+` |Set this property to `+true+` to make
+filters have a global state by default. |`+false+`
+
+|`+filterEditor:suggestValues+` |Set this property to `+true+` to have
+the filter editor suggest values for fields, instead of providing only a
+text input. This may result in heavy queries to Elasticsearch.
+|`+false+`
+
+|`+notifications:banner+` |You can specify a custom banner to display
+temporary notices to all users. This field supports link:#[Markdown]. |
+
+|`+notifications:lifetime:banner+` |Specifies the duration in
+milliseconds for banner notification displays. The default value is
+3000000. Set this field to `+Infinity+` to switch off banner
+notifications. |`+3000000+`
+
+|`+notifications:lifetime:error+` |Specifies the duration in
+milliseconds for error notification displays. The default value is
+300000. Set this field to `+Infinity+` to switch off error
+notifications. |`+300000+`
+
+|`+notifications:lifetime:warning+` |Specifies the duration in
+milliseconds for warning notification displays. The default value is
+10000. Set this field to `+Infinity+` to switch off warning
+notifications. |`+10000+`
+
+|`+notifications:lifetime:info+` |Specifies the duration in milliseconds
+for information notification displays. The default value is 5000. Set
+this field to `+Infinity+` to switch off information notifications.
+|`+5000+`
+
+|`+metrics:max_buckets+` |The maximum numbers of buckets that cannot be
+exceeded. For example, this can arise when the user selects a short
+interval like (for example 1s) for a long time period (for example 1
+year). |`+2000+`
+
+|`+state:storeInSessionStorage+` |[experimental] Siren Investigate
+tracks UI state in the URL, which can lead to problems when there is a
+lot of information there and the URL gets very long. Enabling this will
+store parts of the state in your browser session instead, to keep the
+URL shorter. |`+true+`
+
+|`+indexPattern:placeholder+` |The placeholder for the field "Index name
+or pattern" in the "Settings > Indices" tab. |`+logstash-*+`
+
+|`+context:defaultSize+` |The number of surrounding entries to show in
+the context view. |`+5+`
+
+|`+context:step+` |The step size to increment or decrement the context
+size by. |`+5+`
+
+|`+context:tieBreakerFields+` |A comma-separated list of fields to use
+for tie breaking between documents that have the same timestamp value.
+From this list the first field that is present and sortable in the
+current index pattern is used. |`+_doc+`
+
+|`+timelion:showTutorial+` |Set this property to `+true+` to show the
+Timelion tutorial to users when they first open Timelion. |`+false+`
+
+|`+timelion:es.timefield+` |Default field containing a timestamp when
+using the `+.es()+` query. |`+@timestamp+`
+
+|`+timelion:es.default_index+` |Default index when using the `+.es()+`
+query. |`+_all+`
+
+|`+timelion:target_buckets+` |Used for calculating automatic intervals
+in visualizations, this is the number of buckets to try to represent.
+|`+200+`
+
+|`+timelion:max_buckets+` |Used for calculating automatic intervals in
+visualizations, this is the maximum number of buckets to represent.
+|`+2000+`
+
+|`+timelion:default_columns+` |The default number of columns to use on a
+Timelion sheet. |`+2+`
+
+|`+timelion:default_rows+` |The default number of rows to use on a
+Timelion sheet. |`+2+`
+
+|`+timelion:graphite.url+` |[experimental] Used with graphite queries,
+this it the URL of your host
+|`+https://www.hostedgraphite.com/UID/ACCESS_KEY/graphite +`
+
+|`+timelion:quandl.key+` |[experimental] Used with quandl queries, this
+is your API key from www.quandl.com |`+someKeyHere +`
+|===
+
+.Siren Investigate settings
+[cols=",,",options="header",]
+|===
+|Name |Description |Example
+|`+siren:timePrecision+` |Set to generate time filters with certain
+precision; possible values are: y, M, w, d, h, m, s, ms. It is set to m
+(minute) by default, to make the best use of Federate cache on
+time-based data. However, if the data is updated live and better
+precision is needed, it can be set to s (second) or ms (millisecond).
+|`+s+`
+
+|`+siren:joinTaskTimeout+`
+|link:#UUID-92caeebf-3885-6a59-3692-1700f928f195[Default timeout] for
+join task in milliseconds. Join tasks will return the results gathered
+at that point when the timeout expires. Set to 0 to disable the global
+timeout. Can be overwritten per relation in each relation's advanced
+options in the relational panel. |`+0+`
+
+|`+siren:panel_vertical_size+` |Set to change the default vertical panel
+size. |`+3+`
+
+|`+siren:vertical_grid_resolution+` |Set to change vertical grid
+resolution. |`+100+`
+
+|`+siren:enableAllRelBtnCounts+` |Enable counts on all relational
+buttons. |`+true+`
+
+|`+siren:defaultDashboardld+` |The dashboard that is displayed when
+clicking the Dashboard tab for the first time. |`+null+`
+
+|`+siren:excludedIndices+` |Indices to exclude.
+|`+.kibi*,.siren*,.searchguard,.security,.monitoring*,watcher_alarms-*+`
+
+|`+siren:graphUseWebGl+` |Set to false to switch off WebGL rendering.
+|`+true+`
+
+|`+siren:graphStatesLimit+` |Set how many undo/redo steps you want to
+maintain in memory |`+10+`
+
+|`+siren:graphExpansionLimit+` |Limit the number of elements to retrieve
+during the graph expansion. |`+500+`
+
+|`+siren:graphRelationFetchLimit+` |Limit the number of relations to
+retrieve after the graph expansion. |`+2500+`
+
+|`+siren:graphMaxConcurrentCalls+` |Limit the number of concurrent calls
+done by the Graph Browser. |`+15+`
+
+|`+siren:countFetchingStrategyDashboards+` |Strategy used to fetch the
+counts for dashboards.
+|`+{ "name": "default", "batchSize": 2, "retryOnError": 1, "parallelRequests": 1 }+`
+
+|`+siren:countFetchingStrategyRelationalFilters+` |Strategy used to
+fetch the counts for relational filters.
+|`+{ "name": "default", "batchSize": 2, "retryOnError": 1, "parallelRequests": 1 }+`
+
+|`+siren:showVisualizationIndexPatternLinks+` |Show links to connect
+visualizations to index patterns as well as saved searches. |`+false+`
+
+|`+siren:showIntroVideos+` |Enable introductory videos. |`+true+`
+
+|`+siren:elasticsearch:searchErrorTrace+` |Return stack_trace in search
+or msearch error responses if true. |`+true+`
+
+|`+siren:autoRelations:shardTimeout+` |Milliseconds reserved for
+computing a single Fingerprints/Relations Wizard request. Requests will
+return the results gathered at that point when the timeout expires,
+possibly leading to suboptimal overall results. It does not apply to
+virtual indices. |`+5000+`
+|===
+
+[[UUID-435b7178-175b-dc5a-71ae-754e56d71d7c]]
+==== Managing saved searches, visualizations, and dashboards
+
+You can view, edit, and remove saved searches, visualizations, and
+dashboards from *Settings > Objects*. You can also export or import sets
+of searches, visualizations, and dashboards.
+
+Viewing a saved object displays the selected item in the *Discover*,
+*Visualize*, or *Dashboard* page. To view a saved object:
+
+[arabic]
+. Go to [.menuchoice]#Management > Saved O#.
+. Select the object you want to view.
+. Click the *View* button.
+
+Editing a saved object enables you to directly modify the object
+definition. You can change the name of the object, add a description,
+and modify the JSON that defines the object’s properties.
+
+If you attempt to access an object whose index has been removed, Siren
+Investigate displays its Edit Object page. You can:
+
+* Recreate the index so you can continue using the object.
+* Remove the object and recreate it using a different index.
+* Change the index name referenced in the object’s
+`+kibanaSavedObjectMeta.searchSourceJSON+` to point to an existing index
+pattern. This is useful if the index you were working with has been
+renamed.
+
+____
+*Caution*
+
+No validation is performed for object properties. Submitting invalid
+changes will render the object unusable. Generally, you should use the
+*Discover*, *Visualize*, or *Dashboard* pages to create new objects
+instead of directly editing existing ones.
+____
+
+To edit a saved object:
+
+[arabic]
+. Go to [.menuchoice]#Management > Saved Objects#.
+. Select the object you want to edit.
+. Click the *Edit* button.
+. Make your changes to the object definition.
+. Click the *Save Object* button.
+
+To remove a saved object:
+
+[arabic]
+. Go to [.menuchoice]#Management > Saved Objects#.
+. Select the object you want to remove.
+. Click *Delete*.
+. Confirm that you really want to remove the object.
+
+To export a set of objects:
+
+[arabic]
+. Go to [.menuchoice]#Management > Saved Objects#.
+. Select the type of object you want to export. You can export a set of
+dashboards, searches, or visualizations.
+. Click the selection box for the objects you want to export, or click
+the *Select All* box.
+. Click *Export* to select a location to write the exported JSON.
+
+____
+*Note*
+
+Exported dashboards do not include their associated index patterns.
+Re-create the index patterns manually before importing saved dashboards
+to a Siren Investigate instance running on another Elasticsearch
+cluster.
+____
+
+To import a set of objects:
+
+[arabic]
+. Go to [.menuchoice]#Management > Saved Objects#.
+. Click *Import* to navigate to the JSON file representing the set of
+objects to import.
+. Click *Open* after selecting the JSON file.
+. If any objects in the set would overwrite objects already present in
+Siren Investigate, confirm the action.
+
+[[UUID-1a862344-88f1-0db9-cff0-734b1f1f7c49]]
+==== Adding custom icon packs
+
+This document provides the steps how SVG images are imported as icons
+into Siren Investigate. This document assumes that the user is familiar
+with the use of command line tools on either Linux, MAC or Windows
+operating systems.
+
+____
+*Note*
+
+FontCustom installation requires that you are familiar with the command
+line tools for the operating system being used.
+____
+
+*Step 1: Installing FontCustom*
+
+https://github.com/FontCustom/fontcustom[FontCustom] is a utility that
+creates cross-browser fonts from SVG images through the command line.
+The GitHub repository provides the
+https://github.com/FontCustom/fontcustom#installation[installation
+instructions] for Linux, MacOS, and Windows. Please install FontCustom
+before moving to the next step.
+
+*Step 2: Creating an icon pack*
+
+An icon pack is a folder of icon files that can be uploaded to Siren
+Investigate to use as custom icons.
+
+Once you have installed FontCustom, go to the folder containg the SVG
+images and run the following command on the command line:
+
+`+fontcustom compile --name 'my-font-family' --selector=.my-icon-{{glyph}}+`
+
+* The --name flag defines the font-family name
+* The --selector flag defines the icon prefix
+
+____
+*Important*
+
+Ensure that both of these flags are unique every time an icon pack is
+created. In this example, `+.my-icon-+` is the prefix (note the dot),
+while `+{{glyph}}+` is the placeholder for the icon name. Please keep
+the dot and placeholder as shown – the FontCustom utility will raise an
+error if this is not done.
+____
+
+After running the command (ensuring that the conditions of unique flags
+and placeholder are met), the output should look something like this:
+
+image:image/15da06c6149dce.png[image]
+
+The icon pack has been created in the same folder. The name of the
+folder will be the same as the `+--name+` flag used in the command. Do
+not change any of the files in this folder. Create a .zip file of the
+folder to upload to Investigate.
+
+*Step 3: Uploading the icon pack*
+
+Go to Management Icon Packs Import and select the .zip file created in
+the last step. The upload once successful will show the list of uploaded
+icon packs.
+
+image:image/15da06c614e28d.png[image]
+
+____
+*Tip*
+
+If you need to delete an icon pack, click its bin icon.
+____
+
+*Step 4: Using the custom icons*
+
+You can search for the icons using their names or the prefix used when
+the icon pack was created. In this example, a custom snowman icon was
+uploaded. To use this icon, you go to Data Model and, in the Icon text
+box, search for “snowman” (or your icon name), select the icon, and
+click Save.
+
+image:image/15da06c6152ee9.png[image]
+
+Once selected and saved, the icons are displayed wherever the data model
+is used across the application. The following two screenshots show the
+snowman icon being used in the Graph Browser and the Data Model Graph,
+respectively.
+
+image:image/15da06c6155a82.png[image]
+
+image:image/15da06c615c571.png[image]
