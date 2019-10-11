@@ -731,7 +731,7 @@ permanently.
 
 
 .Common settings
-[cols="30,40,30",options="header",]
+[cols=",,",options="header",]
 |===
 |Name |Description |Example
 |`+sentinl:experimental+` |Enable experimental features in Siren Alert.
@@ -980,7 +980,7 @@ is your API key from www.quandl.com |`+someKeyHere +`
 |===
 
 .Siren Investigate settings
-[cols="20,40,40",options="header",]
+[cols=",,",options="header",]
 |===
 |Name |Description |Example
 |`+siren:timePrecision+` |Set to generate time filters with certain
