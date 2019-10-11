@@ -354,9 +354,8 @@ table, using the _jade_ engine.
 * _kibi-table-handlebars_: like _kibi-table-jade_, using the
 _handlebars_ engine instead.
 * _kibi-html-angular_: this template for each document displays a panel
-* populated with all property values (Currently supported only in
-Enhanced
-* search results visualization)
+populated with all property values (Currently supported only in the
+Enhanced search results visualization)
 
 You can define your own custom template by clicking the _Settings /
 Templates_ tab.
@@ -449,8 +448,8 @@ normally in label templates. You can also use the `+{{url}}+` template
 string to display the formatted URL.
 
 
-[[UUID-0ee80568-f50b-e154-d0a3-67c8ac525844]]
-===== Date field formatters
+
+=== Date field formatters
 
 Date fields support the `+Date+`, `+Url+`, and `+String+` formatters.
 
@@ -512,8 +511,8 @@ instead of the raw URL. You can use the `+{{value}}+` template string
 normally in label templates. You can also use the `+{{url}}+` template
 string to display the formatted URL.
 
-[[UUID-b9a5c22a-1072-633b-5f86-dc0581afa0f2]]
-===== Geographic point field formatters
+
+=== Geographic point field formatters
 
 Geographic point fields support the `+String+` formatter.
 
@@ -627,7 +626,7 @@ Color* fields to display a color picker. You can also enter a specific
 hex code value in the field. The effect of your current color choices
 are displayed in the *Example* field.
 
-image:image/15da06c6145780.png[image]
+image:15da06c6145780.png[image]
 
 The `+Bytes+`, `+Number+`, and `+Percentage+` formatters enable you to
 choose the display formats of numbers in this field using the
@@ -644,15 +643,12 @@ visualizations. Scripted field values are computed at query time so they
 are not indexed and cannot be searched. Note that Siren Investigate
 cannot query scripted fields.
 
-____
-*Caution*
-
-Computing data on the fly with scripted fields can be very resource
+CAUTION: Computing data on the fly with scripted fields can be very resource
 intensive and can have a direct impact on Siren Investigate’s
 performance. Keep in mind that there’s no built-in validation of a
 scripted field. If your scripts are buggy, you will get exceptions
 whenever you try to view the dynamically generated data.
-____
+
 
 When you define a scripted field in Siren Investigate, you have a choice
 of scripting languages. Starting with 5.0, the default options are
@@ -664,13 +660,10 @@ scripting for them in Elasticsearch, this is not recommended because
 they cannot be sufficiently
 https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-security.html[sandboxed].
 
-____
-*Note*
-
-Use of Groovy, Javascript, and Python scripting is deprecated starting
+NOTE: Use of Groovy, Javascript, and Python scripting is deprecated starting
 in Elasticsearch 5.0, and support for those scripting languages will be
 removed in the future.
-____
+
 
 You can reference any single value numeric field in your expressions,
 for example:
@@ -722,21 +715,18 @@ you can change the format used to display dates, specify the default
 index pattern, and set the precision for displayed decimal values.
 
 [arabic]
-. Go to  [.menuchoice]#Management > Advanced Settings#.
+. Go to [.menuchoice]#Management > Advanced Settings#.
 . Click *Edit* for the option you want to modify.
 . Enter a new value for the option.
 . Click *Save*.
 
-____
-*Warning*
-
-Modifying the following settings can significantly affect Siren
+WARNING: Modifying the following settings can significantly affect Siren
 Investigate’s performance and cause problems that are difficult to
 diagnose. Setting a property’s value to a blank field will revert to the
 default behavior, which may not be compatible with other configuration
 settings. Deleting a custom setting removes it from Siren Investigate
 permanently.
-____
+
 
 .Common settings
 [cols=",,",options="header",]
@@ -1087,14 +1077,11 @@ Investigate displays its Edit Object page. You can:
 pattern. This is useful if the index you were working with has been
 renamed.
 
-____
-*Caution*
-
-No validation is performed for object properties. Submitting invalid
+CAUTION: No validation is performed for object properties. Submitting invalid
 changes will render the object unusable. Generally, you should use the
 *Discover*, *Visualize*, or *Dashboard* pages to create new objects
 instead of directly editing existing ones.
-____
+
 
 To edit a saved object:
 
@@ -1123,14 +1110,11 @@ dashboards, searches, or visualizations.
 the *Select All* box.
 . Click *Export* to select a location to write the exported JSON.
 
-____
-*Note*
-
-Exported dashboards do not include their associated index patterns.
+NOTE: Exported dashboards do not include their associated index patterns.
 Re-create the index patterns manually before importing saved dashboards
 to a Siren Investigate instance running on another Elasticsearch
 cluster.
-____
+
 
 To import a set of objects:
 
