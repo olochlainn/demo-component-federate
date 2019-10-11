@@ -316,7 +316,7 @@ A detailed description of each algorithm can be found in the
 link:/document/preview/71728#UUID-c3dd12bd-07a3-f3a3-9bd5-df370568893f[Siren
 Federate] plugin documentation.5. Siren Federate
 
-[[UUID-3aa2ec89-f5a2-3127-acf8-3fe197028df1]]
+
 == Datasources
 
 For an overview of datasources, see
