@@ -733,6 +733,7 @@ permanently.
 
 .Common settings
 [cols=",,",options="header",]
+[width=90%]
 |===
 |Name |Description |Example
 |`+sentinl:experimental+` |Enable experimental features in Siren Alert.
