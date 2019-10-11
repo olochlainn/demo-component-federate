@@ -11,7 +11,7 @@ The management section supports plugins, so in addition to the out of
 the box capabilities, packs such as Siren Investigate Access Control and
 X-Pack can add additional management capabilities.
 
-[[UUID-e9f92f41-6f82-c48b-5096-a2538a257f28]]
+
 ==== Index pattern searches
 
 To use Siren Investigate, you have to tell it about the Elasticsearch
