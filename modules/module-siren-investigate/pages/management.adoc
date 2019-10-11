@@ -1172,7 +1172,7 @@ error if this is not done.
 After running the command (ensuring that the conditions of unique flags
 and placeholder are met), the output should look something like this:
 
-image:15da06c6149dce.png[image]
+image:custom_icon_output.png[image]
 
 The icon pack has been created in the same folder. The name of the
 folder will be the same as the `+--name+` flag used in the command. Do
@@ -1185,7 +1185,7 @@ Go to Management Icon Packs Import and select the .zip file created in
 the last step. The upload once successful will show the list of uploaded
 icon packs.
 
-image:15da06c614e28d.png[image]
+image:icon_packs.png[image]
 
 TIP: If you need to delete an icon pack, click its bin icon.
 
@@ -1198,13 +1198,13 @@ uploaded. To use this icon, you go to Data Model and, in the Icon text
 box, search for “snowman” (or your icon name), select the icon, and
 click Save.
 
-image:15da06c6152ee9.png[image]
+image:data_model_snowman_icon.png[image]
 
 Once selected and saved, the icons are displayed wherever the data model
 is used across the application. The following two screenshots show the
 snowman icon being used in the Graph Browser and the Data Model Graph,
 respectively.
 
-image:15da06c6155a82.png[image]
+image:graph_browser_snowman.png[image]
 
-image:15da06c615c571.png[image]
+image:graph_snowman.png[image]
