@@ -709,7 +709,7 @@ field.
 
 
 
-=== Setting advanced options
+== Setting advanced options
 
 The *Advanced Settings* page enables you to directly edit settings that
 control the behavior of the Siren Investigate application. For example,
@@ -1051,7 +1051,7 @@ virtual indices. |`+5000+`
 |===
 
 
-=== Managing saved searches, visualizations, and dashboards
+== Managing saved searches, visualizations, and dashboards
 
 You can view, edit, and remove saved searches, visualizations, and
 dashboards from *Settings > Objects*. You can also export or import sets
@@ -1129,7 +1129,7 @@ objects to import.
 Siren Investigate, confirm the action.
 
 
-=== Adding custom icon packs
+== Adding custom icon packs
 
 This document provides the steps how SVG images are imported as icons
 into Siren Investigate. This document assumes that the user is familiar
