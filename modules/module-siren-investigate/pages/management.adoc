@@ -1135,13 +1135,9 @@ Siren Investigate, confirm the action.
 
 == Adding custom icon packs
 
-This document provides the steps how SVG images are imported as icons
-into Siren Investigate. This document assumes that the user is familiar
-with the use of command line tools on either Linux, MAC or Windows
-operating systems.
+You can import SVG (Scalable Vector Graphic) images as icons into Siren Investigate using the FontCustom utility. This enables you to customize the appearance of your data models to your specific requirements.
 
-NOTE: FontCustom installation requires that you are familiar with the command
-line tools for the operating system being used.
+NOTE: FontCustom installation requires that you are familiar with the command line tools for the operating system being used – Linux, MacOS or Windows.
 
 
 *Step 1: Installing FontCustom*
