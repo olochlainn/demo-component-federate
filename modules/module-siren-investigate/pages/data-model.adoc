@@ -1,0 +1,537 @@
+= Data model
+
+To use Siren Investigate you must define the data that you want to
+explore by configuring the data model.
+
+From [.menuchoice]#Management > Data Model#, you can create:
+
+* *Index pattern searches*: A search based on a pattern that matches one
+or more Elasticsearch indices or virtual indices (see
+link:#[?xml_title]).
+* *Child searches*: A sub-search based on an index pattern search
+created by adding more specific filters or queries.
+* *Entity identifiers (EIDs)*: A virtual entity concept used to connect
+data sets using common concepts. For example, a `+company+` is located
+in a `+city+` and an `+investor+` lives in a `+city+`. There is no
+direct relation between the two data sets, but investors can be found in
+the same city in which the company is located. 
+
+Data may also be in an index, either directly in Elasticsearch or in a
+Virtual Index mapped to an external JDBC datasource.
+
+
+== Creating an index pattern search
+
+Click *Create Index Pattern Search*.
+
+Here, you can choose a name for the entity, add a long and short
+descriptions and, using an icon picker and color picker, choose an icon
+and color that will be associated with that entity in graph views, for
+example when you select the Graph View tab.
+
+NOTE: The colon ':' has been deprecated in index names, and should not be
+used.
+
+
+For more details on creating an index pattern search, see
+link:#UUID-e9f92f41-6f82-c48b-5096-a2538a257f28[Index pattern searches].
+
+
+
+=== Editing an index pattern search
+
+You can view and edit multiple properties. They are grouped into tabs:
+
+* *Data*: Browse data and create child searches
+* *Data model graph*: Explore the relations graph.
+* *Fields*: View fields information.
+* *Info*: Modify search properties such as name, icon, label and
+description.
+* *Relations*: Add relationships.
+* *Scripted Fields*: Create scripted fields.
+* *Source Filters*: Add source filters.
+
+To save your changes, click *Save*.
+
+==== Data
+
+From this tab you can:
+
+* Generate a dashboard and populate it with visualizations created
+automatically from the currently selected fields.
+* Create a child search.
+* Add filters.
+
+image:15da06c58499bb.PNG[image]
+
+==== Data model graph
+
+image:15da06c58501c5.png[image]
+
+==== Fields
+
+The *fields* tab displays properties for each field. A check mark
+indicates the presence of a property:
+
+* *Name*.
+* *Type*.
+* *Format*.
+* *Searchable*: Can be used in the filter bar.
+* *Aggregateable*: Can be used in visualization aggregations.
+* *Excluded*: Excluded from _source when it is fetched.
+* *Primary key*: The primary key of an entity identifier.
+* *Single value*: A field that is not an array.
+
+To configure the field, click the *Edit* icon in the field’s row:
+
+* *Format*: Enables you to control the way that specific values are
+displayed. It can also cause values to be completely changed and prevent
+highlighting in *Discover* from working. The following options are
+available:
+** Boolean
+** color
+** string (default)
+** truncated string
+** URL
+* *Popularity*.
+* *Primary key*.
+* *Single value*.
+
+Click *Update field* to save your changes. Alternatively, click *Cancel*
+to abandon your changes.
+
+image:15da06c58568b6.PNG[image]
+
+==== Info
+
+The *Info* tab enables you to set the following properties:
+
+* *Name of the search*: The search name, typically describing returned
+entity types, for example: "users", "logs firewall 1", "financial
+articles".
+* *Icon*.
+* *Color*.
+* *Label when visualized in the graph browser*: How to compose the label
+used when records are visualized on the graph. This can either be a
+*Scripted Label* or a *Document Field*.
+* *Short description*.
+* *Index pattern used by this search*: The pattern used to select the
+indexes to receive queries from the search. By changing the pattern you
+can change the index or even select multiple indexes (* is a wildcard).
+For example, `+logstash-*+`. Changing this setting will impact this
+search, the searches derived from this and all the associated visual
+components.
+* *Time Filter field name*: Used to filter events with the global time
+filter.
+
+image:15da06c585d356.PNG[image]
+
+==== Relations
+
+The *Relations* tab enables you to define relations between entities:
+
+* *Source entity*: Select a *Field*.
+* *Labels*: Select or create a new label for each direction of the
+relation.
+* *Target entity*: Select a *Search* and a *Field* or select an entity
+identifier.
+
+image:15da06c5863624.PNG[image]
+
+==== Scripted fields
+
+Scripted fields are computed in real time from your data. They can be
+used in visualizations and displayed in your documents. However, they
+cannot be searched.
+
+CAUTION: Familiarize yourself with script fields
+(https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-script-fields)
+and scripts in aggregations
+(https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html#_values_source)
+before using scripted fields.
+
+Scripted fields can be used to display and aggregate calculated values.
+As such, they can be very slow, and when configured incorrectly, can
+cause Siren Investigate to become unusable. There is no protection from
+unexpected exceptions caused by script errors.
+
+
+Scripted fields use the languages which are enabled in the backend. By
+default this is the Painless Elasticsearch language
+(https://www.elastic.co/guide/en/elasticsearch/reference/7.2/modules-scripting-painless.html).
+
+NOTE: Ensure that you access Elasticsearch documentation that matches the
+backend version you are using.
+
+
+To access values in the document use the following format:
+
+`+doc['some_field'].value+`
+
+Painless is powerful but easy to use. It provides access to many native
+Java APIs
+(www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-painless.html#painless-api)
+and has an easy to learn syntax.
+
+Currently, Siren Investigate does not support named functions in
+Painless scripts.
+
+Alternatively you can use Lucene Expressions
+(http://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-expression.html[www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-expression.html]).
+These are a lot like JavaScript, but limited to basic arithmetic,
+bitwise and comparison operations.
+
+Lucene Expressions have the following limitations:
+
+* Only numeric, boolean, date and geo_point fields may be accessed.
+* Stored fields are not available.
+* If a field is sparse (only some documents contain a value), documents
+missing the field will have a value of 0.
+
+Lucene Expressions support the following operators and functions:
+
+* *Arithmetic operators*: +, -, *, /, %
+* *Bitwise operators*: |, &, ^, ~, <<, >>, >>>
+* *Boolean operators* (including the ternary operator): &&, ||, !, ?:
+* *Comparison operators*: <, ⇐, ==, >=, >
+* *Common mathematic functions*: abs, ceil, exp, floor, ln, log10, logn,
+max, min, sqrt, pow
+* *Trigonometric library functions*: acosh, acos, asinh, asin, atanh,
+atan, atan2, cosh, cos, sinh, sin, tanh, tan
+* *Distance functions*: haversin
+* *Miscellaneous functions*: min, max
+
+Scripted fields have the following properties:
+
+* *Name*.
+* *Language*:
+** expression
+** painless (default)
+* *Type*:
+** Boolean
+** date
+** number
+** string
+* *Format*: Enables you to control the way that specific values are
+displayed. It can also cause values to be completely changed and prevent
+highlighting in *Discover* from working. The following options are
+available:
+** Boolean
+** bytes
+** color
+** duration
+** number (default)
+** percentage
+** string
+** URL
+* *Popularity*.
+* *Primary key*.
+* *Single value*.
+* *Script*.
+
+Click *Create field* to save your changes. Alternatively, click *Cancel*
+to abandon your changes.
+
+==== Source filters
+
+Source filters can be used to exclude one or more fields when fetching
+the document source. This happens when viewing a document in Discover,
+or with a table displaying results from a saved search in Dashboard.
+Each row is built using the source of a single document. If you have
+documents with large or unimportant fields you may benefit from
+filtering those out at this lower level.
+
+Note that multi-fields will incorrectly appear as matches in the table.
+These filters only apply to fields in the original source document, so
+that matching multi-fields are actually not filtered.
+
+Enter a string in the Source Filter in the box and click Add. Filters
+accept wildcards, for example `+user*+` will return fields starting with
+`+user+`.
+
+
+=== Removing an index pattern search
+
+Select the index pattern search from the left menu.
+
+Click Delete.
+
+
+=== Creating a child search
+
+After you have created an index pattern search, you can create more
+specific searches. For example, if your main index pattern search is
+`+Companies+` you can now create a narrower selection such as
+`+Companies from New York+`:
+
+Select the Companies index pattern search on the left menu.
+
+Go to the Data tab.
+
+Search for `+New York+` and press Enter.
+
+Click Create Child Search.
+
+Enter `+Companies from New York+` and click Save.
+
+The child search appears nested under Companies on the left side.
+
+NOTE: Child searches cannot currently be nested, so there can be only one
+level of child search, spanning from the Index Pattern Search. This is
+because certain query modifiers, which appear as filters, could in
+theory even expand the result set. Note also that data model relations
+are always defined at Index Pattern Search (or EID) level, and are
+inherited by child searches.
+
+
+*Editing a child search*
+
+To save your changes, click Save.
+
+*Removing a child search*
+
+Select the child search from the left menu.
+
+Click Delete.
+
+
+
+== How to use entity identifiers
+
+Siren 10 introduces the concept of an "Entity Identifier" (EID).
+Previously, in Siren, to be able to join between two indexes you had to
+specify that there existed a direct connection between them. For
+example, if you had two logs which could be connected by the IP value,
+you would have specified a direct connection, thus creating a relational
+button between the two.
+
+But what if you have many indexes having IPs (or anything else: MAC
+Addresses, User IDs, URLs, Port Numbers, Transaction IDs, and so on)
+that are in multiple roles (Source IP, Destination IP) and it may be
+useful to join from any of these roles and indexes to any other role and
+index?
+
+The new relational model enables this automatically.
+
+For example, in this configuration, we have defined the IP concept as an
+EID and tied it in with other indexes where IPs show up. For each
+connection, we specify the name of the relation that describes the role
+of the IP in that index (Is it the `+source+` IP in that log or the
+`+blocked+` IP?).
+
+image:15da06c586ac72.png[Relations Graph]
+
+Using only this configuration, you can now have buttons that explore the
+ontology and show you all possible matches across your data. At this
+point, one click and you will be pivoting to the target dashboard, with
+the right relational filter applied.
+
+For example, to see the records of the Apache logs where the Agent IP
+matches the Destination IP in the current log, navigate from
+"Destination IP" as per the picture:
+
+image:15da06c5874501.png[Automatic relational buttons]
+
+Entity identifiers are great for anything that identifies "things"
+across indexes but does not have an index per se (otherwise, you would
+pivot to it). Things like Phone Numbers, but also Tags, Labels from
+standalone indexes, and so on. In practice a single Excel spreadsheet
+can be seen as a "knowledge graph" if you consider labels as identifiers
+that interconnect records. Here is an example with entity identifiers
+(Tissue and Organism) in a Life Science deployment.
+
+image:15da06c587d622.png[Knowledge Graph]
+
+Note that the automatic connections between dashboards are seen when
+using the new relational button. The old one will still require manual
+inputs on which relation to show where.
+
+image:15da06c58863e7.png[Visualize]
+
+Again, this is how the new relational button appears in action.
+
+image:15da06c5874501.png[Automatic relational buttons]
+
+*Creating an entity identifier*
+
+Click Create Entity Identifier.
+
+Enter a unique name in the Entity Identifier field.
+
+The entity identifier appears on the left side.
+
+image:15da06c58c2d79.png[image]
+
+*Editing an entity identifier*
+
+To save any changes, click Save.
+
+*Removing an entity identifier*
+
+Select the entity identifier from the left menu.
+
+Click Delete.
+
+
+
+== Creating relationships
+
+Relationships are defined from a Class to other Classes. But, it is not
+possible to define a relationship between two entity identifiers.
+
+A relationship is defined as a join operation between two indices with
+the following fields:
+
+* *The Left Field*: the field of the local index to join on;
+* *Right Class*: (the EID or Index pattern) to connect to;
+* *Right Field* (only if the Right Class is an Index Pattern): the field
+of the right index to join with; and
+* *Label*: the label of the relation.
+
+image:15da06c58ca784.png[Data model]
+
+New relations are created by clicking Add Relation. Relations do not
+need to be created in both originating and target classes as they appear
+automatically in both edit screens when created.
+
+Clicking Visualize data model as a graph will show it in a visual
+representation where the currently selected class is highlighted, for
+example in this case
+
+image:15da06c58d211c.png[Relations Graph]
+
+== How to name relations
+
+Naming is a very hard problem in any domain. In Siren, naming entities
+and relationships incorrectly will result in dashboards that are
+difficult to navigate.
+
+When naming things, imagine yourself in the place of the user at the
+moment where the relational navigation is performed. Say that you are
+looking at _companies_, how would you refer to _investments_?
+
+A possibly natural way is to say that a _company_ received an
+_investment_. However, if you are thinking of investment, you can say it
+has been _secured by_ a _company_.
+
+In the user interface, look at the directions of the arrows and think of
+_X relationship Y_ and _Y relationship X_. For example:
+
+image:15da06c58d9737.png[How to name relations]
+
+In this case we are using two different verbs, but often the simple
+solution is to use active/passive, for example "_saw_ and "seen by".
+Sometimes the inverse is the same property is the same, for example
+"brother of" or "spouse".
+
+As a general rule, it is always best to keep things quite short. For
+example, _source_/_is source of_ and so on.
+
+For more information about the component that provides the navigation
+between relationally connected dashboards, see
+link:#UUID-4eba2a8c-a314-f284-43b5-a2f8f120c6e2[Relational Navigator].
+
+
+
+== Relations auto-discovery wizard
+
+Siren Investigate can attempt to automatically identify the relational
+configuration between any set of Index Pattern Searches.
+
+Go to the *Management > Data Model > Relations* page and click the
+*Relations auto-discovery wizard* button which located on the right
+below the relations .
+
+image:15da06c58dea55.png[image]
+
+Select the index pattern searches to analyze for relations. The default
+settings for the wizard are usually good enough, but you can check the
+other tabs for additional controls.
+
+image:15da06c58e5ada.png[image]
+
+In the **EID Patterns**tab, regular expression can be defined to
+identify particular types of data to match to EIDs e.g URL, email
+address, IP address etc.
+
+image:15da06c58ee3e1.png[image]
+
+More generation parameters are available in the *Advanced Parameters*
+tab. The available presets are suited for most cases, but you can also
+edit complete parameters list for full control.
+
+image:15da06c5902a00.png[image]
+
+Click *Ok* to start the detection procedure.
+
+
+
+=== Report
+
+At the end of the detection process, all found relations are presented
+in a report.
+
+The *Suggested Relations* tab displays found relations grouped by source
+endpoint (either a field or an Entity Identifier). Selecting a source
+endpoint will open the list of all its related target fields.
+
+image:15da06c5907e77.png[image]
+
+Fields in the report can be included or excluded from the output result
+by selecting or clearing the appropriate check box.
+
+To provide a clear idea of the data connected in the relations, clicking
+a target field will open an exploitative window with 100 sample
+documents per endpoint with highlighted matched values.
+
+You can change a source endpoint by clicking on the drop-down button
+before its name. This is sometimes useful to correct mistakes in the
+generation procedure, or if you prefer to have a different relation type
+(direct relation or passing through an Entity Identifier).
+
+The name of Entity Identifiers is also editable. Note that assigning the
+same Entity Identifier name on two different sources will merge them
+into a single output identifier.
+
+The *Already Existing Relations* tab in the report can be used to track
+the situation of existing relations in the data set against the reported
+relations. Note that *Found relations* in this tab don’t also appear as
+*Suggested Relations*, since they already exist and should not be
+duplicated.
+
+image:15da06c590e280.png[image]
+
+For further insight about the generation process, you can inspect
+details about each analyzed field in the *Per-Field Notes* tab, and the
+full log of the procedure is available in the *Log* tab.
+
+=== Temporary Relations
+
+Click *Ok* to close the report and put all selected relations in a
+temporary state. They are shown in light blue in the Data Model page but
+will otherwise be ignored in other parts of Siren Investigate.
+
+image:15da06c591741b.png[image]
+
+Temporary relations can also be seen in the graph.
+
+image:15da06c591d629.png[image]
+
+The temporary state is useful to provide a final overview of the newly
+generated relations and enable further customization, as if they were
+manually inserted (for example, changing the link names).
+
+CAUTION: Temporary relations are associated with the current browser session. If
+the browser closes, all temporary relations are lost.
+
+
+You can review and save each temporary relation individually by clicking
+on the disk icon of its entry in the *DataModel > Relations* tab, while
+removing the entry will discard it permanently.
+
+If you are sure that all the temporary auto-relations are fine, you can
+also click *Save All* in the upper info banner to save them in bulk.
+Conversely, click *Remove All* to discard all the temporary relations.
+
+Saving an Index Pattern Search or Entity Identifier will also save all
+its temporary relations.
