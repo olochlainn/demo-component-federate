@@ -366,7 +366,7 @@ Templates_ tab.
 Then, pick the engine you prefer and write the template; to see a
 preview, click *Save* and select a query from the list; depending on the
 query you selected, the
-link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[_EntityURI_] may need to
+xref:legacy-rest-datasources.adoc[_EntityURI_] may need to
 be set.
 
 image:15da06c613eb0a.png[Query template editor]
@@ -386,10 +386,10 @@ changes or *Cancel* to return to the list of fields.
 
 Siren Investigate has field formatters for the following field types:
 
-* link:#UUID-c5f2da52-0ed3-aad2-dadf-ade61e23e5d6[Strings]
-* link:#UUID-0ee80568-f50b-e154-d0a3-67c8ac525844[Dates]
-* link:#UUID-b9a5c22a-1072-633b-5f86-dc0581afa0f2[Geopoints]
-* link:#UUID-044c2cc0-9dd8-e543-910e-a8e2d864181b[Numbers]
+* <<String field formatters,Strings>>
+* <<Date field formatters,Dates>>
+* <<Geographic point field formatters,Geopoints>>
+* <<Numeric field formatters,Numbers>>
 
 
 === String field formatters
