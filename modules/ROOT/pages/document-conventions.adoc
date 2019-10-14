@@ -14,7 +14,8 @@
 //example
 ....
 
-|Procedure |First step.Second step.
+|Procedure |. First step
+. Second step.
 |===
 
 
