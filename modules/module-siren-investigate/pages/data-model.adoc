@@ -1,3 +1,4 @@
+:imagesdir: ../assets/images
 = Data model
 
 To use Siren Investigate you must define the data that you want to
@@ -7,7 +8,7 @@ From [.menuchoice]#Management > Data Model#, you can create:
 
 * *Index pattern searches*: A search based on a pattern that matches one
 or more Elasticsearch indices or virtual indices (see
-link:#[?xml_title]).
+xref:working-with-jdbc-datasources.adoc#_siren_investigate_datasource_configuration[Siren Investigate datasource configuration]).
 * *Child searches*: A sub-search based on an index pattern search
 created by adding more specific filters or queries.
 * *Entity identifiers (EIDs)*: A virtual entity concept used to connect
@@ -34,7 +35,7 @@ used.
 
 
 For more details on creating an index pattern search, see
-link:#UUID-e9f92f41-6f82-c48b-5096-a2538a257f28[Index pattern searches].
+xref:management.adoc#_index_pattern_searches[Index pattern searches].
 
 
 
