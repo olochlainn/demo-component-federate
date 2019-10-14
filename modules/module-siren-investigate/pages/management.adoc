@@ -314,30 +314,31 @@ can force the selection by choosing one of the available options:
 * BROADCAST_JOIN: Broadcast join.
 
 A detailed description of each algorithm can be found in the
-link:/document/preview/71728#UUID-c3dd12bd-07a3-f3a3-9bd5-df370568893f[Siren
-Federate] plugin documentation.5. Siren Federate
+xref:module-siren-federate:introduction.adoc[Siren
+Federate] plugin documentation.
 
 
 == Datasources
 
 For an overview of datasources, see
-link:#UUID-0c844311-d945-8795-6219-2e817cadba1d[Siren Investigate
+xref:working-with-jdbc-datasources.adoc#_siren_investigate_datasource_configuration[Siren Investigate
 datasource configuration] and
-link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[Legacy REST
+xref:legacy-rest-datasources.adoc[Legacy REST
 datasources].
 
 
 == Queries
 
-For an overview of queries, see link:#[?xml_title].
+For an overview of queries, see xref:legacy-rest-datasources.adoc[Legacy REST
+datasources].
 
 
 == Templates
 
 You can define templates to format the results of a query on an
-link:#UUID-cd2dc2b4-9b06-42c3-3846-9cc9e627ec63[external datasource] and
+xref:legacy-rest-datasources.adoc[external datasource] and
 the results of an Elasticsearch query in a
-link:#UUID-c8b34217-c8bf-2cd2-34ec-708f21d3266d[Enhanced search results
+xref:visualizations.adoc#_record_table_visualization[Record Table
 visualization].
 
 Siren Investigate supports three template engines:
