@@ -61,4 +61,6 @@
 *** xref:management.adoc#_setting_advanced_options[Setting advanced options]
 *** xref:management.adoc#_managing_saved_searches_visualizations_and_dashboards[Managing saved searches, visualizations, and dashboards]
 *** xref:management.adoc#_adding_custom_icon_packs[Adding custom icon packs]
-
+** xref:timelion.adoc[Timelion]
+*** xref:timelion.adoc#_getting_started_with_timelion[Getting started with Timelion]
+*** xref:timelion.adoc#_timelion_online_help_and_documentation[Timelion online help and documentation]
