@@ -430,7 +430,7 @@ example, _source_/_is source of_ and so on.
 
 For more information about the component that provides the navigation
 between relationally connected dashboards, see
-link:#UUID-4eba2a8c-a314-f284-43b5-a2f8f120c6e2[Relational Navigator].
+xref:relational-browsing.adoc#_relational_navigator[Relational Navigator].
 
 
 
