@@ -1,3 +1,4 @@
+:imagesdir: ../assets/images
 = Timelion
 
 Timelion is a time series data visualizer that enables you to combine
