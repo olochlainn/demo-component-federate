@@ -58,7 +58,7 @@ the Timelion query bar.
 .es(index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct')
 ----
 
-image:15da06c5f3ac7c.png[image]
+image:tl1.png[image]
 
 Now you need to add another series with data from the previous hour for
 comparison. To do so, you will have to add an `+offset+` argument to the
@@ -73,7 +73,7 @@ Timelion query bar:
 .es(index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct'), .es(offset=-1h,index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct')
 ----
 
-image:15da06c5f414f4.png[image]
+image:tl2.png[image]
 
 It is a bit hard to differentiate the two series. Customize the labels
 to easily distinguish them. You can always append the `+.label()+`
@@ -85,7 +85,7 @@ expression into the Timelion query bar to customize your labels:
 .es(offset=-1h,index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('last hour'), .es(index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('current hour')
 ----
 
-image:15da06c5f48f28.png[image]
+image:tl3.png[image]
 
 Save the entire Timelion sheet as _Metricbeat Example_. You should
 always save any significant changes made to this sheet as you progress
@@ -119,7 +119,7 @@ following expression in your Timelion query bar:
 .es(offset=-1h,index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('last hour'), .es(index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('current hour').title('CPU usage over time')
 ----
 
-image:15da06c5f4f9b5.png[image]
+image:tl4.png[image]
 
 To differentiate the last hour series a bit more, you are going to
 change the chart type to an area chart. In order do so, you must use the
@@ -135,7 +135,7 @@ Timelion query bar:
 .es(offset=-1h,index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('last hour').lines(fill=1,width=0.5), .es(index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('current hour').title('CPU usage over time')
 ----
 
-image:15da06c5f5644a.png[image]
+image:tl5.png[image]
 
 Let’s color these series so that the current hour series pops a bit more
 than the last hour series. The `+color()+` function can be used to
@@ -150,7 +150,7 @@ into the Timelion query bar to make the adjustments:
 .es(offset=-1h,index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('last hour').lines(fill=1,width=0.5).color(gray), .es(index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('current hour').title('CPU usage over time').color(#1E90FF)
 ----
 
-image:15da06c5f5cd21.png[image]
+image:tl6.png[image]
 
 Last but not least, adjust the legend so that it takes up as little
 space as possible. You can utilize the `+.legend()+` function to set the
@@ -164,7 +164,7 @@ Use the following expression to make the adjustments:
 .es(offset=-1h,index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('last hour').lines(fill=1,width=0.5).color(gray), .es(index=metricbeat-*, timefield='@timestamp', metric='avg:system.cpu.user.pct').label('current hour').title('CPU usage over time').color(#1E90FF).legend(columns=2, position=nw)
 ----
 
-image:15da06c5f65d86.png[image]
+image:tl7.png[image]
 
 Save your changes and continue on to the next section to learn about
 mathematical functions.
@@ -186,7 +186,7 @@ the default `+.es(*)+` expression. This is because the query is
 associated with the visualization on the Timelion sheet you have
 selected.
 
-image:15da06c5f6c9fc.png[image]
+image:tl8.png[image]
 
 To start tracking the inbound / outbound network traffic, your first
 expression will calculate the maximum value of
@@ -198,7 +198,7 @@ Timelion query bar:
 .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.in.bytes)
 ----
 
-image:15da06c5f748a4.png[image]
+image:tl9.png[image]
 
 Monitoring network traffic is much more valuable when plotting the rate
 of change. The `+derivative()+` function is used do just that - plot the
@@ -211,7 +211,7 @@ expression to update your visualization:
 .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.in.bytes).derivative()
 ----
 
-image:15da06c5f7c60d.png[image]
+image:tl10.png[image]
 
 Now for the outbound traffic. You must add a similar calculation for
 `+system.network.out.bytes+`. Because outbound traffic is leaving your
@@ -226,7 +226,7 @@ value. Use the following expression to update your visualization:
 .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.in.bytes).derivative(), .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.out.bytes).derivative().multiply(-1)
 ----
 
-image:15da06c5f83a27.png[image]
+image:tl11.png[image]
 
 To make this visualization a bit easier to consume, convert the series
 from bytes to megabytes. Timelion has a `+.divide()+` function that can
@@ -239,7 +239,7 @@ expression to update your visualization:
 .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.in.bytes).derivative().divide(1048576), .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.out.bytes).derivative().multiply(-1).divide(1048576)
 ----
 
-image:15da06c5f8a595.png[image]
+image:tl12.png[image]
 
 Utilizing the formatting functions `+.title()+`, `+.label()+`,
 `+.color()+`, `+.lines()+` and `+.legend()+` learned in
@@ -252,7 +252,7 @@ your visualization:
 .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.in.bytes).derivative().divide(1048576).lines(fill=2, width=1).color(green).label("Inbound traffic").title("Network traffic (MB/s)"), .es(index=metricbeat*, timefield=@timestamp, metric=max:system.network.out.bytes).derivative().multiply(-1).divide(1048576).lines(fill=2, width=1).color(blue).label("Outbound traffic").legend(columns=2, position=nw)
 ----
 
-image:15da06c5f90de5.png[image]
+image:tl13.png[image]
 
 Save your changes and continue on to the next section to learn about
 conditional logic and tracking trends.
@@ -275,7 +275,7 @@ use the following expression to chart the maximum value of
 .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes')
 ----
 
-image:15da06c5f9763b.png[image]
+image:tl14.png[image]
 
 Let’s create two thresholds to keep an eye on the amount of used memory.
 For the purposes of this tutorial, your warning threshold will be 12.5GB
@@ -315,7 +315,7 @@ query bar to apply the conditional logic and threshold styling:
 .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').if(gt,12500000000,.es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'),null).label('warning').color('#FFCC11'), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').if(gt,15000000000,.es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'),null).label('severe').color('red')
 ----
 
-image:15da06c5fa0587.png[timelion conditional02]
+image:tl15.png[timelion conditional02]
 
 For additional information on Timelion's conditional capabilities, check
 out the blog post
@@ -335,7 +335,7 @@ moving average of the maximum memory usage:
 .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').if(gt,12500000000,.es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'),null).label('warning').color('#FFCC11'), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').if(gt,15000000000,.es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'),null).label('severe').color('red'), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').mvavg(10)
 ----
 
-image:15da06c5fa74b0.png[image]
+image:tl16.png[image]
 
 Now that you have thresholds and a moving average, let’s format the
 visualization so it is a bit easier to consume. As with the last
@@ -347,7 +347,7 @@ section, use the `+.color()+`, `+.line()+`, `+.title()+` and
 .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').label('max memory').title('Memory consumption over time'), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').if(gt,12500000000,.es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'),null).label('warning').color('#FFCC11').lines(width=5), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').if(gt,15000000000,.es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes'),null).label('severe').color('red').lines(width=5), .es(index=metricbeat-*, timefield='@timestamp', metric='max:system.memory.actual.used.bytes').mvavg(10).label('mvavg').lines(width=2).color(#5E5E5E).legend(columns=4, position=nw)
 ----
 
-image:15da06c5fae540.png[image]
+image:tl17.png[image]
 
 Save your Timelion sheet and continue on to the next section to add
 these new visualizations to your dashboard.
@@ -371,7 +371,7 @@ dashboards.
 . Name your panel and click `+Save+` to save as a dashboard
 visualization.
 
-image:15da06c5fb5f7e.png[image]
+image:tl18.png[image]
 
 Now you can add this dashboard panel to any dashboard you would like.
 This visualization will now be listed in the Visualize list. Go ahead
@@ -381,7 +381,7 @@ created.
 Create a new dashboard or open an existing one to add the Timelion
 visualizations as you would any other visualization.
 
-image:15da06c5fc1e35.png[timelion save02]
+image:tl19.png[timelion save02]
 
 TIP: You can also create time series visualizations from the Visualize page.
 Select the time series visualization type and enter a Timelion
@@ -398,4 +398,4 @@ Click Docs in the top menu to view the available functions and access
 the inline reference. As you start to enter functions in the query bar,
 Timelion  displays the relevant arguments in real time.
 
-image:15da06c5fca638.png[Timelion online help]
+image:tl20.png[Timelion online help]
