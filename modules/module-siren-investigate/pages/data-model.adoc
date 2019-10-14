@@ -63,7 +63,7 @@ automatically from the currently selected fields.
 * Create a child search.
 * Add filters.
 
-image:dm1.PNG[image]
+image:dm1.png[image]
 
 ==== Data model graph
 
@@ -101,7 +101,7 @@ available:
 Click *Update field* to save your changes. Alternatively, click *Cancel*
 to abandon your changes.
 
-image:dm3.PNG[image]
+image:dm3.png[image]
 
 ==== Info
 
@@ -125,7 +125,7 @@ components.
 * *Time Filter field name*: Used to filter events with the global time
 filter.
 
-image:dm4.PNG[image]
+image:dm4.png[image]
 
 ==== Relations
 
@@ -137,7 +137,7 @@ relation.
 * *Target entity*: Select a *Search* and a *Field* or select an entity
 identifier.
 
-image:dm5.PNG[image]
+image:dm5.png[image]
 
 ==== Scripted fields
 
