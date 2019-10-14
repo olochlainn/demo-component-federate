@@ -1,8 +1,27 @@
+= Document Conventions
+[cols=",",options="header",]
+|===
+|Item |Example
+|User interface label |Edit
+|User input |`+null+`
+|Navigation |[.menuchoice]#Management > Advanced settings#
+|Keyboard key |Enter
+|Keyboard combination |[.keycombo]#Ctrl+S#
+|File names and paths |`+filename+`
+|Program listing a|
+....
+//example
+....
+
+|Procedure |First step.Second step.
+|===
+
+
 WARNING: Equipment damage or loss of data may occur.
 
 CAUTION: Stop before performing the action.
 
-NOTICE: A statutory requirement.
+// NOTICE: A statutory requirement.
 
 NOTE: Reader take note.
 
