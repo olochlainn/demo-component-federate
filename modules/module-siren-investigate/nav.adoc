@@ -11,7 +11,7 @@
 *** xref:setting-up-siren-investigate.adoc#_security_standardization[Security standardization]
 ** xref:data-model.adoc[Data model]
 *** xref:data-model.adoc#_creating_an_index_pattern_search[Creating an index pattern search]
-*** xref:data-model.adoc#_how_to_use_entity_identifiers.html[How to use entity identifiers]
+*** xref:data-model.adoc#_how_to_use_entity_identifiers[How to use entity identifiers]
 *** xref:data-model.adoc#_creating_relationships[Creating relationships]
 *** xref:data-model.adoc#_how_to_name_relations[How to name relations]
 *** xref:data-model.adoc#_relations_auto_discovery_wizard[Relations auto-discovery wizard]
