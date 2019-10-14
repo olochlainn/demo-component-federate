@@ -63,11 +63,11 @@ automatically from the currently selected fields.
 * Create a child search.
 * Add filters.
 
-image:15da06c58499bb.PNG[image]
+image:dm1.PNG[image]
 
 ==== Data model graph
 
-image:15da06c58501c5.png[image]
+image:dm2.png[image]
 
 ==== Fields
 
@@ -101,7 +101,7 @@ available:
 Click *Update field* to save your changes. Alternatively, click *Cancel*
 to abandon your changes.
 
-image:15da06c58568b6.PNG[image]
+image:dm3.PNG[image]
 
 ==== Info
 
@@ -125,7 +125,7 @@ components.
 * *Time Filter field name*: Used to filter events with the global time
 filter.
 
-image:15da06c585d356.PNG[image]
+image:dm4.PNG[image]
 
 ==== Relations
 
@@ -137,7 +137,7 @@ relation.
 * *Target entity*: Select a *Search* and a *Field* or select an entity
 identifier.
 
-image:15da06c5863624.PNG[image]
+image:dm5.PNG[image]
 
 ==== Scripted fields
 
@@ -320,7 +320,7 @@ connection, we specify the name of the relation that describes the role
 of the IP in that index (Is it the `+source+` IP in that log or the
 `+blocked+` IP?).
 
-image:15da06c586ac72.png[Relations Graph]
+image:dm6.png[Relations Graph]
 
 Using only this configuration, you can now have buttons that explore the
 ontology and show you all possible matches across your data. At this
@@ -331,7 +331,7 @@ For example, to see the records of the Apache logs where the Agent IP
 matches the Destination IP in the current log, navigate from
 "Destination IP" as per the picture:
 
-image:15da06c5874501.png[Automatic relational buttons]
+image:dm7.png[Automatic relational buttons]
 
 Entity identifiers are great for anything that identifies "things"
 across indexes but does not have an index per se (otherwise, you would
@@ -341,17 +341,17 @@ can be seen as a "knowledge graph" if you consider labels as identifiers
 that interconnect records. Here is an example with entity identifiers
 (Tissue and Organism) in a Life Science deployment.
 
-image:15da06c587d622.png[Knowledge Graph]
+image:dm8.png[Knowledge Graph]
 
 Note that the automatic connections between dashboards are seen when
 using the new relational button. The old one will still require manual
 inputs on which relation to show where.
 
-image:15da06c58863e7.png[Visualize]
+image:dm9.png[Visualize]
 
 Again, this is how the new relational button appears in action.
 
-image:15da06c5874501.png[Automatic relational buttons]
+image:dm10.png[Automatic relational buttons]
 
 *Creating an entity identifier*
 
@@ -361,7 +361,7 @@ Enter a unique name in the Entity Identifier field.
 
 The entity identifier appears on the left side.
 
-image:15da06c58c2d79.png[image]
+image:dm11.png[image]
 
 *Editing an entity identifier*
 
@@ -389,7 +389,7 @@ the following fields:
 of the right index to join with; and
 * *Label*: the label of the relation.
 
-image:15da06c58ca784.png[Data model]
+image:dm12.png[Data model]
 
 New relations are created by clicking Add Relation. Relations do not
 need to be created in both originating and target classes as they appear
@@ -399,7 +399,7 @@ Clicking Visualize data model as a graph will show it in a visual
 representation where the currently selected class is highlighted, for
 example in this case
 
-image:15da06c58d211c.png[Relations Graph]
+image:dm13.png[Relations Graph]
 
 == How to name relations
 
@@ -418,7 +418,7 @@ has been _secured by_ a _company_.
 In the user interface, look at the directions of the arrows and think of
 _X relationship Y_ and _Y relationship X_. For example:
 
-image:15da06c58d9737.png[How to name relations]
+image:dm14.png[How to name relations]
 
 In this case we are using two different verbs, but often the simple
 solution is to use active/passive, for example "_saw_ and "seen by".
@@ -443,25 +443,25 @@ Go to the *Management > Data Model > Relations* page and click the
 *Relations auto-discovery wizard* button which located on the right
 below the relations .
 
-image:15da06c58dea55.png[image]
+image:dm15.png[image]
 
 Select the index pattern searches to analyze for relations. The default
 settings for the wizard are usually good enough, but you can check the
 other tabs for additional controls.
 
-image:15da06c58e5ada.png[image]
+image:dm16.png[image]
 
 In the **EID Patterns**tab, regular expression can be defined to
 identify particular types of data to match to EIDs e.g URL, email
 address, IP address etc.
 
-image:15da06c58ee3e1.png[image]
+image:dm17.png[image]
 
 More generation parameters are available in the *Advanced Parameters*
 tab. The available presets are suited for most cases, but you can also
 edit complete parameters list for full control.
 
-image:15da06c5902a00.png[image]
+image:dm18.png[image]
 
 Click *Ok* to start the detection procedure.
 
@@ -476,7 +476,7 @@ The *Suggested Relations* tab displays found relations grouped by source
 endpoint (either a field or an Entity Identifier). Selecting a source
 endpoint will open the list of all its related target fields.
 
-image:15da06c5907e77.png[image]
+image:dm19.png[image]
 
 Fields in the report can be included or excluded from the output result
 by selecting or clearing the appropriate check box.
@@ -500,7 +500,7 @@ relations. Note that *Found relations* in this tab don’t also appear as
 *Suggested Relations*, since they already exist and should not be
 duplicated.
 
-image:15da06c590e280.png[image]
+image:dm20.png[image]
 
 For further insight about the generation process, you can inspect
 details about each analyzed field in the *Per-Field Notes* tab, and the
@@ -512,11 +512,11 @@ Click *Ok* to close the report and put all selected relations in a
 temporary state. They are shown in light blue in the Data Model page but
 will otherwise be ignored in other parts of Siren Investigate.
 
-image:15da06c591741b.png[image]
+image:dm21.png[image]
 
 Temporary relations can also be seen in the graph.
 
-image:15da06c591d629.png[image]
+image:dm22.png[image]
 
 The temporary state is useful to provide a final overview of the newly
 generated relations and enable further customization, as if they were
