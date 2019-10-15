@@ -90,8 +90,7 @@ table shows the first five hundred hits. By default, the hits are listed
 in reverse chronological order, with the newest documents shown first.
 You can reverse the sort order by clicking the Time column header. You
 can also sort the table by the values in any indexed field. For more
-information, see link:#UUID-7712c1b9-4a9b-1f1d-4456-aac12e622e6d[Sorting
-the Documents Table].
+information, see <<Viewing document data>>.
 
 To search your data, enter your search criteria in the Query bar and
 press Enter or click Search (image:15d88cec8cf499.png[image]) to
@@ -122,14 +121,14 @@ string syntax] in the Elasticsearch Reference.
 
 Saving searches enables you to reload them into Discover and use them as
 the basis for
-link:/document/preview/60229#UUID-c031aad7-904c-e18b-ac34-c5e8afe57dbd[visualizations].
+xref:visualizations.adoc[visualizations].
 Saving a search saves both the search query string and the currently
-selected index pattern.3.5. Visualize
+selected index pattern.
 
 To save the current search:
 
 [arabic]
-. Click Save in the Siren Investigate toolbar.
+. Click *Save* in the Siren Investigate toolbar.
 . Enter a name for the search and click Save.
 
 You can import, export and remove saved searches from
