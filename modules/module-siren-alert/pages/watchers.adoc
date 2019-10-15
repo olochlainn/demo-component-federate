@@ -41,7 +41,7 @@ schedule, and multiple rules can be combined to achieve complex
 intervals, programmed using simple text expressions using the Node.JS
 later module.
 
-image:image/15da5e40b57c9e.png[watcher anatomy]
+image:15da5e40b57c9e.png[watcher anatomy]
 
 Interval exceptions can also be defined as follows:
 
@@ -592,7 +592,7 @@ Output Query results and message to Console.
 
 The following controls are presented when listing existing Watchers:
 
-image:image/15da5e40b657a9.png[Watcher controllers]
+image:15da5e40b657a9.png[Watcher controllers]
 
 [arabic]
 . Expand or edit a Watcher.
@@ -827,20 +827,20 @@ step-by-step sequence.
 Give the watcher a name and choose an execution frequency. For example,
 run every day.
 
-image:image/15da5e40b6fa32.png[image]
+image:15da5e40b6fa32.png[image]
 
 Specify the input query parameters and the condition to trigger on
 (based on a date histogram aggregation. For example, trigger an alert
 when there are more than two articles in an hour during the day.
 
-image:image/15da5e40b7fd30.png[image]
+image:15da5e40b7fd30.png[image]
 
 To send an alert, set up a variety of actions to happen when your
 condition is met. For example, send a HTML-formatted email injected with
 data from the watcher and query response using the mustache templating
 language.
 
-image:image/15da5e40b8a268.png[image]
+image:15da5e40b8a268.png[image]
 
 [[UUID-6217c61f-85fb-0b29-ba31-269a8324bfdf]]
 ==== Custom watchers
@@ -855,7 +855,7 @@ Custom watchers created from a dashboard inherit its search criteria,
 including the search pattern, search query, and filters. Each custom
 watcher type applies specific processing and trigger conditions.
 
-image:image/15da5e40b95061.png[image]
+image:15da5e40b95061.png[image]
 
 ===== Custom watcher types
 
