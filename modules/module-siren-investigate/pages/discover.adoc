@@ -368,7 +368,7 @@ When you submit a search query, the 500 most recent documents that match
 the query are listed in the Documents table. You can configure the
 number of documents shown in the table by setting the
 `+discover:sampleSize+` property in
-link:#UUID-7a1137ad-07bd-6f5d-341c-c20924eba37b[Advanced Settings]. By
+xref:management.adoc#_setting_advanced_options[Advanced Settings]. By
 default, the table shows the localized version of the time field
 configured for the selected index pattern and the document `+_source+`.
 You can
