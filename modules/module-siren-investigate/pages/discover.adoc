@@ -558,7 +558,7 @@ image:15d88cec9b6cfb.png[Remove selected field.]
 
 After you have selected at least one field, you can then click *Generate
 Dashboard* to begin auto generating a new
-link:#UUID-44c38ee5-aeec-1966-1a50-114cc6bf3fbb[Dashboard].
+xref:dashboard.adoc[Dashboard].
 
 If you have not selected any fields, you can allow Siren Investigate to
 select the fields it believes are the most relevant by clicking
