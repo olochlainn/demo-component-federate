@@ -425,7 +425,7 @@ and click the field’s *Toggle column in table*
 
 Added field columns replace the `+_source+` column in the Documents
 table. The added fields are also added to the
-<<Selected Fields>> list.
+<<Selected fields>> list.
 
 To rearrange the field columns, move the mouse pointer over the header
 of the column you want to move and click the *Move left* or *Move right*
