@@ -594,5 +594,5 @@ boxes on the left.
 When you are ready, click *Ok* to select the fields.
 
 After the fields have populated the *Selected Fields* list, you are
-ready to link:#UUID-b1dcfd44-c591-5197-e786-3608f9ad7213[generate a
+ready to xref:dashboard.adoc#_auto_generate_dashboard[generate a
 dashboard].
