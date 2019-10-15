@@ -396,7 +396,7 @@ column in table (image:15d88cec96f6ac.png[image]).
 To collapse the document details, click *Collapse*
 (image:15d88cec975de7.png[image]).
 
-*Sorting the document list*
+=== Sorting the document list
 
 You can sort the documents in the Documents table by the values in any
 indexed field. If a time field is configured for the current index
@@ -407,7 +407,7 @@ To change the sort order, move the mouse pointer over the name of the
 field you want to sort by and click the sort button. Click again to
 reverse the sort order.
 
-*Adding field columns to the documents table*
+=== Adding field columns to the documents table
 
 By default, the Documents table shows the localized version of the time
 field that’s configured for the selected index pattern and the document
