@@ -275,16 +275,13 @@ will be displayed below the Query bar instead of the filter definition.
 . Click *Save*. The filter will be applied to your search and be
 displayed below the Query bar.
 
-____
-*Note*
-
-To make the filter editor more user-friendly, you can enable the
+NOTE: To make the filter editor more user-friendly, you can enable the
 `+filterEditor:suggestValues+` advanced setting. Enabling this will
 cause the editor to suggest values from your indices if you are
 filtering against an aggregatable field. However, this is not
 recommended for extremely large data sets, as it can result in long
 queries.
-____
+
 
 *Managing filters*
 
@@ -428,7 +425,7 @@ and click the field’s *Toggle column in table*
 
 Added field columns replace the `+_source+` column in the Documents
 table. The added fields are also added to the
-link:#UUID-ec4879fe-bcd8-d24b-d037-201fb8585b73[*Selected Fields*] list.
+<<Selected Fields>> list.
 
 To rearrange the field columns, move the mouse pointer over the header
 of the column you want to move and click the *Move left* or *Move right*
