@@ -5,5 +5,6 @@ start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/nav.adoc
 - modules/module-getting-started/nav.adoc
-- modules/module-siren-federate/nav.adoc
 - modules/module-siren-investigate/nav.adoc
+- modules/module-siren-alert/nav.adoc
+- modules/module-siren-federate/nav.adoc
