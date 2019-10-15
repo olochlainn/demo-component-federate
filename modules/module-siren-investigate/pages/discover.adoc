@@ -154,8 +154,8 @@ is shown below the toolbar. To change which indices you are searching,
 click the index pattern and select a different index pattern.
 
 For more information about index patterns, see
-link:#UUID-7a77e0a7-f9af-ebe3-023a-e5f8c8583d96[Creating an Index
-Pattern].
+xref:management.adoc#_index_pattern_searches[Creating an Index
+Pattern Search].
 
 *Refreshing the search results*
 
