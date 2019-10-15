@@ -103,8 +103,8 @@ you will perform the following modifications:
 * Change the color and opacity of a series.
 * Modify the legend.
 
-In the link:#UUID-33771001-aa49-9d8d-64f9-cc64154ec1e8[previous
-section], you created a Timelion chart with two series. Let’s continue
+In the previous
+section, you created a Timelion chart with two series. Let’s continue
 to customize this visualization.
 
 Before making any other modifications, append the `+title()+` function
