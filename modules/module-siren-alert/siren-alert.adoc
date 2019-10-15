@@ -1,0 +1,22 @@
+= Siren Alert
+
+Siren Alert provides alerting and reporting functionality to monitor,
+notify and report on data series changes using standard queries,
+programmable validators, and a variety of configurable actions.
+
+It integrates the standalone
+https://sentinl.readthedocs.io/en/docs/[Sentinl] application into the
+Siren platform. In this section, Sentinl is used as a synonym of Siren
+Alert. 
+
+Siren Alert provides equivalent functionality to 
+https://www.elastic.co/guide/en/watcher/current/introduction.html["Watcher"]
+and https://www.elastic.co/products/reporting["Reporting"], expanded by
+unique Siren Investigate features.
+
+It is designed to simplify the process of creating and managing alerts
+and reports in Siren Investigate using its integrated App and Spy
+integration.
+
+To get started, watch this
+https://www.slideshare.net/secret/gobTp9S3omqn9a[presentation].
