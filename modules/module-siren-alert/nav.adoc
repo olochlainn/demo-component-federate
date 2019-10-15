@@ -1,0 +1,8 @@
+* xref:siren-alert.adoc[Siren Alert]
+** xref:introduction.adoc[Introduction]
+*** xref:introduction.adoc#_siren-alert-compared-to-x-pack[Siren Alert compared to X-Pack]
+*** xref:introduction.adoc#_using_watchers[Using Watchers]
+** xref:configuring-siren-alert.adoc[Configuring Siren Alert]
+*** xref:configuring-siren-alert.adoc#_example_extended[Example (extended)]
+** xref:alerting-tutorial.adoc[Alerting tutorial]
+** xref:watchers.adoc[Watchers]
