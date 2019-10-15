@@ -1,3 +1,4 @@
+:imagesdir: ../assets/images
 = Discover
 
 You can explore your data interactively from the Discover page. You have
