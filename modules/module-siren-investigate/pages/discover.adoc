@@ -29,7 +29,7 @@ interval or time range in the histogram at the top of the page.
 To set a time filter with the Time Picker:
 
 [arabic]
-. Click *Time Picker* (image:image/15d88cec89d28c.png[image]) in the
+. Click *Time Picker* (image:15d88cec89d28c.png[image]) in the
 Siren Investigate toolbar.
 . To set a quick filter, click one of the shortcut links.
 +
@@ -49,7 +49,7 @@ Absolute and select a start and end date. You can adjust the time by
 editing the To and From fields.
 +
 image:15d88cec8b6012.png[Absolute time filter.]
-. Click the caret (image:image/15d88cec8bf71a.png[image]) in the bottom
+. Click the caret (image:15d88cec8bf71a.png[image]) in the bottom
 right corner to close the Time Picker.
 
 To set a time filter from the histogram, do one of the following:
@@ -94,7 +94,7 @@ information, see link:#UUID-7712c1b9-4a9b-1f1d-4456-aac12e622e6d[Sorting
 the Documents Table].
 
 To search your data, enter your search criteria in the Query bar and
-press Enter or click Search (image:image/15d88cec8cf499.png[image]) to
+press Enter or click Search (image:15d88cec8cf499.png[image]) to
 submit the request to Elasticsearch.
 
 * To perform a free text search, enter a text string. For example, if
