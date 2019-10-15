@@ -372,10 +372,10 @@ xref:management.adoc#_setting_advanced_options[Advanced Settings]. By
 default, the table shows the localized version of the time field
 configured for the selected index pattern and the document `+_source+`.
 You can
-link:#UUID-7712c1b9-4a9b-1f1d-4456-aac12e622e6d_adding-columns[add
-fields to the Documents table] from the Fields list. You can
-link:#UUID-7712c1b9-4a9b-1f1d-4456-aac12e622e6d_sorting[sort the listed
-documents] by any indexed field that’s included in the table.
+<<Adding field columns to the documents table,add
+fields to the Documents table>> from the Fields list. You can
+<<Sorting the document list,sort the listed
+documents>> by any indexed field that’s included in the table.
 
 To view a document’s field data, click *Expand*
 (image:15d88cec900aef.png[image]) to the left of the document’s
