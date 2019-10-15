@@ -305,7 +305,7 @@ image:15d88cec8ed4ee.png[image] Invert Filter::
 image:15d88cec94ce8f.png[image] Remove Filter::
   Remove the filter.
 image:15d88cec95789d.png[image] Edit Filter::
-  link:#UUID-bbbac2e6-269e-ea10-ef90-d5f4e92b1d63[Edit the filter]
+  <<Filtering by field,Edit the filter>>
   definition. Enables you to manually update the filter and specify a
   label for the filter.
 
