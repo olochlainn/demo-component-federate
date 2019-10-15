@@ -168,7 +168,7 @@ searches to retrieve the latest results.
 To enable auto refresh:
 
 [arabic]
-. Click Time Picker (image:image/15d88cec89d28c.png[image]) in the Siren
+. Click Time Picker (image:15d88cec89d28c.png[image]) in the Siren
 Investigate toolbar.
 . Click Auto refresh.
 . Choose a refresh interval from the list.
@@ -204,7 +204,7 @@ top five values for that field.
 +
 image:15d88cec8df54c.png[filter field]
 . To add a positive filter, click *Positive Filter*
-(image:image/15d88cec8e6362.png[image]). This includes only those
+(image:15d88cec8e6362.png[image]). This includes only those
 documents that contain that value in the field.
 . To add a negative filter, click *Negative Filter*
 (image:15d88cec8ed4ee.png[image]). This excludes documents that
@@ -441,7 +441,7 @@ image:15d88cec984791.png[Move column.]
 
 To remove a field column from the Documents table, move the mouse
 pointer over the header of the column you want to remove and click
-*Remove* (image:image/15d88cec98c2a7.png[image]).
+*Remove* (image:15d88cec98c2a7.png[image]).
 
 
 == Viewing document context
@@ -452,7 +452,7 @@ do just that for index patterns that are configured to contain
 time-based events.
 
 To show the context surrounding an anchor document, click *Expand*
-(image:image/15d88cec900aef.png[image]) to the left of the document’s
+(image:15d88cec900aef.png[image]) to the left of the document’s
 table entry and then click the *View surrounding documents* link.
 
 image:15d88cec90729e.png[Expanded document.]
