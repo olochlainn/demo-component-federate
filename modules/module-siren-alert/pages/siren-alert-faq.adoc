@@ -1,0 +1,86 @@
+= Siren Alert FAQ
+
+*Why are emails are not being sent?*
+
+Siren Alert uses `+emailjs+` to send emails. This NPM module requires a
+correct message to be formed, so make sure your configuration includes
+valid `+from+` and `+to+` values, as well as the proper authentication
+method for your email relay. For more information, refer to the
+`+emailjs+` https://github.com/eleith/emailjs[documentation].
+
+*Why are reports not being generated?*
+
+Siren Alert uses either `+node-horseman+` or `+puppeteer+` to generate
+reports. The `+node-horseman+` NPM module requires PhantomJS to be
+installed on the computer running KaaE and Reports, and `+puppeteer+`
+requires Chrome. The default engine used is `+puppeteer+`, but this can
+be changed to `+horseman+` with the `+sentinl.settings.report.engine+`
+configuration property.
+
+*Why are watchers not running in my timezone?*
+
+Siren Alert uses the UTC timezone internally to execute schedule. While
+rolling watchers are not affected (that is _every x minutes_), the UTC
+timezone is used for absolute timed executions.
+
+*How can I avoid string encoding in mustache templates output?*
+
+Siren Alert uses Mustache to enrich the messages of actions with data
+from its execution. If you want to use double braces without them being
+replaced, use triple braces (`+{{{hello}}}+`). For more information,
+refer to the Mustache
+https://mustache.github.io/mustache.5.html[documentation].
+
+*How can I use Siren Alert with ReadonlyREST authentication?*
+
+When using ReadonlyREST, the following exceptions should be added to
+the Siren Alert configuration:
+
+....
+- name: ALLOWPOST
+  type: allow
+  methods: [POST,HEAD,GET,DELETE,OPTIONS]
+  uri_re:  ^/watcher_alarms-.*/
+  hosts: [localhost]
+  verbosity: info
+
+- name: ALLOWHEAD
+  type: allow
+  methods: [POST,HEAD,GET,DELETE]
+  uri_re:  ^/watcher.*/
+  hosts: [localhost]
+  verbosity: info
+....
+
+*How can I use Siren Alert with Search Guard authentication?*
+
+Here is an example to use Siren Alert with Search Guard. For more
+information, see link:#[?xml_title].
+
+[arabic]
+. Edit the `+sg_kibana_server+` role in `+sg_roles.yml+`:
++
+....
+sg_kibana_server:
+  cluster:
+    - CLUSTER_MONITOR
+    - CLUSTER_COMPOSITE_OPS
+indices:
+  '?kibana':
+    '*':
+      - INDICES_ALL
+  'watcher':
+    '*':
+      :
+        - MANAGE
+        - CREATE_INDEX
+        - INDEX
+        - READ
+        - WRITE
+        - DELETE
+....
+. Reinitialize Search Guard afterwards. For example:
++
+....
+elasticsearch-6.3.2$ ./plugins/search-guard-6/tools/sgadmin.sh -cd plugins/search-guard-6/sgconfig/ -icl -ts config/truststore.jks -ks config/keystore.jks -h localhost -p 9300 -nhnv
+....

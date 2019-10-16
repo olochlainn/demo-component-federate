@@ -1,0 +1,77 @@
+=== Security setup for Siren Alert
+
+Create a role called `+sirenalert+` with the following actions in the
+`+sg_roles.yml+` file:
+
+....
+sirenalert:
+  cluster:
+    - 'indices:data/write/bulk'
+    - 'indices:admin/template/*'
+    - 'indices:monitor/stats'
+    - 'cluster:monitor/main'
+    - 'cluster:monitor/health'
+    - 'cluster:monitor/stats'
+    - SIREN_CLUSTER
+  indices:
+    '*':
+      '*':
+        - SIREN_READONLY
+        - SEARCH
+        - 'indices:monitor/stats'
+    'watcher_alarms*':
+      '*':
+        - SIREN_READWRITE
+        - CREATE_INDEX
+    '/(watcher|watcher_alarms)/':
+      '*':
+        - SIREN_READWRITE
+        - CREATE_INDEX 
+        
+....
+
+Add the below permissions to the `+sirenserver+` role:
+
+....
+sirenserver:
+  cluster:
+      - 'cluster:monitor/nodes/info'
+      - 'cluster:monitor/health'
+      - 'cluster:monitor/main'
+      - 'cluster:monitor/state'
+      - 'cluster:monitor/nodes/stats'
+      - SIREN_CLUSTER
+      - CLUSTER_COMPOSITE_OPS
+  indices:
+    '*':
+      '*':
+        - indices:admin/get
+        - CLUSTER_COMPOSITE_OPS_RO
+        - indices:monitor/stats
+    '?siren':
+      '*':
+        - ALL
+    '?sirenaccess':
+      '*':
+        - ALL
+        
+....
+
+Update the `+investigate.yml+` file to include the following values
+under the `+investigate_access_control+` section:
+
+....
+investigate_access_control:
+  sirenalert:
+    elasticsearch:
+      username: sirenalert
+      password: password 
+      
+....
+
+Create a user called `+sirenalert+` and map that user to the
+`+sirenalert+` role by following the instructions under the *Access
+Control: ACL* section in
+link:/document/preview/91434#UUID-7b8e5c41-e8f9-2e77-df0c-832f163ffed2[Search
+Guard integration and Siren Investigate access control].3.7.1. Search
+Guard Integration and Siren Investigate access control

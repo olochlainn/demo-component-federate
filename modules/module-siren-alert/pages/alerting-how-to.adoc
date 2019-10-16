@@ -1,0 +1,1053 @@
+=== Alerting how to
+
+This section provides solutions for common Siren Alert scenarios.
+
+[[UUID-73ec1607-7bf0-faed-e162-792ebe840a1e]]
+==== Manual in dashboard
+
+To display Siren Alert alarms in Siren Investigate:
+
+* Switch to `+Discover+` tab.
+* Create and Save a search table for `+watcher_alarms-*+` with any
+desired column.
+* Switch to `+Dashboard+` tab.
+* Add a new Search Widget using the `+Search+` tab and selecting the
+saved query.
+
+[[UUID-11ac6df9-3cd4-32bb-e807-fff8ff1f15d0]]
+==== Query aggregations watcher for Nagios NRDP
+
+In this example we will configure a Siren Alert Watcher to stream
+statuses to an extermal *Nagios NRDP* endpoint.
+
+[[UUID-9e33ab1d-7eb7-9be7-1426-40f701d33d67]]
+===== Query request
+
+Let’s run an aggregation query in Sense to find low MOS groups in the
+last five minutes interval:
+
+[source,json]
+----
+GET _search
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "query_string": {
+          "query": "_type:metrics_calls_total_mos AND tab:mos",
+          "analyze_wildcard": true
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "now-5m",
+                  "lte": "now"
+                }
+              }
+            },
+            {
+              "range" : {
+                "value" : {
+                  "lte" : 3
+                }
+              }
+            }
+          ],
+          "must_not": []
+        }
+      }
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "mos": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "interval": "30s",
+        "time_zone": "Europe/Berlin",
+        "min_doc_count": 1
+      },
+      "aggs": {
+        "by_group": {
+          "terms": {
+            "field": "group.raw",
+            "size": 5,
+            "order": {
+              "_term": "desc"
+            }
+          },
+          "aggs": {
+            "avg": {
+              "avg": {
+                "field": "value"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+[[UUID-88426325-c7da-5ad0-37ea-215817276cef]]
+===== Query response
+
+The response should look similar to this example. Let’s analyze the data
+structure:
+
+[source,json]
+----
+{
+  "took": 5202,
+  "timed_out": false,
+  "_shards": {
+    "total": 104,
+    "successful": 104,
+    "failed": 0
+  },
+  "hits": {
+    "total": 3,
+    "max_score": 0,
+    "hits": []
+  },
+  "aggregations": {
+    "mos": {
+      "buckets": [
+        {
+          "key_as_string": "2016-08-02T13:41:00.000+02:00",
+          "key": 1470138060000,
+          "doc_count": 2,
+          "by_group": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "domain1.com",
+                "doc_count": 2,
+                "avg": {
+                  "value": 1.85
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key_as_string": "2016-08-02T13:42:00.000+02:00",
+          "key": 1470138120000,
+          "doc_count": 1,
+          "by_group": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "domain2.com",
+                "doc_count": 1,
+                "avg": {
+                  "value": 2.81
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+----
+
+[[UUID-4faefa65-07de-6689-8c42-788aaa3c4ebc]]
+===== Watcher query
+
+Next let’s use Sense to create a custom Siren Alert Watcher based on the
+query and its response, using `+mustache+` syntax to loop trough the
+aggregation `+buckets+` and extracting grouped results in an XML
+structure accepted by Nagios:
+
+[source,json]
+----
+PUT _watcher/watch/low_mos
+{
+  "metadata": {
+    "mos threshold": 3
+  },
+  "trigger": {
+    "schedule": {
+      "interval": "5m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "indices": [
+          "<pcapture_*-{now/d}>"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "filtered": {
+              "query": {
+                "query_string": {
+                  "query": "_type:metrics_calls_total_mos AND tab:mos",
+                  "analyze_wildcard": true
+                }
+              },
+              "filter": {
+                "bool": {
+                  "must": [
+                    {
+                      "range": {
+                        "@timestamp": {
+                          "gte": "now-5m",
+                          "lte": "now"
+                        }
+                      }
+                    },
+                    {
+                      "range": {
+                        "value": {
+                          "lte": 3
+                        }
+                      }
+                    }
+                  ],
+                  "must_not": []
+                }
+              }
+            }
+          },
+          "aggs": {
+            "mos": {
+              "date_histogram": {
+                "field": "@timestamp",
+                "interval": "30s",
+                "time_zone": "Europe/Berlin",
+                "min_doc_count": 1
+              },
+              "aggs": {
+                "by_group": {
+                  "terms": {
+                    "field": "group.raw",
+                    "size": 5,
+                    "order": {
+                      "_term": "desc"
+                    }
+                  },
+                  "aggs": {
+                    "avg": {
+                      "avg": {
+                        "field": "value"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+     "script": {
+        "script": "payload.hits.total > 1"
+     }
+  },
+  "actions" : {
+  "my_webhook" : {
+    "throttle_period" : "5m",
+    "webhook" : {
+      "method" : "POST",
+      "host" : "nagios.domain.ext",
+      "port" : 80,
+      "path": ":/nrdp",
+      "body" : "token=TOKEN&cmd=submitcheck&XMLDATA=<?xml version='1.0'?><checkresults>{{#ctx.payload.aggregations.mos.buckets}} <checkresult type='host' checktype='1'>{{#by_group.buckets}}<hostname>{{key}}</hostname><servicename>MOS</servicename><state>0</state><output>MOS is {{avg.value}}</output> {{/by_group.buckets}}</checkresult>{{/ctx.payload.aggregations.mos.buckets}}</checkresults></xml>"
+    }
+  }
+}
+}
+----
+
+Action Body (mustache generated)
+
+[source,xml]
+----
+<?xml version='1.0'?>
+<checkresults>
+<checkresult type='host' checktype='1'>
+<hostname>domain1.com</hostname><servicename>MOS</servicename><state>0</state><output>MOS is 1.85</output> </checkresult>
+<checkresult type='host' checktype='1'>
+<hostname>domain2.com</hostname><servicename>MOS</servicename><state>0</state><output>MOS is 2.81</output> </checkresult>
+</checkresults>
+</xml>
+----
+
+[[UUID-0c9eeffc-0ef5-a8a1-1c9b-ca18fd2df700]]
+===== Mustache playground
+
+A simple playground simulating this response and output is available
+from http://jsfiddle.net/Lyfoq6yw/.
+
+[[UUID-4a1354df-6bac-bf0a-6e97-b7c96ed144f5]]
+==== Reports
+
+Siren Alert watchers can generate snapshots of Siren Investigate, Kibana
+(or any other website) and deliver them on your schedule using the
+dedicated `+report+` action, powered by PhantomJS.
+
+This example enables you to produce weekly charts.
+
+[source,json]
+----
+{
+  "_index": "watcher",
+  "_type": "watch",
+  "_id": "reporter_v8g6p5enz",
+  "_score": 1,
+  "_source": {
+    "trigger": {
+      "schedule": {
+        "later": "on the first day of the week"
+      }
+    },
+    "report": true,
+    "actions": {
+      "report_admin": {
+        "report": {
+          "to": "reports@localhost",
+          "from": "sirenalert@localhost",
+          "subject": "Siren Alert Report",
+          "priority": "high",
+          "body": "Sample Siren Alert Screenshot Report",
+          "snapshot": {
+            "res": "1280x900",
+            "url": "http://www.google.com",
+            "params": {
+              "delay": 5000
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+[[UUID-110938d4-4808-4c2e-60f2-2bec1395069d]]
+===== Requirements
+
+With Siren platform 10 and later, report actions require Chrome or
+Chromium v59 or later.
+
+____
+*Note*
+
+Chromium is included in the Linux version of Siren Alert.
+____
+
+You can download Chromium
+(https://www.chromium.org/getting-involved/download-chromium) and change
+the `+sentinl.settings.report.executable_path+` to point to it, for
+example:
+
+....
+sentinl:
+  app_name: 'Sentinl'
+  settings:
+    email:
+      active: true
+      host: 'localhost'
+      #cert:
+      #key: '/home'
+    report:
+      active: true
+      executable_path: '/usr/bin/chromium'
+....
+
+* Valid configuration in `+kibana.yml+`, for example
+
+....
+sentinl:
+  settings:
+    email:
+      active: true
+      host: 'localhost'
+    report:
+      active: true
+      executable_path: '/usr/bin/chromium' # path to Chrome v59+ or Chromium v59+ # Siren Alert v5.6+
+      # tmp_path = '/tmp/' # Siren Alert before v5.6
+....
+
+When report actions are correctly configured, you will soon receive your
+first report with a screen shot attached.
+
+Common Issues
+
+* `+Unhandled rejection Error: spawn phantomjs ENOENT+`
+** PhantomJS is not available to Node-Horseman.
+
+[[UUID-9b923465-a08d-49cf-c95e-3117dc21103d]]
+==== Spy plugin
+
+Siren Alert features an integrated Siren Investigate/Kibana plugin
+extending the default Spy functionality to help users quickly shape new
+prototype Watchers based on Visualize queries, and providing them to
+Siren Alert for fine editing and scheduling.
+
+[[UUID-946b03da-8a4a-d27f-c1b0-0f4cf8d8fb0a]]
+==== Annotations
+
+Siren Alert alerts and detections can be superimposed over
+visualizations widgets using the `+Annotations+` feature in Kibana 5.5+
+revealing points of contact and indicators in real-time. The familiar
+`+mustache+` syntax is utilized to render row elements from the alert
+based on case requirements.
+
+[[UUID-6ab50b93-82c9-d488-bb74-edc4c3c0db24]]
+===== How to
+
+Follow this procedure to enable Siren Alert Annotations over your data:
+
+Visualize your time series using the Query Builder widget.
+
+Switch to the Annotations tab.
+
+Go to [.menuchoice]#Annotations > Add Datasource#.
+
+Select the Index and Timefield for Siren Alert.
+
+Index Pattern: `+watcher_alerts*+`.
+
+Time Field: `+@timestamp+`.
+
+Select the Field to Display in Annotations.
+
+Fields: `+message+`.
+
+Row Template: `+{{ message }}+`.
+
+[[UUID-124bfaf4-9a06-c030-be45-8e25552bbe14]]
+===== Visual example
+
+image:image/15da5e40baf76b.gif[Siren Alert annotation]
+
+[[UUID-8cbf69b3-efbb-02ca-9a9b-2e3e908119e4]]
+==== Using Siren Alert with Search Guard
+
+____
+*Caution*
+
+In a production environment, you should use unique passwords and valid
+trusted certificates. For more information, refer to the 
+http://docs.search-guard.com/latest/[Search Guard documentation].
+____
+
+[[UUID-5a69a379-8ff1-a305-337f-4be3d87e1aaf]]
+===== Install Search Guard
+
+* Install the Search Guard plugin for your
+https://github.com/floragunncom/search-guard/wiki[Elasticsearch
+version], for example:
++
+....
+<ES folder>/bin/elasticsearch-plugin install https://github.com/floragunncom/search-guard/releases/tag/ves-5.5.2-16
+....
+* `+cd <ES folder>/plugins/search-guard-<version>/tools+`
+* Execute `+./install_demo_configuration.sh+`, chmod the script first if
+necessary. This will generate all required TLS certificates and add the
+Search Guard configuration to your `+elasticsearch.yml+` file.
+* Start Elasticsearch `+./bin/elasticsearch+`.
+* Execute `+./sgadmin_demo.sh+`, `+chmod+` the script if necessary
+first. This will execute `+sgadmin+` and populate the Search Guard
+configuration index with the files contained in the
+plugins/search-guard-/sgconfig folder.
+* Test the installation.
++
+....
+curl -uadmin:admin -sS -i --insecure -H "Content-Type: application/json" -XGET https://localhost:9200/_searchguard/authinfo?pretty
+....
+
+[[UUID-87a2c9d2-3bcb-9458-39f8-48a67a9dfe65]]
+===== Allow Siren Alert access
+
+Allow Siren Alert to access `+watcher+` and `+credit_card+` indices in
+`+sg_roles.yml+`.
+
+....
+sg_kibana_server:
+  cluster:
+      - CLUSTER_MONITOR
+      - CLUSTER_COMPOSITE_OPS
+      - cluster:admin/xpack/monitoring*
+  indices:
+    '?kibana':
+      '*':
+        - INDICES_ALL
+    'watcher*':
+      '*':
+       - indices:data/read/search
+       - MANAGE
+       - CREATE_INDEX
+       - INDEX
+       - READ
+       - WRITE
+       - DELETE
+    'credit_card':
+      '*':
+       - indices:data/read/search
+....
+
+[[UUID-0e404f7f-5e3f-6656-5c02-04a16b7b3cc9]]
+===== Apply Search Guard configuration
+
+* `+cd+` into `+elasticsearch+`
+* For Search Guard 6, execute:
++
+....
+./plugins/search-guard-6/tools/sgadmin.sh -cd plugins/search-guard-6/sgconfig/ -ts config/truststore.jks -ks config/kirk.jks -icl -nhnv
+....
++
+For Search Guard 5, change the version number to 5. For more
+information, see http://docs.search-guard.com/latest/sgadmin.
+
+[[UUID-8b465709-8841-4730-2578-575b0941f0b6]]
+===== Installing the Search Guard plugin
+
+* `+cd+` into `+siren-investigate+` folder.
+* Execute:
++
+....
+./bin/investigate-plugin install https://github.com/floragunncom/search-guard-kibana-plugin/releases/download/v5.6.13-7/searchguard-kibana-5.6.13-7.zip
+....
+* Set HTTPS connection for Elasticsearch in
+`+siren-investigate/config/investigate.yml+`.
++
+....
+elasticsearch.url: "https://localhost:9200"
+....
+* Set Siren Investigate user and password in
+`+siren-investigate/config/investigate.yml+`.
++
+....
+elasticsearch.username: "investigateserver"
+elasticsearch.password: "investigateserver"
+....
+* Disregard validity of SSL certificate in
+`+siren-investigate/config/investigate.yml+`.
++
+....
+elasticsearch.ssl.verificationMode: 'none'
+....
+
+[[UUID-9d121064-02cc-b4ff-9470-390a13e4796d]]
+==== Transform
+
+[[UUID-ce9051d4-3dc1-2afb-79af-d3e292c98585]]
+===== Dot field selection transform for percentile objects
+
+[source,json]
+----
+"transform": {
+  "script": {
+    "script": "payload = JSON.parse(JSON.stringify(payload).split('95.0').join('95'));"
+  }
+}
+----
+
+[[UUID-22ca2d3b-9930-bdc8-6c9e-3ecb22436cb3]]
+===== Bucket cloning
+
+[source,json]
+----
+"transform": {
+  "script": {
+    "script": "payload.aggregations.metrics.buckets.forEach(function(e){ e.ninetieth_surprise.value = e.ninetieth_surprise.values['95.0'] })"
+  }
+}
+----
+
+[[UUID-daceaa2f-3a11-195e-4c63-5d4ff9ab1409]]
+==== Anomaly detection
+
+The Siren Alert anomaly detection mechanism is based on
+https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule[the
+three-sigma rule]. In short, anomalies are the values which lie outside
+a band around the mean in a normal distribution with a width of two,
+four and six standard deviations (68.27%, 95.45% and 99.73%).
+
+[arabic]
+. Create a new watcher.
+. In watcher editor, inside `+Input+` tab insert Elasticsearch query to
+get the credit card transactions data set.
++
+....
+{
+  "search": {
+    "request": {
+      "index": [
+        "credit_card"
+      ],
+      "body": {
+        "size": 10000,
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "exists": {
+                  "field": "Amount"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+....
+. In the `+Condition+` tab specify a minimum number of results to look
+for `+payload.hits.total > 0+` and a field name in which to look for
+anomalies, `+Amount+` in our example.
++
+....
+{
+  "script": {
+"script": "payload.hits.total > 0"
+  },
+  "anomaly": {
+"field_to_check": "Amount"
+  }
+}
+....
+. In `+Action+` tab create `+email html+` action. In `+Body HTML field+`
+render all the anomalies you have in the `+payload.anomaly+` using
+https://www.npmjs.com/package/mustache#usage[mustache syntax].
++
+....
+<h1 style="background-color:DodgerBlue;color:white;padding:5px">Anomalies</h1>
+<div style="background-color:Tomato;color:white;padding:5px">
+<ul>
+{{#payload.anomaly}}
+<li><b>id:</b> {{_id}} <b>Amount</b>: {{_source.Amount}}</li>
+{{/payload.anomaly}}
+</ul>
+</div>
+....
+
+As a result, we have an email with a list of anomaly transactions.
+
+image:image/15da5e40bbcd72.png[Anomaly detection]
+
+Also, the list of anomalies was indexed in today’s alert index
+`+watcher_alarms-{year-month-date}+`.
+
+image:image/15da5e40bca0eb.png[Watcher alarms]
+
+[[UUID-e4724350-053c-149e-bc6d-2e5d2f4d82a3]]
+==== Statistical anomaly detection
+
+In this example, we will implement the
+https://www.elastic.co/blog/implementing-a-statistical-anomaly-detector-part-3[ATLAS
+statistical anomaly detector] using Siren Alert:
+
+* We have a varnish-cache server as Frontend-LB and caching proxy.
+* The backends are selected based on their `+first_url_part+`.
+* Backends are dynamically added or removed by our development teams
+(even new applications).
+
+If we look at the 95th percentile of our consolidated backend run times
+we cannot see problems of a special backend service. If we draw a graph
+for every service, it will be too much to see a problem.
+
+To solve this, we will implement the *atlas* algorithm. To do this we
+need two watchers:
+
+* The first collects a `+req_runtime+` of every backend for every hour.
+* The second iterates every five minute over the *atlas* index to find
+anomalies to report.
+
+[[UUID-31936fbc-12fe-2e05-823a-b680f0831fe0]]
+===== First watcher
+
+This watcher will collect a most surprising `+req_runtime+` of every
+backend for every hour, and insert any results in the *atlas* index
+(using `+webhook+` and `+_bulk+`).
+
+[source,json]
+----
+{
+  "_index": "watcher",
+  "_type": "watch",
+  "_id": "surprise",
+  "_score": 1,
+  "_source": {
+    "trigger": {
+      "schedule": {
+        "later": "every 1 hours"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "index": "public-front-*",
+          "body": {
+            "query": {
+              "filtered": {
+                "filter": {
+                  "range": {
+                    "@timestamp": {
+                      "gte": "now-24h"
+                    }
+                  }
+                }
+              }
+            },
+            "size": 0,
+            "aggs": {
+              "metrics": {
+                "terms": {
+                  "field": "first_url_part"
+                },
+                "aggs": {
+                  "queries": {
+                    "terms": {
+                      "field": "backend"
+                    },
+                    "aggs": {
+                      "series": {
+                        "date_histogram": {
+                          "field": "@timestamp",
+                          "interval": "hour"
+                        },
+                        "aggs": {
+                          "avg": {
+                            "avg": {
+                              "script": "doc['req_runtime'].value*1000",
+                              "lang": "expression"
+                            }
+                          },
+                          "movavg": {
+                            "moving_avg": {
+                              "buckets_path": "avg",
+                              "window": 24,
+                              "model": "simple"
+                            }
+                          },
+                          "surprise": {
+                            "bucket_script": {
+                              "buckets_path": {
+                                "avg": "avg",
+                                "movavg": "movavg"
+                              },
+                              "script": {
+                                "file": "surprise",
+                                "lang": "groovy"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "largest_surprise": {
+                        "max_bucket": {
+                          "buckets_path": "series.surprise"
+                        }
+                      }
+                    }
+                  },
+                  "ninetieth_surprise": {
+                    "percentiles_bucket": {
+                      "buckets_path": "queries>largest_surprise",
+                      "percents": [
+                        90.01
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "condition": {
+      "script": {
+        "script": "payload.hits.total > 1"
+      }
+    },
+    "transform": {
+      "script": {
+        "script": "payload.aggregations.metrics.buckets.forEach(function(e){ e.ninetieth_surprise.value = e.ninetieth_surprise.values['90.01']; e.newts = new Date().toJSON(); })"
+      }
+    },
+    "actions": {
+      "ES_bulk_request": {
+        "throttle_period": "1m",
+        "webhook": {
+          "method": "POST",
+          "host": "myhost",
+          "port": 80,
+          "path": "/_bulk",
+          "body": "{{#payload.aggregations.metrics.buckets}}{\"index\":{\"_index\":\"atlas\", \"_type\":\"data\"}}\n{\"metric\":\"{{key}}\", \"value\":{{ninetieth_surprise.value}}, \"execution_time\":\"{{newts}}\"}\n{{/payload.aggregations.metrics.buckets}}",
+          "headers": {
+            "content-type": "text/plain; charset=ISO-8859-1"
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+The transform script makes the 90th value of every bucket accessible for
+mustache and generates a NOW timestamp. The action writes the relevant
+values back to a separate index named *atlas*.
+
+[[UUID-73bd009a-efcb-a5f1-fdb4-d40367abfadc]]
+===== Second watcher
+
+The second watcher iterates every five minutes over the *atlas* index to
+find anomalies to report:
+
+[source,json]
+----
+{
+  "_index": "watcher",
+  "_type": "watch",
+  "_id": "check_surprise",
+  "_score": 1,
+  "_source": {
+    "trigger": {
+      "schedule": {
+        "later": "every 5 minutes"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "index": "atlas",
+          "body": {
+            "query": {
+              "filtered": {
+                "filter": {
+                  "range": {
+                    "execution_time": {
+                      "gte": "now-6h"
+                    }
+                  }
+                }
+              }
+            },
+            "size": 0,
+            "aggs": {
+              "metrics": {
+                "terms": {
+                  "field": "metric"
+                },
+                "aggs": {
+                  "series": {
+                    "date_histogram": {
+                      "field": "execution_time",
+                      "interval": "hour"
+                    },
+                    "aggs": {
+                      "avg": {
+                        "avg": {
+                          "field": "value"
+                        }
+                      }
+                    }
+                  },
+                  "series_stats": {
+                    "extended_stats": {
+                      "field": "value",
+                      "sigma": 3
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "condition": {
+      "script": {
+        "script": "var status=false;payload.aggregations.metrics.buckets.forEach(function(e){ var std_upper=parseFloat(e.series_stats.std_deviation_bounds.upper); var avg=parseFloat(JSON.stringify(e.series.buckets.slice(-1)[0].avg.value)); if(isNaN(std_upper)||isNaN(avg)) {return status;}; if(avg > std_upper) {status=true; return status;};});status;"
+      }
+    },
+    "transform": {
+      "script": {
+        "script": "var alerts=[];payload.payload.aggregations.metrics.buckets.forEach(function(e){ var std_upper=parseFloat(e.series_stats.std_deviation_bounds.upper); var avg=parseFloat(JSON.stringify(e.series.buckets.slice(-1)[0].avg.value)); if(isNaN(std_upper)||isNaN(avg)) {return false;}; if(avg > std_upper) {alerts.push(e.key)};}); payload.alerts=alerts"
+      }
+    },
+    "actions": {
+      "series_alarm": {
+        "throttle_period": "15m",
+        "email": {
+          "to": "alarms@email.com",
+          "from": "sirenalert@localhost",
+          "subject": "ATLAS ALARM Varnish_first_url_part",
+          "priority": "high",
+          "body": "there is an alarm for the following Varnish_first_url_parts:{{#alerts}}{{.}}<br>{{/alerts}}"
+        }
+      }
+    }
+  }
+}
+----
+
+The condition script tests whether the average run time of the last
+bucket is greater than upper bound of the `+std_dev+`.
+
+The transform script does something similar to an alerts array at the
+top of the payload. At the end, we alert per email _(or REST POST, and
+so on)_
+
+[[UUID-1cc65f62-ce73-c557-f089-181d04adaf65]]
+==== Outliers
+
+This example performs an outlier detection against a bucket of detection
+in one go.
+
+[[UUID-54827cfe-4ff1-0522-3f1f-e795bc186ad1]]
+===== Simple outlier condition (exploded)
+
+....
+var match=false; // false by default
+
+payload.offenders = new Array();
+
+payload.detections = new Array();
+
+function detect(data){
+   data.sort(function(a,b){return a-b});
+   var l = data.length;
+   var sum=0;
+   var sumsq = 0;
+   for(var i=0;i<data.length;++i){ sum+=data[i];sumsq+=data[i]*data[i];}
+   var mean = sum/l;
+   var median = data[Math.round(l/2)];
+   var LQ = data[Math.round(l/4)];
+   var UQ = data[Math.round(3*l/4)];
+   var IQR = UQ-LQ;
+   for(var i=0;i<data.length;++i){if(!(data[i]> median - 2 * IQR && data[i] < mean + 2 * IQR)){
+      match=true; payload.detections.push(data[i]);
+   }
+ }
+};
+
+var countarr=[];
+
+payload.aggregations.hits_per_hour.buckets.forEach(function(e){
+  if(e.doc_count > 1) countarr.push(e.doc_count);
+}); detect(countarr);
+
+payload.aggregations.hits_per_hour.buckets.forEach(function(e){
+  payload.detections.forEach(function(mat){
+     if(e.doc_count == mat) payload.offenders.push(e);
+  })
+});
+
+match;
+....
+
+[[UUID-a4183658-4f66-b45e-90b3-60c1cfef59b3]]
+===== Example Siren Alert watcher
+
+[source,json]
+----
+{
+  "_index": "watcher",
+  "_type": "watch",
+  "_id": "anomaly_runner",
+  "_score": 1,
+  "_source": {
+    "uuid": "anomaly_runner",
+    "disable": false,
+    "trigger": {
+      "schedule": {
+        "later": "every 30 minutes"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "body": {
+            "size": 0,
+            "query": {
+              "filtered": {
+                "query": {
+                  "query_string": {
+                    "analyze_wildcard": true,
+                    "query": "_type:cdr AND status:8"
+                  }
+                },
+                "filter": {
+                  "bool": {
+                    "must": [
+                      {
+                        "range": {
+                          "@timestamp": {
+                            "gte": "now-1h",
+                            "lte": "now"
+                          }
+                        }
+                      }
+                    ],
+                    "must_not": []
+                  }
+                }
+              }
+            },
+            "aggs": {
+              "hits_per_hour": {
+                "date_histogram": {
+                  "field": "@timestamp",
+                  "interval": "1m",
+                  "time_zone": "Europe/Berlin",
+                  "min_doc_count": 1
+                },
+                "aggs": {
+                  "top_sources": {
+                    "terms": {
+                      "field": "source_ip.raw",
+                      "size": 5,
+                      "order": {
+                        "_count": "desc"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "index": [
+            "<pcapture_cdr_*-{now/d}>",
+            "<pcapture_cdr_*-{now/d-1d}>"
+          ]
+        }
+      }
+    },
+    "condition": {
+      "script": {
+        "script": "payload.detections = new Array();function detect(data){data.sort(function(a,b){return a-b});var l = data.length;var sum=0;var sumsq = 0;for(var i=0;i<data.length;++i){sum+=data[i];sumsq+=data[i]*data[i];}var mean = sum/l; var median = data[Math.round(l/2)];var LQ = data[Math.round(l/4)];var UQ = data[Math.round(3*l/4)];var IQR = UQ-LQ;for(var i=0;i<data.length;++i){if(!(data[i]> median - 2 * IQR && data[i] < mean + 2 * IQR)){ match=true; payload.detections.push(data[i]); } }}; var match=false;var countarr=[]; payload.aggregations.hits_per_hour.buckets.forEach(function(e){ if(e.doc_count > 1) countarr.push(e.doc_count); });detect(countarr);payload.aggregations.hits_per_hour.buckets.forEach(function(e){ payload.detections.forEach(function(mat){ if(e.doc_count == mat) payload.offenders.push(e); })});match;"
+      }
+    },
+    "transform": {},
+    "actions": {
+      "kibi_actions": {
+        "email": {
+          "to": "root@localhost",
+          "from": "sirenalert@localhost",
+          "subject": "Series Alarm {{ payload._id}}: User Anomaly {{ payload.detections }} CDRs per Minute",
+          "priority": "high",
+          "body": "Series Alarm {{ payload._id}}: Anomaly Detected. Possible Offenders: {{#payload.offenders}} \n{{key_as_string}}: {{doc_count}} {{#top_sources.buckets}}\n IP: {{key}} ({{doc_count}} failures) {{/top_sources.buckets}} {{/payload.offenders}} "        }
+      }
+    }
+  }
+}
+----

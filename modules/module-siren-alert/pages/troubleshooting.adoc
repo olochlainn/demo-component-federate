@@ -1,0 +1,99 @@
+= Troubleshooting
+
+This section offers some common problem-solution pairs, dedicated to
+both new and existing users. For more information, see the
+link:#UUID-3632ec53-97f6-72b1-e2bf-1b683405894a[Siren Alert FAQ].
+
+
+== Debug Siren Alert
+
+Ensure you have the following options in `+investigate.yml+`:
+
+....
+# Enables you specify a file where Siren Investigate stores log output.
+logging.dest: stdout
+
+# Set the value of this setting to true to suppress all logging output.
+logging.silent: false
+
+# Set the value of this setting to true to suppress all logging output
+other than error messages. logging.quiet: false
+
+# Set the value of this setting to true to log all events, including
+system usage information # and all requests. logging.verbose: true
+....
+
+All messages which have `+Siren Alert+` in its status are messages
+related to Siren Alert.
+
+
+== No alert emails
+
+Basic config, `+investigate.yml+`:
+
+....
+logging.verbose: true
+sentinl:
+  settings:
+    email:
+      active: true
+      host: beast-cave
+      ssl: false
+    report:
+      active: true
+      tmp_path: /tmp/
+....
+
+Check your server using some email client, for example `+mailx+`:
+
+....
+mailx -S smtp=<smtp-server-address> -r <from-address> -s <subject> -v <to-address> < body.txt
+....
+
+
+== Security exception while using Search Guard
+
+For example, this message:
+
+....
+p-f45016r31z8-yok6hzhmmii: [security_exception] no permissions for indices:data/read/search :: {\"path\":\"/logstash-2017.09.22/_search\"    ,\"query\":{},\"body\":\"{}\",\"statusCode\":403,\"response\":\"{\\\"error\\\":{\\\"root_cause\\\":[{\\\"type\\\":\\\"security_exception\    \\",\\\"reason\\\":\\\"no permissions for indices:data/read/search\\\"}],\\\"type\\\":\\\"security_exception\\\",\\\"reason\\\":\\\"no pe    rmissions for indices:data/read/search\\\"},\\\"status\\\":403}\"}"}
+....
+
+It says Siren Alert cannot read `+indices:data/read/search+` the
+`+logstash-2017.09.22+` index. Ensure you have the following role for
+`+logstash-*+` indices in `+sg_roles.yml+`:
+
+....
+# For the kibana server
+sg_kibana_server:
+  indices:
+    'logstash-*':
+      '*':
+       - indices:data/read/search
+....
+
+Do not forget to apply Search Guard configuration change using
+`+sgadmin.sh+`.
+
+
+== Linux file permissions
+
+The Siren Alert plugin requires two internal binaries (`+phantomjs+` and
+`+chrome+`) to be executable. If Siren Investigate is running as root,
+it can take care of this automatically. However, if Siren Investigate is
+running as an unprivileged user, for example in a hardened environment,
+you may see errors in the logs similar to this:
+
+....
+Jul 24 09:16:04 xxxxxxxx investigate[30856]: FATAL { Error: EPERM: operation not permitted, chmod '/xxxxxxx/siren-investigate-10.1.0-linux-x86_64/siren_plugins/sentinl/node_modules/phantomjs-prebuilt/bin/phantomjs'
+Jul 24 09:17:42 xxxxxxxx investigate[32296]: [sentinl] fail to make report engine executable: EPERM: operation not permitted, chmod '/xxxxxxxx/siren-investigate-10.1.0-linux-x86_64/siren_plugins/sentinl/node_modules/puppeteer/.local-chromium/linux-564778/chrome-linux/chrome'!
+....
+
+Siren Investigate includes a post-installation utility that can be run
+by an administrator as root (or using sudo), that can fix these file
+permissions manually:
+
+....
+cd $INVESTIGATE_INSTALL_DIRECTORY/siren_plugins/sentinl/
+../../node/bin/node ./postinst.js
+....
