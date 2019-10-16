@@ -1,4 +1,4 @@
-=== Security setup for Siren Alert
+= Security setup for Siren Alert
 
 Create a role called `+sirenalert+` with the following actions in the
 `+sg_roles.yml+` file:
