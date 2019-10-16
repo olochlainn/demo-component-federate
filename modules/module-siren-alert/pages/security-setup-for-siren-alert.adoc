@@ -2,7 +2,7 @@
 
 . Create a role called `+sirenalert+` with the following actions in the
 `+sg_roles.yml+` file:
-
++
 ....
 sirenalert:
   cluster:
@@ -31,7 +31,7 @@ sirenalert:
 ....
 
 . Add the below permissions to the `+sirenserver+` role:
-
++
 ....
 sirenserver:
   cluster:
@@ -59,7 +59,7 @@ sirenserver:
 
 . Update the `+investigate.yml+` file to include the following values
 under the `+investigate_access_control+` section:
-
++
 ....
 investigate_access_control:
   sirenalert:
