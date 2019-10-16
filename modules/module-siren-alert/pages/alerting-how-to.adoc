@@ -1,9 +1,9 @@
-=== Alerting how to
+= Alerting how to
 
 This section provides solutions for common Siren Alert scenarios.
 
-[[UUID-73ec1607-7bf0-faed-e162-792ebe840a1e]]
-==== Manual in dashboard
+
+== Manual in dashboard
 
 To display Siren Alert alarms in Siren Investigate:
 
@@ -14,14 +14,14 @@ desired column.
 * Add a new Search Widget using the `+Search+` tab and selecting the
 saved query.
 
-[[UUID-11ac6df9-3cd4-32bb-e807-fff8ff1f15d0]]
-==== Query aggregations watcher for Nagios NRDP
+
+== Query aggregations watcher for Nagios NRDP
 
 In this example we will configure a Siren Alert Watcher to stream
 statuses to an extermal *Nagios NRDP* endpoint.
 
-[[UUID-9e33ab1d-7eb7-9be7-1426-40f701d33d67]]
-===== Query request
+
+=== Query request
 
 Let’s run an aggregation query in Sense to find low MOS groups in the
 last five minutes interval:
@@ -94,8 +94,8 @@ GET _search
 }
 ----
 
-[[UUID-88426325-c7da-5ad0-37ea-215817276cef]]
-===== Query response
+
+=== Query response
 
 The response should look similar to this example. Let’s analyze the data
 structure:
@@ -160,8 +160,9 @@ structure:
 }
 ----
 
-[[UUID-4faefa65-07de-6689-8c42-788aaa3c4ebc]]
-===== Watcher query
+
+
+=== Watcher query
 
 Next let’s use Sense to create a custom Siren Alert Watcher based on the
 query and its response, using `+mustache+` syntax to loop trough the
@@ -286,14 +287,14 @@ Action Body (mustache generated)
 </xml>
 ----
 
-[[UUID-0c9eeffc-0ef5-a8a1-1c9b-ca18fd2df700]]
-===== Mustache playground
+
+=== Mustache playground
 
 A simple playground simulating this response and output is available
 from http://jsfiddle.net/Lyfoq6yw/.
 
-[[UUID-4a1354df-6bac-bf0a-6e97-b7c96ed144f5]]
-==== Reports
+
+== Reports
 
 Siren Alert watchers can generate snapshots of Siren Investigate, Kibana
 (or any other website) and deliver them on your schedule using the
@@ -337,17 +338,14 @@ This example enables you to produce weekly charts.
 }
 ----
 
-[[UUID-110938d4-4808-4c2e-60f2-2bec1395069d]]
-===== Requirements
+
+=== Requirements
 
 With Siren platform 10 and later, report actions require Chrome or
 Chromium v59 or later.
 
-____
-*Note*
+NOTE: Chromium is included in the Linux version of Siren Alert.
 
-Chromium is included in the Linux version of Siren Alert.
-____
 
 You can download Chromium
 (https://www.chromium.org/getting-involved/download-chromium) and change
@@ -390,16 +388,16 @@ Common Issues
 * `+Unhandled rejection Error: spawn phantomjs ENOENT+`
 ** PhantomJS is not available to Node-Horseman.
 
-[[UUID-9b923465-a08d-49cf-c95e-3117dc21103d]]
-==== Spy plugin
+
+== Spy plugin
 
 Siren Alert features an integrated Siren Investigate/Kibana plugin
 extending the default Spy functionality to help users quickly shape new
 prototype Watchers based on Visualize queries, and providing them to
 Siren Alert for fine editing and scheduling.
 
-[[UUID-946b03da-8a4a-d27f-c1b0-0f4cf8d8fb0a]]
-==== Annotations
+
+== Annotations
 
 Siren Alert alerts and detections can be superimposed over
 visualizations widgets using the `+Annotations+` feature in Kibana 5.5+
@@ -407,8 +405,8 @@ revealing points of contact and indicators in real-time. The familiar
 `+mustache+` syntax is utilized to render row elements from the alert
 based on case requirements.
 
-[[UUID-6ab50b93-82c9-d488-bb74-edc4c3c0db24]]
-===== How to
+
+=== How to
 
 Follow this procedure to enable Siren Alert Annotations over your data:
 
@@ -430,24 +428,21 @@ Fields: `+message+`.
 
 Row Template: `+{{ message }}+`.
 
-[[UUID-124bfaf4-9a06-c030-be45-8e25552bbe14]]
-===== Visual example
+
+=== Visual example
 
 image:image/15da5e40baf76b.gif[Siren Alert annotation]
 
-[[UUID-8cbf69b3-efbb-02ca-9a9b-2e3e908119e4]]
-==== Using Siren Alert with Search Guard
 
-____
-*Caution*
+== Using Siren Alert with Search Guard
 
-In a production environment, you should use unique passwords and valid
+CAUTION: In a production environment, you should use unique passwords and valid
 trusted certificates. For more information, refer to the 
 http://docs.search-guard.com/latest/[Search Guard documentation].
-____
 
-[[UUID-5a69a379-8ff1-a305-337f-4be3d87e1aaf]]
-===== Install Search Guard
+
+
+=== Install Search Guard
 
 * Install the Search Guard plugin for your
 https://github.com/floragunncom/search-guard/wiki[Elasticsearch
@@ -471,8 +466,8 @@ plugins/search-guard-/sgconfig folder.
 curl -uadmin:admin -sS -i --insecure -H "Content-Type: application/json" -XGET https://localhost:9200/_searchguard/authinfo?pretty
 ....
 
-[[UUID-87a2c9d2-3bcb-9458-39f8-48a67a9dfe65]]
-===== Allow Siren Alert access
+
+=== Allow Siren Alert access
 
 Allow Siren Alert to access `+watcher+` and `+credit_card+` indices in
 `+sg_roles.yml+`.
@@ -501,8 +496,8 @@ sg_kibana_server:
        - indices:data/read/search
 ....
 
-[[UUID-0e404f7f-5e3f-6656-5c02-04a16b7b3cc9]]
-===== Apply Search Guard configuration
+
+=== Apply Search Guard configuration
 
 * `+cd+` into `+elasticsearch+`
 * For Search Guard 6, execute:
@@ -514,8 +509,8 @@ sg_kibana_server:
 For Search Guard 5, change the version number to 5. For more
 information, see http://docs.search-guard.com/latest/sgadmin.
 
-[[UUID-8b465709-8841-4730-2578-575b0941f0b6]]
-===== Installing the Search Guard plugin
+
+=== Installing the Search Guard plugin
 
 * `+cd+` into `+siren-investigate+` folder.
 * Execute:
@@ -543,11 +538,11 @@ elasticsearch.password: "investigateserver"
 elasticsearch.ssl.verificationMode: 'none'
 ....
 
-[[UUID-9d121064-02cc-b4ff-9470-390a13e4796d]]
-==== Transform
 
-[[UUID-ce9051d4-3dc1-2afb-79af-d3e292c98585]]
-===== Dot field selection transform for percentile objects
+== Transform
+
+
+=== Dot field selection transform for percentile objects
 
 [source,json]
 ----
@@ -558,8 +553,8 @@ elasticsearch.ssl.verificationMode: 'none'
 }
 ----
 
-[[UUID-22ca2d3b-9930-bdc8-6c9e-3ecb22436cb3]]
-===== Bucket cloning
+
+=== Bucket cloning
 
 [source,json]
 ----
@@ -570,8 +565,8 @@ elasticsearch.ssl.verificationMode: 'none'
 }
 ----
 
-[[UUID-daceaa2f-3a11-195e-4c63-5d4ff9ab1409]]
-==== Anomaly detection
+
+== Anomaly detection
 
 The Siren Alert anomaly detection mechanism is based on
 https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule[the
@@ -640,15 +635,16 @@ https://www.npmjs.com/package/mustache#usage[mustache syntax].
 
 As a result, we have an email with a list of anomaly transactions.
 
-image:image/15da5e40bbcd72.png[Anomaly detection]
+image:15da5e40bbcd72.png[Anomaly detection]
 
 Also, the list of anomalies was indexed in today’s alert index
 `+watcher_alarms-{year-month-date}+`.
 
-image:image/15da5e40bca0eb.png[Watcher alarms]
+image:15da5e40bca0eb.png[Watcher alarms]
 
-[[UUID-e4724350-053c-149e-bc6d-2e5d2f4d82a3]]
-==== Statistical anomaly detection
+
+
+== Statistical anomaly detection
 
 In this example, we will implement the
 https://www.elastic.co/blog/implementing-a-statistical-anomaly-detector-part-3[ATLAS
@@ -670,8 +666,8 @@ need two watchers:
 * The second iterates every five minute over the *atlas* index to find
 anomalies to report.
 
-[[UUID-31936fbc-12fe-2e05-823a-b680f0831fe0]]
-===== First watcher
+
+=== First watcher
 
 This watcher will collect a most surprising `+req_runtime+` of every
 backend for every hour, and insert any results in the *atlas* index
@@ -806,8 +802,8 @@ The transform script makes the 90th value of every bucket accessible for
 mustache and generates a NOW timestamp. The action writes the relevant
 values back to a separate index named *atlas*.
 
-[[UUID-73bd009a-efcb-a5f1-fdb4-d40367abfadc]]
-===== Second watcher
+
+=== Second watcher
 
 The second watcher iterates every five minutes over the *atlas* index to
 find anomalies to report:
@@ -907,14 +903,14 @@ The transform script does something similar to an alerts array at the
 top of the payload. At the end, we alert per email _(or REST POST, and
 so on)_
 
-[[UUID-1cc65f62-ce73-c557-f089-181d04adaf65]]
-==== Outliers
+
+== Outliers
 
 This example performs an outlier detection against a bucket of detection
 in one go.
 
-[[UUID-54827cfe-4ff1-0522-3f1f-e795bc186ad1]]
-===== Simple outlier condition (exploded)
+
+=== Simple outlier condition (exploded)
 
 ....
 var match=false; // false by default
@@ -955,8 +951,8 @@ payload.aggregations.hits_per_hour.buckets.forEach(function(e){
 match;
 ....
 
-[[UUID-a4183658-4f66-b45e-90b3-60c1cfef59b3]]
-===== Example Siren Alert watcher
+
+=== Example Siren Alert watcher
 
 [source,json]
 ----
