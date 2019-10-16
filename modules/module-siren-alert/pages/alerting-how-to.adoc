@@ -410,28 +410,28 @@ based on case requirements.
 
 Follow this procedure to enable Siren Alert Annotations over your data:
 
-Visualize your time series using the Query Builder widget.
+. Visualize your time series using the Query Builder widget.
 
-Switch to the Annotations tab.
+. Switch to the Annotations tab.
 
-Go to [.menuchoice]#Annotations > Add Datasource#.
+. Go to [.menuchoice]#Annotations > Add Datasource#.
 
-Select the Index and Timefield for Siren Alert.
+. Select the Index and Timefield for Siren Alert.
 
-Index Pattern: `+watcher_alerts*+`.
+. Index Pattern: `+watcher_alerts*+`.
 
-Time Field: `+@timestamp+`.
+. Time Field: `+@timestamp+`.
 
-Select the Field to Display in Annotations.
+. Select the Field to Display in Annotations.
 
-Fields: `+message+`.
+. Fields: `+message+`.
 
-Row Template: `+{{ message }}+`.
+. Row Template: `+{{ message }}+`.
 
 
 === Visual example
 
-image:image/15da5e40baf76b.gif[Siren Alert annotation]
+image:15da5e40baf76b.gif[Siren Alert annotation]
 
 
 == Using Siren Alert with Search Guard
