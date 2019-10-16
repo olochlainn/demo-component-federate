@@ -382,8 +382,7 @@ Actions use the `+{{ mustache }}+` logic-less template syntax, and work
 by iterating arrays and expanding tags in a template using values
 provided in the response payload.
 
-A dedicated page is available with supported
-<<Actions>>.
+For more details, see <<Supported actions>>.
 
 
 === Full watcher example
@@ -444,7 +443,7 @@ A dedicated page is available with supported
 ----
 
 
-== Actions
+== Supported actions
 
 Currently supported *"actions"* for Siren Alert watchers:
 
