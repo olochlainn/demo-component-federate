@@ -7,7 +7,7 @@ several options available.
 
 == Authenticate search request
 
-Kibana https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/auth-reference.html[Elasticsearch
+Kibana https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/auth-reference[Elasticsearch
 basic authentication] is used for authentication.
 
 *Valid certificate*
