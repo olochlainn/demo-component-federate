@@ -7,7 +7,7 @@
 ** xref:alerting-tutorial.adoc[Alerting tutorial]
 ** xref:watchers.adoc[Watchers]
 *** xref:watchers.adoc#_trigger_schedule[Trigger schedule]
-*** xref:watchers.adoc#_actions[Actions]
+*** xref:watchers.adoc#_supported_actions[Supported actions]
 *** xref:watchers.adoc#_watcher_controllers[Watcher_controllers]
 *** xref:watchers.adoc#_examples[Examples]
 *** xref:watchers.adoc#_wizard[Wizard]
