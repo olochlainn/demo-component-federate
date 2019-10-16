@@ -1,3 +1,4 @@
+:imagesdir: ../assets/images
 = Alerting how to
 
 This section provides solutions for common Siren Alert scenarios.
