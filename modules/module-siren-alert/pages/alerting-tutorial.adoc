@@ -1,22 +1,19 @@
-=== Alerting tutorial
+= Alerting tutorial
 
 This tutorial illustrates a working example of Siren Alert for alerting.
 
-____
-*Note*
-
-This tutorial is a for illustration purposes only and should not be used
+NOTE: This tutorial is a for illustration purposes only and should not be used
 without modification in production.
-____
 
-[[UUID-1f706cc3-34be-f503-cb64-27fead008818]]
-==== Requirements
+
+
+== Requirements
 
 * Elasticsearch with Siren Investigate or Kibana 5.x.
 * A shell with cURL to execute commands.
 
-[[UUID-bf106737-3ec5-399c-25f5-7495a302eaa9]]
-==== Data set
+
+== Data set
 
 To illustrate the logic and elements involved with _Siren Alert_ we will
 generate some random data and insert it to Elasticsearch. Our sample
@@ -46,8 +43,8 @@ done
 
 * Save the file as `+elasticgen.sh+` and execute it for a few minutes
 
-[[UUID-4dadc8a9-d02d-7322-0d6d-273531114bff]]
-==== Watcher rule
+
+== Watcher rule
 
 To illustrate the trigger logic, we will create an alert for an
 aggregation against the data we just created. The basic Siren Alert
@@ -112,8 +109,8 @@ curl -H "Content-Type: application/json" -XPUT http://127.0.0.1:9200/watcher/wat
 }'
 ....
 
-[[UUID-ba7b9289-7cc8-5d3b-10d1-f668d4d78342]]
-==== Extending logic
+
+== Extending logic
 
 The basic Watcher can be extended and improved following the same logic
 used with the stock _Watcher, for example by using `+transform+` to
@@ -121,15 +118,15 @@ insert detections back in ES. An interesting set of examples is
 available
 from https://www.elastic.co/blog/implementing-a-statistical-anomaly-detector-part-3.
 
-[[UUID-59c08c37-d3d8-50ad-6b0a-3faafa0456bd]]
-==== Alarm triggering
+
+== Alarm triggering
 
 Siren Alert will automatically fetch and schedule jobs, executing the
 watcher queries according to the `+trigger.schedule+` parameter,
 validating their results according to the provided `+condition.script+`
 
-[[UUID-66bdeca2-164e-95ab-93de-ee783139665b]]
-==== Check output
+
+== Check output
 
 Assuming all data and scripts are correctly executed, you should start
 seeing output in Siren Alert `+Alarms+` tab and in Elasticsearch
