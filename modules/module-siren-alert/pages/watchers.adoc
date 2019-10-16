@@ -1,4 +1,4 @@
-=== Watchers
+= Watchers
 
 A Siren Alert watcher is created using the following structure:
 
@@ -32,8 +32,8 @@ How to Adapt or Post-Process data
 How to Notify users about this event
 ....
 
-[[UUID-d9e74ad6-b447-04e1-8f62-6347be9f15fc]]
-==== Trigger schedule
+
+== Trigger schedule
 
 The schedule defines a set of constraints that must be met to execute a
 saved watcher. Any number of constraints can be added to a single
@@ -49,8 +49,8 @@ Interval exceptions can also be defined as follows:
 every 2 hours except after 20th hour
 ....
 
-[[UUID-77898877-7490-f500-1e28-9fa8f73acb1b]]
-===== Input query
+
+=== Input query
 
 The input parameter is the key element of a watcher, and defines a
 dynamic range index query feeding the circuit. The input field accepts
@@ -73,8 +73,8 @@ of the box.
 }
 ----
 
-[[UUID-b3b18aed-1daf-2ecd-33b1-2035bdc344d2]]
-===== Condition
+
+=== Condition
 
 The condition block is the "entry gate" into the processing pipeline of
 a Watcher and determines its triggered status.
@@ -83,8 +83,8 @@ a Watcher and determines its triggered status.
 * On `+false+` condition, the pipeline will stop (no action will be
 executed) until its next invocation.
 
-[[UUID-079a57c4-4fa0-6000-bcfd-07b9e15d7f00]]
-====== Never condition
+
+==== Never condition
 
 Use the `+never+` condition to set the condition to `+false+`. This
 means the watch actions are never executed when the watch is triggered.
@@ -97,8 +97,8 @@ condition: {
 }
 ....
 
-[[UUID-b08005fe-f5c5-91f3-b347-af895e8c4c9a]]
-====== Compare condition
+
+==== Compare condition
 
 Use the `+compare+` condition to perform a simple comparison against a
 value in the watch payload.
@@ -133,8 +133,8 @@ one
 the given one
 |===
 
-[[UUID-2406ebf1-39da-1067-762c-fdef1cbc5b2b]]
-====== Array compare condition
+
+==== Array compare condition
 
 Use `+array_compare+` to compare an array of values. For example, the
 following array_compare condition returns `+true+` if there is at least
@@ -172,8 +172,8 @@ comparison evaluates to false.
 |`+array.path.operator.value+` |The value to compare against.
 |===
 
-[[UUID-932a6693-9565-6df9-4e96-21a7496355c3]]
-====== Script condition
+
+==== Script condition
 
 A condition that evaluates a script. The scripting language is
 JavaScript. It can be as simple as a function expecting a Boolean
@@ -197,8 +197,8 @@ condition: {
 }
 ....
 
-[[UUID-89d914a5-36ab-5e34-eeac-9fa7b3503323]]
-===== Anomaly detection
+
+=== Anomaly detection
 
 Simple anomaly finder based on the
 https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule[three-sigma
@@ -238,8 +238,8 @@ rule].
 }
 ....
 
-[[UUID-7050168a-5952-6f21-2b6f-9a6a167a0a71]]
-===== Range filtering
+
+=== Range filtering
 
 Use for getting documents which have a value in between some values. For
 example, get only the documents which have values from 45 to 155 inside
@@ -259,15 +259,15 @@ example, get only the documents which have values from 45 to 155 inside
 }
 ....
 
-[[UUID-d91056c8-ddb9-3129-cd22-335aba309fe3]]
-===== Transform
+
+=== Transform
 
 A transform processes and changes the payload in the watch execution
 context to prepare it for the watch actions. No actions are executed in
 the case that the payload is empty after transform processing.
 
-[[UUID-e921fca8-7425-94e6-ebfa-636a6f3ed53f]]
-===== Search transform
+
+=== Search transform
 
 A transform that executes a search on the cluster and replaces the
 current payload in the watch execution context with the returned search
@@ -299,8 +299,8 @@ response.
 }
 ....
 
-[[UUID-49cfe280-885d-f5e1-7a25-c4fb37befb75]]
-===== Script transform
+
+=== Script transform
 
 A transform that executes a script (JavaScript) on the current payload
 and replaces it with a newly generated one. Its uses include:
@@ -329,8 +329,8 @@ Filter aggregation buckets:
 }
 ....
 
-[[UUID-a99536fa-936c-0c35-ac2e-d2608b817bbb]]
-===== Chain transform
+
+=== Chain transform
 
 A transform that executes an ordered list of configured transforms in a
 chain, where the output of one transform serves as the input of the next
@@ -371,8 +371,8 @@ transform in the chain.
 }
 ....
 
-[[UUID-8bf36068-db33-cead-8e37-efb87fba8aa8]]
-===== Actions
+
+=== Actions
 
 Actions are used to deliver any results obtained by a Watcher to users,
 APIs or new documents in the cluster. Multiple Actions and Groups can be
@@ -383,10 +383,10 @@ by iterating arrays and expanding tags in a template using values
 provided in the response payload.
 
 A dedicated page is available with supported
-link:#UUID-bc1d434d-97f5-ac8e-7b22-0c141717d89a[actions].
+<<Actions>>.
 
-[[UUID-3335ae56-ac9b-0f6e-6dec-0ae735a50051]]
-===== Full watcher example
+
+=== Full watcher example
 
 [source,json]
 ----
@@ -443,17 +443,17 @@ link:#UUID-bc1d434d-97f5-ac8e-7b22-0c141717d89a[actions].
 }
 ----
 
-[[UUID-bc1d434d-97f5-ac8e-7b22-0c141717d89a]]
-==== Actions
+
+== Actions
 
 Currently supported *"actions"* for Siren Alert watchers:
 
-[[UUID-74208f53-2631-d5d0-3342-950dbdf93399]]
-===== Email
+
+=== Email
 
 Send Query results and message using Email/SMTP.
 
-Requires link:#UUID-3a0caf6f-f49d-6739-5a59-4b95ef27b4a7[action
+Requires xref:configuring-siren-alert.adoc[action
 settings] in Siren Investigate configuration.
 
 [source,json]
@@ -468,12 +468,12 @@ settings] in Siren Investigate configuration.
 }
 ----
 
-[[UUID-229a792f-ebf8-9dbb-75e6-d13909fa5f78]]
-===== Email HTML
+
+=== Email HTML
 
 Send Query results and message using Email/SMTP using HTML body.
 
-Requires link:#UUID-3a0caf6f-f49d-6739-5a59-4b95ef27b4a7[action
+Requires xref:configuring-siren-alert.adoc[action
 settings] in Siren Investigate configuration.
 
 [source,json]
@@ -489,8 +489,8 @@ settings] in Siren Investigate configuration.
 }
 ----
 
-[[UUID-c4fdc7cf-fca8-3eb5-2143-c39a3525d2c4]]
-===== webHook
+
+=== webHook
 
 Deliver message to remote web API
 
@@ -525,12 +525,12 @@ Deliver message to remote API using Proxy - Telegram example:
 }
 ----
 
-[[UUID-71e4e611-a636-f673-1a4d-f4602649b81f]]
-===== Slack
+
+=== Slack
 
 Delivery Message to #Slack channel.
 
-Requires link:#UUID-3a0caf6f-f49d-6739-5a59-4b95ef27b4a7[action
+Requires xref:configuring-siren-alert.adoc[action
 settings] in Siren Investigate configuration.
 
 [source,json]
@@ -542,12 +542,12 @@ settings] in Siren Investigate configuration.
 }
 ----
 
-[[UUID-03183633-330d-9f71-3a78-b4e869dfccee]]
-===== Report
+
+=== Report
 
 Take a website snapshot using PhantomJS and send it using Email/SMTP.
 
-* Requires link:#UUID-3a0caf6f-f49d-6739-5a59-4b95ef27b4a7[action
+* Requires xref:configuring-siren-alert.adoc[action
 settings] in Siren Investigate configuration.
 * Requires Pageres/PhantomJS: `+npm install -g pageres+`.
 
@@ -574,8 +574,8 @@ settings] in Siren Investigate configuration.
 }
 ----
 
-[[UUID-53e98da0-2443-25fb-2b5e-d7f28f6b9d8a]]
-===== Console
+
+=== Console
 
 Output Query results and message to Console.
 
@@ -587,8 +587,8 @@ Output Query results and message to Console.
 }
 ----
 
-[[UUID-0747e031-cc9e-1a3d-9606-e74fb6bcef60]]
-==== Watcher controllers
+
+== Watcher controllers
 
 The following controls are presented when listing existing Watchers:
 
@@ -600,14 +600,14 @@ image:15da5e40b657a9.png[Watcher controllers]
 . Remove a Watcher.
 . Toggle a Watcher on or off.
 
-[[UUID-c299bb48-3de5-583b-e92f-41fc0ca2fa00]]
-==== Examples
+
+== Examples
 
 Watchers can be as simple or complex as the query and aggregations they
 use. Here are some examples to get started with.
 
-[[UUID-cbb15249-4b6c-ee44-7e16-018ddcde1ab2]]
-===== Hit watcher
+
+=== Hit watcher
 
 [source,json]
 ----
@@ -661,8 +661,8 @@ use. Here are some examples to get started with.
 }
 ----
 
-[[UUID-c8c74b75-dc57-ad6d-6a9f-ff1e1968c10e]]
-===== Transform (Elasticsearch 2.x)
+
+=== Transform (Elasticsearch 2.x)
 
 [source,json]
 ----
@@ -818,8 +818,8 @@ Siren Alert: insert back to Elasticsearch bulk (using nginx or direct).
 }
 ----
 
-[[UUID-fbe9c0f6-2f2d-2041-91bc-8c22e5e80940]]
-==== Wizard
+
+== Wizard
 
 Siren Alert provides a wizard to help create watchers using a
 step-by-step sequence.
@@ -842,14 +842,14 @@ language.
 
 image:15da5e40b8a268.png[image]
 
-[[UUID-6217c61f-85fb-0b29-ba31-269a8324bfdf]]
-==== Custom watchers
+
+== Custom watchers
 
 Together with standard watchers, Siren Alert supports an additional list
 of use case-specific watcher types that are created from the dashboard.
 These types of watchers are called custom watchers.
 
-===== Dashboard button
+=== Dashboard button
 
 Custom watchers created from a dashboard inherit its search criteria,
 including the search pattern, search query, and filters. Each custom
@@ -857,7 +857,7 @@ watcher type applies specific processing and trigger conditions.
 
 image:15da5e40b95061.png[image]
 
-===== Custom watcher types
+=== Custom watcher types
 
 * *New results*: Alerts when there are new results for the given search.
 * *Geo fence*: Alerts when there are new results within a geographical
@@ -866,7 +866,7 @@ area.
 specified distance. This type must be enabled manually as it is not
 applicable to all data sets. Siren provides support for enabling this.
 
-===== Creating custom watchers
+=== Creating custom watchers
 
 Custom watchers are managed in the Script tab of the Management section.
 Creating a custom watcher requires writing a script that provides an
