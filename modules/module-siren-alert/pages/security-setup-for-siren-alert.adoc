@@ -1,6 +1,6 @@
 = Security setup for Siren Alert
 
-Create a role called `+sirenalert+` with the following actions in the
+. Create a role called `+sirenalert+` with the following actions in the
 `+sg_roles.yml+` file:
 
 ....
@@ -30,7 +30,7 @@ sirenalert:
         
 ....
 
-Add the below permissions to the `+sirenserver+` role:
+. Add the below permissions to the `+sirenserver+` role:
 
 ....
 sirenserver:
@@ -57,7 +57,7 @@ sirenserver:
         
 ....
 
-Update the `+investigate.yml+` file to include the following values
+. Update the `+investigate.yml+` file to include the following values
 under the `+investigate_access_control+` section:
 
 ....
@@ -69,9 +69,8 @@ investigate_access_control:
       
 ....
 
-Create a user called `+sirenalert+` and map that user to the
+. Create a user called `+sirenalert+` and map that user to the
 `+sirenalert+` role by following the instructions under the *Access
 Control: ACL* section in
-link:/document/preview/91434#UUID-7b8e5c41-e8f9-2e77-df0c-832f163ffed2[Search
-Guard integration and Siren Investigate access control].3.7.1. Search
-Guard Integration and Siren Investigate access control
+xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search
+Guard integration and Siren Investigate access control].
