@@ -1,11 +1,11 @@
-=== Authentication
+= Authentication
 
 Siren Alert supports authentication using
 https://github.com/floragunncom/search-guard[Search Guard]. There are
 several options available.
 
-[[UUID-50bcf6a1-46e9-23a6-090d-3402a48d125d]]
-==== Authenticate search request
+
+== Authenticate search request
 
 Kibana https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/auth-reference.html[Elasticsearch
 basic authentication] is used for authentication.
@@ -95,18 +95,18 @@ hash and unhash user password.
 . Set watcher
 authentication. `+encryptPassword.js+``+password+``+username+``+impersonate: true+`.
 
-image:image/15da5e40b9fb7c.png[Watcher authentication]
+image:15da5e40b9fb7c.png[Watcher authentication]
 
-[[UUID-1bd485fe-f85a-174e-2c0d-450762138417]]
-==== Authenticate report
+
+== Authenticate report
 
 Both username and password should be set in the report action in the
 user interface.
 
 Note that these settings apply only to Siren platform 10 and later.
 
-[[UUID-97664238-48f2-d365-4dff-40cf6631d4d7]]
-===== Search Guard
+
+=== Search Guard
 
 ....
 sentinl:
@@ -119,8 +119,8 @@ sentinl:
           searchguard: true
 ....
 
-[[UUID-effe39fb-b674-6ae6-06b5-06cc49b2a095]]
-===== X-Pack
+
+=== X-Pack
 
 ....
 sentinl:
@@ -133,8 +133,8 @@ sentinl:
           xpack: true
 ....
 
-[[UUID-aac64928-03f4-f9b6-e3d5-2c91409b35a2]]
-===== Basic
+
+=== Basic
 
 ....
 sentinl:
@@ -147,8 +147,8 @@ sentinl:
           basic: true
 ....
 
-[[UUID-6a371d4e-b21b-007f-8a5b-741628d0c5ef]]
-===== Custom
+
+=== Custom
 
 ....
 sentinl:
