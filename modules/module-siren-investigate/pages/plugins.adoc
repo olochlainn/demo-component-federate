@@ -10,7 +10,7 @@ Generally Kibana plugins are compatible with Siren Investigate provided
 the plugin is compatible with the Kibana version mentioned in the
 *Management* section.
 
-image:image/15d88ced2d4c48.png[Plugin Compatibility]
+image:15d88ced2d4c48.png[Plugin Compatibility]
 
 IMPORTANT: The Kibana plugin interfaces are in a state of constant development. We
 cannot provide backwards compatibility for plugins due to the high rate
