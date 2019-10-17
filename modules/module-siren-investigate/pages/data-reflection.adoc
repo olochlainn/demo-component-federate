@@ -633,7 +633,7 @@ during import by using the Custom Mapping option. When a Date type is
 used, selecting the Advanced Mapping option opens a text field where you
 can specify a custom mapping in a JSON format.
 
-image:image/15d88ced1950ee.PNG[image]
+image:15d88ced1950ee.PNG[image]
 
 Looking at the *founded_date* samples above, the custom mapping required
 is as follows:
