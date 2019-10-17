@@ -1,0 +1,521 @@
+= Siren ML
+
+Siren ML merges Siren’s relational/cross-backend perspective with
+advanced TensorFlow deep learning. It provides two types of machine
+learning (ML) model, *Anomaly Detection* and *Future Prediction*.
+
+The ML functionality is provided by two components working together:
+
+* *Siren ML* provides the machine learning 'engine' for training,
+detection, and prediction; The data and models created are stored in
+Elasticsearch.
+* The *Siren ML plugin* provides the user interface in Siren
+Investigate.
+
+These components are installed separately. First, you install Siren ML
+using Docker, and then you install the plugin which provides the UI in
+Siren Investigate.
+
+Once these components have been installed and configured, you can use
+them to train Anomaly Detection and Future Prediction models.
+
+
+== Installing Siren ML Docker
+
+Siren ML is installed using a Docker image which is downloaded from
+https://hub.docker.com/r/sirensolutions/siren-ml/tags[DockerHub].
+Therefore, to run Siren ML for the first time you will need a working
+Internet connection.
+
+Two Docker images are available for Siren ML:
+
+* `+sirensolutions/siren-ml:<version>+` - for Linux, Mac and Windows.
+* `+sirensolutions/siren-ml:<version>-gpu+` - currently only available
+for Linux.
+
+If you would like to use your GPU for training and activating your
+machine learning models, follow these prerequisite steps:
+
+[arabic]
+. Make sure you have a compatible GPU:
++
+You can check if your device is
+supported https://www.tensorflow.org/install/gpu[here]. Typically if you
+have an Nvidia GPU, you can use it for machine learning.
+. Install nvidia-docker (and Nvidia drivers if required):
++
+Follow the
+instructions https://www.tensorflow.org/install/docker#gpu_support[here] to
+install and test the installation of nvidia-docker.
+. Follow the instructions for installing Siren ML GPU using Docker
+directly (see *Docker* section below).
+
+*Docker Compose*
+
+We recommend using Docker Compose to manage the Siren ML docker
+container.
+
+Create a `+docker-compose.yaml+` file:
+
+....
+version: "3"
+services:
+  sirenml:
+    image: sirensolutions/siren-ml:latest
+    network_mode: bridge
+    volumes:
+      - /var/lib/sirenml:/var/lib/sirenml
+      - /etc/sirenml:/etc/sirenml
+    restart: unless-stopped
+    ports:
+      - 5001:5001
+....
+
+For more options on how to configure the container, such as limiting CPU
+usage, see the Docker Compose documentation.
+
+Run Siren ML:
+
+....
+docker-compose up -d
+....
+
+To stop the container, use the following command:
+
+....
+docker-compose down
+....
+
+If running `+docker-compose+` in a different directory to your compose
+file, or the file is named differently, use the `+-f+` flag:
+
+....
+docker-compose -f /path/to/composefile.yaml up -d
+....
+
+If running Elasticsearch locally, you may need to change
+the `+network.host+` property in your `+elasticsearch.yml+` to the
+following:
+
+....
+network.host: 0.0.0.0
+....
+
+This allows for Elasticsearch to be accessible from Docker containers.
+This IP should only be used if the server's firewall has been
+appropriately configured to prevent unauthorized access from external
+sources.
+
+Set the Elasticsearch URI in the Siren ML configuration
+(`+/etc/sirenml/sirenml.yml+`):
+
+....
+elasticsearch.uri: 1.2.3.4:9220
+....
+
+If you are running Elasticsearch locally, you must find your local IP
+address. To do this, run one of the following commands and look for the
+associated attribute:
+
+[cols=",,",options="header",]
+|===
+|OS |Command |Attribute to look for
+|Linux |ifconfig |inet
+|MacOS |ifconfig |inet
+|Windows |ipconfig |IPv4_Address
+|===
+
+Use the IP address of this attribute as the value
+for `+elasticsearch.uri+` in the Siren ML configuration.
+
+If using Docker Toolbox, configure Investigate (`+investigate.yml+`) as
+follows with the following default address for Docker Toolbox:
+
+....
+machine_learning:
+  siren_ml:
+    uri: http://192.168.99.100:5001
+....
+
+This points Investigate to the IP of the Siren ML Docker container.
+
+*Docker*
+
+An alternative to using Docker Compose is using Docker directly. Run the
+following command in your terminal to launch Siren ML.
+
+....
+docker run --restart unless-stopped -d -p 5001:5001 -v /var/lib/sirenml:/var/lib/sirenml -v /etc/sirenml:/etc/sirenml sirensolutions/siren-ml:latest
+....
+
+or if you are using the GPU version:
+
+....
+docker run --restart unless-stopped --gpus all -d -p 5001:5001 -v /var/lib/sirenml:/var/lib/sirenml -v /etc/sirenml:/etc/sirenml sirensolutions/siren-ml:latest-gpu
+....
+
+=== Tips and pitfalls
+
+If you change the mounted volumes between runs, Siren ML will not be
+able to access any models you have created in other volume mounts.
+Therefore, it is suggested that the same volume mounts be used.
+
+
+== Installing the Siren ML plugin
+
+[arabic]
+. Go to https://support.siren.io/support/home#downloads[Siren Support
+Portal] and download the `+machine-learning+` plugin as a zip file.
+. In the `+siren-investigate+` home folder,
+run `+bin/investigate-plugin install /path/to/machine-learning.zip+`.
+. Run Siren Investigate. The Machine Learning application should now be
+available on the navigation bar.
+
+image:image/15da06c626792c.png[image]
+
+
+== Security
+
+If your Elasticsearch instance is running with security (using
+SearchGuard or X-Pack), you must modify both the Siren ML plugin and
+engine configurations.
+
+=== Siren ML engine configuration
+
+The Siren ML engine requires certificates and credentials to access
+Elasticsearch. These can be provided using the following properties in
+its configuration file (typically /etc/sirenml/sirenml.yml).
+
+....
+datasource:
+  tls:
+    enabled: true
+    certificate: '/path/to/cert.pem'
+    key: '/path/to/cert.key'
+
+  auth:
+    username: dan
+    password: password1
+    backend: searchguard # Can also be 'xpack'
+....
+
+The provided certificate must be trusted by the Elasticsearch security
+backend.
+
+=== Siren ML plugin configuration
+
+You must provide the Siren ML plugin with an administrative username and
+password for Elasticsearch. These credentials are provided in the
+Investigate configuration file (`+investigate.yml+`).
+
+....
+machine_learning:
+    username: dan
+    password: password1
+....
+
+
+== Models
+
+Siren ML consists of two models, Anomaly Detection and Future
+Prediction.
+
+=== Anomaly detection
+
+Anomaly detection models use unsupervised learning to automatically
+detect anomalies in a single-metric numerical time series. To train an
+anomaly detection model, you first need to select training data. This
+data is used during the model training to learn typical behaviors and
+seasonal patterns in your data.
+
+Once trained, the anomaly detection model can be activated to perform
+either live or historical detections.
+
+=== Live detection
+
+During live detection, the anomaly detection model runs in real time to
+alert you of any unusual events in your data so that you can take timely
+and appropriate action.
+
+=== Historical detection
+
+Historical detection allows you to run the anomaly detection model on
+your existing data, which is useful for gaining insight into the past
+behavior of the data and highlighting unusual events that you may have
+missed.
+
+=== Future prediction
+
+Future prediction models provide the ability to predict future trends in
+a single-metric numerical time-series. This type of model is
+particularly useful for supporting decision-making when faced with
+planning and resource management tasks, as the predictive model can
+learn complex trends not always obvious to the decision-maker.
+
+Similar to the anomaly detection model, training data is required for
+the future prediction model to learn the behavior and patterns within
+your data prior to activation. When training is complete, the future
+prediction models can be activated to do live predictions, where the
+machine learning model runs in real time to predict behavior at a
+user-specified time into the future.
+
+These real-time future predictions can be viewed in the Machine Learning
+Explorer visualization. In this visualization the future predictions are
+indicated with a red line and are accompanied by a blue shaded area
+which shows the confidence of the model’s prediction. The narrower this
+shaded region is, the more confident the model is of its prediction.
+
+=== Model training
+
+Training of a new machine learning model consists of two phases,
+hyperparameter optimization and full model training.
+
+Hyperparameter optimization finds the best model architecture and
+training parameters so that the most accurate model is developed. This
+is an important step as different datasets require different model
+architectures (such as the number of hidden layers in a neural network)
+and training parameters to attain the best results. The best model
+architecture and training parameters determined during the
+hyperparameter optimization are then used for the full model training.
+
+This full model training iterates through your data multiple times to
+learn its behaviors and patterns. When training a model, the data is
+split into a training set, a validation set, and a testing set.
+
+The training set updates the model parameters and is effectively what
+the machine learning model uses to learn.
+
+The validation set is used to make sure the model is
+not _overfitting_ the training data. When a model overfits the training
+data, it effectively memorizes the data instead of learning general
+patterns that are useful when handling new data. By occasionally
+assessing the performance of the machine learning model on a validation
+set during training, you can ensure that the model training is
+progressing as expected.
+
+When training is completed the test set is used to calculate the
+accuracy of the model on data it has not seen before; this is indicative
+of how well the model is expected to perform during live
+detection/prediction.
+
+During training, the machine learning algorithm is tasked with
+minimizing the output value of a function known as
+the _cost_ (or _loss_) function, which differs depending on the intended
+use of the machine learning model. The output value of the cost function
+is referred to as the _training loss_ when the function is assessed on
+the training set, and the _validation loss_ when assessed on the
+validation set. The closer the loss function is to zero, the more
+accurate the model.
+
+image:image/15da06c626df98.png[image]
+
+=== Hyperparameter histogram
+
+During hyperparameter optimization, different model architectures and
+training parameters are tested to find the best configuration for the
+data being modelled. Each test run is referred to as a hyperparameter
+trial. Each trial consists of a short training and an evaluation of the
+loss function, which is presented on the histogram. Up to ten
+hyperparameter trials may be run for a model.
+
+The hyperparameter histogram shows the evolution of the hyperparameter
+score over each of the trials. The configuration of the model
+architecture and training parameters which result in the lowest scoring
+trial are used as the configuration for the full model training.
+
+=== Training loss curves
+
+During full model training, live data of the training progress is
+plotted. This shows the progression of both the training and validation
+losses. Ideally, both the training loss and the validation loss will
+decrease at a similar rate and the lower these values are the better the
+model has learned to analyze and predict your data.
+
+The parameters of the trained machine learning model (which are used for
+detections/predictions) are taken from the point when the validation
+loss is at its lowest. This indicates when the model has reached its
+best performance in terms of discovering useful trends and will have the
+best _generalization_ to new data.
+
+The graph can also be used to assess if the model is overfitting, this
+can be observed when the training loss continues to reduce and the
+validation loss stops decreasing or even begins to increase. In such an
+event the training automatically stops to prevent unnecessary training
+time. Similarly, if the validation loss plateaus for a substantial
+number of points the training also automatically stops as the model is
+unlikely to learn further useful trends.
+
+=== Data Storage
+
+When a model is created, its configuration and generated neural network
+are stored on the filesystem by the Siren ML engine. The progress of
+hyperparameter optimization and training is stored in
+the `+sirenml-monitor+` index in Elasticsearch. The machine learning
+data output from models is stored in dedicated indices of the
+form `+ml-model-<modelName>-<date>+`. For example, for a model
+named MyPredictor, one of the output indices
+is `+ml-model-mypredictor-2019-07-17+`. Thus, to manually access data
+for this model, use the index pattern `+ml-model-mypredictor-*+`.
+
+
+== Data sampling guidelines
+
+Data used for model training should be representative of the data as a
+whole, containing the scope of the values and all the patterns that are
+typical in the dataset. This maximizes the accuracy for detection and
+prediction models. You should carefully consider the sampling resolution
+and the range of the data when training a model to balance this against
+the efficiency of training.
+
+=== Bucket size
+
+The bucket size is the resolution that your data is sampled at both
+during training and for detections/predictions. The bucket size should
+be at least as large as the typical rate that your data is logged at.
+This means that if data is being logged at hourly intervals, the minimum
+bucket size value should be one hour. If you choose a lower value, your
+machine learning model will be trained on missing data; therefore, it
+will waste a lot of computational power learning trends that are not
+useful or that do not really exist.
+
+In many cases, choosing a larger bucket size can maintain the
+characteristics of the data while reducing the amount for training,
+speeding up model creation. Use the preview graph in the model creation
+screen as an indicator of a good bucket size and time range.
+
+As a practical example, let's say you want to train a model on a year's
+data which was logged at one-second intervals. A bucket size of 1 second
+yields 31.5 million points, whereas a bucket size of 5 minutes reduces
+this to 100k points. The preview graph in the model creation screen can
+again give an indication of a good bucket size and time range.
+
+=== Seasonality
+
+When training a model, you should ensure that the training range
+captures the seasonal changes within your data (seasonal variations
+occur at specific regular intervals of less than a year). For example,
+if your data has different patterns on weekdays and weekends, the
+training range should be over multiple weeks. If your data changes
+between summer and winter, use multiple years of data to accurately
+capture this trend.
+
+=== False positive anomalies
+
+An anomaly detection model may mark as anomalies some data points that
+you may consider normal. To rectify this, retrain the model, making sure
+to include the data that it incorrectly tagged as anomalous.
+
+== Use cases
+
+=== Coastal temperature
+
+An oceanographer with a dataset measuring coastal sea temperature at a
+depth of 15m every day wishes to predict changes in the temperature
+signal. A model trained on the last two decades (7,300 points) would
+more accurately cover the ongoing sea temperature changes to allow more
+accurate prediction.
+
+=== Web server response time
+
+Anomaly detection models work very well for server logs. An example of
+this is response logs for a web server:
+
+....
+{
+  "time": "17/May/2018:08:05:32 +0000",
+  "request": "GET /downloads/product_1 HTTP/1.1",
+  "response": 304,
+  "response_time": 13,
+  "remote_ip": "93.180.71.3",
+  "agent": "Debian APT-HTTP/1.3 (0.8.16~exp12ubuntu10.21)",
+  "bytes": 0,
+}
+....
+
+A useful metric here is the response time of the server, expressed in
+milliseconds. This value may rise and fall based on the number of
+requests the web server is handling at any one moment, which in turn
+will vary based on the time of day and even during weekends. With the
+Machine Learning application, we can create a model that understands the
+seasonality of the response time and indicates when it is behaving
+unexpectedly; in this case, when the server is handling requests
+unusually slowly.
+
+For this scenario, you would create an anomaly detection model for the
+saved search that has the logs, looking at
+the `+max+` of `+response_time+`. Depending on how many requests the web
+server gets, bucket size might be somewhere between 5 seconds (250k
+documents) and 1 minute (20k documents). Several weeks of data should be
+selected, which is enough to see variations over the weekends.
+
+
+== Configuring Siren ML
+
+When you first run Siren ML the default configuration file is placed
+in `+/etc/sirenml/sirenml.yml+`.
+
+The following table outlines and describes the attributes which are
+configurable within the Siren ML config. Properties in *bold* are
+required.
+
+[cols=",,,",options="header",]
+|===
+|Property |Description |Type |Default
+|`+elasticsearch.uri+` |URI for the Elasticsearch instance to read data
+from and write machine learning data to |URI |`+http://localhost:9200+`
+
+|`+console.logging.level+` |Sets the logging level to the console. Set
+to `+info+` for minimum logging and `+debug+` to see information on all
+requests received by Siren ML |`+info+` or `+debug+` |`+info+`
+
+|`+security.auth.username+` |Username used to communicate with
+Elasticsearch (only include if Elasticsearch is run with security
+enabled) |string |`+code+`
+
+|`+security.auth.password+` |Password used to communicate with
+Elasticsearch (only include if Elasticsearch is run with security
+enabled) |string |`+password+`
+
+|`+security.auth.backend+` |Name of the security plugin used to secure
+Elasticsearch (only include if Elasticsearch is run with security
+enabled) |`+searchguard+` or `+xpack+` |`+searchguard+`
+
+|`+api.tls.enabled+` |Boolean flag indicating if Siren ML should be run
+over `+https+` |boolean |`+false+`
+
+|`+api.tls.certificate+` |Path to the SSL certificate used by the Siren
+ML server |path |`+pki/api/api-cert.pem+`
+
+|`+api.tls.key+` |Path to the SSL key used by the Siren ML server |path
+|`+pki/api/api-key.pem+`
+
+|`+datasource.tls.enabled+` |Boolean flag indicating if Elasticsearch is
+being run over `+https+` |boolean |`+false+`
+
+|`+datasource.tls.certificate+` |Path to the SSL certificate used in the
+requests to a secure Elasticsearch instance (only used
+if `+datasource.tls.enabled: true+`) |path
+|`+pki/datasource/sirenml.pem+`
+
+|`+datasource.tls.key+` |Path to the SSL key used in the requests to a
+secure Elasticsearch instance (only used
+if `+datasource.tls.enabled: true+`) |path
+|`+pki/datasource/sirenml.key+`
+
+|`+datasource.tls.verify+` |Boolean flag indicating if the certificates
+should be verified (only used if `+datasource.tls.enabled: true+`)
+|boolean |`+false+`
+
+|`+number_workers.training+` |Maximum number of models that can be
+trained in parallel (additional model trainings jobs are queued until
+one of the running model trainings is complete) |int |`+1+`
+
+|`+number_workers.activation+` |Maximum number of model activations that
+can run in parallel (additional model activation jobs are queued until
+one of the running model activations is complete) |int |`+5+`
+
+|`+number_workers.historical+` |Maximum number of historical detections
+that can run in parallel (additional historical detection jobs are
+queued until one of the running historical detections is complete) |int
+|`+1+`
+|===
