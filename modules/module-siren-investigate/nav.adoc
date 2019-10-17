@@ -78,3 +78,8 @@
 ** xref:timelion.adoc[Timelion]
 *** xref:timelion.adoc#_getting_started_with_timelion[Getting started with Timelion]
 *** xref:timelion.adoc#_timelion_online_help_and_documentation[Timelion online help and documentation]
+** xref:plugins.adoc[Plugins]
+*** xref:plugins.adoc#_installing_plugins[Installing plugins]
+*** xref:plugins.adoc#_updating_and_removing_plugins[Updating and removing plugins]
+*** xref:plugins.adoc#_switching_off_plugins[Switching off plugins]
+*** xref:plugins.adoc#_configuring_the_plugin_manager[Configuring the plugin manager]
