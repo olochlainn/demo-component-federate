@@ -8,3 +8,4 @@ nav:
 - modules/module-siren-investigate/nav.adoc
 - modules/module-siren-alert/nav.adoc
 - modules/module-siren-federate/nav.adoc
+- modules/module-known-issues-and-limitations/nav.adoc
