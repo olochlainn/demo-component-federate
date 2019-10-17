@@ -370,8 +370,8 @@ a single index each.
 
 == Security setup
 
-*See the the access control permissions (ACL) required by this data
-reflection plugin for Elasticsearch 6.5.4 :-*
+See the the access control permissions (ACL) required by this data
+reflection plugin for Elasticsearch 6.5.4:
 
 ....
       
@@ -416,10 +416,8 @@ Pipelines may be used to enrich documents before they are indexed to
 Elasticsearch. The Siren platform provides a JSON web service processor
 pipeline described in the next section.
 https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest-processors.html[Elasticsearch
-ingest processors] can be also be used and there are sample pipelines
-described in the section below
-link:#UUID-81778eb9-1733-7957-e2c8-c2ddbadbca6f_N1554222598590[Sample
-pipelines].
+ingest processors] can be also be used and <<Sample pipelines>> are
+described below.
 
 *JSON Web Service Processor*:
 
@@ -513,7 +511,7 @@ authentication.
 |===
 
 
-=== Sample Pipelines
+=== Sample pipelines
 
 *Split Fields:*
 
