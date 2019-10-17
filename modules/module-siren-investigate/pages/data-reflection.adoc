@@ -30,7 +30,7 @@ There are 5 steps in defining a new datasource reflection job:
 
 ==== Step 1 - Data input
 
-image:image/15d88ced0ce9f7.png[image]
+image:15d88ced0ce9f7.png[image]
 
 In Step 1, give a name and a description (optional) to the job, then
 select a datasource and write the query.
