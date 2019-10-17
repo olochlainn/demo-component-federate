@@ -1,2 +1,7 @@
 * xref:siren-ml.adoc[Siren ML]
-// ** xref:known-issues-and-limitations.adoc#_nested_objects[Nested objects]
+** xref:siren-ml.adoc#_installing_siren_ml_docker[Installing Siren ML Docker]
+** xref:siren-ml.adoc#_installing_the_siren_ml_plugin[Installing the Siren ML plugin]
+** xref:siren-ml.adoc#_security[Security]
+** xref:siren-ml.adoc#_models[Models]
+** xref:siren-ml.adoc#_use_caseslines[Use cases]
+** xref:siren-ml.adoc#_configuring_siren_ml[Configuring Siren ML]
