@@ -171,7 +171,7 @@ run `+bin/investigate-plugin install /path/to/machine-learning.zip+`.
 . Run Siren Investigate. The Machine Learning application should now be
 available on the navigation bar.
 
-image:15da06c626792c.png[image]
+image:15d8b8ddf363f9.png[image]
 
 
 == Security
