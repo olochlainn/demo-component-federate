@@ -307,7 +307,7 @@ the training set, and the _validation loss_ when assessed on the
 validation set. The closer the loss function is to zero, the more
 accurate the model.
 
-image:15da06c626df98.png[image]
+image:15d8b8ddf39ec0.png[image]
 
 === Hyperparameter histogram
 
