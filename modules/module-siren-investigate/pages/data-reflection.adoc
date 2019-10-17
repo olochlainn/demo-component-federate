@@ -1,0 +1,827 @@
+= Data reflection
+
+Data reflection is a beta feature enabling the import and mapping of
+data to Elasticsearch from JDBC datasources and Excel/CSV.
+
+image:15d88ced0c10f9.png[image]
+
+
+== Datasource reflection jobs
+
+Each datasource reflection job is defined by a configuration.
+Configurations can be managed on the datasource reflection jobs page:
+
+image:15d88ced0c7f40.png[image]
+
+Each job can be scheduled to run periodically using a cron syntax or run
+manually through the jobs page. Many actions can be performed on the
+jobs page, for example:
+
+* Add a new job.
+* Edit an existing one.
+* Manually run a job.
+* Delete a job configuration.
+* Clone a job configuration.
+* Enable/Disable a scheduled job.
+
+=== Defining a new datasource reflection job configuration
+
+There are 5 steps in defining a new datasource reflection job:
+
+==== Step 1 - Data input
+
+image:image/15d88ced0ce9f7.png[image]
+
+In Step 1, give a name and a description (optional) to the job, then
+select a datasource and write the query.
+
+If selecting a virtual index as a datasource, then start with the
+default query for that virtual index.
+
+===== Writing a query
+
+The query defined in the reflection configuration is written in the
+datasource language.
+
+The query can be written using mustache and the following variables are
+provided, if applicable, when converting the query to a string:
+
+*max_primary_key:* the maximum value of the primary key in
+Elasticsearch, available if the primary key is numeric.
+
+*last_record_timestamp:* the UTC timestamp at which the last record was
+successfully processed by an reflection job.
+
+*last_record:* an array with the scalar values in the last record that
+was successfully processed by the reflection job.
+
+*Example:*
+
+....
+SELECT * FROM "Player" {{#max_primary_key}}
+WHERE "NAME">'{{max_primary_key}}'{{/max_primary_key}}
+....
+
+==== Step 2 - Transform pipeline (optional)
+
+image:15d88ced0d820e.png[image]
+
+This is an optional step where a pipeline may be defined to enrich the
+reflected documents.
+
+==== Step 3 - Mapping
+
+image:15d88ced0df632.png[image]
+
+The mapping for the fields received from the datasource is
+auto-detected, however the mapping can be changed to other valid field
+types and new fields may be added to accommodate fields added by a
+transformation pipeline that are not auto-detected.
+
+==== Step 4 - Target Index
+
+image:15d88ced0e710a.png[image]
+
+In step 4, the name of the Elasticsearch index to be used for reflection
+is specified and configured to particular preferences e.g primary key,
+indexing options, custom credentials.
+
+==== Step 5 - Schedule
+
+image:15d88ced0eef51.png[image]
+
+The final step allow the job to be scheduled. The scheduler accepts cron
+syntax to schedule jobs.
+
+
+== Importing data from Excel and CSV files
+
+CAUTION: Be aware that files greater than 20 MB may crash your browser depending
+on your PC specification.
+
+
+
+=== Choose a file (Step 1)
+
+image:15d88ced10199b.png[image]
+
+Drag and drop file into import panel or select a file to import from the
+file browser. When file is uploaded, select the sheet to import. If
+there are is a previously defined configuration for the data you wish to
+import, this will be used in help in step 2.
+
+=== Configure indexing (Step 2)
+
+image:15d88ced1094b0.png[image]
+
+To configure the import of a file, follow these steps:
+
+==== Transform pipeline:
+
+A transformation pipeline can be defined to enrich the documents before
+import.
+
+WARNING: A transformation that relies on external web services to enrich the
+documents that is slow to respond could result in a stall of the import
+process.
+
+It is a known issue. If you face such an issue, then go to Management →
+Advanced Settings and reduce ingest-xlsx:bulk_package_size
+
+
+==== Index settings:
+
+Define the index name, specify a primary key or create a composite key
+based on multiple fields and remove unwanted columns.
+
+==== Mapping:
+
+Data reflection tries to guess the mapping of the columns in the CSV
+however its recommended to cross-check and define the desired mapping.
+
+After configuring the import, click import button at the bottom to start
+the import. The import configuration can be saved at this stage and
+reused for a future import.
+
+==== Completion:
+
+image:15d88ced1113d5.png[image]
+
+After the import has completed the results will be displayed. Errors
+such as: certain documents (rows) not conforming to your mappings will
+also be shown and be remedied be going back to step 2 and adjusting
+mappings.
+
+
+== Integrating Neo4j data
+
+Neo4j is a graph database management system, which uses graph structures
+with nodes, relations, and properties to represent and store data. Siren
+can now ingest and reflect (periodically update) Neo4j data. The Neo4j
+Import Wizard (beta) makes this a straightforward process.
+
+* Nodes represent entities that are to be tracked, and correspond to a
+record in a relational database.
+* Relations are lines that connect nodes to other nodes, representing
+the relationship between them. Relations are the key concept in graph
+databases because they represent an abstraction that is not directly
+implemented in a conventional relational database.Properties describe
+information relevant to nodes.
+* Properties describe information relevant to nodes.
+
+The following diagram shows two nodes with five relations between them.
+One of the nodes also has a relation with itself (node properties are
+not shown here).
+
+image:15d88ced118592.png[image]
+
+
+=== Using the Neo4j Import Wizard (beta)
+
+The Neo4j Import Wizard (beta) makes it easy to import Neo4j data from a
+datasource and then configure and view the data model.
+
+Go to [.menuchoice]#Management > Datasources#.
+
+In the New Datasource Type dropdown, click JDBC.
+
+Specify the details for the Neo4j as the datasource, then click Save.
+
+Go to Data Reflections and click Reflection Jobs; add a new job.
+
+Select the Neo4j as the datasource; you then get an option to use the
+Neo4j Importer.
+
+image:15d88ced1212d2.png[image]
+
+Click Use Neo4j Importer. The Neo4j Import Wizard screen opens.
+
+Select the required nodes from the Select Nodes dropdown, and click
+Next.
+
+image:15d88ced128013.png[image]
+
+All data reflection jobs for nodes and relations are displayed. Note
+that relations are also listed under Node Name; this is because Neo4j
+relations contain data, and Siren Investigate runs a reflection job for
+each relation, just like a node.
+
+image:15d88ced12f193.png[image]
+
+NOTE: Ensure that an appropriate primary key is selected. The use of stable
+unique identifiers as primary keys in your Neo4j data model is
+recommended.
+
+
+Click Confirm.
+
+Wait for the data to start reflecting, which means that all jobs have
+indexed at least one document, indicating that the fields are mapping
+successfully. The Continue button becomes enabled at this point.
+
+image:15d88ced136ff0.png[image]
+
+While a job is indexing, its status is shown as _running_; when a job
+completes, the status changes to _successful_.
+
+TIP: You can see the document count and other information by hovering over
+the status.
+
+image:15d88ced13fe3a.png[image]
+
+
+You can leave the wizard at this point (by clicking ../ on top left of
+the wizard, or anywhere else in the application). This may be necessary
+if reflection jobs are failing and you have to go back to fix them.
+
+You can continue where you left off by following the notification in the
+Datasource Reflection Jobs page. Click Pending Jobs.
+
+image:15d88ced146aea.png[image]
+
+Click Continue Neo4j Job.
+
+image:15d88ced14d7fd.png[image]
+
+NOTE: Pending jobs are stored in server cache, which will be wiped out if the
+Investigate server is restarted or shut down. Its behaviour is
+unpredictable when multiple Investigate instances are running behind a
+Load Balancer.
+
+
+On the Configure Saved Searches screen, you can modify the search name,
+and specify a color for the nodes and relations:
+
+image:15d88ced154e73.png[image]
+
+Click Next.
+
+On the Configure Relations screen, you can modify the Relation Label and
+the Inverse Relation Label for each relation:
+
+image:15d88ced15dd54.png[image]
+
+Click Create Ontology.
+
+You can now go to the Data Model page to view the Neo4j data model:
+
+image:15d88ced1656b6.png[image]
+
+*Node behavior*
+
+You should note the following aspects of node behavior:
+
+* If a node has labels _Location_ and _Residence_, then it will be
+reflected onto both indices.
+* A field _node_labels_ is added to every document to denote all its
+labels.
+* Extra fields are added to all nodes, including _node_id_ (containing
+the value of the primary key). Relation nodes have a few additional
+fields: _start_node_id_, _end_node_id_, _relation_type_.
+* In the case of relation-based reflection jobs, relation documents are
+only included for added nodes.
+
+*Other considerations*
+
+* The same field mappings should not conflict for a single node.
+* All id()s are unique. Note that the use of stable unique identifiers
+in your Neo4j data model as primary keys is recommended.
++
+Neo4j does provide a unique id for each node and relationship, but they
+are not persistent. The id can be accessed by returning id(node) or
+id(relationship). While this id is unique, it can change if the database
+store is compacted.
+
+
+=== Adding a Shortest Path script for Neo4j
+
+The following steps add a 'Shortest Path' query script to the Graph
+Browser to find the shortest path between two or more (Neo4j reflected)
+data nodes.
+
+Use the Neo4j Import Wizard (beta) to import your Neo4j data.
+
+Locate the Shortest Path script in the demo data supplied with Siren
+10.3.1; alternatively, you can find the script at
+https://drive.google.com/file/d/1Wg0S1GN1JrXjAXwgtAjCYBUT1wQ7lwEP/view?usp=sharing[this
+location].
+
+Navigate to [.menuchoice]#Management > Scripts# ① and create a new
+script.
+
+Enter a title and description for the script ②.
+
+Select contextual from the Type drop-down list ③.
+
+Paste the script into the Source section ④.
+
+Click Save ⑤.
+
+image:15d88ced16e379.png[image]
+
+Go to the Graph Browser and click the Edit button on the top panel.
+
+On the Options tab on the left, click the Add Contextual Script button ①
+under the Contextual Function.
+
+Select the newly created script from the drop-down list ② to add it to
+the Graph Browser.
+
+Click Save ③.
+
+image:15d88ced176064.png[image]
+
+*Running the Shortest Path script*
+
+You can now use this script to compute shortest paths between your
+selected (Neo4j reflected) data nodes.
+
+Add the Neo4j reflected nodes to the Graph Browser.
+
+Select the required nodes ①.
+
+Right-click and select Neo4j Shortest Path (the name of the script) ②.
+
+image:15d88ced17e01a.png[image]
+
+In the dialog that opens, enter the maximum path length and click OK
+(both of the fields will be already populated).
+
+image:15d88ced185e75.png[image]
+
+The shortest path between the nodes is displayed.
+
+image:15d88ced18d809.png[image]
+
+
+=== Neo4j Shortest Path limitations
+
+The following limitations apply to running a Neo4j Shortest Path script:
+
+* The Neo4j Import Wizard must have been used for importing the data.
+* All selected nodes should belong to the same datasource (Neo4j
+cluster).
+* Neo4j field names have not been changed.
+* Neo4j reflection target index schema `+${datasourceId}-${nodeType}+`
+has not been changed.
+* All documents for a single node type/relation type must be indexed to
+a single index each.
+
+
+== Security setup
+
+*See the the access control permissions (ACL) required by this data
+reflection plugin for Elasticsearch 6.5.4 :-*
+
+....
+      
+ingestion_role:
+cluster:
+  - 'cluster:admin/federate/connector/ingestion/search' // To fetch the list of ingestion configs
+  - 'cluster:admin/federate/connector/ingestion/run' // To manually trigger an ingestion
+  - 'cluster:admin/federate/connector/jobs/abort' // To abort a job
+  - 'cluster:admin/federate/connector/ingestion/get' // To fetch an ingestion config.
+  - 'cluster:admin/federate/connector/ingestion/put' // To create an ingestion config
+  - 'cluster:admin/federate/connector/ingestion/delete' // To delete an ingestion config
+  - 'cluster:admin/federate/connector/datasource/sample' // To sample a SQL query
+  - 'cluster:admin/ingest/pipeline/simulate' // To test transform pipeline
+  - 'cluster:admin/ingest/pipeline/put' // To put transform pipeline (Excel)
+  - 'cluster:admin/ingest/pipeline/delete' // To delete a transform pipeline (Excel) (We need to clear temporary pipelines after import)
+indices:
+  'csv-*': //This can be limited to specific indices and such permissions would be regarded by Excel Import
+    '*':
+      - 'indices:admin/get' // To check if an index already exists, if received 403 then user cannot use excel import on that index
+      - 'indices:admin/create' // Create an index (You may prevent it in case you want users to only append data to an existing index)
+      - 'indices:admin/delete' // Delete an index (You may prevent it, in case you don't want users deleting stuff)
+      - 'indices:admin/mapping/put' // Define mapping (You may prevent it in case you want users to only append to an existing index and modify mappings)
+      - 'indices:data/write/index' // (To write docs)
+      - 'indices:data/write/bulk[s]' // (To write docs)
+      - READ                         # To see field capabilities on data model page
+      - VIEW_INDEX_METADATA          # Needed to create index patterns
+  '?siren-excel-configs':
+      '*':
+        - 'indices:data/read/search'   # List saved configs
+        - 'indices:data/write/index'   # Create a saved config
+        - 'indices:data/write/bulk[s]' # Create a saved config
+        - 'indices:data/read/get'      # Use a saved config
+        - 'indices:data/write/delete'  # Delete a saved config
+
+      
+....
+
+
+== Datasource reflection pipelines
+
+Pipelines may be used to enrich documents before they are indexed to
+Elasticsearch. The Siren platform provides a JSON web service processor
+pipeline described in the next section.
+https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest-processors.html[Elasticsearch
+ingest processors] can be also be used and there are sample pipelines
+described in the section below
+link:#UUID-81778eb9-1733-7957-e2c8-c2ddbadbca6f_N1554222598590[Sample
+pipelines].
+
+*JSON Web Service Processor*:
+
+It may be used to call an external JSON web service and copy the
+returned JSON structure to the record. For example:
+
+....
+{
+  "description": "enriching documents from a web service",
+  "processors": [
+    {
+      "json-ws": {
+        "resource_name": "siren-nlp",
+        "method": "post",
+        "url": "http://35.189.96.185/bio",
+        "input_map": {
+          "$.Abstract": "text"
+        },
+        "output_map": {
+          "Abstract_text_mined_entities": "$"
+        },
+        "input_default": {
+          "text": "''"
+        }
+      }
+    }
+  ]
+}
+....
+
+In this example for enriching documents from a web service, the
+configuration takes the value of the 'Abstract' field (path syntax) and
+posts a request `+{"text": abstract_value}+` to
+link:#[http://35.189.96.185/bio]. If the Abstract field is null, an
+empty string will be sent instead (input_default). The JSON response
+object is used as the value of a new field Abstract_text_mined_entities
+at the top level ($) of the document
+
+This pipeline is defined with a 'json-ws' field inside processors, the
+following configurations are also available:
+
+.json-ws
+[cols=",,,",options="header",]
+|===
+|Name |Required |Default |Description
+|method |no |get |The HTTP method: get, post, put
+
+|url |yes |- |The URL endpoint of the web service.
+
+|requests_per_second |no |0 |The expected maximum number of requests per
+second.
+
+|resource_name |yes |- |Apply a name to the web service resource. Every
+processor instance with the same resource name are consolidated and
+submitted to the requests_per_second limit.
+
+|input_map |yes |- |A map with a JSON Path expression as the key and a
+field name as the value. It builds the JSON structure that will be
+submitted to the external web service.
+
+|input_default |no |- |A map with a field as the key and a default
+value. For a given field, this map provides a default value if the JSON
+Path expression of the input_map does not return any value.
+
+|output_map |yes |- |A map with a field name as the key and a JSON Path
+expression as the value. The JSON Path expressions are applied to the
+JSON structure returned by the external web service. The indexed
+document is filled with results of the JSON Path expressions associated
+to the given field name. Already existing content for the field name is
+replaced.
+
+|output_default |no |- |A map with a field as the key and a default
+value. For a given field, this map provides a default value if the JSON
+Path expression of the output_map does not return any value.
+
+|error_output_field |no |- |If this field is not blank and an error
+occurs while calling the external external the field is filled with a
+the error message and the ingestion process is not stopped. If the field
+is empty, an exception is thrown.
+
+|time_out |no |300 |This timeout determines how many seconds should the
+request wait for a response before failing the request.
+
+|username |no |- |If a username is provided the HTTP(S) connection to
+the external web service will use it as the username for an HTTP basic
+authentication.
+
+|password |no |- |If a password is provided the HTTP(S) connection to
+the external web service will use it as the password for an HTTP basic
+authentication.
+|===
+
+
+=== Sample Pipelines
+
+*Split Fields:*
+
+To split a string, separated by delimiter "|" into a list of
+sub-strings, and if no initial string exists, fill the target field with
+an empty string
+
+....
+{
+  "description": "_description",
+  "processors": [
+    {
+      "split": {
+        "on_failure": [
+          {
+            "set": {
+              "field": "parents",
+              "value": ""
+            }
+          }
+        ],
+        "field": "parents",
+        "separator": "\\|"
+      }
+    }
+  ]
+}
+....
+
+*Split Fields to a long:*
+
+To accomplish a similar goal, but this time convert each sub-string to a
+long, and if no value exists in the initial field, on failure set the
+target field to -1.
+
+....
+{
+  "description": "_description",
+  "processors": [
+    {
+      "split": {
+        "on_failure": [
+          {
+            "set": {
+              "field": "parents",
+              "value": -1
+            }
+          }
+        ],
+        "field": "parents",
+        "separator": "\\|"
+      },
+      "convert": {
+        "field": "parents",
+        "type": "long"
+      }
+    }
+  ]
+}
+....
+
+*To extract text and create a new field (Using regex):*
+
+To extract the text between the first set of parentheses in the Title
+field and create a new field Patent_ID for it.
+
+....
+{
+  "description": "extract the text between the first set of parentheses",
+  "processors": [
+    {
+      "script": {
+        "source": "def f = ctx['Title']; if(f != null){ def m= /\\((.*?)\\)/.matcher(f); m.find(); ctx.Patent_ID=m.group(1);)}"
+      }
+    }
+  ]
+}
+....
+
+NOTE: You need to enable regex in the elasticsearch.yml file:
+`+script.painless.regex.enabled: true+`
+
+
+*Merge two field to create a geo_point:*
+
+Merge two fields providing 'latitude' and 'longitude' to create a single
+Elasticsearch geo_point field:
+
+....
+{
+ "description": "Create geo point field",
+ "processors": [
+   {
+     "set": {
+       "field": "geo_location",
+       "value": {
+           "lat": "{{latitude_field}}",
+           "lon": "{{longitude_field}}"
+       }
+     }
+   }
+ ]
+}
+....
+
+
+== Date formats
+
+In spreadsheets, it is common to see a wide variety of date formats
+used. Sometimes they are based on one of the the default ISO formats.
+Elasticsearch uses a set of these built-in formats to understand date
+and time values; for more details, see the
+https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html[Elasticsearch
+reference documentation].
+
+However, some spreadsheets use date formats that are not based on a
+default. To overcome this issue, you can specify the format to be used
+during import by using the Custom Mapping option. When a Date type is
+used, selecting the Advanced Mapping option opens a text field where you
+can specify a custom mapping in a JSON format.
+
+image:image/15d88ced1950ee.PNG[image]
+
+Looking at the *founded_date* samples above, the custom mapping required
+is as follows:
+
+....
+{
+  "format": "dd/MM/yyyy HH:mm"
+}
+....
+
+NOTICE: Ensure you use the correct case (upper or lower) for each symbol, as the
+meaning can vary with the case.
+
+
+The information in the following table should help you construct most
+date- and time-based custom mappings. For more detailed information, see
+https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html[DateTimeFormatter]
+in the Java documentation.
+
+All letters 'A' to 'Z' and 'a' to 'z' are reserved as pattern letters.
+The following pattern letters are defined:
+
+[cols=",,,",options="header",]
+|===
+|Symbol |Meaning |Presentation |Examples
+|G |era |text |AD; Anno Domini; A
+
+|u |year |year |2004; 04
+
+|y |year-of-era |year |2004; 04
+
+|D |day-of-year |day |189
+
+|M/L |month-of-year |number/text |7; 07; Jul; July; J
+
+|d |day-of-month |number |10
+
+|Q/q |quarter-of-year |number/text |3; 03; Q3; 3rd quarter
+
+|Y |week-based-year |year |1996; 96
+
+|w |week-of-week-based-year |number |27
+
+|W |week-of-month |number |4
+
+|E |day-of-week |test |Tue; Tuesday; T
+
+|e/c |localized day-of-week |number/text |2; 02; Tue; Tuesday; T
+
+|F |week-of-month |number |3
+
+|a |am-pm-of-day |text |PM
+
+|h |clock-hour-of-am-pm (1-12) |number |12
+
+|k |hour-of-am-pm (0-11) |number |0
+
+|K |clock-hour-of-am-pm (1-24) |number |0
+
+|H |hour-of-day (0-23) |number |0
+
+|m |minute-of-hour |number |30
+
+|s |second-of-minute |number |55
+
+|S |fraction-of-second |fraction |978
+
+|A |milli-of-day |number |1234
+
+|n |nano-of-second |number |987654321
+
+|N |nano-of-day |number |1234000000
+
+|V |time-zone ID |zone-id |America/Los_Angeles; Z; -08:30
+
+|z |time-zone name |zone-name |Pacific Standard Time; PST
+
+|O |localized zone-offset |offset-O |GMT+8; GMT+08:00; UTC-08:00;
+
+|X |zone-offset 'Z' for zero |offset-X |Z; -08; -0830; -08:30; -083015;
+-08:30:15;
+
+|x |zone-offset |offset-x |+0000; -08; -0830; -08:30; -083015;
+-08:30:15;
+
+|Z |zone-offset |offset-Z |+0000; -0800; -08:00;
+
+|p |pad next |pad modifier |1
+
+|' |escape for text |delimiter |
+
+|'' |single quote |literal |'
+
+|[ |optional section start | |
+
+|] |optional section end | |
+
+|# |Reserved for future use | |
+
+|\{ |Reserved for future use | |
+
+|} |Reserved for future use | |
+|===
+
+
+== Scheduler Cron Syntax
+
+=== Introduction
+
+Cron-Expressions are used to configure schedules. Cron-Expressions are
+strings that are actually made up of seven sub-expressions, that
+describe individual details of the schedule. These sub-expression are
+separated with white-space, and represent:
+
+....
+Seconds
+Minutes
+Hours
+Day-of-Month
+Month
+Day-of-Week
+....
+
+Individual sub-expressions can contain ranges and/or lists.
+
+Wild-cards (the ‘‘ character) can be used to say “every” possible value
+of this field. Therefore the ‘‘ character in the “Month” field of the
+previous example simply means “every month”. A ‘*’ in the Day-Of-Week
+field would therefore obviously mean “every day of the week”.
+
+All of the fields have a set of valid values that can be specified.
+These values should be fairly obvious – such as the numbers 0 to 59 for
+seconds and minutes, and the values 0 to 23 for hours. Day-of-Month can
+be any value 1-31, but you need to be careful about how many days are in
+a given month! Months can be specified as values between 0 and 11.
+Days-of-Week can be specified as values between 1 and 7 (1 = Sunday).
+
+The ‘/’ character can be used to specify increments to values. For
+example, if you put ‘0/15’ in the Minutes field, it means ‘every 15th
+minute of the hour, starting at minute zero’. If you used ‘3/20’ in the
+Minutes field, it would mean ‘every 20th minute of the hour, starting at
+minute three’ – or in other words it is the same as specifying ‘3,23,43’
+in the Minutes field. Note the subtlety that “/35″ does *not mean “every
+35 minutes” – it mean “every 35th minute of the hour, starting at minute
+zero” – or in other words the same as specifying ‘0,35’.
+
+The ‘?’ character is allowed for the day-of-month and day-of-week
+fields. It is used to specify “no specific value”. This is useful when
+you need to specify something in one of the two fields, but not the
+other.
+
+==== Example Cron Expressions
+
+*Example 1* – an expression to create a trigger that simply fires every
+5 minutes
+
+`+0 0/5 * * * ?+`
+
+*Example 2* – an expression to create a trigger that fires every 5
+minutes, at 10 seconds after the minute (i.e. 10:00:10 am, 10:05:10 am,
+etc.).
+
+`+10 0/5 * * * ?+`
+
+*Example 3* – At 10 seconds of every even minute
+
+`+10 */2 * ? * *+`
+
+*Example 4* – At 10 seconds of every odd minute
+
+`+10 1-59/2 * ? * *+`
+
+*Example 5* – Every 5 minutes, Weekdays from 8-5.
+
+`+0 */5 8-16 ? * 2-6+`
+
+=== Format
+
+[cols=",,,",options="header",]
+|===
+|Field |Mandatory |Allowed Values |Allowed Special Characters
+|Seconds |Yes |0-59 |, – * /
+|Minutes |Yes |0-59 |, – * /
+|Hours |Yes |0-23 |, – * /
+|Day of the Month |Yes |1-31 |, – * ? / L W
+|Month |Yes |1-12 or JAN-DEC |, – * /
+|Day of week |Yes |1-7 or SUN-SAT |, – * ? / L #
+|Year |No |empty, 1970-2099 |, – * /
+|===
