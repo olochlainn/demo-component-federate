@@ -1,4 +1,0 @@
-* xref:known-issues-and-limitations.adoc[Known issues and limitations]
-** xref:known-issues-and-limitations.adoc#_nested_objects[Nested objects]
-** xref:known-issues-and-limitations.adoc#_visualizations_over_jdbc_tables[Visualizations over JDBC tables]
-
