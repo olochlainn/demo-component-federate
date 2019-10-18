@@ -13,8 +13,8 @@ You can then configure index patterns on your virtual indices, display
 them in Discover and configure dashboards and visualizations for the
 supported aggregations. For more information, see the supported
 aggregations section in
-link:/document/preview/89606#UUID-1e19626f-12d3-9458-8d5e-2ddfd81ece63[Connector
-APIs].Connector APIs
+xref:module-siren-federate:connector-apis.adoc[Connector
+APIs].
 
 === Siren Federate plugin configuration
 
