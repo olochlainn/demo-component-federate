@@ -78,6 +78,8 @@
 ** xref:timelion.adoc[Timelion]
 *** xref:timelion.adoc#_getting_started_with_timelion[Getting started with Timelion]
 *** xref:timelion.adoc#_timelion_online_help_and_documentation[Timelion online help and documentation]
+** xref:working-with-jdbc-datasources.adoc#_siren_investigate_datasource_configuration[Siren Investigate datasource configuration]
+*** xref:timelion.adoc#_getting_started_with_timelion[Getting started with Timelion]
 ** xref:data-reflection.adoc[Data reflection]
 *** xref:data-reflection.adoc#_datasource_reflection_jobs[Datasource reflection jobs]
 *** xref:data-reflection.adoc#_importing_data_from_excel_and_csv_files[Importing data from Excel and CSV files]
