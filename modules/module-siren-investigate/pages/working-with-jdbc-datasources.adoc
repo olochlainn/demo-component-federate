@@ -27,7 +27,7 @@ Federate].
 Neo4j is a _graph database_, and does not serve data in the way that a
 conventional relational database does. However, Siren Investigate
 interacts with Neo4j datasources through the JDBC connector. For more
-details, see link:#UUID-dbdf8908-77ca-9ca5-fe9b-ca6327702481[Integrating
+details, see xref:data-reflection.adoc#_integrating_Neo4j data[Integrating
 Neo4j data].
 
 
@@ -53,8 +53,8 @@ different that UTC, specifying this parameter will instruct the plugin
 to convert dates and times to/from the specified timezone when
 performing queries and retrieving results.
 * `+Connection string+`: The JDBC connection string; see
-thelink:/document/preview/90691#UUID-9c69d00d-3172-af31-afde-1dd0f3141c83[JDBC
-driver installation and compatibility] section for information about
+xref:module-siren-federate:connecting-to-jdbc-datasources.adoc#_jdbc_driver_installation_and_compatibility[JDBC
+driver installation and compatibility] for information about
 database-specific connection string parameters.JDBC driver installation
 and compatibility
 
