@@ -16,13 +16,13 @@ aggregations section in
 xref:module-siren-federate:connector-apis.adoc[Connector
 APIs].
 
-=== Siren Federate plugin configuration
+== Siren Federate plugin configuration
 
 For more information on using external JDBC datasources, see
 xref:module-siren-federate:introduction.adoc[Siren
 Federate].
 
-=== Neo4j datasources
+== Neo4j datasources
 
 Neo4j is a _graph database_, and does not serve data in the way that a
 conventional relational database does. However, Siren Investigate
