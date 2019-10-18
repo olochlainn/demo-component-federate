@@ -27,7 +27,7 @@ Federate].
 Neo4j is a _graph database_, and does not serve data in the way that a
 conventional relational database does. However, Siren Investigate
 interacts with Neo4j datasources through the JDBC connector. For more
-details, see xref:data-reflection.adoc#_integrating_neo4j data[Integrating
+details, see xref:data-reflection.adoc#_integrating_neo4j_data[Integrating
 Neo4j data].
 
 
