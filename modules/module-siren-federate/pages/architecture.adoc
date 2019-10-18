@@ -19,7 +19,7 @@ operation, a worker process is spawned on a per node or per shard basis.
 * An in-memory distributed file system that is used by the worker nodes to exchange data, with a compact columnar data
 representation optimized for analytical data processing, zero copy and zero data serialisation.
 
-= Distributed Join Workflow
+== Distributed Join Workflow
 
 When sending a (multi) search request with one or more nested joins, the node receiving the request
 will become the "`Coordinator`". The coordinator node is in charge of controlling and executing a "`Job`" across the
@@ -84,3 +84,20 @@ However, before the execution of the physical plans, the planner will combine al
 one, by mapping identical operations to one single task. We can see that as a step to fold multiple trees of tasks into
 a single directed graph model, where overlapping operations across trees will become one single vertex in the graph.
 This is useful to reuse computation across multiple requests.
+
+== IO
+
+The shuffling and transfer of data produced by a task is handled by a `Collector`. A collector will collect data,
+serialize it into a compact columnar data representation, and transfer it in the form of binary packets.
+Different collector strategies are implemented that are adapted to different tasks. For example, in case of a
+`Hash Join`, a `Search/Project` task will use a collector with a hash partitioning strategy to create small data
+partitions and shuffle these partitions uniformly across the cluster.
+
+On the receiver side, when a packet is received, it is stored as is (without deserialization) in an in-memory data
+store. Tasks, such as the `Join` task, will directly work on top of these binary data packets in order to avoid
+unnecessary data copy and deserialization.
+
+The binary data packets are created, stored and manipulated off-heap. This helps to reduce unnecessary loads on the JVM
+and Garbage Collection when dealing with a large amount of data. We are leveraging the Apache Arrow project for the
+allocation and management of off-heap byte arrays.
+
