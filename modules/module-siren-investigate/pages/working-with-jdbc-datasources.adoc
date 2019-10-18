@@ -1,0 +1,106 @@
+= Working with JDBC datasources
+
+Siren Investigate can analyze data by directly querying remote JDBC
+datasources using the Siren Federate plugin.
+
+To create dashboards on JDBC datasources you must:
+
+* Prepare the Federate plugin to connect to your datasource.
+* Configure the connection to the datasource from Siren Investigate.
+* Create virtual indices for your tables.
+
+You can then configure index patterns on your virtual indices, display
+them in Discover and configure dashboards and visualizations for the
+supported aggregations. For more information, see the supported
+aggregations section in
+link:/document/preview/89606#UUID-1e19626f-12d3-9458-8d5e-2ddfd81ece63[Connector
+APIs].Connector APIs
+
+=== Siren Federate plugin configuration
+
+For more information on using external JDBC datasources, see
+link:/document/preview/71728#UUID-c3dd12bd-07a3-f3a3-9bd5-df370568893f[Siren
+Federate].5. Siren Federate
+
+=== Neo4j datasources
+
+Neo4j is a _graph database_, and does not serve data in the way that a
+conventional relational database does. However, Siren Investigate
+interacts with Neo4j datasources through the JDBC connector. For more
+details, see link:#UUID-dbdf8908-77ca-9ca5-fe9b-ca6327702481[Integrating
+Neo4j data].
+
+
+== Siren Investigate datasource configuration
+
+Open Siren Investigate in your browser, then go to
+[.menuchoice]#Management > Datasources#.
+
+In the New datasource type box, select JDBC.
+
+The datasource configuration supports the following parameters:
+
+* `+Database name+`: The name of the default database / catalog on the
+remote datasource (usually optional).
+* `+Datasource name+`: The name of the datasource (for example
+`+mysql-sales+`)
+* `+Driver class+`: The JDBC driver class name (for example
+`+com.mysql.jdbc.Driver+`)
+* `+Username+` and `+Password+`: The credentials of the user that will
+be used by the plugin to open connections.
+* `+Timezone+`: If date and timestamp fields are stored in a timezone
+different that UTC, specifying this parameter will instruct the plugin
+to convert dates and times to/from the specified timezone when
+performing queries and retrieving results.
+* `+Connection string+`: The JDBC connection string; see
+thelink:/document/preview/90691#UUID-9c69d00d-3172-af31-afde-1dd0f3141c83[JDBC
+driver installation and compatibility] section for information about
+database-specific connection string parameters.JDBC driver installation
+and compatibility
+
+Enter the required parameters, then click Save in the top right corner.
+
+image:15d88ced26c211.png[Fill in connection parameters]
+
+Click Test Connection. If the settings are correctly configured a
+confirmation dialog is displayed:
+
+image:15d88ced27413d.png[Test connection]
+
+Click Yes, take me there to map a table from the database to a virtual
+index:
+
+image:15d88ced27c242.png[Virtual Index Configuration]
+
+The virtual index configuration supports the following parameters:
+
+* `+Datasource name+`: The name of an existing datasource.
+* `+Resource name+`: The name of a table or view on the remote
+datasource.
+* `+Virtual index name+`: The name of the virtual index; this must be a
+valid lowercase Elasticsearch index name. You should start virtual
+indices with a common prefix to simplify handling of permissions.
+* `+Primary key+`: The name of a unique column. If a virtual index has
+no primary key it will be possible to perform aggregations, however
+visualizations that require a unique identifier such as the graph
+browser will not work with the index.
+* `+Catalog+` and `+Schema+`: The catalog and schema containing the
+table specified before; these are usually required only if the
+connection does not specify a default catalog or schema.
+* `+Search fields+`: An optional list of field names that will be
+searched using the LIKE operator when processing queries written in the
+search bar.
+
+After the virtual index is configured, click Save in the top right
+corner. Click Yes take me there to create an index pattern search
+pointing to the virtual index.
+
+image:15d88ced28542d.png[Virtual Index Configuration Success]
+
+Click Create Index Pattern Search and enter the same name used for the
+Virtual Index, in this example *indexfromdb*, and click Create.
+
+image:15d88ced28d8aa.png[Index Pattern Search Configuration]
+
+From this point, the *indexfromdb* index pattern search can be used in
+Discover, Visualize and so on.
