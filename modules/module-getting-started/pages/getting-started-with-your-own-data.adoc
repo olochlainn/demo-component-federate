@@ -246,13 +246,12 @@ virtual indices.
 === Prerequisites
 
 Ensure that you have completed the installation as described in
-link:/document/preview/60106#UUID-4a5b28c1-a16d-a4d8-4627-67781f762bdd[Installing
-Siren Investigate].3.1.1. Installing Siren Investigate
+xref:module-siren-investigate:setting-up-siren-investigate.adoc#_installing_siren_investigate[Installing
+Siren Investigate].
 
 Check the list of supported databases at
-link:/document/preview/100138#UUID-ce79aace-3d07-9cdc-e516-db771e7b2735[JDBC
-driver installation and compatibility].5.8.1 JDBC driver installation
-and compatibility
+xref:module-siren-federate:connecting-to-jdbc-datasources.adoc#_jdbc_driver_installation_and_compatibility[JDBC
+driver installation and compatibility].
 
 The schema that you want to connect to must be the default schema of the
 connection user.
@@ -260,59 +259,59 @@ connection user.
 
 === Configuring the datasource
 
-To enable JDBC on a node where the Siren Federate plugin is installed,
+. To enable JDBC on a node where the Siren Federate plugin is installed,
 add the following setting to the `+elasticsearch.yml+` file:
-
++
 ....
 node.attr.connector.jdbc: true
 ....
 
-Create a directory named `+jdbc-drivers+` inside the configuration
+. Create a directory named `+jdbc-drivers+` inside the configuration
 directory of the node. For example, create the directory in
 `+elasticsearch/config+` or `+etc/elasticsearch+`.
 
-Copy the JDBC driver to the `+jdbc-drivers+` directory.
+. Copy the JDBC driver to the `+jdbc-drivers+` directory.
 
-Restart the Elasticsearch service.
+. Restart the Elasticsearch service.
 
 
 === Connect your database to the Siren platform
 
-In Siren Investigate, navigate to [.menuchoice]#Management >
+. In Siren Investigate, navigate to [.menuchoice]#Management >
 Datasources#.
 
-Select JDBC from the Type box.
+. Select *JDBC* from the Type box.
 
-Select the Database Type.
+. Select the *Database Type*.
 
-Enter a display Name for the datasource in Siren Investigate.
+. Enter a display *Name* for the datasource in Siren Investigate.
 
-Enter the database Username and Password.
+. Enter the database *Username* and *Password*.
 
-Click Test connection. If the connection is successful, a dialog is
+. Click *Test connection*. If the connection is successful, a dialog is
 displayed. 
 
-Click No, will do later, then click SAVE.
+. Click *No, will do later*, then click *SAVE*.
 
 
 === Create a virtual index
 
-In Siren Investigate, navigate to [.menuchoice]#Management > Virtual
+. In Siren Investigate, navigate to [.menuchoice]#Management > Virtual
 Indices#.
 
-Select the Datasource name.
+. Select the *Datasource name*.
 
-Select the Resource name from the Datasource browser.
+. Select the *Resource name* from the Datasource browser.
 
-Enter a valid lowercase Elasticsearch Virtual index name.
+. Enter a valid lowercase Elasticsearch *Virtual index name*.
 
-(Optional) Enter a Primary key. This is required if you want to use this
+. (Optional) Enter a *Primary key*. This is required if you want to use this
 Index in the graph browser.
 
-Click SAVE. A dialog is displayed.
+. Click *SAVE*. A dialog is displayed.
 
-Click Yes, take me there (see link:#[?xml_title]). Alternatively, click
-No, will do later, then click SAVE.
+. Click *Yes, take me there* (see <<Creating an initial data model>>). Alternatively, click
+*No, will do later*, then click *SAVE*.
 
 
 == Importing data by using Logstash
@@ -329,7 +328,7 @@ use these data sets, loading may take a long time to complete.
 === Prerequisites
 
 * Install the Siren platform as described in
-link:#UUID-93e4bd2a-c423-dd5d-9405-28c275ac38a2[Installing Siren
+<<Installing Siren Platform[Installing Siren
 Platform].
 * Install Logstash (https://www.elastic.co/downloads/logstash).
 
