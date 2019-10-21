@@ -71,7 +71,7 @@
 *** xref:timelion.adoc#_timelion_online_help_and_documentation[Timelion online help and documentation]
 ** xref:authentication-and-access-control.adoc[Authentication and Access Control]
 *** xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search Guard integration and Siren Investigate Access Control]
-*** xref:authentication-and-access-control.adoc#_kerberos_spnego_authentication_support[Kerberos/SPNEGO Authentication Support]
+*** xref:authentication-and-access-control.adoc#_kerberosspnego_authentication_support[Kerberos/SPNEGO Authentication Support]
 *** xref:authentication-and-access-control.adoc#_jwt_authentication_support[JWT Authentication Support]
 ** xref:management.adoc[Management]
 *** xref:management.adoc#_index_pattern_searches[Index pattern searches]
