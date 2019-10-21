@@ -41,4 +41,51 @@ the Siren Investigate configuration.
 The password for all users is `+password+`.
 
 
+= Opening Siren Investigate
+
+After starting Elasticsearch and Siren Investigate as described in
+xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting
+up Siren Investigate], from your web browser navigate to
+http://localhost:5606.
+
+== Navigation sidebar
+
+The left sidebar is used to navigate between apps in Siren Investigate.
+
+It can be expanded or contracted using the
+expand/contract (image:expand-contract-icon.png[]) button at the
+bottom of the sidebar.
+
+By default, Siren Investigate displays the *Articles* dashboard.
+xref:module-siren-investigate:dashboards.adoc[Dashboards]
+can be configured to display multiple
+xref:module-siren-investigate:visualizations.adoc[visualizations]
+on the documents stored in a specific index or returned by a
+xref:module-siren-investigate:searching-your-data.adoc[saved
+search] on an index pattern.
+
+Each dashboard is represented by a tab containing the dashboard title
+and the number of documents available for visualizations.
+
+image:articles-dashboard.png[]
+
+You can quickly search specific articles through the search input in the
+navigation bar. For example, let’s find all the articles written about
+_wireless_ or _Wi-Fi_:
+
+image:dashboard-search-bar.png[]
+
+We can immediately see that there are 11595 articles about those topics
+and all the visualizations are refreshed to aggregate data for this
+subset of articles.
+
+NOTE: In addition to simple text, queries in the search bar can be written
+using the Lucene
+https://lucene.apache.org/core/2_9_4/queryparsersyntax.html[query
+syntax], or
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl.html[Elasticsearch
+Query DSL].
+
+
+
 
