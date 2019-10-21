@@ -4,7 +4,7 @@
 *** xref:introduction.adoc#_distributed_joins_between_indices[Distributed Joins Between Indices]
 ** xref:architecture.adoc[Architecture]
 *** xref:architecture.adoc#_distributed_join_workflow[Distributed Join Workflow]
-*** xref:architecture.adoc#_query_planning_optimisation[Query Planning and Optimisation]
+*** xref:architecture.adoc#_query_planning_and_optimisation[Query Planning and Optimisation]
 *** xref:architecture.adoc#_io[IO]
 ** xref:getting-started.adoc[Getting Started]
 *** xref:getting-started.adoc#_prerequisites[Prerequisites]
