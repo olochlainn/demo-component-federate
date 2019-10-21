@@ -41,7 +41,7 @@ the Siren Investigate configuration.
 The password for all users is `+password+`.
 
 
-= Opening Siren Investigate
+== Opening Siren Investigate
 
 After starting Elasticsearch and Siren Investigate as described in
 xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting
