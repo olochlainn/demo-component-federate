@@ -49,9 +49,8 @@ https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/[here].
 
 If you want to connect an external datasource by using a JDBC connector,
 see
-link:/document/preview/89931#UUID-1e8d9902-31ea-0983-423a-7843a8619c61[JDBC
-driver installation and compatibility].JDBC driver installation and
-compatibility
+xref:module-siren-federate:connecting-to-jdbc-datasources.adoc#_jdbc_driver_installation_and_compatibility[JDBC
+driver installation and compatibility].
 
 For information about compatibility between versions of Siren
 Investigate, Siren Federate, and Elasticsearch, see the
