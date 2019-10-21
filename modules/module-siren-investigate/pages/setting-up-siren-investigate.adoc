@@ -16,14 +16,14 @@ NOTE: The instructions in this section are relevant for production deployments
 only.
 
 
-*Supported platforms*
+== Supported platforms
 
 Packages of Siren Investigate are provided for and tested with Linux and
 Windows. Because Siren Investigate runs on Node.js, the required Node.js
 binaries for these platforms are included. Running Siren Investigate
 against a separately maintained version of Node.js is not supported.
 
-*Version compatibility*
+=== Version compatibility
 
 Siren 10.3 introduced a new capability that allows users to upgrade to a
 newer Investigate version without having to upgrade their Elasticsearch
@@ -48,7 +48,7 @@ Siren features
 features and, being the most up-to-date version, is recommended in most
 cases
 
-*Siren 10.3 compatibility*
+=== Siren 10.3 compatibility
 
 [cols=",",options="header",]
 |===
@@ -83,7 +83,7 @@ be used in Data Reflection |6.5.4-10.2.0
 as a datasource and create virtual indices on it |6.8.0-10.3.0
 |===
 
-*Earlier version compatibility*
+=== Earlier version compatibility
 
 .Version compatibility matrix
 [cols=",,",options="header",]
