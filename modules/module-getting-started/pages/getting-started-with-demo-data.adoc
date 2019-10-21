@@ -231,3 +231,161 @@ also in the top 500 by number of employees:
 image:dashboard-companies.png[image]
 
 
+== Datasource entity selection
+
+It is possible to select a company entity (record) in the SQLite
+database (and entities in
+link:/document/preview/60728#UUID-ee44d7f4-bcfd-2e83-344d-d3c4832363d9[external
+datasources] in general) by clicking its label in the Companies
+Table.3.12. Legacy REST datasources
+
+The selected entity can be used as a parameter in
+link:/document/preview/60728#UUID-ee44d7f4-bcfd-2e83-344d-d3c4832363d9[queries];
+for example, click Browshot in Companies Table:3.12. Legacy REST
+datasources
+
+image:15dad7928e721a.png[Entity selection]
+
+Selecting an entity enables additional queries on external datasources.
+For example, in the _Query on Companies_ visualization you can see that,
+amongst the top 500 companies by number of employees mentioned in
+articles about _wireless_ or _Wi-Fi_, _Browshot_ has 487 competitors and
+there are nineteen companies in the same domain. All widgets affected by
+the selected entity are marked by a purple header.
+
+For the Y-axis metrics aggregation, select *Unique Count*, with
+*speaker* as the field. For Shakespeare plays, it may be useful to know
+which plays have the lowest number of distinct speaking parts, if your
+theater company is short on actors. For the X-Axis buckets, select the
+*Terms* aggregation with the `+play_name+` field. For the *Order*,
+select *Ascending*, leaving the *Size* at `+5+`.
+
+Leave the other elements at their default values and click *Apply
+Changes* (image:15dad7928ab3a2.png[image]).
+
+Selecting an entity also enables the display of additional data in the
+Company Info visualization; by clicking the _(show)_ links you can
+toggle the list of companies in the same domain and competitors. The
+data in the tables is fetched from queries on the SQLite database, using
+the selected company ID as a parameter. The queries are rendered using
+link:/document/preview/60244#UUID-23f94e9e-6787-2126-2ca2-45ded58b2789[customizable
+templates], which will be introduced later.3.5.3 Siren Investigate query
+viewer
+
+The selected entity appears as a light blue box on the right of the
+filter bar; to deselect an entity, click the bin icon displayed when
+moving the mouse pointer over the purple box.
+
+For more information about entity selection, see link:#[3.12. Legacy
+REST datasources].3.12. Legacy REST datasources
+
+
+== Enhanced search results
+
+The link:#[3.5.2 Enhanced search results visualization] displays the
+current set of Elasticsearch documents as a table. For example,
+Companies Table is configured to display the following fields:3.5.2
+Enhanced search results visualization
+
+* Time (foundation date)
+* label (the company name)
+* description
+* category_code
+* founded_year
+* countrycode
+* Why Relevant? (a
+link:/document/preview/60234#UUID-cc563c0f-e093-77d7-a17e-62fc0714c6f8[relational
+column])3.5.2 Enhanced search results visualization
+
+image:15dad792900450.png[Companies Table]
+
+Select *Edit*, then click Edit (image:image/15dad79288e41a.png[image])
+to choose which fields to display and customize the order of the
+columns. If the index is time based, the Time column will always be
+displayed.
+
+Click the right arrow to expand the first row, then scroll down to the
+homepage_url field and click the Toggle column icon:
+
+image:15dad79290bfb7.png[Column positioning.]
+
+You can click the arrows to move the column to the desired position:
+
+image:15dad79291837a.png[Column positioning.]
+
+[[UUID-a2889ce5-7702-f194-c7e2-b3a908012bed]]
+=== Click handlers
+
+You can define click handlers on cells to perform several actions. Let’s
+add a click handler to open the company homepage when clicking the cell
+displaying the URL.
+
+The table is preconfigured with a click handler on `+label+` that is
+used to select an entity in the SQLite database.
+
+Go into edit mode.
+
+Scroll through the view options and click Add click handler.
+
+From the Column box, select homepage_url.
+
+From the On click I want to box, select Follow the URL.
+
+Select homepage_url as the URL field,  then click *Apply
+Changes* (image:image/15dad7928ab3a2.png[image]).
+
+You can test the click handler immediately by clicking a cell displaying
+a homepage URL in the preview displayed on the right:
+
+image:15dad792921e78.png[URL click handler.]
+
+
+=== Relational columns
+
+You can enable the relational column to be displayed when an
+Elasticsearch document is matched by a query on the SQLite database. The
+relational column reports on the relationship, based on the queries
+configured.
+
+In the following example, in the _Companies Table_, you can see that
+`+Big Fish+` is listed here because it has competitors.
+
+image:15dad79292ce1f.png[Relational column example.]
+
+image:15dad792936ef7.png[Relational column configuration]
+
+[[UUID-efb16f7e-1713-c35f-2dec-37f1448df40a]]
+=== Saving the visualization
+
+Click *Save* in the top right to save the visualization, then click
+Dashboard to go back to the Companies dashboard. For additional
+documentation about this visualization, see link:#[3.5.2 Enhanced search
+results visualization].3.5.2 Enhanced search results visualization
+
+
+== Query templates
+
+*Company Info*, which is an instance of a Siren Investigate query viewer
+visualization, displays the results of three SQL queries by rendering
+their results through templates. The queries take the selected entity ID
+as an input and the associated templates are displayed only when an
+entity is selected.
+
+image:15dad792940b75.png[Siren Investigate query viewer example]
+
+The association between the query and templates can be set in the
+visualization configuration:
+
+image:15dad79294b165.png[Siren Investigate query viewer
+configuration.]
+
+Query templates can be managed by clicking the Management icon, then
+select Advanced Settings followed by Templates.
+
+For more information about templates, see link:#[3.12. Legacy REST
+datasources]. For more information about visualization see link:#[3.5.3
+Siren Investigate query viewer].3.12. Legacy REST datasources3.5.3 Siren
+Investigate query viewer
+
+
+
