@@ -87,5 +87,21 @@ https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl.html[Elast
 Query DSL].
 
 
+=- Filtering results
+
+Visualizations can be used to create filters. For example, you can see
+all the articles about _wireless_ or _Wi-Fi_ published by TechCrunch by
+clicking the TechCrunch slice inside the Articles by
+Source xref:module-siren-investigate:pie-chart.adoc[pie
+chart] visualization.
+
+image:pie-slice.png[Pie slice]
+
+image:filter-on-slice-applied.png[Dashboard with filter on the slice
+applied]
+
+NOTE: To switch off a filter, move the mouse pointer over it and click the
+check box icon. To switch off all the filters applied to the dashboard,
+click *Actions* then *Disable*.
 
 
