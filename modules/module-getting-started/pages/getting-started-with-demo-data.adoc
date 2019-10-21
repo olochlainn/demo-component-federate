@@ -48,7 +48,7 @@ xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting
 up Siren Investigate], from your web browser navigate to
 http://localhost:5606.
 
-== Navigation sidebar
+=== Navigation sidebar
 
 The left sidebar is used to navigate between apps in Siren Investigate.
 
@@ -87,7 +87,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl.html[Elast
 Query DSL].
 
 
-=- Filtering results
+== Filtering results
 
 Visualizations can be used to create filters. For example, you can see
 all the articles about _wireless_ or _Wi-Fi_ published by TechCrunch by
