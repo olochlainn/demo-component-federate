@@ -1,0 +1,2415 @@
+= Authentication and access control
+
+Siren Investigate can be integrated with Elasticsearch clusters
+protected by either Search Guard or Elastic X-Pack.
+
+In this scenario, both Siren Investigate and Gremlin Server (the backend
+component used by the
+xref:visualizations.adoc#_graph_browser[Graph Browser]
+visualization) must be configured to serve requests over HTTPS.
+
+Starting with version 10.1, the Siren platform includes Search Guard
+Compliance Edition to help you to stay compliant with regulations
+including GDPR, HIPAA, SOX and ISO.
+
+The following shows a simplified representation of the invocation chain
+with Siren Federate and the audit and compliance modules.
+
+image:15d88ced04a939.png[Siren invocation chain]
+
+== Enabling HTTPS in Siren Investigate
+
+You should protect your Siren Investigate installation by using a
+reverse proxy. Some example configurations follow, but other reverse
+proxies may also be used.
+
+=== Using NginX as a reverse proxy with HTTPS (Linux)
+
+Add the following virtual server to your configuration: Here we assume
+letsencrypt has been used to provide the certificate.
+
+....
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name siren.example.com;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    ssl_certificate /etc/letsencrypt/live/siren.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/siren.example.com/privkey.pem;
+
+    access_log /var/log/nginx/siren-ssl.access.log;
+    error_log /var/log/nginx/siren-ssl.error.log error;
+
+    include snippets/ssl-params.conf;
+
+    location / {
+        proxy_pass http://127.0.0.1:5606;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+....
+
+In `+/etc/nginx/snippets/ssl-params.conf+` configure:
+
+....
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+ssl_prefer_server_ciphers on;
+ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+ssl_ecdh_curve secp384r1;
+ssl_session_cache shared:SSL:10m;
+#ssl_session_tickets off;
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver 8.8.8.8 8.8.4.4 valid=300s;
+resolver_timeout 5s;
+# Disable preloading HSTS for now. You can use the commented out header line that includes
+# the "preload" directive if you understand the implications.
+# Also do not include subdomains by default
+#add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+add_header Strict-Transport-Security "max-age=63072000";
+add_header X-Frame-Options DENY;
+add_header X-Content-Type-Options nosniff;
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+....
+
+The SSL configuration in `+ssl-params.conf+` can be shared among
+multiple virtual servers.
+
+Now generate a unique set of Diffie-Helman parameters (this mitigates
+the LOGJAM vulnerability):
+
+....
+openssl dhparam 2048 -out /etc/ssl/certs/dhparam.pem
+....
+
+NOTE: This constitutes a MINIMUM RECOMMENDED LEVEL of security. Your
+installation’s requirements may be more stringent.
+
+
+
+=== Using Apache as a reverse proxy with HTTPS (Linux)
+
+Add the following virtual host to your configuration. Here we assume
+letsencrypt has been used to provide the certificate.
+
+....
+<VirtualHost *:443>
+    ServerName siren.example.com
+    DocumentRoot /var/www/html
+    DirectoryIndex index.html index.htm
+
+    CustomLog /var/log/apache2/siren-ssl.access.log combined
+    ErrorLog /var/log/apache2/siren-ssl.error.log
+
+    SSLEngine on
+    SSLStrictSNIVHostCheck off
+    SSLCertificateFile /etc/letsencrypt/live/siren.example.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/siren.example.com/privkey.pem
+    SSLCACertificateFile /etc/letsencrypt/live/siren.example.com/chain.pem
+
+    <location / >
+        ProxyPass http://127.0.0.1:5606
+        ProxyPassReverse http://127.0.0.1:5606
+    </Location>
+</VirtualHost>
+....
+
+Now configure `+/etc/apache2/conf.d/security.conf+`:
+
+....
+Header unset X-Powered-By
+Header set X-Frame-Options: "sameorigin"
+Header set X-Content-Type-Options: "nosniff"
+TraceEnable Off
+ServerTokens Prod
+ServerSignature Off
+....
+
+And `+/etc/apache2/mods-available/ssl.conf+`:
+
+....
+<IfModule mod_ssl.c>
+
+SSLRandomSeed startup builtin
+SSLRandomSeed startup file:/dev/urandom 512
+SSLRandomSeed connect builtin
+SSLRandomSeed connect file:/dev/urandom 512
+
+AddType application/x-x509-ca-cert .crt
+AddType application/x-pkcs7-crl .crl
+
+SSLPassPhraseDialog  exec:/usr/share/apache2/ask-for-passphrase
+SSLSessionCache     shmcb:${APACHE_RUN_DIR}/ssl_scache(512000)
+SSLSessionCacheTimeout  300
+
+SSLProtocol all -SSLv2 -SSLv3
+SSLHonorCipherOrder on
+SSLCipherSuite \
+  "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 \
+  EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 \
+  EECDH EDH+aRSA !3DES \
+  !aNULL !eNULL !LOW !MD5 !EXP !PSK !SRP !KRB5 !DSS !RC4 !DES"
+SSLCompression off
+
+## Strict Transport Security
+Header set Strict-Transport-Security "max-age=15768000"
+
+## Apache 2.4 only
+SSLUseStapling on
+SSLStaplingResponderTimeout 5
+SSLStaplingReturnResponderErrors off
+SSLStaplingCache shmcb:/var/run/ocsp(128000)
+
+## Apache >=2.4.8 + OpenSSL >=1.0.2 only
+SSLOpenSSLConfCmd DHParameters /etc/ssl/certs/dhparam.pem
+
+</IfModule>
+....
+
+You must enable mod_headers for the SSL security settings to take
+effect.
+
+Now generate a unique set of Diffie-Helman parameters (this mitigates
+the LOGJAM vulnerability):
+
+....
+openssl dhparam 2048 -out /etc/ssl/certs/dhparam.pem
+....
+
+Note that this constitutes a MINIMUM RECOMMENDED LEVEL of security. Your
+installation’s requirements may be more stringent.
+
+=== Native SSL support
+
+While you should always run Siren Investigate behind an SSL reverse
+proxy, it is sometimes necessary to also enable SSL support on the Siren
+Investigate server itself - for example, when the reverse proxy is an
+appliance, or is installed on a separate server.
+
+Native SSL support can be enabled by copying the certificate and key
+files to a location readable by the Siren Investigate process and
+setting the following parameters in `+config/investigate.yml+`:
+
+* `+server.ssl.enabled+`: set to `+true+` to enable SSL.
+* `+server.ssl.certificate+`: path to a certificate.
+* `+server.ssl.key+`: path to the certificate key.
+* `+server.ssl.keyPassphrase+`: the passphrase of the certificate key;
+if the key is not encrypted the parameter can be omitted.
+
+The certificate and key files must be PEM encoded.
+
+For example:
+
+[source,yaml]
+----
+server.ssl.enabled: true
+server.ssl.certificate: "pki/server.crt"
+server.ssl.key: "pki/server.key"
+----
+
+The Siren Investigate demonstration distribution includes a sample
+certificate and key in the `+pki+` folder.
+
+For additional SSL settings, see xref:setting-up-siren-investigate.adoc#_configuring-siren-investigate[Configuring Siren Investigate].
+
+
+
+=== Enabling HTTPS in Gremlin Server
+
+HTTPS must be enabled in Gremlin Server to secure requests from Siren
+Investigate, even if Siren Investigate is configured behind a reverse
+SSL proxy.
+
+To enable HTTPS in the Gremlin Server, set the following parameters in
+the `+investigate_core.gremlin_server+` section of the
+`+config/investigate.yml+` file:
+
+* *url*: The URL of the Gremlin Server endpoint; ensure that the
+protocol is set to `+https+`.
+* *ssl.key_store*: The path to the Gremlin Server certificate in Java
+KeyStore format.
+* *ssl.key_store_password*: The password of the Gremlin Server
+certificate keystore.
+* *ssl.ca*: The path of the certification authority chain bundle that
+can be used to validate requests from Siren Investigate to the Gremlin
+API; you can omit this parameter if the certificates for the Siren
+Investigate HTTPS interface have been issued and signed by a public
+authority.
+
+For example:
+
+[source,yaml]
+----
+investigate_core:
+  gremlin_server:
+    url: https://127.0.0.1:8061
+    ssl:
+      key_store: "pki/gremlin.jks"
+      key_store_password: "password"
+      ca: "pki/cacert.pem"
+----
+
+After restarting Siren Investigate, click *Settings*, then click
+*Datasources*, and ensure that the URL of the
+`+Siren Investigate Gremlin Server+` datasource is equal to the URL set
+in `+investigate.yml+`.
+
+The Siren Investigate demonstration distribution includes a sample key
+store and CA bundle in the `+pki+` folder.
+
+
+== Search Guard integration and Siren Investigate access control
+
+This section offers an overview of how to integrate Search Guard with
+Siren Investigate; for further reference and detailed options, consult
+the https://docs.search-guard.com/latest/[Search Guard documentation].
+
+Before proceeding, ensure that:
+
+* Siren Investigate is either running with HTTPS enabled or behind a
+reverse SSL proxy.
+* The Gremlin Server is running with HTTPS enabled.
+
+For information on how on to enable HTTPS in both components,
+see <<Authentication and access control>>.
+
+
+
+=== SSL certificates
+
+All the Elasticsearch nodes in a cluster secured by Search Guard are
+required to use SSL to encrypt all network traffic.
+
+In addition, changing the Search Guard configuration requires the use of
+a client SSL certificate to perform administrative actions.
+
+To set up a Search Guard cluster, you must generate the following files:
+
+* *truststore*: Common to all nodes, containing the CA certificate
+chain.
+* *keystore*: For each node, containing the certificate for the node.
+* *keystore*: For each administrative user, containing a certificate
+bundle that identifies the user.
+* *keystore*: Containing an SSL certificate for the Elasticsearch HTTP
+server.
+
+These files can be either Java KeyStore files or PKCS12 bundles.
+
+
+==== Issuing certificates in an existing PKI infrastructure
+
+If your organization has a PKI infrastructure in place, you can generate
+Java KeyStore files from a PEM bundle by using the `+keytool+` command,
+for example:
+
+[source,shell]
+----
+$ keytool  \
+  -importcert \
+  -file ca.pem  \
+  -keystore truststore.jks
+----
+
+The command will store the contents of `+ca.pem+` into a file named
+`+truststore.jks+` in the current folder.
+
+The same command can be used to convert certificates signed by your CA
+for nodes, administrative users and the REST API.
+
+Node certificates must include `+oid:1.2.3.4.5.5+` as a Subject
+Alternative Name entry to work correctly with Search Guard; for details
+on how to customize the OID, consult the Search Guard documentation.
+
+If you want to enable hostname verification, ensure that at least one
+Subject Alternative Name is equal to the DNS name of the node.
+
+Client certificates for administrative users must contain a unique
+Distinguished Name to identify the user, for example:
+
+....
+CN=admin,DC=siren,DC=solutions
+....
+
+Certificates for the Elasticsearch HTTP server can be used across
+multiple nodes by setting multiple hostnames in the Subject Alternative
+Name attribute or by using a wildcard certificate.
+
+
+==== Issuing certificates using the TLS certificate generator
+
+Floragunn GmbH provides a
+https://floragunn.com/tls-certificate-generator/[TLS certificate
+generation service] which can be used to create a bundle of certificates
+for evaluation purposes.
+
+To try the certificates in a single node setup, it is possible to
+specify *localhost* as the first hostname and submit the form.
+
+The bundle contains:
+
+* `+README.txt+`: Provides an overview of the bundle and the passwords
+for all the keystores.
+* `+truststore.jks+`: the CA certificate chain in KeyStore format.
+* `+node-certificates+`: the transport certificates for the nodes in
+several formats; these certificates can also be used for the
+Elasticsearch HTTP server.
+* `+client-certificates+`: client certificates and private keys.
+* `+root-ca+`: the root CA bundle in PEM format.
+* `+signing-ca+`: the signing CA bundle in PEM format.
+
+In addition to the online generator, Floragunn provides a
+https://docs.search-guard.com/latest/offline-tls-tool [TLS tool] which
+can be used to manage a private certification authority.
+
+
+
+=== Search Guard installation
+
+Install the Search Guard plugin on each node in the Elasticsearch
+cluster by changing to the node folder and running the following
+commands (with the appropriate version number):
+
+[source,shell]
+----
+$ bin/elasticsearch-plugin install -b com.floragunn:search-guard-6:<version>
+----
+
+To find the most recent version of the plugins for your Elasticsearch
+version, consult the
+https://github.com/floragunncom/search-guard/wiki#version-matrix[Search
+Guard version matrix].
+
+NOTE: Elasticsearch requires a matching version of Search Guard. For example,
+Elasticsearch 6 requires Search Guard 6.
+
+
+Then, copy the following files to the `+config+` folder of each node:
+
+* The truststore file (for example `+truststore.jks+`).
+* The keystore file containing the node certificate (for example
+`+CN=localhost-keystore.jks+`).
+* The keystore file containing the certificate for the Elasticsearch
+HTTP server, only if different from the node certificate.
+
+Open the _config/elasticsearch.yml_ file and set the following Search
+Guard options:
+
+==== Node to node transport options
+
+* *searchguard.ssl.transport.enabled*: Must be set to *true* for Search
+Guard to work.
+* *searchguard.ssl.transport.keystore_filepath*: The filename of the
+keystore file that contains the node certificate.
+* *searchguard.ssl.transport.keystore_password*: The password of the
+keystore file that contains the node certificate.
+* *searchguard.ssl.transport.truststore*: The filename of the truststore
+file that contains the root certificate chain.
+* *searchguard.ssl.transport.truststore_password*: The password of the
+truststore file that contains the root certificate chain.
+* *searchguard.ssl.transport.enforce_hostname_verification*: Set to
+*true* to enable hostname verification, *false* otherwise.
+
+==== REST API options
+
+* *searchguard.ssl.http.enabled*: Set to *true* to enable SSL on the
+HTTP interface.
+* *searchguard.ssl.http.keystore_filepath*: The filename of the keystore
+file that contains the certificate for the HTTP interface.
+* *searchguard.ssl.http.keystore_password*: The password of the keystore
+file that contains the certificate for the HTTP interface.
+* *searchguard.ssl.http.truststore*: The filename of the truststore file
+that contains the root certificate chain for the HTTP certificate.
+* *searchguard.ssl.http.truststore_password*: The password of the
+truststore file that contains the root certificate chain for the HTTP
+certificate.
+
+==== Administrative user options
+
+* *searchguard.authcz.admin_dn*: A list of Distinguished Names in SSL
+client certificates which are authorized to submit administrative
+requests.
+
+==== Client certificate authentication options
+
+* *searchguard.ssl.http.clientauth_mode*: Set to `+OPTIONAL+` to enable
+optional client certificate authentication on the REST endpoint.
+
+For example:
+
+[source,yaml]
+----
+searchguard.ssl.transport.enabled: true
+searchguard.ssl.transport.truststore_filepath: truststore.jks
+searchguard.ssl.transport.truststore_password: <password>
+searchguard.ssl.transport.keystore_filepath: CN=localhost-keystore.jks
+searchguard.ssl.transport.keystore_password: <password>
+searchguard.ssl.transport.enforce_hostname_verification: false
+searchguard.ssl.http.enabled: true
+searchguard.ssl.http.keystore_filepath: CN=localhost-keystore.jks
+searchguard.ssl.http.keystore_password: <password>
+searchguard.ssl.http.truststore_filepath: truststore.jks
+searchguard.ssl.http.truststore_password: <password>
+searchguard.authcz.admin_dn:
+  - CN=sgadmin
+searchguard.ssl.http.clientauth_mode: OPTIONAL
+----
+
+NOTE: Ensure that all the files in the configuration folder and the
+certificate files are readable only by the user running Elasticsearch.
+
+
+Start Elasticsearch:
+
+[source,shell]
+----
+$ bin/elasticsearch
+----
+
+If either a certificate or a password is incorrect, Elasticsearch will
+not start.
+
+
+=== Access control configuration
+
+Access control configuration (users, roles and privileges) is stored in
+an Elasticsearch index which can be modified through the _sgadmin.sh_
+script.
+
+The script reads the configuration from a local folder containing YAML
+files and uploads it to the index; the request is authenticated through
+a client SSL certificate.
+
+After the configuration has been uploaded, it will be available to all
+the nodes in the cluster, so it is not necessary to copy the Search
+Guard configuration folder to all the Elasticsearch nodes, just on the
+node from where `+sgadmin+` is run.
+
+`+sgadmin.sh+` is available in the
+`+plugins/search-guard-<version>/tools+` folder in each Elasticsearch
+instance in which Search Guard has been installed; a standalone version
+(`+sgadmin-standalone.zip+`) can be downloaded from
+https://github.com/floragunncom/search-guard/wiki#search-guard-admin-standalone.
+
+After a Search Guard enabled cluster has been initialized, `+sgadmin+`
+can be used to upload new configurations.
+
+
+=== Siren Investigate certificates
+
+Here we give an example of where to store client certificates and
+keystores on Siren Investigate. *Note*: These are examples for a fresh
+install using the TLS certificate generator.
+
+In _siren-investigate/pki_ (which was created earlier for https support)
+a new folder _searchguard_ was created with the following:
+
+* *CN=sgadmin.crtfull.pem*: a certificate bundle with administrative
+privileges over the Search Guard Management REST API. Copied from
+*client-certificates* in TLS certificate generator bundle.
+* *CN=sgadmin.key.pem*: the key of the administrative certificate.
+Copied from *client-certificates* in TLS certificate generator bundle.
+* *ca.pem*: the cluster CA certificate chain in PEM format. Copy of
+*root-ca.pem* from top level folder TLS certificate generator bundle.
+* *CN=sgadmin-keystore.jks*: Keystore containing the admin certificate.
+Used with sgadmin. Copied from *client-certificates* in TLS certificate
+generator bundle.
+
+The password of all Java keystores can be found in the *README.txt* from
+top level folder of TLS certificate generator bundle.
+
+
+==== Search Guard configuration
+
+A Search Guard configuration folder contains the following files:
+
+* `+sg_config.yml+`: General configuration.
+* `+sg_action_groups.yml+`: Named groups of permissions.
+* `+sg_roles.yml+`: Definition of roles.
+* `+sg_internal_users.yml+`: Search Guard internal user database.
+* `+sg_roles_mapping.yml+`: Mapping between users and roles.
+
+The following sample configuration is used for Elasticsearch with no
+data, for example your own Elasticsearch or using our
+`+no-data-no-security+` package. Further examples are available in the
+`+config/sgconfig+` folder in the Elasticsearch instance included in the
+demonstration distribution.
+
+NOTE: There are differences between the following documented examples and the
+Search Guard configurations provided in the different Siren
+distributions. For example, Siren Platform with Demo Data has security
+but it is permissive to allow easy deployment. The examples can be used
+as general guidelines.
++
+For additional configuration options, refer to the Search Guard
+documentation.
+
+
+
+===== General configuration
+
+sg_config.yml
+
+[source,yaml]
+----
+searchguard:
+  dynamic:
+    respect_request_indices_options: true
+    kibana:
+      do_not_fail_on_forbidden: true
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+    authc:
+      transport_auth_domain:
+        enabled: true
+        order: 2
+        http_authenticator:
+          type: basic
+        authentication_backend:
+          type: internal
+      basic_internal_auth_domain:
+        enabled: true
+        http_authenticator:
+          type: basic
+          challenge: true
+        authentication_backend:
+          type: intern
+----
+
+The `+sg_config.yml+` file contains the configuration of the
+authentication mechanisms and backends; this configuration:
+
+* Switches off the anonymous role (_anonymous_auth_enabled: false_).
+* Switches off support for external proxies (_xff.enabled: false_).
+* Enables HTTP basic authentication on the internal Search Guard user
+database.
+
+===== Action groups
+
+sg_action_groups.yml
+
+[source,yaml]
+----
+UNLIMITED:
+  - "*"
+
+###### INDEX LEVEL ######
+
+INDICES_ALL:
+  - "indices:*"
+
+# for backward compatibility
+ALL:
+  - INDICES_ALL
+
+MANAGE:
+  - "indices:monitor/*"
+  - "indices:admin/*"
+
+# for backward compatibility
+MONITOR:
+  - MANAGE
+
+WRITE:
+  - "indices:data/write*"
+  - "indices:admin/mapping/put"
+
+READ:
+  - "indices:data/read*"
+
+VIEW_INDEX_METADATA:
+  - "indices:admin/aliases/get"
+  - "indices:admin/aliases/exists"
+  - "indices:admin/get"
+  - "indices:admin/exists"
+  - "indices:admin/mappings/fields/get*"
+  - "indices:admin/mappings/get*"
+  - "indices:admin/mappings/federate/connector/get*"
+  - "indices:admin/mappings/federate/connector/fields/get*"
+  - "indices:admin/types/exists"
+  - "indices:admin/validate/query"
+  - "indices:monitor/settings/get"
+
+###### CLUSTER LEVEL ######
+
+CLUSTER_ALL:
+  - "cluster:*"
+
+CLUSTER_MONITOR:
+  - "cluster:monitor/*"
+
+CLUSTER_COMPOSITE_OPS:
+  -  CLUSTER_COMPOSITE_OPS_RO
+  - "indices:data/write/bulk"
+
+CLUSTER_COMPOSITE_OPS_RO:
+  - "indices:data/read/mget"
+  - "indices:data/read/msearch"
+  - "indices:data/read/mtv"
+  - "indices:data/read/scroll*"
+
+CLUSTER_MANAGE:
+  - CLUSTER_INTERNAL_FEDERATE
+  - "cluster:admin/federate/*"
+  - "indices:admin/aliases*"
+
+CLUSTER_INTERNAL_FEDERATE:
+  - "cluster:internal/federate/*"
+----
+
+The file `+sg_action_groups.yml+` contains named groups of permissions
+which can be used in the role configuration file including Search
+Guard’s default groups and Siren Investigate specific groups. Groups are
+divided into `+cluster+` and `+indices+` levels.
+
+===== Cluster-level groups
+
+* `+CLUSTER_ALL+`: all cluster-level actions.
+* `+CLUSTER_MONITOR+`: monitoring actions.
+* `+CLUSTER_COMPOSITE_OPS+`: Groups all the permissions to execute
+composite requests not recognized by Search Guard; the group has to be
+granted on all indices to roles that have access only to a subset of
+indices .
+* `+CLUSTER_INTERNAL_FEDERATE+`: actions specific to the internal
+workflow of Federate.
+* `+CLUSTER_MANAGE+`: in addition to `+CLUSTER_INTERNAL_FEDERATE+` this
+includes actions to manage its own internal indices.
+
+===== Indices-level groups
+
+* `+INDICES_ALL+`: all indices-level actions.
+* `+MONITOR+`: all actions regarding index monitoring, e.g., recovery,
+segments info, index stats and status.
+* `+MANAGE+`: all `+monitor+` and index administration actions.
+* `+WRITE+`: actions to modify an index.
+* `+READ+`: actions to read and search an index.
+* `+VIEW_INDEX_METADATA+`: any action to retrieve metadata about an
+index, e.g., list of fields, get a setting.
+
+===== Roles
+
+sg_roles.yml
+
+[source,yaml]
+----
+# Permissions for the investigate system user
+investigate_system:
+  cluster:
+    - CLUSTER_COMPOSITE_OPS
+    - CLUSTER_MANAGE
+    - CLUSTER_MONITOR
+  indices:
+    '?siren*':
+      '*':
+        - INDICES_ALL
+    '*':
+      '*':
+        - READ
+        - VIEW_INDEX_METADATA
+
+# Permissions for a Investigate administrator
+investigate_admin:
+  cluster:
+    - CLUSTER_COMPOSITE_OPS_RO
+    - CLUSTER_MANAGE
+    - CLUSTER_MONITOR
+  indices:
+    '*':
+      '*':
+        - MANAGE
+        - READ
+        - VIEW_INDEX_METADATA
+----
+
+....
+# Permissions for a Investigate regular user.
+investigate_user:
+  cluster:
+    - CLUSTER_COMPOSITE_OPS_RO
+    - CLUSTER_INTERNAL_FEDERATE
+  indices:
+    'data-*':
+      '*':
+        - READ
+        - VIEW_INDEX_METADATA
+....
+
+A permission is defined by the following syntax:
+
+[source,yaml]
+----
+<username>:
+  <indices or cluster>:
+    '<index name or regular expression>':
+      '<type name or regular expression>':
+        - <list of permissions or action group names>
+----
+
+The index name can contain the simple expansion characters `+*+` and
+`+?+` to match any sequence of character/any single character; for
+further information about defining permissions, refer to the Search
+Guard configuration documentation.
+
+This sample configuration defines the following roles:
+
+* *investigate_system*: Defines the permissions for the Siren
+Investigate server process, with read/write access to the internal Siren
+Investigate indices.
+* *investigate_admin*: Defines the permissions for a Siren Investigate
+user that has the administrator permissions. This user has permissions
+to upload the Siren Investigate license, get monitoring information from
+the cluster and managed JDBC datasources.
+* *investigate_user*: Defines the permissions for a Siren Investigate
+user with read only access to all indices whose name starts with
+`+data-*+`.
+
+===== Users
+
+sg_internal_users.yml
+
+[source,yaml]
+----
+# Internal user database
+# The hash value is a bcrypt hash and can be generated with plugin/tools/hash.sh
+sirenserver:
+  hash: $2a$12$zMeFc6Xi.pcgDVHsvtCV9ePNteVwTE5uGxcKdf7XQcKB9.VkD8iOy
+sirenadmin:
+  hash: $2a$12$zMeFc6Xi.pcgDVHsvtCV9ePNteVwTE5uGxcKdf7XQcKB9.VkD8iOy
+sirenuser:
+  hash: $2a$12$zMeFc6Xi.pcgDVHsvtCV9ePNteVwTE5uGxcKdf7XQcKB9.VkD8iOy
+----
+
+The file defines the credentials for Search Guard internal users;
+passwords are stored as hashes in the `+hash+` attribute beneath each
+username.
+
+The password for all the accounts in the example is `+password+`.
+
+To change the password of a user, you must generate the corresponding
+hash; this can be done by executing the
+`+plugins/search-guard-<version>/tools/hash.sh+` script as follows:
+
+[source,bash]
+----
+$ bash plugins/search-guard-6/tools/hash.sh -p password
+----
+
+The script will output the hash for the password specified after the
+`+-p+` switch.
+
+It is also possible to change passwords for internal users from the
+Access Control application in the Siren Investigate UI once configured.
+
+===== Role mappings
+
+sg_roles_mapping.yml
+
+[source,yaml]
+----
+investigate_system:
+  users:
+    - sirenserver
+
+investigate_admin:
+  users:
+    - sirenadmin
+
+investigate_user:
+  users:
+    - sirenuser
+----
+
+The file defines the list of users assigned to each role using the
+following form:
+
+[source,yaml]
+----
+<role name>:
+  users:
+    - <username>
+    - <username>
+----
+
+
+===== Uploading the configuration to the cluster
+
+To upload the configuration defined in the previous steps, go to the
+Elasticsearch folder and execute the
+`+plugins/search-guard-<version>/tools/sgadmin.sh+` script as follows:
+
+[source,bash]
+----
+$ bash plugins/search-guard-6/tools/sgadmin.sh \
+  -cd config/sgconfig \
+  -cn siren-distribution \
+  -ts config/truststore.jks \
+  -tspass password \
+  -ks ../siren-investigate/pki/searchguard/CN\=sgadmin-keystore.jks \
+  -kspass password \
+  -h localhost \
+  -p 9330 \
+  -nhnv
+----
+
+To reload the configuration you have to use the same command with the
+`+-rl+` flag instead of `+-cd+`, for example:
+
+[source,bash]
+----
+$ bash plugins/search-guard-6/tools/sgadmin.sh \
+  -rl
+  -cn siren-distribution \
+  -ts config/truststore.jks \
+  -tspass password \
+  -ks ../siren-investigate/pki/searchguard/CN\=sgadmin-keystore.jks \
+  -kspass password \
+  -h localhost \
+  -p 9330 \
+  -nhnv
+----
+
+You must specify the following arguments based on your environment
+configuration:
+
+* *-cd*: Path to the folder containing the Search Guard access control
+configuration.
+* *-cn*: Name of the Elasticsearch cluster.
+* *-ts*: Path to the truststore file.
+* *-tspass*: Password of the truststore file.
+* *-ks*: Path to the administrative client certificate keystore.
+* *-kspass*: Password of the client certificate keystore file.
+* *-h*: Hostname of a node in the cluster.
+* *-p*: Transport port of the node specified in the *-h* option.
+* *-nhnv*: Switches off host name verification; remove this option if
+you installed node certificates with the correct hostname (recommended
+in production).
+* *-rl*: Reloads the configuration and flushes the internal cache.
+
+By default, the number of replicas for the `+searchguard+` index will be
+set at creation time to the number of data nodes - 1.
+
+For additional information on how to set replication settings and
+sgadmin in general, refer to
+http://floragunncom.github.io/search-guard-docs/sgadmin.html.
+
+If the command is executed successfully, a list of the actions executed
+and their outcome will be printed on screen, for example:
+
+....
+Clustername: elasticsearch
+Clusterstate: YELLOW
+Number of nodes: 1
+Number of data nodes: 1
+searchguard index does not exists, attempt to create it ... done
+Populate config from /elasticsearch/sg_config
+Will update 'config' with sg_config/sg_config.yml
+   SUCC: Configuration for 'config' created or updated
+Will update 'roles' with sg_config/sg_roles.yml
+   SUCC: Configuration for 'roles' created or updated
+Will update 'rolesmapping' with sg_config/sg_roles_mapping.yml
+   SUCC: Configuration for 'rolesmapping' created or updated
+Will update 'internalusers' with sg_config/sg_internal_users.yml
+   SUCC: Configuration for 'internalusers' created or updated
+Will update 'actiongroups' with sg_config/sg_action_groups.yml
+   SUCC: Configuration for 'actiongroups' created or updated
+Done with success
+....
+
+You can then verify that SSL and authentication are enabled by making an
+authenticated request with `+wget+`, for example:
+
+[source,shell]
+----
+$ wget --ca-certificate=../siren-investigate/pki/searchguard/ca.pem --http-user=sirenserver --http-password=password -qO - https://localhost:9220
+----
+
+To display information about the certificate as seen by a client you can
+execute the following command:
+
+[source,shell]
+----
+$ echo | openssl s_client -servername localhost -connect localhost:9220 -showcerts | openssl x509 -text -inform pem -text -noout
+----
+
+
+=== Siren Investigate access control configuration
+
+Edit `+config/investigate.yml+` and specify the credentials of the
+*sirenserver* user, for example:
+
+[source,yaml]
+----
+elasticsearch.username: 'sirenserver'
+elasticsearch.password: 'password'
+----
+
+If HTTPS is enabled for the Elasticsearch REST API, ensure that the
+`+elasticsearch.url+` setting contains a URL starting with `+https+`,
+for example:
+
+[source,yaml]
+----
+elasticsearch.url: 'https://localhost:9220'
+----
+
+If the certificate is not signed by a public authority, you will also
+need to set the `+elasticsearch.ssl.certificateAuthorities+` to the path
+of the CA chain bundle in PEM format, for example:
+
+[source,yaml]
+----
+elasticsearch.ssl.certificateAuthorities: 'pki/searchguard/ca.pem'
+----
+
+If you are using the certificates generated by the TLS generator
+service, the PEM file containing the certification bundles is available
+in *root-ca/root-ca.pem*.
+
+To enable certificate verification, set
+`+elasticsearch.ssl.verificationMode+` to `+full+`, for example:
+
+[source,yaml]
+----
+elasticsearch.ssl.verificationMode: full
+----
+
+If you want to validate the certificate but not the hostname, set
+`+elasticsearch.ssl.verificationMode+` to `+certificate+`, for example:
+
+[source,yaml]
+----
+elasticsearch.ssl.verificationMode: certificate
+----
+
+Set the *investigate_core.elasticsearch.auth_plugin* option to
+*searchguard*:
+
+....
+investigate_core:
+  elasticsearch:
+    auth_plugin: searchguard
+....
+
+To enable the Siren Investigate access control plugin, specify the
+following configuration values in the *investigate_access_control*
+section:
+
+* *enabled*: Set to *true* to enable the Siren Investigate access
+control plugin. Defaults to *false*.
+* *backend*: The authentication backend installed in the cluster; valid
+values are *searchguard* and *xpack*. Defaults to *searchguard*.
+* *cookie.password*: A 32 characters long alphanumeric string used to
+derive the key used to encrypt and sign cookies.
+* *cookie.secure*: If set to *true*, the cookie will be transmitted only
+if the request is being served over HTTPS. You must set this to false if
+Siren Investigate is behind an SSL proxy or if you are running Siren
+Investigate without HTTPS (which is not advised). Defaults to *true*.
+* *admin_role*: The name role that will have access to the access
+control management UI. This user will not be subject to any permission
+check by Siren Investigate, but will still be subject to permission
+checks when issuing queries to Elasticsearch. Defaults to *sirenadmin*.
+* *acl.enabled*: Set to true to switch off access control on saved
+objects. Defaults to *false*.
+
+Example minimal configuration:
+
+[source,yaml]
+----
+investigate_access_control:
+  enabled: true
+  acl:
+    enabled: true
+  cookie:
+    secure: true
+    password: '12345678123456781234567812345678'
+----
+
+IMPORTANT: Make sure to personalize the session cookie password.
+
+Additional configuration options:
+
+* *session.ttl*: The lifetime of the session in milliseconds. If not
+set, the session will last as long as the session cookie is valid.
+Defaults to *3600000* (1 hour).
+* *session.keepAlive*: If set to *true*, every time a request is
+received within the session lifetime, the session lifetime will be
+extended by *session.ttl*. Defaults to *true*.
+* *cookie.password*: A 32 characters long alphanumeric string used to
+derive the key used to encrypt and sign cookies.
+* *cookie.ttl*: The lifetime of the session cookie in milliseconds. If
+not set, the cookie will expire when the browser is closed, which is the
+recommended setting. Note that browsers may not remove session cookies
+when a tab is closed or even across restarts, so you should set
+*session.ttl* for additional protection. Defaults to *null*.
+* *cookie.name*: The name of the session cookie. Defaults to *kac*.
+* *acl.index*: The Elasticsearch index in which access control rules and
+saved objects metadata will be stored (*.sirenaccess* by default).
+
+If Siren Investigate is running behind a reverse SSL proxy like Nginx,
+remember to set *cookie.secure* to *false* otherwise the cookie will not
+be sent, for example:
+
+[source,yaml]
+----
+investigate_access_control:
+  enabled: true
+  acl:
+    enabled: true
+  cookie:
+    password: '12345678123456781234567812345678'
+    secure: false
+----
+
+If you want to use the Siren Alert plugin, you must specify the Siren
+Alert user credentials in the `+investigate_access_control.sirenalert+`
+section, For example:
+
+[source,yaml]
+----
+investigate_access_control:
+  enabled: true
+  acl:
+    enabled: true
+  cookie:
+    password: '12345678123456781234567812345678'
+    secure: false
+  sirenalert:
+    elasticsearch:
+      username: sirenalert
+      password: password
+----
+
+If Siren Alert credentials are not specified, Siren Alert will use the
+backend credentials to execute the watchers.
+
+Restart Siren Investigate after changing the configuration file; if the
+configuration is correct, you should see an authentication dialog when
+browsing to Siren Investigate.
+
+image:15d88ced0521c1.png[Authentication dialog]
+
+
+
+=== Saved objects access control
+
+Siren Investigate features an access control system on saved objects
+that enables you to filter dashboards and visualizations visible to end
+users; this was enabled in the previous section by setting
+`+investigate_access_control.acl.enabled+` to `+true+`.
+
+When the system is enabled, normal users should not have access to the
+`+.siren+` and `+.sirenaccess+` indices, as these will be managed by the
+backend user (`+.sirenserver+`).
+
+
+
+=== Search Guard management user interface configuration 
+
+Siren Investigate includes an optional user interface for the Search
+Guard REST Management API add-on; to use it, the Siren Investigate back
+end has to connect to the Elasticsearch cluster using a PEM client
+certificate with administrative privileges.
+
+For Elasticsearch 6, this module comes already bundled with Search Guard
+6, so there is no need to download it separately.
+
+For older Elasticsearch and Search Guard versions, use the following
+Add-on installation instructions.
+
+
+==== Add-on installation
+
+To install the Search Guard REST Management API add-on it is required to
+download the correct jar for your Elasticsearch / Search Guard version
+from https://github.com/floragunncom/search-guard-rest-api/wiki and copy
+it to the `+plugins/search-guard-<version>+` folder of each node in the
+cluster.
+
+To access the API it is required to use a client certificate with
+administrative privileges; to enable optional client certificate
+authentication on the REST interface, ensure that the following option
+is present in `+elasticsearch.yml+`:
+
+[source,yaml]
+----
+searchguard.ssl.http.clientauth_mode: OPTIONAL
+----
+
+After the plugin has been copied and the configuration updated, the
+nodes must be restarted; a rolling restart is enough to install the
+add-on.
+
+NOTE: When using this add-on, ensure that the sgadmin configuration folder
+contains only the `+sg_config.yml+` file, otherwise sgadmin will replace
+users, roles, action groups and mappings that may have been modified
+through the API.
+
+
+
+
+==== Siren Investigate configuration
+
+Copy the client certificate and its key to a folder readable by Siren
+Investigate (for example `+pki+`); then add the following parameters to
+the `+investigate_access_control+` configuration section:
+
+* *admin_role*: The Search Guard role that has access to the Search
+Guard management UI (*investigate_admin* by default).
+* *backends.searchguard.admin.ssl.cert*: Path to the administrative
+client certificate bundle in PEM format.
+* *backends.searchguard.admin.ssl.key*: Path to the administrative
+client certificate key in PEM format.
+* *backends.searchguard.admin.ssl.keyPassphrase*: The passphrase of the
+administrative client certificate key. Not required if the key is not
+encrypted.
+
+For example:
+
+[source,yaml]
+----
+investigate_access_control:
+  enabled: true
+  acl:
+    enabled: true
+  admin_role: investigate_admin
+  cookie:
+    password: '12345678123456781234567812345678'
+    secure: false
+  backends:
+    searchguard:
+      admin.ssl.cert: pki/searchguard/CN=sgadmin.crtfull.pem
+      admin.ssl.key: pki/searchguard/CN=sgadmin.key.pem
+      admin.ssl.keyPassphrase: password
+----
+
+Note that the administrative client certificate bundle must contain both
+the full CA chain and the client certificate; if using certificates
+generated by the TLS generation service, the file name will be
+`+CN=sgadmin.crtfull.pem+`, otherwise it is possible to generate the
+bundle manually by using cat, for example:
+
+[source,bash]
+----
+$ cat user.crt.pem ca-chain.pem > user.crtfull.pem
+----
+
+
+
+==== Access control: authentication
+
+After the certificate is set up, restart Siren Investigate, login with a
+user having an administrative role, click the apps button, then click
+*Access control* and finally *Authentication*.
+
+image:15d88ced05e70a.png[The Access control app]
+
+The Authentication section enables you to browse, edit and create the
+following Search Guard resources:
+
+* Internal users
+* Roles
+* Role mappings
+* Action groups
+
+To verify that the application is working correctly, click *Roles* then
+click *Open*; you should see the list of roles defined during the
+initial Search Guard setup or an authorization error if the certificate
+is incorrect:
+
+image:15d88ced065f29.png[Browsing Search Guard roles]
+
+If you get an error upon opening the Authentication app, most probably
+the client certificate does not contain the full CA chain or the add-on
+has not been installed correctly, check Elasticsearch and Siren
+Investigate logs for related errors.
+
+If you experience a Siren Investigate crash when opening the
+application, ensure that the option
+`+investigate_access_control.backends.searchguard.admin.ssl.keyPassphrase+`
+is set to the correct password.
+
+
+
+==== Access Control: ACL
+
+image:15d88ced06edb3.png[The ACL section]
+
+The ACL Roles panel in the ACL section enables you to define Siren
+Investigate roles, which are collections of permissions on saved objects
+and UI elements. The main purpose of this system is to hide and block
+access to end users and avoid unauthorized changes to configuration
+objects or use of certain parts of the system:
+
+* UI elements - applications, for example: *Timelion*, *Access control*,
+*Siren Alert*
+* UI elements - specific functionalities, for example: *export CSV
+feature*.
+* UI elements - Siren Investigate sections, for example: *discover*,
+*management*.
+* Saved objects on unauthorized indices, for example: *dashboards*,
+*searches*.
+
+There are two kinds of rules:
+
+* Rules: Set permissions for saved objects.
+* UI rules: Set permissions to view different user interface elements.
+
+The `+everyone+` role defines permissions for all the users in the
+system, and is mapped by default to any user logged in Siren
+Investigate; by default it grants all users read only access to the
+Siren Investigate configuration (*Advanced settings*), saved searches
+and index patterns as well as permission to view all applications and UI
+elements.
+
+image:15d88ced076e18.png[The everyone role]
+
+Denying access to certain saved objects like *saved search* using the
+first sets of rules is usually transparent to the user which means that
+for them, those objects are not visible anywhere in Siren Investigate.
+
+Usually it is not required to create explicit UI rules for the
+*dashboard* application as access to specific dashboards can be
+restricted through saved object rules.
+
+Denying access to an application like *Timelion* or a Siren Investigate
+section like *management* will hide the navigation menu elements, block
+access at the root level and display an error.
+
+image:15d88ced080d1e.png[Blocked Timelion application and Siren
+Investigate management section]
+
+When the user tries to access *app/timelion*, the following error is
+shown.
+
+image:15d88ced089357.png[Blocked timelion error]
+
+When the user tries to access */app/kibana#/management*, the following
+error is shown.
+
+image:15d88ced090d0a.png[Blocked Siren Investigate management
+section error]
+
+For most setups it makes sense to grant *view* permissions on
+visualizations as well, then set specific permissions on dashboards and
+dashboard groups for each role.
+
+To define a new role, click *Create role*, then set the following
+parameters:
+
+* *Role ID*: The ID of the role (for example `+sirenuser+`); must be a
+lowercase alphanumeric string.
+* *Backend roles*: A list of Search Guard roles that will be mapped to
+this Siren Investigate role (for example `+sirenuser+`).
+* *Rules*: A list of rules on saved object types.
+
+Each rule is defined by three parameters:
+
+* *Action*: Allow or deny.
+* *Permission*: The permission to allow or deny.
+* *Context*: The saved object type on which the permission must be
+enforced.
+
+image:15d88ced097b12.png[The Create role button]
+
+image:15d88ced0a1681.png[Saving a role]
+
+
+
+==== Object permissions
+
+In addition to role level permissions, it is possible to define
+permissions on specific objects by going to [.menuchoice]#Management >
+Save Objects# and clicking the permissions button next to an object:
+
+image:15d88ced0a9d63.png[The object permissions button]
+
+The object permissions form enables you to set the owner of the object
+and custom access rules.
+
+By default, the owner is set to the user that created the object; the
+owner has all permissions on the created object; it is possible to unset
+the owner of an object by leaving the field blank and clicking the Save
+button.
+
+Custom access rules can be used to grant access to an object that would
+be otherwise hidden; for example, if `+everyone+` is not granted to
+display dashboards but you want to display the `+Overview+` dashboard to
+all users, visit the object permissions form for the `+Overview+`
+dashboard and set the `+View+` permission for `+everyone+` to `+Allow+`.
+
+If `+everyone+` can see dashboards but you would like to hide the `+IT+`
+dashboard to users, set the `+View+` permission for `+everyone+` to
+`+Deny+`.
+
+image:15d88ced0b0ee0.png[The object permissions form]
+
+
+
+NOTE: Users are not allowed to view or edit the following types unless they
+have permission to do so. But they will be retrieved and executed by the
+backend if used by a visualization:
++
+* Query
+* Query templates
+* Datasource
+
+
+
+=== Logstash configuration
+
+To enable authentication in Logstash, set the following parameters in
+the *output.elasticsearch* section:
+
+* *user*: The username of the user having the Logstash role.
+* *password*: The password of the user having the Logstash role.
+* *ssl*: Set to true to enable SSL.
+* *truststore*: The path to the CA truststore file.
+* *truststore_password*: The password of the CA truststore file.
+
+For example:
+
+....
+output {
+    elasticsearch {
+       hosts => ['localhost:9220']
+       user => logstash
+       password => password
+       ssl => true
+       truststore => '/etc/pki/logstash/truststore.jks'
+       truststore_password => password
+    }
+}
+....
+
+The truststore file must be copied on all nodes running Logstash.
+
+
+
+=== Beats configuration
+
+To enable authentication in a beat which connects directly to
+Elasticsearch, set the following parameters in the
+*output.elasticsearch* section:
+
+* *protocol*: Set to _https_.
+* *username*: The username of the user having the Logstash role.
+* *password*: The password of the user having the Logstash role.
+* *tls.certificate_authorities*: An array containing the path to the CA
+truststore file in PEM format.
+
+For example:
+
+[source,yaml]
+----
+output:
+
+  elasticsearch:
+    hosts: ['localhost:9220']
+
+    protocol: 'https'
+    username: 'logstash'
+    password: 'password'
+
+    tls:
+      certificate_authorities: ['/etc/pki/filebeat/ca.pem']
+----
+
+The root certification authority in PEM format must be copied to all
+nodes running one or more beats.
+
+
+
+
+=== Console configuration
+
+To successfully submit queries from console to a cluster secured by
+Search Guard set the following parameters in `+config/investigate.yml+`:
+
+[source,yaml]
+----
+console.proxyConfig:
+  - match:
+      protocol: 'https'
+
+    ssl:
+      ca: 'pki/searchguard/ca.pem'
+----
+
+`+console.proxyConfig.ssl.ca+` must point to the CA certificate bundle,
+so it can be set to the same value as the `+elasticsearch.ssl.ca+`
+parameter.
+
+
+
+=== X-Pack monitoring configuration
+
+To store monitoring data in a cluster secured by Search Guard it is
+required to configure agent exporters to submit data over an
+authenticated HTTPS connection.
+
+The exporter configuration in `+elasticsearch.yml+` must include the
+following parameters:
+
+* `+type+`: `+http+`.
+* `+host+`: An array of URLs that will be contacted by the exporter.
+* `+auth.username+`: The username of the Marvel agent user.
+* `+auth.password+`: The password of the Marvel agent user.
+* `+ssl.truststore.path+`: The path to the CA certificate truststore
+(this will usually be the same as the one specified in the Search Guard
+configuration).
+* `+ssl.truststore.password+`: The password of the CA certificate
+truststore.
+
+For example, the following configuration defines an exporter which sends
+data to the cluster at `+https://localhost:9220+`, authenticating as the
+`+monitoring+` user:
+
+[source,yaml]
+----
+xpack.monitoring.exporters:
+  id1:
+    type: http
+    host: ['https://localhost:9220']
+
+    auth:
+      username: monitoring
+      password: password
+
+    ssl:
+      truststore.path: truststore.jks
+      truststore.password: password
+----
+
+
+
+=== X-Pack security integration
+
+Create a `+investigate_system+` role with the following definition and
+map it to a `+sirenserver+` user:
+
+[source,json]
+----
+{
+  "investigate_system": {
+    "cluster": [
+      "cluster:internal/federate/*",
+      "cluster:admin/federate/*",
+      "cluster:monitor/*"
+    ],
+    "indices": [
+      {
+        "names": [
+          "/\\.siren.*/"
+        ],
+        "privileges": [
+          "all"
+        ]
+      },
+      {
+        "names": [
+          "*"
+        ],
+        "privileges": [
+          "indices:data/read*",
+          "indices:admin/aliases/get",
+          "indices:admin/aliases/exists",
+          "indices:admin/get",
+          "indices:admin/exists",
+          "indices:admin/mappings/fields/get*",
+          "indices:admin/mappings/get*",
+          "indices:admin/mappings/federate/connector/get*",
+          "indices:admin/mappings/federate/connector/fields/get*",
+          "indices:admin/types/exists",
+          "indices:admin/validate/query",
+          "indices:monitor/settings/get"
+        ]
+      }
+    ]
+  }
+}
+----
+
+If using a custom configuration, replace the configuration index name
+(`+.siren+` by default) and access control index name (`+.sirenaccess+`
+by default) with the correct names.
+
+Set `+elasticsearch.username+` and `+elasticsearch.password+` to the
+credentials of the `+sirenserver+` user, for example:
+
+[source,yaml]
+----
+elasticsearch.username: sirenserver
+elasticsearch.password: password
+----
+
+If HTTPS is enabled for the Elasticsearch REST API, ensure that the
+`+elasticsearch.url+` setting contains a URL starting with `+https+`,
+for example:
+
+[source,yaml]
+----
+elasticsearch.url: 'https://localhost:9220'
+----
+
+If the certificate is not signed by a public authority, you will also
+need to set the `+elasticsearch.ssl.certificateAuthorities+` to the path
+of the CA chain bundle in PEM format, for example:
+
+[source,yaml]
+----
+elasticsearch.ssl.certificateAuthorities: 'pki/searchguard/ca.pem'
+----
+
+To enable certificate verification, set
+`+elasticsearch.ssl.verificationMode+` to `+full+`, for example:
+
+[source,yaml]
+----
+elasticsearch.ssl.verificationMode: full
+----
+
+Set the *investigate_core.elasticsearch.auth_plugin* option to
+`+xpack+`:
+
+....
+investigate_core:
+  elasticsearch:
+    auth_plugin: xpack
+....
+
+Then, set the backend parameter of the `+investigate_access_control+`
+section of the `+investigate.yml+` to `+xpack+`:
+
+[source,yaml]
+----
+investigate_access_control:
+  enabled: true
+  backend: xpack
+  acl:
+    enabled: true
+  cookie:
+    secure: true
+    password: '12345678123456781234567812345678'
+----
+
+For a complete description of the options, see TBD.
+
+All users with access to Siren Investigate should have the following
+role definition:
+
+*Example standard user role with access to all indices starting with
+`+data-+` and to all virtual indices starting with `+db-+`:.*
+
+[source,json]
+----
+{
+  "investigate_user": {
+    "cluster": [
+      "cluster:internal/federate/*"
+    ],
+    "indices": [
+      {
+        "names": [
+          "data-*", "db-*"
+        ],
+        "privileges": [
+          "indices:data/read*",
+          "indices:admin/aliases/get",
+          "indices:admin/aliases/exists",
+          "indices:admin/get",
+          "indices:admin/exists",
+          "indices:admin/mappings/fields/get*",
+          "indices:admin/mappings/get*",
+          "indices:admin/mappings/federate/connector/get*",
+          "indices:admin/mappings/federate/connector/fields/get*",
+          "indices:admin/types/exists",
+          "indices:admin/validate/query",
+          "indices:monitor/settings/get",
+          "indices:admin/template/get"
+        ]
+      }
+    ]
+  }
+}
+----
+
+For administrative user, ensure you have `+admin_role+` configured in
+the `+investigate_access_control+` section in `+investigate.yml+`. e.g
+
+[source,yaml]
+----
+investigate_access_control:
+  admin_role: investigate_admin
+----
+
+*Example administrative user with access to all indices starting with
+`+data-+`, to all virtual indices starting with `+db-+`, license
+management, and permission to manage external datasources and virtual
+indices starting with `+db-+`:.*
+
+[source,yaml]
+----
+{
+  "investigate_admin": {
+    "cluster": [
+      "cluster:internal/federate/*",
+      "cluster:admin/federate/*",
+      "cluster:monitor/*",
+      "cluster:admin/xpack/security/*"
+    ],
+    "indices": [
+      {
+        "names": [
+          "data-*", "db-*"
+        ],
+        "privileges": [
+          "indices:monitor/*",
+          "indices:admin/*",
+          "indices:data/read*"
+        ]
+      }
+    ]
+  }
+}
+----
+
+For additional information on datasources configuration, check the
+section.
+
+
+
+
+== Kerberos/SPNEGO authentication support
+
+This section offers an overview of how to enable Kerberos/SPNEGO
+authentication in Siren Investigate.
+
+Before enabling Kerberos support you should setup Siren Investigate and
+Search Guard as described in <<Search Guard integration and Siren Investigate access control>>.
+
+
+
+=== Limitations
+
+The current implementation requires disabling the Kerberos replay cache
+in Search Guard, as the Siren Investigate backend needs to make multiple
+requests to the Elasticsearch cluster on behalf of the user in several
+places without the ability to generate new service tickets.
+
+As long as all the traffic to Siren Investigate is encrypted and the
+service ticket lifetime is short (the default in most system is five to
+10 minutes) this should not pose a significant security risk.
+
+
+
+
+=== Prerequisites
+
+==== Service Principal
+
+To enable Kerberos authentication, you need to create a service
+Principal to identify the Elasticsearch REST interface; usually the
+principal name is `+HTTP/<public DNS name of the cluster>+` (for example
+`+HTTP/es.ad.local+`).
+
+===== Active Directory
+
+On an Active Directory domain controller it is possible to use the
+`+setspn+` command to set a Service Principal Name for a domain user;
+for example, the following command run in an elevated command prompt
+associates the Service Principal Name `+HTTP/es.ad.local+` to a user
+named `+elasticsearch+`:
+
+[source,shell]
+----
+setspn -A HTTP/es.cluster.local elasticsearch
+----
+
+Refer to the Active Directory documentation for more details about
+setspn and Kerberos integration.
+
+==== Keytab
+
+After the service Principal is defined, you need to generate a keytab
+file that will be used by the Kerberos add-on to authenticate with the
+KDC.
+
+===== Active Directory
+
+On an Active Directory domain controller you can generate a keytab by
+running the `+ktpass+` command in an elevated command prompt as follows:
+
+[source,shell]
+----
+ktpass -out es.keytab -princ <principal name>@<domain> /mapuser <principal user> /pass "<principal user password>" /kvno 0
+----
+
+For example, to generate a keytab for the SPN `+HTTP/es.ad.local+`,
+associated to `+elasticsearch+` user in the `+AD.LOCAL+` domain, you
+need to run the following command:
+
+[source,shell]
+----
+ktpass -out es.keytab -princ HTTP/es.ad.local@AD.LOCAL /mapuser elasticsearch /pass "password" /kvno 0
+----
+
+==== Verification
+
+NOTE: This verification step is optional but it is useful to ensure that the
+keytab is correct before configuring Search Guard.
+
+
+To verify that the keytab works correctly, copy it to a different
+machine with access to the KDC / Domain controller; the keytab contains
+the credentials of the service principal user so it should be removed
+from any intermediate machine used to transfer the file the transfer and
+from the target machine after the test is complete.
+
+Create a file named `+krb5.conf+` in the same folder as the keytab with
+the contents below; replace `+AD.LOCAL+` with your domain name and
+`+DC.AD.LOCAL+` with the name or IP address of your KDC or domain
+controller, keeping the case of domains as in the example:
+
+[source,ini]
+----
+[libdefaults]
+default_realm = AD.LOCAL
+forwardable=true
+default_tkt_enctypes = rc4-hmac,aes256-cts-hmac-sha1-96,aes128-cts-hmac-sha1-96
+default_tgs_enctypes = rc4-hmac,aes256-cts-hmac-sha1-96,aes128-cts-hmac-sha1-96
+
+[realms]
+AD.LOCAL = {
+kdc = dc.ad.local:88
+default_domain = ad.local
+}
+
+[domain_realm]
+.ad.local = AD.LOCAL
+ad.local = AD.LOCAL
+----
+
+===== Linux
+
+On Linux, set the `+KRB5_CONFIG+` variable temporarily to point to the
+absolute path of the file created before and run
+`+kinit -t <keytab> <principal>+`, for example:
+
+[source,shell]
+----
+KRB5_CONFIG=./krb5.conf kinit -t es.keytab HTTP/es.ad.local
+----
+
+If the keytab is correct, kinit should exit immediately and not show a
+password prompt; to verify that the ticket has been issued, execute the
+`+klist -v+` command and check that it outputs the details of the
+ticket:
+
+[source,shell]
+----
+klist -v
+Credentials cache: API:123
+        Principal: HTTP/es.ad.local@ES.AD.LOCAL
+    Cache version: 0
+
+Server: krbtgt/AD.LOCAL@AD.LOCAL
+Client: HTTP/es.ad.local@AD.LOCAL
+Ticket etype: aes256-cts-hmac-sha1-96, kvno 2
+Session key: arcfour-hmac-md5
+Ticket length: 1194
+Auth time:  May 12 19:59:10 2017
+End time:   May 13 05:59:10 2017
+Ticket flags: enc-pa-rep, pre-authent, initial, forwardable
+Addresses: addressless
+----
+
+You can then destroy the ticket by executing the `+kdestroy+` command.
+
+===== Windows systems
+
+If you are running Elasticsearch nodes on Windows, you can use the
+Kerberos tools bundled with the Java Runtime Environment to verify the
+keytab.
+
+If the JRE folder is not in the system path, prepend it to each command.
+
+Execute
+`+kinit <principal> -t <keytab> -J-Djava.security.krb5.conf=<path to krb5.conf>+`
+to get a ticket, for example:
+
+[source,shell]
+----
+kinit HTTP/es.ad.local -t es.keytab -J-D"java.security.krb5.conf=C:\Users\test\krb5.conf"
+----
+
+If the keytab is correct `+kinit+` will print the path to the file where
+the ticket has been saved, for example:
+
+[source,shell]
+----
+New ticket is stored in cache file C:\Users\test\krb5cc_test
+----
+
+Execute `+klist+` to see the details of the ticket; to destroy the
+ticket you can simply remove the file create by `+kinit+`.
+
+
+
+=== Configuration
+
+==== Search Guard add-on
+
+Kerberos authentication support requires the installation of the
+commercial Search Guard Kerberos HTTP Authentication add-on; to install
+it, download the correct jar for your Search Guard version from
+https://github.com/floragunncom/search-guard-auth-http-kerberos/wiki and
+copy it to the `+plugins/search-guard-<version>+` folder on each node.
+
+==== Kerberos configuration file
+
+Create a file named `+krb5.conf+` in the `+config+` folder of each node
+with the following contents; replace `+AD.LOCAL+` with your domain name
+and `+DC.AD.LOCAL+` with the name or IP address of your KDC/domain
+controller, keeping the case of domains as in the example:
+
+[source,ini]
+----
+[libdefaults]
+default_realm = AD.LOCAL
+forwardable=true
+default_tkt_enctypes = rc4-hmac,aes256-cts-hmac-sha1-96,aes128-cts-hmac-sha1-96
+default_tgs_enctypes = rc4-hmac,aes256-cts-hmac-sha1-96,aes128-cts-hmac-sha1-96
+
+[realms]
+AD.LOCAL = {
+kdc = dc.ad.local:88
+default_domain = ad.local
+}
+
+[domain_realm]
+.ad.local = AD.LOCAL
+ad.local = AD.LOCAL
+----
+
+==== Keytab
+
+Copy the keytab file for the service principal to the configuration
+folder of each Elasticsearch node.
+
+==== Elasticsearch configuration
+
+Add the following options to the `+elasticsearch.yml+` file of each
+node:
+
+* `+searchguard.kerberos.krb5_filepath+`: the path to the Kerberos
+configuration file, usually `+krb5.conf+`.
+* `+searchguard.kerberos.acceptor_keytab_filepath+`: the path to the
+keytab file relative to the configuration folder of the Elasticsearch
+node. *It is mandatory to store the keytab in this folder.*
+* `+searchguard.kerberos.acceptor_principal+`: the name of the principal
+stored in the keytab (for example `+HTTP/es.ad.local+`).
+
+Example configuration:
+
+[source,yaml]
+----
+searchguard.kerberos.krb5_filepath: 'krb5.conf'
+searchguard.kerberos.acceptor_keytab_filepath: 'es.keytab'
+searchguard.kerberos.acceptor_principal: 'HTTP/es.ad.local'
+----
+
+To switch off the Kerberos replay cache in Search Guard, you must set
+the `+sun.security.krb5.rcache+` JVM property to `+none+`; this can be
+done by setting the following line in `+config/jvm.options+`:
+
+[source,yaml]
+----
+-Dsun.security.krb5.rcache=none
+----
+
+For information on where to set/modify this variable, refer to
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/settings.html[Running
+as a service on Linux] or
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/windows.html#windows-service[Running
+as a service on Windows].
+
+==== Cluster restart
+
+After the previous steps have been completed on all nodes, perform a
+rolling restart of the cluster.
+
+==== Search Guard authenticator configuration
+
+To complete the Kerberos configuration you need to modify your
+`+sg_config.yml+` file and upload it to the cluster using `+sgadmin+`;
+if you are using the Search Guard management API make sure you include
+only the `+sg_config.yml+` in the sgadmin configuration folder or you
+will overwrite internal users, actiongroups, roles and mappings defined
+through the API.
+
+To enable Kerberos authentication over HTTP, you must:
+
+* Add a Kerberos authenticator stanza to `+searchguard.authc+`.
+* Switch off challenge in the existing HTTP Basic authenticator if
+enabled.
+
+**Example**`+sg_config.yml+`:
+
+[source,yaml]
+----
+searchguard:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+    authc:
+      kerberos_auth_domain:
+        enabled: true
+        order: 2
+        http_authenticator:
+          type: kerberos
+          challenge: true
+          config:
+            krb_debug: false
+            strip_realm_from_principal: true
+        authentication_backend:
+          type: noop
+      basic_internal_auth_domain:
+        enabled: true
+        order: 1
+        http_authenticator:
+          type: basic
+          challenge: false
+        authentication_backend:
+          type: intern
+----
+
+With this configuration, if the user is not authenticated Search Guard
+will reply with a 401 challenge; SPNEGO compatible browsers will then
+repeat the request automatically with Kerberos credentials if the
+cluster is in a trusted network or display an authentication popup where
+the user can enter its domain credentials.
+
+If an HTTP request to the cluster contains an HTTP Basic authorization
+header, it will still be authenticated by the HTTP authenticator defined
+in `+basic_internal_auth_domain+`; it is necessary to leave this enabled
+as the Siren Investigate backend uses this method to authenticate with
+the cluster.
+
+It is possible to enable only a single HTTP challenge; if your browser
+is configured to automatically send Kerberos credentials in a trusted
+zone it is possible to switch off the challenge attribute by setting
+`+kerberos_auth_domain.http_authenticator.challenge+` to `+false+`.
+
+For more details about configuring Search Guard authenticator, refer to
+the http://floragunncom.github.io/search-guard-docs/[Search Guard
+documentation].
+
+
+
+=== Verification
+
+After `+sg_config.yml+` has been loaded you can verify if the
+authentication is working by mapping a username in the Active Directory
+/ Kerberos domain to a Search Guard role mapping, for example:
+
+[source,yaml]
+----
+sirenuser:
+  users:
+    - sirenuser
+    - domainuser
+----
+
+After the mapping is loaded to the cluster, logon to a machine in the
+domain with the domain user and open the cluster URL in a Kerberos
+enabled browser (for example Chrome on Windows).
+
+If everything is set up correctly you should see the default JSON
+response of Elasticsearch in the browser without having to enter
+credentials, for example:
+
+[source,json]
+----
+{
+  "name" : "Node",
+  "cluster_name" : "cluster",
+  "cluster_uuid" : "nimUDAyBQWSskuHoAQG06A",
+  "version" : {
+    "number" : "5.4.0",
+    "build_hash" : "fcbb46dfd45562a9cf00c604b30849a6dec6b017",
+    "build_timestamp" : "2017-01-03T11:33:16Z",
+    "build_snapshot" : false,
+    "lucene_version" : "5.5.2"
+  },
+  "tagline" : "You Know, for Search"
+}
+----
+
+If you are getting an authentication popup, ensure that the
+Elasticsearch cluster URL is in a trusted zone.
+
+To add a site to the trusted zone on Windows:
+
+. Open Internet Explorer and click *Internet options*.
+
+. Click the *Security* tab.
+
+. Click *Local Intranet*.
+
+. Click *Sites*.
+
+. Click *Advanced*.
+
+. Add the URL of the cluster to the list (the port can be omitted).
+
+After the cluster is in the trusted zone, try to open the cluster URL
+again.
+
+Internet Explorer options are also used by Chrome on Windows.
+
+
+
+=== Troubleshooting
+
+To check why a request is not authenticated you can check the
+Elasticsearch logs of the client node serving the REST API.
+
+The most common issues are:
+
+* Cluster URL not present in the trusted sites list.
+* A keytab containing an incorrect Service Principal Name and/or a wrong
+password for the user account associated to the SPN.
+* An incorrect address of the domain controller / KDC in the
+`+krb5.conf+` file.
+
+To get additional debugging information you can set `+krb_debug+` to
+`+true+` temporarily in `+sg_config.yml+` and upload it to the cluster
+using `+sgadmin+`.
+
+
+
+=== Siren Investigate SPNEGO configuration
+
+To enable SPNEGO support in Siren Investigate, set the
+`+investigate_access_control.backends.searchguard.authenticator+` option
+to `+http-negotiate+`, in `+investigate.yml+`, for example:
+
+[source,yaml]
+----
+investigate_access_control:
+  #... existing options
+  backends:
+    searchguard:
+      #... existing options
+      authenticator: 'http-negotiate'
+----
+
+Then restart Siren Investigate and verify that you can log in from a
+browser in the domain using a user defined in Search Guard.
+
+When SPNEGO support is enabled, cookie based authentication will be
+switched off; if you need to provide both authentications for different
+networks, it is possible to start an additional Siren Investigate
+instance with
+`+investigate_access_control.backend.searchguard.authenticator+` set to
+`+http-basic+` or not set at all.
+
+
+
+== JWT authentication support
+
+This section offers an overview of how to integrate Siren Investigate
+with the Search Guard JWT authenticator when Siren Investigate is
+embedded into an iframe by another application.
+
+Before enabling JWT support you should setup Siren Investigate and
+Search Guard as described in
+link:#UUID-c90c7882-8ae2-2392-260c-ef61485f6027[Search Guard
+integration], and ensure that it works as expected.
+
+
+
+=== Prerequisites
+
+==== Search Guard add-on
+
+JWT authentication support require the installation of the commercial
+Search Guard Kerberos JWT HTTP Authentication add-on; to install it,
+download the correct jar for your Search Guard version from
+https://github.com/floragunncom/search-guard-authbackend-jwt/wiki[this
+page] and copy it to the `+plugins/search-guard-<version>+` folder on
+each node, then perform a rolling restart of the cluster.
+
+==== Siren Investigate proxy
+
+It is required that Siren Investigate and the container application are
+published on the same domain to enable cross frame communication; this
+can be achieved by implementing a proxy to Siren Investigate in the
+container application routes or configuring a reverse proxy on a path in
+the application server configuration.
+
+==== JWT token issuance
+
+The application that embeds Siren Investigate is responsible for
+generating JWT tokens; https://jwt.io/[jwt.io] provides a good overview
+of the technology, a browser based debugging tool and a list of
+libraries for several platforms.
+
+The https://docs.search-guard.com/latest/[Search Guard documentation]
+provides an overview of all the claims supported by the add-on and a
+list of all the configuration options.
+
+Note that the application must specify an expiration date claim
+(`+exp+`) to avoid creating tokens with unlimited duration.
+
+
+=== Configuration
+
+After the add-on has been installed in the cluster, you must modify
+`+sg_config.yml+` file and upload it to the cluster using `+sgadmin+`.
+If you are using the Search Guard management API ensure you include only
+the `+sg_config.yml+` in the `+sgadmin+` configuration folder or you
+will overwrite internal users, actiongroups, roles and mappings defined
+through the API
+
+To enable JWT authentication over HTTP, you need to add a JWT
+authenticator stanza to `+searchguard.authc+`; an example
+`+sg_config.yml+` follows:
+
+[source,yaml]
+----
+searchguard:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+    authc:
+      jwt_auth_domain:
+        enabled: true
+        order: 1
+        http_authenticator:
+          type: jwt
+          challenge: false
+          config:
+            signing_key: "cGFzc3dvcmQ="
+            jwt_header: "Authorization"
+        authentication_backend:
+          type: noop
+      basic_internal_auth_domain:
+        enabled: true
+        order: 2
+        http_authenticator:
+          type: basic
+          challenge: true
+        authentication_backend:
+          type: internal
+----
+
+With this configuration, Search Guard will check if the
+`+Authorization+` header contains a JWT token signed with the signing
+key specified in `+http_authenticator.signing_key+`.
+
+The signing key must be encoded using the `+base64+` algorithm; in the
+example the decoded key is `+password+`; when using RSA public keys, it
+is also possible to write them on multiple lines as follows:
+
+[source,yaml]
+----
+searchguard:
+    ...
+    authc:
+      jwt_auth_domain:
+        ...
+        http_authenticator:
+          ...
+          config:
+            signing_key: |-
+              -----BEGIN PUBLIC KEY-----
+              123123abcbc
+              -----END PUBLIC KEY-----
+----
+
+If the token is decoded successfully, Search Guard will validate the
+following claims:
+
+* `+iat+`: Issued At: the date when the token was issued (optional).
+* `+exp+`: Expiration Time: the date after which the token should
+expired; this claim is optional but you should set it, otherwise tokens
+will have unlimited duration.
+* `+nbf+`: Not Before: the date before which the token should be
+rejected (optional).
+
+NOTE: All dates are expressed as seconds since the Epoch in UTC.
+
+
+
+If time claims are validated, Search Guard will get the username from
+the Subject claim (`+sub+`), assign role mappings and evaluate role
+permissions.
+
+If an HTTP request to the cluster contains an HTTP Basic authorization
+header it will be authenticated by the HTTP authenticator defined in
+`+basic_internal_auth_domain+`; it is necessary to leave this enabled as
+the Siren Investigate backend uses this method to authenticate with the
+cluster.
+
+It is possible to customize the claim used to retrieve the username
+through the parameter `+subject_key+`, for example:
+
+[source,yaml]
+----
+searchguard:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+      xff:
+        enabled: false
+    authc:
+      jwt_auth_domain:
+        enabled: true
+        order: 1
+        http_authenticator:
+          type: jwt
+          challenge: false
+          config:
+            signing_key: |-
+              -----BEGIN PUBLIC KEY-----
+              123123abcbc
+              -----END PUBLIC KEY-----
+            subject_key: "service:username"
+            jwt_header: "Authorization"
+        authentication_backend:
+          type: noop
+----
+
+==== User cache
+
+When using the JWT authentication mechanism it is recommended to switch
+off the Search Guard user cache as each token contains the complete
+description of the user; this can be done by adding the following
+setting to `+elasticsearch.yml+`:
+
+[source,yaml]
+----
+searchguard.cache.ttl_minutes: 0
+----
+
+Each node must be restarted after writing the setting.
+
+==== Roles
+
+It is possible to specify user roles in a token claim by setting the
+`+roles_key+` attribute in the authenticator configuration to the
+desired claim name, for example:
+
+[source,yaml]
+----
+#...
+      jwt_auth_domain:
+        enabled: true
+        order: 1
+        http_authenticator:
+          type: jwt
+          challenge: false
+          config:
+            roles_key: "roles"
+            signing_key: "cGFzc3dvcmQ="
+            jwt_header: "Authorization"
+#...
+----
+
+After the attribute is set and the configuration is updated, it is
+possible to assign backend roles to the user by setting the claim
+defined in `+http_authenticator.config.roles_key+` in the token payload,
+for example :
+
+[source,json]
+----
+{
+  "sub": "sirenuser",
+  "exp": 1495711765,
+  "roles": "sales,marketing"
+}
+----
+
+Note that to map roles set in the JWT token to Search Guard roles you
+must define a role mapping such as the following:
+
+image:15d88ced0b8d26.png[_JWT role mapping_]
+
+
+
+=== Verification
+
+To verify that Search Guard JWT authentication is working correctly you
+can generate a JWT token from your application and pass it to
+Elasticsearch using curl’s `+-H+` option, for example:
+
+[source,shell]
+----
+curl -k -H "Content-Type: application/json" -H "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJraWJpdXNlciJ9.tqCYxJsORvro59Q01J9HUeFpQtauc81CcTlS5bVl93Y" https://localhost:9200/_searchguard/authinfo
+----
+
+To test if it is working correctly before the application is ready, you
+can use the https://jwt.io/#debugger[jwt.io debugger] to generate tokens
+using the signing key defined in `+sg_config.yml+`.
+
+
+===== Siren Investigate JWT configuration
+
+To enable JWT support in Siren Investigate, set the
+`+investigate_access_control.backends.searchguard.authenticator+` option
+to `+http-jwt+`, in `+investigate.yml+`, for example:
+
+[source,yaml]
+----
+investigate_access_control:
+  #... existing options
+  backends:
+    searchguard:
+      #... existing options
+      authenticator: 'http-jwt'
+----
+
+Then restart Siren Investigate and open it in a browser; you should get
+a blank page and the URL should end with `+login+`.
+
+To test JWT authentication, open your browser console
+([.keycombo]#Ctrl+Shift+I# on Chrome and Firefox) and call
+`+setJWTToken+` of the `+sireninvestigate+` object, for example:
+
+[source,javascript]
+----
+.sireninvestigate
+.setJWTToken(yourtoken)
+.then(function() {
+  console.log('JWT token set.');
+})
+.catch(function(error) {
+  console.log('An error occurred setting the token.');
+});
+----
+
+After the token is set, Siren Investigate will store it in an encrypted
+cookie and send it in every request to the backend; the backend will
+then forward the JWT token to Search Guard to authenticate the user.
+
+After the token is set, you can switch to the desired Siren Investigate
+URL by changing `+location.href+`.
+
+When the user is logged out from the main application, sessionStorage
+and localStorage should be cleared.
+
+For more information on how to call set JWTToken from the parent frame,
+see xref:legacy-rest-datasources.adoc[Legacy REST datasources].
