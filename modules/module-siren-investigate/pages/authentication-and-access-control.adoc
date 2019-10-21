@@ -2366,7 +2366,7 @@ can use the https://jwt.io/#debugger[jwt.io debugger] to generate tokens
 using the signing key defined in `+sg_config.yml+`.
 
 
-===== Siren Investigate JWT configuration
+==== Siren Investigate JWT configuration
 
 To enable JWT support in Siren Investigate, set the
 `+investigate_access_control.backends.searchguard.authenticator+` option
