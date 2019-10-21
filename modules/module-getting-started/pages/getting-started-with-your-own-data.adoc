@@ -1,0 +1,1122 @@
+= Getting started with your own data
+
+This section describes the process of installing and configuring Siren
+Platform in a production environment.
+
+You can learn how to import external datasets by using Excel or CSV
+files, JDBC connections, or by using Logstash.
+
+After you have connected your data, you can use Siren Investigate to
+create an initial data model, create dashboards, and explore your data
+in the graph browser.
+
+This section includes an example of how to use complex normalized
+databases with Siren Platform.
+
+
+== Installing Siren Platform
+
+
+=== Prerequisites
+
+The minimum hardware requirements are:
+
+* x64 CPU with four processing units (cores)
+* 16GB RAM
+* 10GB free SSD disk space
+
+We support the following operating systems:
+
+* Microsoft Windows (64-bit)
+* Linux 2.6.32 or later (x86-64)
+
+We support the following browsers:
+
+* Google Chrome
+* Mozilla Firefox
+* Microsoft IE 11
+* Microsoft Edge
+
+You must install one of these Java versions:
+
+* Oracle JDK 8
+* OpenJDK 8
+
+Ensure that the `+JAVA_HOME+` environment variable is set to the
+appropriate path. To set the `+JAVA_HOME+` environment variable, follow
+the instructions
+https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/[here].
+
+If you want to connect an external datasource by using a JDBC connector,
+see
+link:/document/preview/89931#UUID-1e8d9902-31ea-0983-423a-7843a8619c61[JDBC
+driver installation and compatibility].JDBC driver installation and
+compatibility
+
+For information about compatibility between versions of Siren
+Investigate, Siren Federate, and Elasticsearch, see the
+link:/document/preview/74590#UUID-5b0fe9bf-7258-6149-8e3f-ff64d6129009[version
+compatibility matrix].3.1. Setting up Siren Investigate
+
+
+=== Download the Siren platform
+
+[arabic]
+. Download Siren Platform from https://siren.io/downloads/.
+. Complete the validation form, accept the license, and click Proceed.
+
+
+=== Install Elasticsearch as a Windows service
+
+[arabic]
+. Copy the `+elasticsearch+` folder and its contents from the `+ZIP+`
+archive you downloaded to your `+Program Files+` folder.
+. Edit the `+elasticsearch.yml+` file in the
+`+%ProgramFiles%\elasticsearch\config+` folder.
+. In the Path section, enter the data and log paths, for example:
++
+....
+path.data: C:\Program Files\elasticsearch\data
+path.logs: C:\Program Files\elasticsearch\logs
+....
+. In the Network section, change the `+network.host+` to `+127.0.0.1+`
+and save the file.
+. From the command prompt, enter:
++
+....
+cd %ProgramFiles%\elasticsearch
+bin\elasticsearch-service install
+....
+. Open the Services management console (you can enter `+services.msc+`
+at the command prompt).
+. Locate the  Elasticsearch service and change Startup Type to
+Automatic.
+. Right-click the service and select Start.
+
+
+=== Install Elasticsearch as a Linux service
+
+[arabic]
+. Create a system user for the service, for example
+`+adduser --system elasticsearch+`.
+. Copy the `+elasticsearch+` folder and its contents from the `+ZIP+`
+archive you downloaded to the `+/opt+` folder and then set the
+permissions for the system user, for example
+`+sudo chown -R elasticsearch /opt/elasticsearch+`. 
+. Edit the `+elasticsearch.yml+` file in the
+`+/opt/elasticsearch/config+` folder.
+. In the Path section, enter the data and log paths, for example:
++
+....
+path.data: /opt/elasticsearch/data
+path.logs: /opt/elasticsearch/logs
+....
+. In the Network section, change the `+network.host+` to `+127.0.0.1+`
+and save the file.
+. From the command prompt, as root enter:
++
+....
+cat <<EOF >/opt/elasticsearch.environment
+ES_JAVA_OPTS="-Xms4g -Xmx4g"
+EOF
+
+cat <<EOF >/etc/systemd/system/elasticsearch.service
+[Unit]
+Description=Elasticsearch (Siren)
+After=network.target auditd.service
+
+[Service]
+WorkingDirectory=/opt/elasticsearch
+EnvironmentFile=-/opt/elasticsearch.environment
+ExecStart=/opt/elasticsearch/bin/elasticsearch
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+Type=simple
+User=elasticsearch
+LimitMEMLOCK=infinity
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+Alias=elasticsearch.service
+EOF
+
+echo "vm.max_map_count = 262144" > /etc/sysctl.d/99-elasticsearch.conf
+sysctl -p /etc/sysctl.d/99-elasticsearch.conf
+ln -s ../elasticsearch.service /etc/systemd/system/multi-user.target.wants/
+systemctl daemon-reload
+systemctl start elasticsearch
+....
+
+
+=== Install Siren Investigate as a Windows service
+
+Installing Siren Investigate as a service with Windows requires use of
+the third-party tool NSSM (https://nssm.cc/download). Because it
+configures services, anti-virus software may identify it as "riskware".
+However, an SHA checksum and source code are provided. You can verify
+the checksum using the Microsoft File Checksum Integrity Verifier
+(https://www.microsoft.com/en-us/download/details.aspx?id=11533).
+
+[arabic]
+. Copy the `+siren-investigate+` folder and its contents from the Siren
+platform `+ZIP+` archive you downloaded to your `+%ProgramFiles%+`
+folder.
+. Copy the `+nssm.exe+` program from the `+win64+` folder in the NSSM
+`+ZIP+` archive you downloaded to the
+`+%ProgramFiles%\siren-investigate\bin+` folder.
+. Set the `+INVESTIGATE_HOME+` environment variable to
+`+%ProgramFiles%\siren-investigate+`.
+. From the command prompt, enter
+`+%ProgramFiles%\siren-investigate\bin\nssm install "Siren Investigate"+`.
+. In the Application Path box, enter
+`+%ProgramFiles%\siren-investigate\bin\investigate.bat+`.
+. In the Startup directory box, enter
+`+%ProgramFiles%\siren-investigate+`.
+. On the Details tab, in the Display name box, enter
+`+Siren Investigate+`.
+. On the Dependencies tab, in the box enter
+`+elasticsearch-service-x64+`.
+. Click Install service.
+. Open the Services management console (you can enter `+services.msc+`
+at the command prompt).
+. Locate the Siren Investigate  service, right-click it and select
+Start .
+
+
+=== Install Siren Investigate as a Linux service
+
+[arabic]
+. Create a system user for the service, for example
+`+adduser --system siren+`.
+. Copy the `+siren-investigate+` folder and its contents from the
+`+ZIP+` archive you downloaded to the `+/opt+` folder and then set the
+permissions for the system user, for example
+`+sudo chown -R siren /opt/siren-investigate+`.
+. From the command prompt, as root enter:
++
+....
+cat <<EOF >/etc/systemd/system/siren.service
+[Unit]
+Description=Siren Investigate
+After=network.target auditd.service
+
+[Service]
+WorkingDirectory=/opt/siren-investigate
+EnvironmentFile=-/opt/siren.environment
+ExecStart=/opt/siren-investigate/bin/investigate
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+Type=simple
+User=siren
+
+[Install]
+WantedBy=multi-user.target
+Alias=siren.service
+EOF
+
+ln -s ../siren.service /etc/systemd/system/multi-user.target.wants/
+systemctl daemon-reload
+systemctl start siren
+....
+
+
+=== Test your connection
+
+In your browser, navigate to
+http:// localhost:5606/status[http://localhost:5606/status]. If the
+Elasticsearch and Siren Investigate services are running, the sign in
+screen is displayed.
+
+
+=== Next steps
+
+Import data either by using Logstash, by connecting to JDBC datasources,
+or by uploading Excel or CSV files.
+
+
+== Importing data from an external datasource
+
+You can import data either by using data reflections or by creating
+virtual indices.
+
+
+=== Prerequisites
+
+Ensure that you have completed the installation as described in
+link:/document/preview/60106#UUID-4a5b28c1-a16d-a4d8-4627-67781f762bdd[Installing
+Siren Investigate].3.1.1. Installing Siren Investigate
+
+Check the list of supported databases at
+link:/document/preview/100138#UUID-ce79aace-3d07-9cdc-e516-db771e7b2735[JDBC
+driver installation and compatibility].5.8.1 JDBC driver installation
+and compatibility
+
+The schema that you want to connect to must be the default schema of the
+connection user.
+
+
+=== Configuring the datasource
+
+To enable JDBC on a node where the Siren Federate plugin is installed,
+add the following setting to the `+elasticsearch.yml+` file:
+
+....
+node.attr.connector.jdbc: true
+....
+
+Create a directory named `+jdbc-drivers+` inside the configuration
+directory of the node. For example, create the directory in
+`+elasticsearch/config+` or `+etc/elasticsearch+`.
+
+Copy the JDBC driver to the `+jdbc-drivers+` directory.
+
+Restart the Elasticsearch service.
+
+
+=== Connect your database to the Siren platform
+
+In Siren Investigate, navigate to [.menuchoice]#Management >
+Datasources#.
+
+Select JDBC from the Type box.
+
+Select the Database Type.
+
+Enter a display Name for the datasource in Siren Investigate.
+
+Enter the database Username and Password.
+
+Click Test connection. If the connection is successful, a dialog is
+displayed. 
+
+Click No, will do later, then click SAVE.
+
+
+=== Create a virtual index
+
+In Siren Investigate, navigate to [.menuchoice]#Management > Virtual
+Indices#.
+
+Select the Datasource name.
+
+Select the Resource name from the Datasource browser.
+
+Enter a valid lowercase Elasticsearch Virtual index name.
+
+(Optional) Enter a Primary key. This is required if you want to use this
+Index in the graph browser.
+
+Click SAVE. A dialog is displayed.
+
+Click Yes, take me there (see link:#[?xml_title]). Alternatively, click
+No, will do later, then click SAVE.
+
+
+== Importing data by using Logstash
+
+The following section provides an example of how to load data sets into
+Siren Platform by using Logstash. You should adapt this example for use
+with your own data set.
+
+NOTE: The data sets used in the example contains millions of records. If you
+use these data sets, loading may take a long time to complete.
+
+
+
+=== Prerequisites
+
+* Install the Siren platform as described in
+link:#UUID-93e4bd2a-c423-dd5d-9405-28c275ac38a2[Installing Siren
+Platform].
+* Install Logstash (https://www.elastic.co/downloads/logstash).
+
+The example uses publicly available data from Companies House. If you
+want to try it for yourself, you can download:
+
+* The company data as one CSV file
+(http://download.companieshouse.gov.uk/en_output.html).
+* The person of significant control data as one JSON file
+(http://download.companieshouse.gov.uk/en_pscdata.html).
+
+Extract the `+CSV+` and `+TXT+` files. Edit the example scripts to match
+the path and file names. 
+
+
+=== Create a configuration file for the company data
+
+Create a plain text file with the following content:
+
+....
+input {
+ file {
+   path => "<location of BasicCompanyDataAsOneFile-date.csv>"
+   start_position => beginning
+ }
+}
+filter {
+   csv {
+separator => ","
+autodetect_column_names => true
+autogenerate_column_names => true
+   }
+}
+output {
+   elasticsearch {
+       hosts => ["127.0.0.1:9220"]
+       index => "company"
+   }
+}
+....
+
+Edit the path to match the location of the `+CSV+` file and save it as
+`+logstash_csv.conf+` in the same path as the data set.
+
+
+=== Create a configuration file for the person with significant control data
+
+Create a plain text file with the following content:
+
+....
+input {
+ file {
+   type => "json"
+   path => "<location of persons-with-significant-control-snapshot-date.txt>"
+   start_position => beginning
+ }
+}
+filter {
+ json {
+   source => "message"
+ }
+ mutate {
+   uppercase => [ "data[name]" ]
+ }
+}
+output {
+   elasticsearch {
+       hosts => ["127.0.0.1:9220"]
+       index => "persons-control"
+   }
+}
+....
+
+Edit the path to match the location of the `+TXT+` file and save it as
+`+logstash_json.conf+` in the same path as the data set.
+
+
+=== Load the data
+
+From the command prompt, navigate to the `+logstash/bin+` folder and run
+Logstash with the configuration files you created earlier. For example:
+
+....
+logstash -f C:\data\logstash_csv.conf
+logstash -f C:\data\logstash_json.conf
+....
+
+TIP: You can speed up the import process by installing a second instance of
+Logstash and running the imports concurrently.
+
+
+
+=== Next steps
+
+(Optional) Connect an external datasource with Siren Federate.
+
+Create a data model (ontology).
+
+
+== Creating an initial data model
+
+You can create a data model, also known as an ontology, by defining
+relations between indexes. This effectively treats indexes as classes
+and records as entities.
+
+=== Create an index pattern search
+
+In Siren Investigate, navigate to [.menuchoice]#Management > Data
+Model#.
+
+Click Create Index Pattern Search.
+
+Enter the index name in the Index pattern id box. This is either the
+name of an existing index on Elasticsearch or the name that you have
+defined for the virtual index that connects an external table.
+
+Click Save.
+
+
+=== Create a relationship
+
+Relationships are defined from a class to other classes. However, it is
+not possible to define a relationship between two entity identifiers.
+
+A relationship is defined as a join operation between two indexes with:
+
+* The field of the local index to join on.
+* The class (index pattern or entity) to connect to.
+* (If the class is an index pattern) the field of the index to join
+with.
+* The label of the relation.
+
+The examples given here are from the _Loading CSV and JSON data sets
+with Logstash_ quick start guide.
+
+Click Management (image:15dad792955923.png[image]).
+
+Click Data Model.
+
+Click an Index Pattern, for example company.
+
+In the Relations tab, click Add relation.
+
+Select a Field in the Source Entity, for example CompanyName.keyword.
+
+Select a Target Entity. This can be an index pattern or an entity
+identifier, for example persons-control.
+
+If you selected an index pattern as the Target Entity, select a Field,
+for example data.name.keyword.
+
+Enter a short description of the relationship in the Labels boxes. For
+example, CompanyName.keyword in the company index pattern "is owned
+by" data.name.keyword in the persons-control index pattern and
+data.name.keyword "owns" CompanyName.keyword.
+
+Click Save.
+
+By default, the join type is automatic. You can click Edit to manually
+set the Join type and Relation join task timeout.
+
+You can click the Graph View tab to show a graphical representation of
+the relationship with the currently selected class highlighted.
+
+
+=== Create an entity identifier
+
+Entity identifiers enable you to navigate between two or more indexes
+without requiring a direct relationship between them. They also act as a
+central node element when doing graph analysis.
+
+For example, you may have many indexes with IPs in multiple roles
+(source, destination) and want to join them with other roles and
+indexes.
+
+Click Management (image:image/15dad792955923.png[image]).
+
+Click Data Model.
+
+Click Create Entity Identifier.
+
+Enter an Entity identifier name.
+
+Enter a Short Description.
+
+Enter a Long Description.
+
+Select an Icon.
+
+Select a Color.
+
+Click Save.
+
+For more information about entity identifiers, see link:#[3.2.1.
+Creating an index pattern or entity identifier].3.2.1. Creating an index
+pattern or entity identifier
+
+
+=== Connect an entity identifier to the data model
+
+This example uses the Companies House data set.
+
+Create an entity identifier with the *ID* `+PostCode+` as described in
+the previous section.
+
+From the Relations tab, click Add relation.
+
+Using the boxes, set the relationship so that the source entity is owned
+by the target entity and the target entity owns the source entity.
+
+Select company from the index box.
+
+Select RegAddress.PostCode from the Field box.
+
+
+=== Next steps
+
+Create dashboards.
+
+Add a graph browser visualization to a dashboard.
+
+
+== Creating dashboards
+
+A dashboard displays a set of saved visualizations in a grid layout that
+you can customize. It requires at least one visualization (for more
+information, see link:#[3.5. Visualize]). You can save a dashboard to
+share or view at a later time.3.5. Visualize
+
+Click Dashboard (image:15dad79295e504.png[image]) to view the
+first dashboard in the list. You can drag and drop dashboards to change
+the order of the list.
+
+
+=== Generate a dashboard
+
+Click Discover (image:15dad79296ad45.png[image]).
+
+Click New.
+
+Click Autoselect Most Relevant.
+
+Click Generate Dashboard.
+
+Click Create.
+
+Click OK.
+
+
+=== Create a dashboard
+
+In Siren Investigate, click Dashboard
+(image:15dad79295e504.png[image]).
+
+Click Create new dashboard (image:15dad792973b0a.png[image]).
+
+Enter a unique name for the dashboard in the box.
+
+(Optional) Select a saved search. Typically, dashboards without a saved
+search are used only for cross index summary pages.
+
+Click Create.
+
+
+=== Add visualizations to a dashboard
+
+Click Dashboard (image:15dad79295e504.png[image]) to display the
+dashboards list.
+
+Click the dashboard in the list and then click Edit.
+
+Click Add to display the available visualizations. You can filter the
+list of visualizations by typing a filter string into the Visualization
+Filter box.
+
+In the list, click a visualization to add it to your dashboard. The
+visualization you select appears in a container on your dashboard.
+
+(Optional) Click Options, then select or clear the Use dark theme and
+Hide borders check boxes to configure how the dashboard is displayed.
+
+
+=== Configure a container
+
+The visualizations in your dashboard are stored in containers that you
+can resize and arrange on the dashboard.
+
+To move a container around the dashboard, drag and drop the container’s
+header. Other containers will move as required to make room.
+
+To resize a container, move the mouse pointer over the lower right
+corner of the container until the cursor changes to the resize pointer
+then click and drag to the required size.
+
+To remove a container, click *Remove*
+(image:15dad79297f742.png[image]). Removing a container from a
+dashboard does not remove the saved visualization in that container.
+
+=== Save a dashboard
+
+Click Save.
+
+(Optional) Select Store time with dashboard to change the time filter to
+the currently selected time each time the dashboard is loaded.
+
+(Optional) If you did not add a saved search when you created the
+dashboard you can do so now.
+
+Click Save.
+
+Dashboards can be saved with specific filters, custom queries and
+specific time ranges. You can click Reset
+(image:15dad792989346.png[image]) to reset these properties to
+their saved state for _all_ dashboards.
+
+
+=== Share a dashboard
+
+You can share dashboards with other users by sending a link or by
+embedding them into HTML pages.
+
+NOTE: Ensure that your Siren Investigate installation is properly secured when
+sharing a dashboard on a public facing server. To view shared dashboards
+users must be able to access Siren Investigate; keep this in mind if
+your Siren Investigate instance is protected by an authentication proxy.
+
+
+Click Share to display the Sharing panel.
+
+Click Copy to copy the native URL or embedded HTML to the clipboard.
+The Share Snapshot section contains shortened versions of the URLs in
+the Share saved dashboard section.
+
+
+== Using the Graph Browser
+
+Graph Browser is a tile that you can add to dashboards. The Graph
+Browser displays Elasticsearch documents as nodes, and Siren Investigate
+relations as links of a graph.
+
+Before you begin, we recommend that you watch our Graph Browser
+https://www.youtube.com/watch?v=uXAOknWpSFM[training video].
+
+
+=== Create a graph dashboard
+
+In the Dashboards sidebar, click Create new dashboard
+(image:15dad792973b0a.png[image]).
+
+Click Add then click Graph Browser and drag the lower right corner of
+the tile to fill the view.
+
+Click Add all available lens and contextual scripts.
+
+Click the Play icon (image:15dad7928ab3a2.png[image]) at top left
+of the screen.
+
+Click Save, and name it General Graph Browser. Then click Save and Add
+to Dashboard.
+
+
+=== Save your changes
+
+When you have finished with the Graph Browser you can click Save to save
+the dashboard for future use.
+
+NOTE: You must save the dashboard before you use it.
+
+
+
+=== Filter a datasource
+
+Before you enter data into the Graph Browser, you should filter the
+datasource that you will use to produce a manageable number of results.
+
+Open an existing dashboard.
+
+Click Add a filter.
+
+Select a field to *Filter* by and then select an option from the list:
+
+* is
+* is not
+* is one of
+* is not one of
+* exists
+* does not exist
+
+Enter a Value to match or click Edit Query DSL to use an Elasticsearch
+Query then click Save.
+
+
+=== Add data from another dashboard
+
+Open the Graph Dashboard.
+
+In the Graph Browser tile, click +Add and select a dashboard from the
+Add from another dashboard list. You can repeat this step to add data
+from other dashboards.
+
+
+=== Navigate the graph
+
+The number of connections to each node is shown. You can double-click a
+node to drill down into the data.
+
+To move in or out of the graph, use the mouse scroll wheel or the slider
+at the top left of the Graph Browser window.
+
+Click the icon above the slider to toggle between select and panning
+mode. In select mode you can select nodes by dragging. In panning mode,
+clicking and dragging enables you to move the nodes around in the
+window. You can also pan by using the direction icons above the slider.
+
+If you open a large node you will be prompted to confirm that you want
+to open all the child nodes or only a selection of them.
+
+You can click standard or hierarchy to arrange the nodes.
+
+You can apply filters from existing dashboards by clicking the Expand
+box and selecting the required dashboards.
+
+To expand a node or set of nodes, select the required nodes and click
+Expand. You can also select one or more nodes, right click and select
+Expand by relation from the context menu.
+
+You can click Toggle map mode or Toggle timeline mode to change how the
+data is displayed.
+
+You can click Toggle relation direction to change which relationships
+are displayed.
+
+You can click Toggle node highlight to toggle dimming of nodes that are
+not selected.
+
+
+=== Select nodes
+
+Right click anywhere on the graph to display the context menu. From here
+you can choose:
+
+* Select - By Edge Count
+* Replace Investment with edge (works only with Siren Investigate Demo
+data).
+* Shortest Path
+* Select - All
+* Expand by top comention
+* Select - Invert
+* Select - Extend
+* Select - By Type
+* Show nodes count by type
+* Select - By Entity
+* Expand by relation
+
+You can press Del to remove selected nodes from the graph.
+
+You can click Crop to remove all but the selected nodes from the graph.
+
+You can click the Undo or Redo icons to step backward of forward through
+your changes.
+
+
+=== Use lenses and selection
+
+Click the Toggle Sidebar to display the Lenses and Selection tabs.
+
+The Lenses tab enables you apply visual filters to the data displayed in
+the graph.
+
+From the Lenses tab, select [.menuchoice]#Add a lens > Advanced >
+Advanced lens#.
+
+Enter a unique Lens name.
+
+Select the Active check box to enable the lens. When the Live update
+check box is selected, changes you make to the lens are shown
+immediately in the graph browser. If the check box is cleared you can
+click the Apply lens parameters icon to update the graph browser.
+
+In the Parameters section, select an Entity Type.
+
+Select a match condition:
+
+* Always.
+* Only for the selected elements.
+* Only if the condition is true.
+
+If you selected Only if the condition is true, enter a condition in the
+box.
+
+Select the property to set from the list:
+
+* Color (string)
+* Node font icon (string)
+* Node glyphs (array of glyphs)
+* Hidden (Boolean)
+* Label (string)
+* Location (string)
+* Node image (string)
++
+NOTE: Node icons that link to web images are not always shown properly due to
+security restrictions. You may need to configure the
+link:/document/preview/105581#UUID-676f4a0f-f7d0-b563-dd3d-f50f778d6484[Image
+Proxy] feature to display them.Image Proxy (IP)
+____
+* Size (number)
+* Time (string)
+* Tooltip (string)
+
+Enter the property in the box then click OK. For example, using the
+Companies data set select Color, then select SICCode.SicText_1.
+
+The Selection tab displays a list of the currently selected nodes.
+
+Enter a string in the search box to show results from all the matching
+records in the current selection.
+
+The first column on the left enables you to select or deselect
+individual nodes. You can click the column head to select or deselect
+all nodes.
+
+For each field, you can enter a string to match from the selection in
+the box under the column heading.
+
+You can click Reset column and global filters
+(image:15dad792989346.png[image]) to reset all filters.
+
+
+== Using complex normalized databases
+
+It is often the case, especially in relational databases that the data
+is highly normalized. In these situations, to increase the value for the
+user it makes a lot of sense to create semi-denormalized views.
+Typically, the right level of abstraction is the entity level, in other
+words, creating views which reflect useful representations of the
+entities in the domain. As an example of this, here you can see how our
+demo distribution was created. While the user sees only four indexes,
+which represent the entities which make sense in the investment domain
+(articles, companies, investments, and investors), the original data is
+much more normalized as per the following structure.
+
+
+=== From a SQL database using Logstash
+
+The indices in the Siren Platform demonstration distribution have been
+populated by running four
+https://www.elastic.co/products/logstash[Logstash] configurations over
+the SQLite database in `+siren-investigate/crunchbase.db+`.
+
+The database has the following schema:
+
+image:15dad792991f05.png[SQLite database schema]
+
+*Index setup*
+
+Before loading data, we need to setup indices and mappings; for example,
+let’s create an index called `+company-minimal+` in the Elasticsearch
+cluster at `+http://localhost:9220+`.
+
+Create the index by running the following command in a terminal window:
+
+....
+curl -X PUT http://localhost:9220/company-minimal -H "Content-Type: application/json"-H "Content-Type: application/json"
+....
+
+If curl is not available on your system, download it from
+http://curl.haxx.se/download.html .
+
+If the index is created correctly, Elasticsearch will return the
+following response:
+
+[source,json]
+----
+{"acknowledged":true}
+----
+
+If you want to destroy the index and start from scratch, execute the
+following command:
+
+[source,bash]
+----
+curl -X DELETE http://localhost:9220/company-minimal -H "Content-Type: application/json"-H "Content-Type: application/json"
+----
+
+*Mapping definition*
+
+Mappings allow the user to configure how documents are stored in the
+index. For example, they allow you to define how fields are matched by
+the search engine and set their type (string, dates, numbers, locations
+and so on).
+
+For detailed documentation about indices and mappings refer to
+the https://www.elastic.co/guide/en/elasticsearch/reference/5.6/index.html[Elasticsearch
+Reference].
+
+Let’s define a simple mapping to describe a company. The mapping will
+define the following fields:
+
+* `+id+`: the id of the company in the SQLite database
+* `+name+`: the name of the company
+* `+description+`: a description of the company
+* `+homepage+`: the URL of the company homepage
+* `+number_of_employees+`: the number of employees
+* `+location+`: the geographical coordinates of the company
+
+Open a text editor and paste the following text:
+
+[source,json]
+----
+{
+    "CompanyMinimal": {
+        "properties": {
+            "id": {
+                "type": "keyword"
+            },
+            "number_of_employees": {
+                "type": "long"
+            },
+            "name": {
+                "type": "text"
+            },
+            "description": {
+                "type": "text"
+            },
+            "homepage": {
+                "type": "keyword"
+            },
+            "location": {
+                "type": "geo_point"
+            }
+        }
+    }
+}
+----
+
+`+CompanyMinimal+` is the name of the mapping; `+properties+` contains
+the options for each field.
+
+Save the file to `+demo/example/CompanyMinimal.mapping+` inside the
+folder where you extracted the demonstration distribution.
+
+To apply the mapping, execute the following command:
+
+[source,bash]
+----
+curl -X PUT "http://localhost:9220/company-minimal/_mapping/CompanyMinimal" -H "Content-Type: application/json" -d "@demo/example/CompanyMinimal.mapping"
+----
+
+If the mapping is created correctly, Elasticsearch will return the
+following response:
+
+[source,json]
+----
+{"acknowledged":true}
+----
+
+*SQL query definition*
+
+To extract the values that will be loaded to the index by Logstash, we
+need to write a SQL query. Open a text editor and paste the following
+one:
+
+[source,sql]
+----
+SELECT id,
+  label AS name,
+  description,
+  homepage_url as homepage,
+  number_of_employees,
+  CASE WHEN lat IS NULL THEN
+    NULL
+  ELSE
+    lat || ', ' || lng
+  END AS location
+  FROM company
+  LEFT JOIN company_geolocation ON company.id = company_geolocation.companyid
+----
+
+Save the file to `+demo/example/company-minimal.sql+` inside the folder
+where you extracted the demonstration distribution.
+
+*Logstash configuration*
+
+We now need to write a Logstash configuration to process the records
+returned by the query and populate the `+company-minimal+` index.
+
+NOTE: Support for SQL databases is provided by the
+https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html[Logstash
+jdbc input plugin]; You must
+https://www.elastic.co/guide/en/logstash/current/installing-logstash.html[download
+logstash] to the `+demo/example+` folder and install the required plugin
+
+_
+Open a text editor and paste the following:
+
+[source,text]
+----
+input {
+  jdbc {
+    jdbc_driver_library => "sqlitejdbc-v056.jar"
+    jdbc_driver_class => "org.sqlite.JDBC"
+    jdbc_connection_string => "jdbc:sqlite:crunchbase.db"
+    jdbc_user => ""
+    jdbc_password => ""
+    statement_filepath => "company-minimal.sql"
+    jdbc_paging_enabled => true
+    jdbc_page_size => 10000
+  }
+}
+
+filter {
+  mutate {
+    remove_field => ["@timestamp", "@version"]
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => "localhost:9220"
+    manage_template => false
+    action => "index"
+    index => "company-minimal"
+    document_type => "CompanyMinimal"
+  }
+}
+----
+
+The `+statement_filepath+` parameter specifies the path to the file
+containing the SQL query; the `+jdbc_*+` parameters set the database
+connection string and authentication options.
+
+The `+mutate+` filter is configured to remove default Logstash fields
+which are not needed in the destination index.
+
+The `+output+` section specifies the destination index;
+`+manage_template+` is set to `+false+` as the index mapping has been
+explicitly defined in the previous steps.
+
+Save the file to `+demo/example/company-minimal.conf+`
+
+Copy the SQLite database to `+demo/example/crunchbase.db+`, then go to
+the `+demo/example+` folder and run the following command:
+
+[source,bash]
+----
+cd demo/example
+logstash/bin/logstash -f company-minimal.conf
+----
+
+Logstash will execute the query and populate the index.
+
+For more information about Logstash, refer to
+the https://www.elastic.co/guide/en/logstash/current/index.html[Logstash
+reference] and
+the https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html[jdbc
+input plugin] documentation.
+
+*Browsing the index in Siren Investigate*
+
+Open http://localhost:5606 in your browser, then go
+to[.menuchoice]##Management > Data Model##.
+
+Deselect _Index contains time-based events_, then
+enter `+company-minimal+` in the Index name or pattern field:
+
+Click *Create* to create the index reference, then go to the *Discover*
+tab and select *company-minimal* in the dark gray box:
+
+image:15dad7929a44cd.png[Discovering the company-minimal index]
+
+Click the right arrow at the beginning of each row to expand it and see
+all the loaded fields:
+
+image:15dad7929afeb7.png[Viewing all the fields in a document]
+
+*Script to load the demonstration data*
+
+The complete demonstration data loading process can be repeated by
+running the `+demo/sql/bin/index_crunchbase_sqlite.sh+` script. The
+script performs the following actions:
+
+* Creates a copy of the database in the folder containing Logstash
+configurations
+* Creates the indices `+article+`, `+company+`, `+investor+` and
+`+investment+`
+* Sets the mappings for each index
+* Runs the Logstash configuration for each index
+
+The Logstash configurations and Elasticsearch mappings are available in
+the `+demo/sql/crunchbase/conf/logstash_sqlite+` folder.
