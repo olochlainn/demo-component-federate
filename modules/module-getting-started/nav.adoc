@@ -5,3 +5,4 @@
 *** xref:filtering-results.adoc[Filtering Results]
 *** xref:creating-filters-with-the-relational-navigator.adoc[Creating Filters With The Relational Navigator]
 *** xref:query-based-aggregations.adoc[Query Based Aggregations]
+** xref:getting-started-with-your-own-data.adoc[Getting Started With Your Own Data]
