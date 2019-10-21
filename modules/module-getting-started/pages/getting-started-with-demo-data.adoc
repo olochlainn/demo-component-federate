@@ -46,7 +46,7 @@ The password for all users is `+password+`.
 After starting Elasticsearch and Siren Investigate as described in
 xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting
 up Siren Investigate], from your web browser navigate to
-http://localhost:5606.
+\http://localhost:5606.
 
 === Navigation sidebar
 
