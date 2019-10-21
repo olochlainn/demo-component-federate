@@ -115,7 +115,7 @@ curl -H "Content-Type: application/json" -XPUT http://127.0.0.1:9200/watcher/wat
 The basic Watcher can be extended and improved following the same logic
 used with the stock _Watcher, for example by using `+transform+` to
 insert detections back in ES. An interesting set of examples is
-available from https://www.elastic.co/blog/implementing-a-statistical-anomaly-detector-part-3[].
+available from https://www.elastic.co/blog/implementing-a-statistical-anomaly-detector-part-3[Implementing a Statistical Anomaly Detector in Elasticsearch].
 
 
 == Alarm triggering
