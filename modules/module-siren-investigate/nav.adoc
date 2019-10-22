@@ -100,6 +100,7 @@
 *** xref:working-with-jdbc-datasources.adoc#_siren_investigate_datasource_configuration[Siren Investigate datasource configuration]
 ** xref:legacy-rest-datasources.adoc[Legacy REST datasources]
 ** xref:siren-investigate-gremlin-server.adoc[Siren Investigate Gremlin Server]
+** xref:cross-frame-communication.adoc[Cross-frame Communication]
 ** xref:plugins.adoc[Plugins]
 *** xref:plugins.adoc#_installing_plugins[Installing plugins]
 *** xref:plugins.adoc#_updating_and_removing_plugins[Updating and removing plugins]
