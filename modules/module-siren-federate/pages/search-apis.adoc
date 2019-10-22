@@ -1,0 +1,150 @@
+= Search APIs
+
+Siren Federate introduces two new search actions,
+`+/siren/[INDICES]/_search+` that replaces the `+/[INDICES]/_search+`
+Elasticsearch’s action, and `+/siren/[INDICES]/_msearch+` that replaces
+the `+/[INDICES]/_msearch+` Elasticsearch’s action. Both actions are
+extensions of the original Elasticsearch’s actions and therefore
+supports the same API. One must use these actions with the `+join+`
+query clause, as the `+join+` query clause is not supported by the
+original Elasticsearch actions.
+
+*Permissions:* the APIs listed in this section need to have the
+_cluster-level_ wildcard action `+cluster:internal/federate/*+` granted
+by the security system, e.g., Search Guard.
+
+
+== Search API
+
+The search API allows you to execute a search query and get back search
+hits that match the query. The endpoint for it is
+`+/siren/[INDICES]/_search+`.
+
+*Permissions:* this API needs the _indices-level_ wildcard action
+`+indices:data/read/federate/search*+` and
+`+indices:data/read/federate/planner/search+` to be granted by the
+security system, e.g., Search Guard.
+
+
+== Scroll API
+
+The
+https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-request-scroll.html[scroll]
+API allows to paginate search hits. Similarly to Elasticsearch, you pass
+a `+scroll+` parameter to the
+link:#UUID-9b3662be-7c39-0642-5cb0-8b991e95aaf6[search API] to set the
+duration of a scroll. Then to go through each pages or clear a scroll,
+you use the endpoint `+/siren/_search/scroll/<SCROLL_ID>+` instead of
+the `+/_search/scroll/<SCROLL_ID>+` indicated in the Elasticsearch
+documentation.
+
+*Permissions:* in addition to the permissions for the
+link:#UUID-9b3662be-7c39-0642-5cb0-8b991e95aaf6[search API], this
+requires in addition the _indices-level_ actions
+`+indices:data/read/federate/scroll+` and
+`+indices:data/read/federate/scroll/clear+` to be granted by the
+security system, e.g., Search Guard.
+
+
+== Multi Search API
+
+The multi search API allows to execute several search requests within
+the same API. The endpoint for it is `+/siren/[INDICES]/_msearch+`.
+
+*Permissions:* this API needs the _indices-level_ wildcard action
+`+indices:data/read/federate/search*+` and
+`+indices:data/read/federate/planner/msearch+` to be granted by the
+security system, e.g., Search Guard.
+
+
+== Search Request
+
+The syntax for the body of the search request is identical to the one
+supported by the Elasticsearch’s
+https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-search.html[search
+API], with the additional support for the `+join+` query clause in the
+Query DSL.
+
+
+=== Parameters
+
+In addition to the parameters supported by the Elasticsearch’s search
+API, the Federate’s search API introduces the following additional
+parameters:
+
+[cols=",",]
+|===
+|`+task_timeout+` |A task timeout, bounding a task to be executed within
+the specified time value (in milliseconds) and returns with the values
+accumulated up to that point when expired. Defaults to no timeout
+(`+-1+`).
+
+|`+debug+` |To retrieve debug information from the query planner.
+Defaults to `+false+`.
+|===
+
+
+== Search Response
+
+The response returned by Federate’s search API is similar to the
+response returned by Elasticsearch’s search API. It extends the response
+with a `+planner+` object which includes information about the query
+plan execution. If the `+task_timeout+` was activated, it will include
+the flag `+is_pruned+` to indicate that the search results are pruned
+and probably incomplete. If the `+debug+` parameter was enabled, it will
+also include detailed information and statistics about the query plan
+execution.
+
+
+== Cancelling a Request
+
+A search or a multi search request can be cancelled explicitely by a
+user. In order to do so, you need to pass a `+X-Opaque-Id+` header which
+is used to identify the request. The endpoint for cancelling a request
+is `+/_siren/job/<ID>/_cancel+`.
+
+*Permissions:* this API needs the _cluster-level_ action
+`+cluster:admin/federate/job/cancel+` to be granted by the security
+system, e.g., Search Guard.
+
+
+=== Usage
+
+Let’s identity a search request with the ID `+my-request+`:
+
+[source,bash]
+----
+$ curl -H "Content-Type: application/json" -H "X-Opaque-Id: my-request" 'http://localhost:9200/siren/_search'
+----
+
+Then to cancel it, issue a request as follows:
+
+[source,bash]
+----
+$ curl -XPOST -H "Content-Type: application/json" 'localhost:9200/_siren/job/my-request/_cancel'
+----
+
+If successful, the response will acknowledge the request and give a
+listing of the cancelled tasks:
+
+[source,json]
+----
+{
+  "acknowledged" : true,
+  "tasks" : [
+    {
+      "node" : "5ILUA44uSee-VxsBsNbsNA",
+      "id" : 947,
+      "type" : "transport",
+      "action" : "indices:siren/plan",
+      "description" : "federate query",
+      "start_time_in_millis" : 1524815599457,
+      "running_time_in_nanos" : 199131478,
+      "cancellable" : true,
+      "headers" : {
+        "X-Opaque-Id" : "my-request"
+      }
+    }
+  ]
+}
+----

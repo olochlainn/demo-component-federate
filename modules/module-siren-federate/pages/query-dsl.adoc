@@ -1,0 +1,102 @@
+= Query DSL
+
+
+== Join Query
+
+The `+join+` filter enables the filtering of one set of documents (the
+target) with another one (the source) based on shared field values. It
+accepts the following parameters:
+
+`+type+`::
+  The type of the join algorithm to use. Valid values are either
+  `+BROADCAST_JOIN+`, `+HASH_JOIN+` or `+MERGE_JOIN+`. If this parameter
+  is not specified, the query planner will try to automatically select
+  the optimal one.
+`+indices+`::
+  The index names that will be joined with the source indices. Defaults
+  to all indices.
+`+types+`::
+  The index types that will be joined with the source indices. Defaults
+  to all types.
+`+on+`::
+  An array specifying the field paths for join keys in both source and
+  target indices. Both fields must have the same datatype with the
+  parameter `+doc_values+` set to true. It is not recommended to join
+  fields based on `+text+` datatype.
+`+request+`::
+  The search request that will be used to compute the set of documents
+  on the source before performing the join.
+
+
+=== Example
+
+In this example, we will join all the documents from `+index1+` with the
+documents of `+index2+` using the `+HASH_JOIN+` algorithm. The query
+first filters documents from `+index2+` and of type `+type+` with the
+query `+{ "terms" : { "tag" : [ "aaa" ] } }+`. It then retrieves the ids
+of the documents from the field `+id+` specified by the parameter
+`+on+`. The list of ids is then used as filter and applied on the field
+`+foreign_key+` of the documents from `+index1+`.
+
+[source,js]
+----
+GET /siren/index1/_search
+{
+  "query" : {
+    "join" : {
+      "type": "HASH_JOIN",
+      "indices" : ["index2"],
+      "types" : ["type"],
+      "on" : ["foreign_key", "id"],
+      "request" : {
+        "query" : {
+          "terms" : {
+            "tag" : [ "aaa" ]
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+
+=== Scoring Capabilities
+
+The `+join+` filter has not scoring support and will return a constant
+score.
+
+
+=== Compatibility with Nested Query
+
+The `+join+` filter within a `+nested+` query is currently supported.
+The join key must specify the field path within the scope of the nested
+object. For example, as shown below, the join key must be
+`+foreign_key+` and not `+nested_obj.foreign_key+`.
+
+[source,js]
+----
+GET /siren/index1/_search
+{
+  "query" : {
+    "nested" : {
+      "path" : "nested_obj",
+      "query" : {
+        "join" : {
+          "indices" : ["index2"],
+          "types" : ["type"],
+          "on" : ["foreign_key", "id"],
+          "request" : {
+            "query" : {
+              "match_all" : {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+A `+nested+` query within a `+join+` filter is also supported if and
+only if the join key does not refer to a field of the nested object.

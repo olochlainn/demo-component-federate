@@ -1,0 +1,8 @@
+= Set Up Federate
+
+== Configuring Logger
+
+It is recommended to change the default Elasticsearch’s log
+configuration `+logger.action.level+` from `+debug+` to `+warn+` in
+order to avoid spurious log messages whenever a search request is
+cancelled.
