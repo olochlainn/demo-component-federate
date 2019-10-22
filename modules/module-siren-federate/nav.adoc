@@ -21,6 +21,9 @@
 ** xref:sessions-apis.adoc[Sessions APIs]
 ** xref:license-apis.adoc[License APIs]
 ** xref:connecting-to-remote-datasources.adoc[Connecting To Remote Datasources]
+*** xref:connecting-to-remote-datasources.adoc#_connecting_to_jdbc_datasources[Connecting To JDBC Datasources]
+*** xref:connecting-to-remote-datasources.adoc#_connecting_to_remote_elasticsearch_clusters[Connecting To Remote Elasticsearch Clusters]
+*** xref:connecting-to-remote-datasources.adoc#_known_limitations[Known Limitations]
 ** xref:sset-up-security.adoc[Set Up Security]
 ** xref:performance-considerations.adoc[Performance Considerations]
 
