@@ -12,7 +12,10 @@
 *** xref:getting-started.adoc#_starting_elasticsearch[Starting Elasticsearch]
 *** xref:getting-started.adoc#_loading_some_relational_data[Loading Some Relational Data]
 *** xref:getting-started.adoc#_relational_querying_of_the_data[Relational Querying of the Data]
-
+** xref:set-up-federate.adoc[Set Up Federate]
+** xref:federate-modules.adoc[Federate Modules]
+** xref:search-apis.adoc[Search APIs]
+** xref:cluster-apis.adoc[Cluster APIs]
 
 
 
