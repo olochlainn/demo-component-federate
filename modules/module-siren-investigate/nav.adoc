@@ -101,6 +101,7 @@
 ** xref:legacy-rest-datasources.adoc[Legacy REST datasources]
 ** xref:siren-investigate-gremlin-server.adoc[Siren Investigate Gremlin Server]
 ** xref:cross-frame-communication.adoc[Cross-frame Communication]
+** xref:image-proxy-ip.adoc[Image Proxy (IP)]
 ** xref:plugins.adoc[Plugins]
 *** xref:plugins.adoc#_installing_plugins[Installing plugins]
 *** xref:plugins.adoc#_updating_and_removing_plugins[Updating and removing plugins]
