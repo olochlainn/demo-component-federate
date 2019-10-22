@@ -27,8 +27,8 @@ all the possible relational connections with other dashboards which have
 related entities.
 
 NOTE: The relational filter visualization requires
-link:/document/preview/71728#UUID-c3dd12bd-07a3-f3a3-9bd5-df370568893f[Siren
-Federate].5. Siren Federate
+xref:module-siren-federate:siren-federate.adoc[Siren
+Federate].
 
 
 
