@@ -1,4 +1,4 @@
-=== Connecting to Remote Datasources
+= Connecting to Remote Datasources
 
 The Siren Federate plugin provides the capability to query data in
 remote datasources through the Elasticsearch API by mapping tables to
@@ -22,22 +22,22 @@ user interface available in Siren Investigate.
 
 These indices are created automatically when required.
 
-[[UUID-60f42013-4058-991a-cc27-50b6c3068ed1]]
-==== Connecting to JDBC datasources
+
+== Connecting to JDBC datasources
 
 Siren Federate provides the capability to query data from a remote JDBC
 databases.
 
-[[UUID-b4e4dbdd-13a6-3c6d-2467-b3a66af6908e]]
-===== Settings
+
+=== Settings
 
 In order to send queries to virtual indices the Elasticsearch cluster
 must contain at least one node enabled to issue queries over JDBC; it is
 advised to use a coordinating only node for this role, although this is
 not a requirement for testing purposes.
 
-[[UUID-9536886b-f44f-6581-62e1-95a8fe907504]]
-====== JDBC node settings
+
+==== JDBC node settings
 
 In order to enable JDBC on a node where the Siren Federate plugin is
 installed, add the following setting to `+elasticsearch.yml+`:
@@ -56,11 +56,11 @@ dependencies to the `+jdbc-drivers+` directory created above and restart
 the node; see the link:#[?xml_title] section for a list of compatible
 drivers and dependencies.
 
-[[UUID-9c6ca397-7c54-7bf1-b259-4cd8a07d0aeb]]
-====== Common configuration settings
 
-[[UUID-1bcd3c5c-6d52-cca2-2531-0bf777d9ff8a]]
-======= Encryption
+==== Common configuration settings
+
+
+===== Encryption
 
 JDBC passwords are encrypted by default using a predefined 128 bit AES
 key; before creating datasources, it is advised to generate a custom key
@@ -103,8 +103,8 @@ node.attr.connector.jdbc: true
 Restart the nodes after changing the configuration to apply the
 settings.
 
-[[UUID-d2fde02b-922c-a812-b9c2-f488ffe9cd3c]]
-===== JDBC driver installation and compatibility
+
+=== JDBC driver installation and compatibility
 
 The JDBC driver for your remote datasource and its dependencies must be
 copied to the `+jdbc-drivers+` subdirectory inside the configuration
@@ -247,8 +247,8 @@ following jars to the `+jdbc-drivers+` plugin directory:
 
 |===
 
-[[UUID-d2339c64-0751-d3c2-2d8a-edfb63627466]]
-===== Operations on virtual indices
+
+=== Operations on virtual indices
 
 The plugin supports the following operations on virtual indices:
 
@@ -273,8 +273,8 @@ will fail.
 When deleting a virtual index, the corresponding Elasticsearch index
 will not be removed.
 
-[[UUID-255d5dfb-f907-9250-0235-f4e01a9efe52]]
-====== Type conversion
+
+==== Type conversion
 
 The plugin converts JDBC types to their closest Elasticsearch
 equivalent:
@@ -288,8 +288,8 @@ equivalent:
 Complex JDBC types which are not recognized by the plugin are skipped
 during query processing and resultset fetching.
 
-[[UUID-875ef131-a229-9eb1-431d-9f268c217c7f]]
-====== Supported search queries
+
+==== Supported search queries
 
 The plugin supports the following queries:
 
@@ -307,8 +307,9 @@ At this time the plugin provides no support for datasource specific full
 text search functions, so all these queries will work as if they were
 issued against `+keyword+` fields.
 
-[[UUID-ec4e3ec0-a4e9-aed3-0b21-5c4b5c2b08a3]]
-====== Supported aggregations
+
+
+==== Supported aggregations
 
 Currently the plugin provides support for the following aggregations:
 
@@ -332,11 +333,11 @@ Bucket:
 Only terms aggregations can be nested inside a parent bucket
 aggregation.
 
-[[UUID-3547d5ed-2ef7-a76a-e4a8-f94e8aeb828e]]
-===== Troubleshooting
 
-[[UUID-783f3b3c-9b7b-8445-6968-1fee512aeb72]]
-====== Cannot reconnect to datasource by hostname after DNS update
+=== Troubleshooting
+
+
+==== Cannot reconnect to datasource by hostname after DNS update
 
 When the Java security manager is enabled, the JVM will cache name
 resolutions indefinitely; if the system you’re connecting to uses
@@ -351,8 +352,8 @@ successful DNS lookup. Defaults to `+-1+` (forever).
 an unsuccessful DNS lookup. Defaults to `+10+`, set to `+0+` to avoid
 caching.
 
-[[UUID-b7d081d5-54b9-1664-fc46-09afbdf40e05]]
-==== Connecting to Remote Elasticsearch Clusters
+
+== Connecting to Remote Elasticsearch Clusters
 
 Siren Federate provides the capability to query data from an
 Elasticsearch remote cluster through the
@@ -367,12 +368,12 @@ the
 link:connector-elasticsearch.xml#siren-federate-connector-datasource-api[Federate
 REST API] or the web user interface available from Siren Investigate.
 
-*NOTE:* This connector, unlike the JDBC connector, supports
+NOTE: This connector, unlike the JDBC connector, supports
 link:#UUID-62c7c384-a97b-9c80-961c-81780b2e90b3[wildcard index
 patterns].
 
-[[UUID-2b393c0e-2a10-55ca-7f5e-758c781ad4e5]]
-===== Configuring the Remote Cluster
+
+=== Configuring the Remote Cluster
 
 To send queries from a cluster (let’s call it the coordinator) to remote
 Elasticsearch clusters, the remote clusters must be configured as
@@ -402,8 +403,8 @@ curl -X PUT http://localhost:9200/_cluster/settings -H 'Content-type: applicatio
 '
 ....
 
-[[UUID-6cd23576-9b59-eb9d-2686-cbd6376daa32]]
-===== Configuring the Datasource
+
+=== Configuring the Datasource
 
 A datasource must first be defined as an alias to the remote cluster.
 Datasources are created in the coordinator cluster using the
@@ -420,14 +421,14 @@ curl -X PUT http://localhost:9200/_siren/connector/datasource/remotefederateds -
   '
 ....
 
-[[UUID-27cb5f8a-3589-d5aa-0a23-7b649983de6d]]
-===== Configuring the Virtual Index
+
+=== Configuring the Virtual Index
 
 Let’s assume our remote cluster `+remotefederate+` has indices called
 `+logs-2019.01+`, `+logs-2019.02+`, …, `+logs-2019.12+`.
 
-[[UUID-62c7c384-a97b-9c80-961c-81780b2e90b3]]
-====== Using a Wildcard Index Pattern
+
+==== Using a Wildcard Index Pattern
 
 Let’s define a virtual index on the coordinator cluster that matches the
 wildcard index pattern `+logs-*+` using the
@@ -477,15 +478,15 @@ curl -X GET http://localhost:9200/siren/logsvi/_search -H 'Content-Type: applica
 `+logs_ip_hash+` is the IP field in the index `+logsvi+` and
 `+machines_ip_hash+` is the IP field in the index `+machines+`.
 
-[[UUID-ef626754-0f90-418c-a23f-47faea3d5cfa]]
-===== Known limitations
+
+=== Known limitations
 
 In order to take advantage of Federate with a remote cluster, at the
 moment a coordinator Federate cluster must run 6.8.2-10.3.1 up and the
 remote cluster must run Federate version from 6.5.4-10.2.0 up.
 
-[[UUID-91d3ddb5-daca-a973-7cb5-2b7d30ded8ba]]
-===== Search Guard Compatibility
+
+=== Search Guard Compatibility
 
 The connector is compatible with Search Guard. One can define
 https://docs.search-guard.com/latest/first-steps-user-configuration[Search
@@ -506,11 +507,11 @@ curl -k -uadmin:password -X PUT https://localhost:9200/<some API request> ...
 More information is available on the
 https://docs.search-guard.com[Search Guard website].
 
-[[UUID-cbc9fa1a-f995-1c47-4470-ca4d4ea21a22]]
-==== Known Limitations
 
-[[UUID-fd2d84b2-f8a2-4f85-afa0-654c2a0aeb71]]
-===== Limitations for all the connectors
+== Known Limitations
+
+
+=== Limitations for all the connectors
 
 * Cross backend join currently supports only integer keys.
 * Cross backend support has very different scalability according to the
@@ -519,8 +520,8 @@ system will be possibly hundreds of times less scalable (e.g. thousands
 vs millions) to one where the keys are fetched from a remote system.
 * Currently cross cluster searches on virtual indices are not supported.
 
-[[UUID-c89041d5-3291-5281-1d10-d9f0ac236eac]]
-===== Limitations for the JDBC Connector
+
+=== Limitations for the JDBC Connector
 
 * Wildcards on virtual index names are not supported by any API; a
 wildcard search will silently ignore virtual indices.
