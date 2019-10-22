@@ -52,9 +52,7 @@ the company. This index is displayed on the dashboard entitled
 `+Companies+`.
 |===
 
-Both indices are
-link:/document/preview/60589#UUID-bd72e06e-719f-faa2-d706-bcc68b2931af[configured]
-so that they are joined on the field `+companies+` of `+article+` with
+Both indices are configured so that they are joined on the field `+companies+` of `+article+` with
 the field `+id+` of `+company+`. Then, it is possible to use that
 configuration to create a relational filter that would filter companies
 based on connected articles (or vice-versa).3.9.2. Relations (legacy)
@@ -165,8 +163,8 @@ individual connection at multiple levels.
 The three state eye component enables you to specify "never show",
 "always show" or "inherit show from the previous".
 
-User can restrict which destinations are visible by clicking the
-`+eyes+` symbols next to listed destinations
+The user can restrict which destinations are visible by clicking the
+`+eyes+` symbols next to listed destinations.
 
 For example, lets hide one company dashboard destination when we are on
 "articles" index
@@ -175,7 +173,7 @@ image:15d88ced25c364.png[Relational Navigator settings, hide one
 destination]
 
 As we can see now the `+Companies timeline analysis+` is no longer
-displayed on Articles dashboard
+displayed on the Articles dashboard.
 
 image:15d88ced2633a9.png[Relational Navigator on the Articles
 dashboard, one destination hidden]
