@@ -10,9 +10,8 @@ different dashboard, possibly stored in different indices.
 
 The Relational Navigator component typically requires no configuration.
 It automatically discovers all possible destinations based on
-link:/document/preview/60589#UUID-bd72e06e-719f-faa2-d706-bcc68b2931af[relationships]
-between indices defined in the[.menuchoice]##Management > Data Model##
-tab.3.9.2. Relations (legacy)
+relationships between indices defined in the [.menuchoice]##Management > Data Model##
+tab.
 
 It can be reused across any dashboard (there is no need to create
 different ones for different dashboards).
