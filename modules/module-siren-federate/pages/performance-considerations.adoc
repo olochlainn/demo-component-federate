@@ -1,0 +1,67 @@
+=== Performance Considerations
+
+[[UUID-84e5f088-7def-64c8-eab5-93fcccdbafa4]]
+==== Join Types
+
+Siren Federate includes different join strategies: “Broadcast Join”,
+“Hash Join” and “Merge Join”. Each one has its pros and cons and the
+optimal performance will depends on the scenario. By default, the Siren
+Federate planner will try to automatically pick the best strategy, but
+it might be best in certain scenarios to pick manually one of the
+strategies.
+
+The Broadcast Join is best when filtering a large index with a small set
+of documents. The Hash Join and Merge Join are fully distributed and are
+designed to handle large joins. They both scales horizontally (based on
+the number of nodes) and vertically (based on the number of cpu cores).
+Currently, the Hash Join usually performs better in many scenarios
+compared to the Merge Join.
+
+Siren Federate provides two fully distributed join algorithms: the Hash
+Join and the Sort-Merge Join. Each one is designed for leveraging
+multi-core architecture. This is achieved by creating many small data
+partitions during the Project phase. Each node of the cluster will
+receive a number of partitions that are dependent of the number of cpus.
+Partitions are independent from each other and can be processed
+independently by a different join worker thread. During the join phase,
+each worker thread will join tuples from one partition. The number of
+join worker threads scales automatically with the number of cpu cores
+available.
+
+The Hash Join is performed in two phases: build and probe. The build
+phase creates a in-memory hash table of one of the relation in the
+partition. The probe phase then scans the second relation and probes the
+hash table to find the matching tuples.
+
+The Sort-Merge Join instead requires a sort phase of the two relations
+during the project phase. It then performs a linear scan over the two
+sorted relations to find the matching tuples.
+
+Compared to the Hash Join, the Sort-Merge Join does not require
+additional memory since it does not have to build a in-memory hash
+table. However, it requires a sort operation to be executed during the
+project phase. It is in fact trading cpu for memory.
+
+[[UUID-20a8a090-07d9-cd8a-38c4-a1779e56c6e2]]
+==== Numeric vs String Attributes
+
+Joining numeric attributes is more efficient than joining string
+attributes. If you are planning to join attributes of type `+string+`,
+we recommend to generate a murmur hash of the string value at indexing
+time into a new attribute, and use this new attribute for the join. Such
+index-time data transformation can be easily done using
+https://www.elastic.co/guide/en/logstash/current/plugins-filters-fingerprint.html[Logstash’s
+`+fingerprint+` plugin].
+
+[[UUID-3a7edc2e-2baa-6e4c-1d24-8fa0c4a66076]]
+==== Tuple Collector Settings
+
+Tuple Collectors are sending batches of tuples of fixed size. The size
+of a batch has an impact on the performance. Smaller batches will take
+less memory but will increase cpu times on the receiver side since it
+will have to reconstruct a tuple collection from many small batches
+(especially for sorted tuple collection). By default, the size of a
+batch of tuple is set to 1048576 tuples (which represents 8mb for a
+column of long datatype). The size can be configured using the setting
+key `+siren.io.tuple.collector.batch_size+` with a integer value
+representing the maximum number of tuples in a batch.
