@@ -1,0 +1,76 @@
+= Cross frame communication
+
+To enable cross frame communication, Siren Investigate exposes an object
+at *window.sireninvestigate*; the object can be called only if both
+Siren Investigate and the container page are in the same domain.
+
+== Methods
+
+=== generateShortUrl(shareAsEmbed, displayNavBar)
+
+Generates a shortened URL containing the current Siren Investigate state
+and returns a promise fulfilled with the URL.
+
+=== Parameters:
+
+* `+shareAsEmbed+`: if set to true, the top navigation bar and dashboard
+tabs will be hidden when opening the shortened URL.
+* `+displayNavBar+`: if set to true, the dashboard tabs will not be
+hidden when `+sharedAsEmbed+` is set to true.
+
+=== Sample usage:
+
+Put the following code in the container page, replacing
+`+investigateframe+` with the ID of the frame in which Siren Investigate
+is embedded:
+
+....
+document.getElementById('investigateframe')
+.contentWindow
+.sireninvestigate
+.generateShortUrl(true, true)
+.then(function(url) {
+  console.log("Generated URL: " + url);
+})
+.catch(function(error) {
+  console.log("An error occurred while generating the URL");
+});
+....
+
+If possible, you should purge old documents of type `+url+` from the
+`+.siren+` index periodically; old documents can be identified by
+looking at the `+createDate+` attribute.
+
+=== setJWTToken(token)
+
+Sets or updates the JWT token for the current session if
+link:#UUID-a5715cd2-f504-c681-7fc6-63db38db95bb[JWT authentication
+support] is enabled; returns a Promise after the token has been sent to
+the backend.
+
+=== Parameters:
+
+* `+jwtToken+`: a base64 encoded JWT token.
+
+*Sample usage*:
+
+Put the following code in the container page, replacing
+`+investigateframe+` with the ID of the frame in which Siren Investigate
+is embedded:
+
+....
+document.getElementById('investigateframe')
+.contentWindow
+.sireninvestigate
+.setJWTToken(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJraWJpdXNlciJ9.kZhLu15FwxrX4hPE1ciyzw_NufZ_oH7aSGpLZHachPg`)
+.then(function() {
+  console.log('JWT token set.');
+})
+.catch(function(error) {
+  console.log('An error occurred setting the token.');
+});
+....
+
+After the token is set, you can change the Siren Investigate URL and the
+user should be authenticated; the application should call the method
+again with an updated token before the current one expires.
