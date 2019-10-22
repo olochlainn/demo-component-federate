@@ -107,8 +107,7 @@ transfer latency. The size of a packet can be configured with the
 following setting:
 
 `+siren.io.tuple.collector.packet_size+`::
-  The number of tuples in a packet. The packet size must be a power of
-  2. Defaults to 2^20 tuples.
+The number of tuples in a packet. The packet size must be a power of 2. Defaults to 2^20 tuples.
 
 When using the Hash Join or Merge Join algorithm, the collector will use
 a hash partitioner strategy to create small data partitions. Creating
