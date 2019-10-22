@@ -171,7 +171,7 @@ User can restrict which destinations are visible by clicking the
 For example, lets hide one company dashboard destination when we are on
 "articles" index
 
-image:image/15d88ced25c364.png[Relational Navigator settings, hide one
+image:15d88ced25c364.png[Relational Navigator settings, hide one
 destination]
 
 As we can see now the `+Companies timeline analysis+` is no longer
