@@ -1,0 +1,41 @@
+= Image Proxy (IP)
+
+Node icons and other images (including font icons and map tiles) that
+link to web images rather than coming from a file system may not always
+be shown properly due to security restrictions. Your browser will mark
+it as insecure and prevent the image from being loaded.
+
+One approach to handling this security issue is called Cross-Origin
+Resource Sharing (CORS). This is a mechanism that uses additional HTTP
+headers to tell a browser to allow a web application running in one
+domain to access selected resources from a server at a different domain.
+When a web application requests a resource that has a different origin
+(domain, protocol, or port) from its own, it executes a _cross-origin
+HTTP request_.
+
+TIP: The https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS[Cross-Origin
+Resource Sharing (CORS)] article contains much useful information.
+
+
+Siren Investigate now has an Image Proxy (IP) feature that enables this
+functionality. The IP takes the URL parameter to validate it against a
+list of allowed domains and, if valid, fetches the image and streams it
+back to the browser. The image_proxy plugin returns a stream in the
+following form:
+
+`+GET /image_proxy?url={url}+`
+
+You can set the following IP parameters in the `+investigate.yml+`
+configuration file:
+
+....
+investigate_core:
+  image_proxy:
+    enabled - boolean to enable/disable the proxy
+    allowed_domains - an array of strings containing allowed domains, default to "*"
+    max_image_size - number to set max image size allowed (in bytes), default to 10000
+    timeout - number to set milliseconds before a request times out, default to 30sec
+    proxy_cache_enabled - boolean to enable/disable the image proxy cache, default to false
+    proxy_cache_expiration - number to set seconds of proxy cache duration, default to 3600sec
+    browser_cache_control - string to define browser Cache-Control, default to 'public, max-age=3600'
+....
