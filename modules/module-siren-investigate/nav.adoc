@@ -98,6 +98,7 @@
 *** xref:relational-browsing.adoc#_relational_navigator[Relational Navigator]
 ** xref:working-with-jdbc-datasources.adoc[Working with JDBC datasources]
 *** xref:working-with-jdbc-datasources.adoc#_siren_investigate_datasource_configuration[Siren Investigate datasource configuration]
+** xref:legacy-rest-datasources.adoc[Legacy REST datasources]
 ** xref:plugins.adoc[Plugins]
 *** xref:plugins.adoc#_installing_plugins[Installing plugins]
 *** xref:plugins.adoc#_updating_and_removing_plugins[Updating and removing plugins]
