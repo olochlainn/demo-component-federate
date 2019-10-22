@@ -67,7 +67,7 @@ Y2hhbmdlbWVjaGFuZ2VtZWNoYW5nZW1lY2hhbmdlbWU=
 
 NOTE: Make sure to set the configuration file as readable only by the user
 running the Siren Investigate process.
-____
+
 
 === Datasource entity selection
 
