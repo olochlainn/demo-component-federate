@@ -94,6 +94,8 @@
 *** xref:management.adoc#_setting_advanced_options[Setting advanced options]
 *** xref:management.adoc#_managing_saved_searches_visualizations_and_dashboards[Managing saved searches, visualizations, and dashboards]
 *** xref:management.adoc#_adding_custom_icon_packs[Adding custom icon packs]
+** xref:relational-browsing.adoc[Relational Browsing]
+*** xref:relational-browsing.adoc#_relational_navigator[Relational Navigator]
 ** xref:working-with-jdbc-datasources.adoc[Working with JDBC datasources]
 *** xref:working-with-jdbc-datasources.adoc#_siren_investigate_datasource_configuration[Siren Investigate datasource configuration]
 ** xref:plugins.adoc[Plugins]
