@@ -1,0 +1,182 @@
+= Relational browsing
+
+Siren Investigate enables you to _filter_ documents on a dashboard by
+showing only those that have a relation with documents displayed on a
+different dashboard, possibly stored in different indices.
+
+
+
+== Relational Navigator
+
+The Relational Navigator component typically requires no configuration.
+It automatically discovers all possible destinations based on
+link:/document/preview/60589#UUID-bd72e06e-719f-faa2-d706-bcc68b2931af[relationships]
+between indices defined in the[.menuchoice]##Management > Data Model##
+tab.3.9.2. Relations (legacy)
+
+It can be reused across any dashboard (there is no need to create
+different ones for different dashboards).
+
+Each dashboard has an associated "Saved Search" which is based on an
+underlying Index Pattern. If the index patterns underlying two
+dashboards have a relational connection, this relationship will be shown
+by the Relational Navigator, by default.
+
+It is really much simpler than it sounds. Drop this component into a
+dashboard which is associated with a Saved Search and it will show you
+all the possible relational connections with other dashboards which have
+related entities.
+
+NOTE: The relational filter visualization requires
+link:/document/preview/71728#UUID-c3dd12bd-07a3-f3a3-9bd5-df370568893f[Siren
+Federate].5. Siren Federate
+
+
+
+
+=== Index to index relations
+
+When two entities are directly connected
+
+For example, let’s take the following indices:
+
+[cols=",",]
+|===
+|_article_ |an index containing articles; each document in the index has
+a field called `+companies+` which is an array that contains the ID of
+companies mentioned in the article. This index is displayed on the
+dashboard entitled `+Articles+`.
+
+|_company_ |an index containing information about companies; each
+document in the index has a field called `+id+` that contains the ID of
+the company. This index is displayed on the dashboard entitled
+`+Companies+`.
+|===
+
+Both indices are
+link:/document/preview/60589#UUID-bd72e06e-719f-faa2-d706-bcc68b2931af[configured]
+so that they are joined on the field `+companies+` of `+article+` with
+the field `+id+` of `+company+`. Then, it is possible to use that
+configuration to create a relational filter that would filter companies
+based on connected articles (or vice-versa).3.9.2. Relations (legacy)
+
+In the _Articles_ dashboard, the relational navigator visualization is
+displayed as a button which indicates the number of documents in the
+_Companies_ dashboard that are mentioned in the articles of the current
+dashboard.
+
+The following image shows the button for the relation described in the
+example; there are two possible locations from 646,896 articles
+currently displayed
+
+* 18508 companies on `+all companies+` dashboard
+* Two companies on `+Companies timeline analysis+` dashboard
+
+image:15d88ced21ca1a.png[Relational Navigator on the Articles
+dashboard]
+
+Clicking the first button will switch you to the _Companies_ dashboard
+and display the 18508 companies; the relational filter is displayed in
+the filter bar:
+
+image:15d88ced225429.png[Relational Navigator filter on the
+Companies dashboard]
+
+
+
+=== Index to entity Identifier relations
+
+When two entities are connected using Entity Identifier
+
+For example, let’s take the following indices:
+
+[cols=",",]
+|===
+|_company_ |an index containing information about companies; each
+document in the index has a field called `+city+` that contains the name
+of the city this company is located in
+
+|_investor_ |an index containing articles; each document in the index
+has a field called `+city+` that contains the name of the city this
+investor is located in
+
+|_city_ |an entity identifier which represent the concept of a city
+|===
+
+There is no direct relation between investor and company but thanks to
+the city entity identifier the Relational Navigator is able to join the
+two. The following image shows a light-blue button for a relation using
+entity identifier described previously.
+
+image:15d88ced22e3e1.png[Relational Navigator on the Investor
+dashboard]
+
+There are two possible locations using `+is located in+` relation from
+15k investors currently displayed
+
+* 54028 companies on `+all companies+` dashboard
+* 3 companies on `+Companies timeline analysis+` dashboard
+
+
+==== Ordering
+
+Click *Order* (image:15d88ced236d3e.png[image]) to switch the
+ordering
+
+There are two possible ways to navigate the tree of possible
+destinations, we can order by:
+
+dashboards - where you first see the relation and then the destination
+dashboards
+
+image:15d88ced23d435.png[Order by dashboards first]
+
+relations - where you first see the destination dashboards and then
+which relation you can reach it with
+
+image:15d88ced243b6f.png[Order by relation first]
+
+*Configuration*
+
+All possible relations are discovered automatically.
+
+image:15d88ced24e9f9.png[Relational Navigator settings]
+
+
+==== Hierarchy types (layout)
+
+There are two possible values:
+
+Normal - the entity identifiers subtree layout is EIDs → relations →
+dashboards or EID → dashboards → relations
+
+Light - the entity identifiers subtree layout is collapsed into EIDs →
+relations → dashboards or EID → dashboards → relations
+
+The following image shows the `+Light+` layout activated
+
+image:15d88ced2559ae.png[ Relational Navigator settings, layout ]
+
+
+==== Visibility
+
+In the component setting, one can change the visibility status of each
+individual connection at multiple levels.
+
+The three state eye component enables you to specify "never show",
+"always show" or "inherit show from the previous".
+
+User can restrict which destinations are visible by clicking the
+`+eyes+` symbols next to listed destinations
+
+For example, lets hide one company dashboard destination when we are on
+"articles" index
+
+image:image/15d88ced25c364.png[Relational Navigator settings, hide one
+destination]
+
+As we can see now the `+Companies timeline analysis+` is no longer
+displayed on Articles dashboard
+
+image:15d88ced2633a9.png[Relational Navigator on the Articles
+dashboard, one destination hidden]
