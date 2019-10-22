@@ -16,6 +16,14 @@
 ** xref:federate-modules.adoc[Federate Modules]
 ** xref:search-apis.adoc[Search APIs]
 ** xref:cluster-apis.adoc[Cluster APIs]
+** xref:index-apis.adoc[Index APIs]
+** xref:connector-apis.adoc[Connector APIs]
+** xref:sessions-apis.adoc[Sessions APIs]
+** xref:license-apis.adoc[License APIs]
+** xref:connecting-to-remote-datasources.adoc[Connecting To Remote Datasources]
+** xref:sset-up-security.adoc[Set Up Security]
+** xref:performance-considerations.adoc[Performance Considerations]
+
 
 
 
