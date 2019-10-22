@@ -1,0 +1,256 @@
+= Legacy REST datasources
+
+Siren Investigate provides visualizations and aggregations to integrate
+data from REST APIs. This section explains how to configure
+link:#UUID-da4bad96-3043-850c-2758-f1b74cd5a949_datasource-queries[queries] and
+link:#UUID-92fbd47b-36df-9366-c6e5-ca536e139ca2[query templates].
+
+== Configuration
+
+
+To create a new external datasource navigate to "Settings/Datasources".
+
+First fill the datasource title and name then select `+REST+`, then set
+the following parameters:
+
+* `+timeout+`: Connection timeout in milliseconds.
+* `+cache_enabled+`: Enable server side cache for this datasource.
+* `+max_age+`: The maximum age of an object in the cache, in
+milliseconds.
+* `+url+`: The URL of the REST API.
+* `+response_type+`: The API results format. Currently only JSON is
+supported.
+* `+username+`: If set, the username to specify in HTTP Basic
+credentials.
+* `+password+` (optional): The password to specify in HTTP Basic
+credentials if a username is set.
+* `+auth_token+` (optional): The token to set in Token Authentication
+headers.
+
+To control the maximum number of query results kept in cache, set the
+`+investigate_core.datasource_cache_size+` parameter in
+`+investigate.yml+` and restart Siren Investigate.
+
+== Parameters encryption
+
+Sensitive datasource parameters like passwords are encrypted before
+being stored in the backend.
+
+Before creating datasources containing sensitive parameters, make sure
+you set a custom encryption key by running the
+`+replace_encryption_key+` command:
+
+[source,bash]
+----
+bin/investigate replace_encryption_key [options] <current_key> <new_key> <new_cipher>
+----
+
+* `+current_key+`: A base64 encoded string containing the current
+encryption key.
+* `+new_key+`: A base64 encoded string containing the new encryption
+key.
+* `+new_cipher+`: The cipher algorithm to use (currently only AES-GCM is
+supported).
+
+The current encryption key can be read from the `+investigate.yml+` file
+in the `+datasource_encryption_key+` parameter.
+
+Keys can have a length of 16, 24 or 32 bytes; a quick way to encode a
+plaintext string to base64 is to use the `+base64+` utility from the
+`+coreutils+` package:
+
+[source,bash]
+----
+$ echo -n changemechangemechangemechangeme | base64
+Y2hhbmdlbWVjaGFuZ2VtZWNoYW5nZW1lY2hhbmdlbWU=
+----
+
+NOTE: Make sure to set the configuration file as readable only by the user
+running the Siren Investigate process.
+____
+
+=== Datasource entity selection
+
+Selected Entities can be used as source of parameters for queries. Each
+selected entity is uniquely identified by a URI:
+
+`+INDEX/TYPE/ID+` where INDEX is an index pattern, TYPE is a type of
+document, and ID is document ID.
+
+As explained in the following sections, queries on external datasources
+can extract variables from the selected entity URI; to enable the user
+to select an entity, you must add an link:#[?xml_title] visualization to
+a dashboard and configure at least one
+link:/document/preview/60173#UUID-db904423-e774-d8ab-d0aa-711cae41f3e4[click
+handler] to select an entity.2.1.7.1 Click handlers
+
+After the visualization is configured, clicking the cell will display a
+purple box in the filter bar, and the variables stored in the entity URI
+will be available to queries and query templates.
+
+The following image shows the effect of clicking a cell configured with
+an entity selection handler; after selecting an entity, the _Company
+Info_ template viewer shows the information about the company fetched by
+a query.
+
+image:15d88ced2952ec.png[Entity selection]
+
+image:15d88ced29c517.png[Entity selection configuration example]
+
+To switch off or cancel the selection, click the icons displayed inside
+the entity selection widget when the mouse pointer is over it, as
+displayed in following image:
+
+image:15d88ced2a414b.png[Entity selection options]
+
+*Queries*
+
+Queries can be used to provide data to link:#[?xml_title],
+link:#UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80[tag] and filter
+Elasticsearch documents.
+
+To create a new query, click to the _"Settings/Queries"_ tab.
+
+You need then to set the following fields to define a query:
+
+* _Title_: The title of the query.
+* _Datasource_: The name of a configured datasource.
+* _Results query_: The query declaration.
+
+You may also set a description for the query and one or more tags.
+
+The following is an example configuration of a query on a SQL database
+called *Top 50 companies (HR count)* that returns the Top 50 companies
+by number of employees in a table called `+company+`.
+
+image:15d88ced2ab387.png[Configuration of a SQL endpoint]
+
+The preview section will display the results of the query as a table or
+as a JSON object.
+
+NOTE: Template rendering is currently a blocking operation, therefore queries
+returning many results may make the backend unresponsive for an
+indeterminate amount of time.
+
+
+=== Query variables
+
+One of the most useful features of queries is that it is possible to set
+some of their parameters before execution by using datasource specific
+variables, which can be set at run time by configuring
+link:/document/preview/60173#UUID-db904423-e774-d8ab-d0aa-711cae41f3e4[click
+handlers] in the link:#[?xml_title] visualization to select an
+entity.2.1.7.1 Click handlers
+
+Variable values are taken from Elasticsearch document selected using
+selected entity URI.
+
+All properties from selected document can be accessed using the
+following syntax:
+_@doc[PATH_ELEMENT_1][PATH_ELEMENT_2]…[PATH_ELEMENT_N]@_
+
+* to get the document id use: *@doc[_id]@*
+* to get the value of property called *action* use:
+*@doc[_source][action]@*
+* to get the value of nested property called *person.age* use:
+*@doc[_source][person][age]@*
+
+To view the results of the query, you have to specify an entity URI
+manually in the field on the top right;
+
+The following is an example of configuration for a query named *Company
+Info* using a variable to get the value of property called *id* of
+currently selected entity In the example, _@doc[_source][id]@_ is
+replaced with an id taken from selected company. In the Selected Entity
+box we see that the selected company is from index: *company*, has a
+type: *Company* and has the id *AVgfaYQ0Q2VQXwxDgyfY*
+
+image:15d88ced2b227a.png[SQL query with variables]
+
+=== Activation query
+
+An activation query can be specified to conditionally execute the
+results query.
+
+For example, if you have a table called _Vehicles_ but some queries are
+only relevant to "Motorcycles" and not to "Cars", the activation query
+could be used to determine if the results query should be executed when
+an entity in _Vehicles_ by looking at its type. If the query is not
+executed, any template or aggregator using the query will be
+automatically switched off.
+
+On SQL datasources, activation queries will trigger results query
+execution when returning at least one record.
+
+Example:
+
+[source,sql]
+----
+SELECT id
+FROM Vehicles
+WHERE id='@doc[_source][id]@' AND vehicle_type='Motorcycle'
+----
+
+=== Use cases
+
+After you have configured query templates and queries, you can use them
+in the following visualizations:
+
+* The link:#[?xml_title] visualization
+* The link:#[?xml_title] visualization
+
+It is also possible to use queries as aggregations as explained as
+follows.
+
+=== External query terms filters aggregation
+
+The query results from an external datasource can be used as an
+aggregation in visualizations.
+
+This enables you to compute metrics on Elasticsearch documents _joined_
+with query results.
+
+To use a query as an aggregation, select a bucket type and select
+External Query Terms Filter in the Aggregation box; then, click Add an
+external query terms filter.
+
+You can then configure how to join the query results with the
+Elasticsearch documents by setting the following parameters:
+
+* _Source query id_: The name of the query on the external datasource.
+* _Source query variable_: The name of the variable in query results
+which contains the first value used in the join.
+* _Target field_: The name of the field in the target index which
+contains the second value used in the join.
+
+The aggregation will return only documents in the Elasticsearch index
+whose target field value is equal to the source query variable value in
+at least one of the results returned by the query; if _Negate the query_
+is checked, the aggregation will return only documents in the
+Elasticsearch index whose target field value is not equal to any of the
+values of the source query variable in the results returned by the
+query.
+
+For example, the following image show the configuration of a Data table
+visualization with three aggregations based on external queries:
+
+* A query that selects the labels of the competitors of the currently
+selected company.
+* A query that selects the labels of all the companies which have a
+competitor.
+* A query that selects the IDs of the top 500 companies by number of
+employees.
+
+If a query requires a selected entity, and no entity is selected, the
+computed aggregation will return 0, also the controls to select
+*Selected entity* will indicate (red borders around) that it is
+necessary to select one.
+
+image:15d88ced2b9db0.png[Configuration of an external query terms
+filter aggregation on a data table visualization]
+
+The following image shows the configuration of two external query terms
+filter aggregation on a pie chart visualization:
+
+image:15d88ced2cc979.png[Configuration of an external query terms
+filter aggregation on a pie chart visualization]
