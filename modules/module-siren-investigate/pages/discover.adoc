@@ -34,18 +34,18 @@ Siren Investigate toolbar.
 . To set a quick filter, click one of the shortcut links.
 +
 image:15d88cec8a4296.png[Time filter shortcuts.]
-. Click Select All in the Apply to Dashboards section to apply the time
+. Click *Select All* in the Apply to Dashboards section to apply the time
 filter to all dashboards. Alternatively, you can select individual
 dashboards. The time filter is applied to the current dashboard by
 default.
-. To specify a time filter relative to the current time, click Relative
+. To specify a time filter relative to the current time, click *Relative*
 and specify the start time as a number of seconds, minutes, hours, days,
 months or years. You can also specify the end time relative to the
 current time. Relative times can be in the past or the future.
 +
 image:15d88cec8ab24d.png[Relative time filter.]
 . To specify both the start and end times for the time filter, click
-Absolute and select a start and end date. You can adjust the time by
+*Absolute* and select a start and end date. You can adjust the time by
 editing the To and From fields.
 +
 image:15d88cec8b6012.png[Absolute time filter.]
@@ -117,7 +117,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-query-stri
 string syntax] in the Elasticsearch Reference.
 
 
-*Saving a search*
+=== Saving a search
 
 Saving searches enables you to reload them into Discover and use them as
 the basis for
@@ -129,24 +129,24 @@ To save the current search:
 
 [arabic]
 . Click *Save* in the Siren Investigate toolbar.
-. Enter a name for the search and click Save.
+. Enter a name for the search and click *Save*.
 
 You can import, export and remove saved searches from
 [.menuchoice]#Management > Saved Objects#.
 
-*Opening a saved search*
+=== Opening a saved search
 
 To load a saved search into Discover:
 
 [arabic]
-. Click Open in the Siren Investigate toolbar.
+. Click *Open* in the Siren Investigate toolbar.
 . Select the search you want to open.
 
 If the saved search is associated with a different index pattern than is
 currently selected, opening the saved search also changes the selected
 index pattern.
 
-*Changing which indices you are searching*
+=== Changing which indices you are searching
 
 When you submit a search request, the indices that match the
 currently-selected index pattern are searched. The current index pattern
@@ -157,7 +157,7 @@ For more information about index patterns, see
 xref:management.adoc#_index_pattern_searches[Creating an Index
 Pattern Search].
 
-*Refreshing the search results*
+=== Refreshing the search results
 
 As more documents are added to the indices you are searching, the search
 results shown in Discover and used to display visualizations get stale.
@@ -176,10 +176,10 @@ image:15d88cec8d81f3.png[Auto refresh intervals.]
 
 When auto refresh is enabled, the refresh interval is displayed next to
 the Time Picker, together with a Pause button. To temporarily switch off
-auto refresh, click Pause.
+auto refresh, click *Pause*.
 
 NOTE: If auto refresh is not enabled, you can manually refresh visualizations
-by clicking Refresh.
+by clicking *Refresh*.
 
 
 
@@ -283,7 +283,7 @@ recommended for extremely large data sets, as it can result in long
 queries.
 
 
-*Managing filters*
+=== Managing filters
 
 To modify a filter, move the moue pointer over it and click one of the
 action buttons.
@@ -312,7 +312,7 @@ image:15d88cec95789d.png[image] Edit Filter::
 To apply a filter action to all the applied filters, click *Actions* and
 select the action.
 
-*Editing a filter*
+=== Editing a filter
 
 You can edit a filter by changing the field, operator, or value
 associated with the filter (see the *Add Filter* section), or by
@@ -433,7 +433,7 @@ button.
 
 image:15d88cec984791.png[Move column.]
 
-*Removing field columns from the documents table*
+=== Removing field columns from the documents table
 
 To remove a field column from the Documents table, move the mouse
 pointer over the header of the column you want to remove and click
@@ -550,7 +550,7 @@ left of the Discover page.
 image:15d88cec9af311.png[Selected fields.]
 
 Click a field to see the field’s
-link:#UUID-ac810a06-5435-f7dd-1b4e-1bf44e6cda59[stats].
+<<Viewing field data statistics>>[stats].
 
 To remove a field, click the field and click *Remove*.
 
