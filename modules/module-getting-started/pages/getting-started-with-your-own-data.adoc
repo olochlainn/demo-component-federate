@@ -671,24 +671,24 @@ https://www.youtube.com/watch?v=uXAOknWpSFM[training video].
 
 === Create a graph dashboard
 
-In the Dashboards sidebar, click the *Create new dashboard* icon
+. In the Dashboards sidebar, click the *Create new dashboard* icon
 (image:15dad792973b0a.png[image]).
 
-Click *Add*, then click *Graph Browser* and drag the lower right corner of
+. Click *Add*, then click *Graph Browser* and drag the lower right corner of
 the tile to fill the view.
 
-Click *Add all available lens and contextual scripts*.
+. Click *Add all available lens and contextual scripts*.
 
-Click the Play icon (image:15dad7928ab3a2.png[image]) at top left
+. Click the Play icon (image:15dad7928ab3a2.png[image]) at top left
 of the screen.
 
-Click *Save*, and name it General Graph Browser. Then click Save and Add
+. Click *Save*, and name it General Graph Browser. Then click Save and Add
 to Dashboard.
 
 
 === Save your changes
 
-When you have finished with the Graph Browser you can click Save to save
+When you have finished with the Graph Browser you can click *Save* to save
 the dashboard for future use.
 
 NOTE: You must save the dashboard before you use it.
@@ -700,12 +700,12 @@ NOTE: You must save the dashboard before you use it.
 Before you enter data into the Graph Browser, you should filter the
 datasource that you will use to produce a manageable number of results.
 
-Open an existing dashboard.
+. Open an existing dashboard.
 
-Click Add a filter.
+. Click Add a filter.
 
-Select a field to *Filter* by and then select an option from the list:
-
+. Select a field to *Filter* by and then select an option from the list:
++
 * is
 * is not
 * is one of
@@ -713,15 +713,15 @@ Select a field to *Filter* by and then select an option from the list:
 * exists
 * does not exist
 
-Enter a Value to match or click Edit Query DSL to use an Elasticsearch
+. Enter a Value to match or click Edit Query DSL to use an Elasticsearch
 Query then click Save.
 
 
 === Add data from another dashboard
 
-Open the Graph Dashboard.
+. Open the Graph Dashboard.
 
-In the Graph Browser tile, click +Add and select a dashboard from the
+. In the Graph Browser tile, click +Add and select a dashboard from the
 Add from another dashboard list. You can repeat this step to add data
 from other dashboards.
 
@@ -794,29 +794,29 @@ Click the Toggle Sidebar to display the Lenses and Selection tabs.
 The Lenses tab enables you apply visual filters to the data displayed in
 the graph.
 
-From the Lenses tab, select [.menuchoice]#Add a lens > Advanced >
+. From the Lenses tab, select [.menuchoice]#Add a lens > Advanced >
 Advanced lens#.
 
-Enter a unique Lens name.
+. Enter a unique Lens name.
 
-Select the Active check box to enable the lens. When the Live update
+. Select the *Active* checkbox to enable the lens. When the Live update
 check box is selected, changes you make to the lens are shown
 immediately in the graph browser. If the check box is cleared you can
 click the Apply lens parameters icon to update the graph browser.
 
-In the Parameters section, select an Entity Type.
+. In the Parameters section, select an Entity Type.
 
-Select a match condition:
-
+. Select a match condition:
++
 * Always.
 * Only for the selected elements.
 * Only if the condition is true.
-
++
 If you selected Only if the condition is true, enter a condition in the
 box.
 
-Select the property to set from the list:
-
+. Select the property to set from the list:
++
 * Color (string)
 * Node font icon (string)
 * Node glyphs (array of glyphs)
@@ -827,15 +827,15 @@ Select the property to set from the list:
 +
 NOTE: Node icons that link to web images are not always shown properly due to
 security restrictions. You may need to configure the
-link:/document/preview/105581#UUID-676f4a0f-f7d0-b563-dd3d-f50f778d6484[Image
-Proxy] feature to display them.Image Proxy (IP)
-
+xref:module-siren-investigate:image-proxy-ip.adoc[Image
+Proxy] feature to display them.
++
 * Size (number)
 * Time (string)
 * Tooltip (string)
 
-Enter the property in the box then click OK. For example, using the
-Companies data set select Color, then select SICCode.SicText_1.
+. Enter the property in the box then click *OK*. For example, using the
+Companies data set select *Color*, then select *SICCode.SicText_1*.
 
 The Selection tab displays a list of the currently selected nodes.
 
