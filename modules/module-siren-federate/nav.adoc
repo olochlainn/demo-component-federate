@@ -24,7 +24,7 @@
 *** xref:connecting-to-remote-datasources.adoc#_connecting_to_jdbc_datasources[Connecting To JDBC Datasources]
 *** xref:connecting-to-remote-datasources.adoc#_connecting_to_remote_elasticsearch_clusters[Connecting To Remote Elasticsearch Clusters]
 *** xref:connecting-to-remote-datasources.adoc#_known_limitations[Known Limitations]
-** xref:sset-up-security.adoc[Set Up Security]
+** xref:set-up-security.adoc[Set Up Security]
 ** xref:performance-considerations.adoc[Performance Considerations]
 
 
