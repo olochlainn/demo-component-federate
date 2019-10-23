@@ -550,7 +550,7 @@ left of the Discover page.
 image:15d88cec9af311.png[Selected fields.]
 
 Click a field to see the field’s
-<<Viewing field data statistics>>[stats].
+<<Viewing field data statistics>>.
 
 To remove a field, click the field and click *Remove*.
 
