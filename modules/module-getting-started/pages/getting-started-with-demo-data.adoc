@@ -110,7 +110,7 @@ click *Actions* then *Disable*.
 // Needs link to Relational Navigator
 
 The
-xref:module-siren-investigate:relational-navigator.adoc[Relational
+xref:module-siren-investigate:relational-browsing.adoc#_relational_navigator[Relational
 Navigator] visualization enables you to create cross-dashboard filters.
 For example, from *Companies* in the dashboard, you can see that there
 are 470 companies mentioned in TechCrunch articles about _wireless_ or
@@ -130,7 +130,7 @@ Relational filters can be accumulated. For example, if you click
 Investment rounds →, you will see data about the 351 investment rounds
 related to a subset of 470 companies mentioned in the TechCrunch
 articles about _wireless_ or _Wi-Fi_. For more information,
-see xref:module-siren-investigate:relational-navigator.adoc[Relational
+see xref:module-siren-investigate:relational-browsing.adoc#_relational_navigator[Relational
 Navigator].
 
 
