@@ -92,7 +92,7 @@ Query DSL].
 Visualizations can be used to create filters. For example, you can see
 all the articles about _wireless_ or _Wi-Fi_ published by TechCrunch by
 clicking the TechCrunch slice inside the Articles by
-Source xref:module-siren-investigate:pie-chart.adoc[pie
+Source xref:module-siren-investigate:visualizations.adoc#_pie_chart[pie
 chart] visualization.
 
 image:pie-slice.png[Pie slice]
