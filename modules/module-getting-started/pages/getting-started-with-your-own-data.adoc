@@ -225,7 +225,7 @@ systemctl start siren
 === Test your connection
 
 In your browser, navigate to
-http:// localhost:5606/status[http://localhost:5606/status]. If the
+*\http:// localhost:5606/status*. If the
 Elasticsearch and Siren Investigate services are running, the sign in
 screen is displayed.
 
@@ -249,7 +249,7 @@ xref:module-siren-investigate:setting-up-siren-investigate.adoc#_installing_sire
 Siren Investigate].
 
 Check the list of supported databases at
-xref:module-siren-federate:connecting-to-jdbc-datasources.adoc#_jdbc_driver_installation_and_compatibility[JDBC
+xref:module-siren-federate:connecting-to-remote-datasources.adoc#_jdbc_driver_installation_and_compatibility[JDBC
 driver installation and compatibility].
 
 The schema that you want to connect to must be the default schema of the
