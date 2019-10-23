@@ -487,10 +487,16 @@ zoom level for mapping visualizations, copy the following object in the
 `+investigate.yml+`file, this will increase the zoom level to 19 from
 the default of 15.
 
-tilemap: url: "https://\{s}.tile.openstreetmap.org/\{z}/\{x}/\{y}.png"
-options: attribution:
-'&copy;[OpenStreetMap("http://www.openstreetmap.org/copyright")'
-subdomains: ['a'] minZoom: 0 maxZoom: 19
+----
+tilemap: 
+  url: "https://\{s}.tile.openstreetmap.org/\{z}/\{x}/\{y}.png"
+  options: 
+    attribution: '&copy;
+[OpenStreetMap("http://www.openstreetmap.org/copyright")'
+    subdomains: ['a']
+    minZoom: 0
+    maxZoom: 19
+----
 
 |`+tilemap.url:+` |The URL to the tile service that Siren Investigate
 uses to display map tiles in tilemap visualizations. By default, Siren
