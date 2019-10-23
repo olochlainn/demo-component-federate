@@ -347,13 +347,12 @@ image:15dad79292ce1f.png[Relational column example.]
 
 image:15dad792936ef7.png[Relational column configuration]
 
-[[UUID-efb16f7e-1713-c35f-2dec-37f1448df40a]]
+
 === Saving the visualization
 
 Click *Save* in the top right to save the visualization, then click
 Dashboard to go back to the Companies dashboard. For additional
-documentation about this visualization, see link:#[3.5.2 Enhanced search
-results visualization].3.5.2 Enhanced search results visualization
+documentation about this visualization, see xref:module-siren-investigate:visualizations.adoc#_record_table_visualization[Record Table visualization].
 
 
 == Query templates
@@ -375,8 +374,8 @@ configuration.]
 Query templates can be managed by clicking the Management icon, then
 select Advanced Settings followed by Templates.
 
-For more information about templates, see link:#[3.12. Legacy REST
-datasources]. For more information about visualization see xref:module-siren-investigate:visualizations.adoc#_record_table_visualization[Record Table visualization].
+For more information about templates, see xref:module-siren-investigate:legacy-rest-datasources.adoc[Legacy REST
+datasources]. For more information about visualization, see xref:module-siren-investigate:visualizations.adoc#_record_table_visualization[Record Table visualization].
 
 
 
