@@ -148,10 +148,9 @@ top 500 companies by number of employees:
 image:query-on-companies-dashboard.png[SQL based aggregations]
 
 *Companies "With competitors"* and *Top 500 companies (HR count)* are
-link:/document/preview/60595#UUID-8c241402-f7cb-01ea-2886-c4d073d2218a[queries]
-on the SQLite database. The records returned by the queries are used to
+queries on the SQLite database. The records returned by the queries are used to
 filter Elasticsearch documents, which can be then aggregated in a
-metric.3.9.4. Queries
+metric.
 
 To better understand this feature, let’s examine the *Top 500 companies
 (HR count)* query. To see the query, click *Saved Objects* in the
@@ -173,7 +172,7 @@ limit 500
 ----
 
 Click *Dashboard*, then *Edit*, and then *Edit*
-(image:image/15d764ed143f43.png[image]) in the heading of the *Query on
+(image:15d764ed143f43.png[image]) in the heading of the *Query on
 Companies* visualization to customize its configuration. The *metrics*
 section defines the aggregations on Elasticsearch documents, displayed
 as columns in the table. The *buckets* section defines the groups of
@@ -198,7 +197,7 @@ Let’s add a new aggregation to show the average number of employees.
 Click *Add metrics* inside the *metrics* section, then
 select *Metric* as the metric type; select *Average* as the aggregation
 and `+number_of_employees+` as the field, then click *Apply
-Changes* (image:image/15d764ed153f9c.png[image]).
+Changes* (image:15d764ed153f9c.png[image]).
 
 Save the visualization by clicking *Save*, then click
 the *Dashboard* tab to see the updated visualization in
@@ -209,13 +208,13 @@ image:save-query-on-companies-visualization.png[image]
 Click *Add sub-buckets* at the bottom, then select *Split Rows* as the
 bucket type. Choose the *Terms* aggregation and the *countrycode* field
 from the boxes. Click *Apply
-Changes* (image:image/15d764ed153f9c.png[image]) to add an external ring
+Changes* (image:15d764ed153f9c.png[image]) to add an external ring
 with the new results.
 
 image:add-subbuckets.png[image]
 
-For an in-depth explanation of aggregations, see xref:module-siren-investigate:creating-a-
-visualization.adoc[Creating a visualization].
+For an in-depth explanation of aggregations, see xref:module-siren-investigate:visualizations.adoc#_creating_a_
+visualization[Creating a visualization].
 
 In addition to defining groups to aggregate, queries can be used as
 filters. To see this click *Dashboard*, then in the *Query on
@@ -235,14 +234,12 @@ image:dashboard-companies.png[image]
 
 It is possible to select a company entity (record) in the SQLite
 database (and entities in
-link:/document/preview/60728#UUID-ee44d7f4-bcfd-2e83-344d-d3c4832363d9[external
+xref:module-siren-investigate:legacy-rest-datasources.adoc[external
 datasources] in general) by clicking its label in the Companies
-Table.3.12. Legacy REST datasources
+Table.
 
-The selected entity can be used as a parameter in
-link:/document/preview/60728#UUID-ee44d7f4-bcfd-2e83-344d-d3c4832363d9[queries];
-for example, click Browshot in Companies Table:3.12. Legacy REST
-datasources
+The selected entity can be used as a parameter in queries;
+for example, click *Browshot* in Companies Table:
 
 image:15dad7928e721a.png[Entity selection]
 
@@ -268,24 +265,22 @@ Company Info visualization; by clicking the _(show)_ links you can
 toggle the list of companies in the same domain and competitors. The
 data in the tables is fetched from queries on the SQLite database, using
 the selected company ID as a parameter. The queries are rendered using
-link:/document/preview/60244#UUID-23f94e9e-6787-2126-2ca2-45ded58b2789[customizable
-templates], which will be introduced later.3.5.3 Siren Investigate query
-viewer
+xref:module-siren-investigate:visualizations.adoc#_query-viewer[customizable
+templates], which will be introduced later.
 
 The selected entity appears as a light blue box on the right of the
 filter bar; to deselect an entity, click the bin icon displayed when
 moving the mouse pointer over the purple box.
 
-For more information about entity selection, see link:#[3.12. Legacy
-REST datasources].3.12. Legacy REST datasources
+For more information about entity selection, see xref:module-siren-investigate:legacy-rest-datasources.adoc[Legacy
+REST datasources].
 
 
 == Enhanced search results
 
-The link:#[3.5.2 Enhanced search results visualization] displays the
+The xref:module-siren-investigate:visualizations.adoc#_record_table_visualization[Record Table visualization] displays the
 current set of Elasticsearch documents as a table. For example,
-Companies Table is configured to display the following fields:3.5.2
-Enhanced search results visualization
+Companies Table is configured to display the following fields:
 
 * Time (foundation date)
 * label (the company name)
@@ -293,19 +288,17 @@ Enhanced search results visualization
 * category_code
 * founded_year
 * countrycode
-* Why Relevant? (a
-link:/document/preview/60234#UUID-cc563c0f-e093-77d7-a17e-62fc0714c6f8[relational
-column])3.5.2 Enhanced search results visualization
+* Why Relevant? (a relational column])
 
 image:15dad792900450.png[Companies Table]
 
-Select *Edit*, then click Edit (image:image/15dad79288e41a.png[image])
+Select *Edit*, then click Edit (image:15dad79288e41a.png[image])
 to choose which fields to display and customize the order of the
 columns. If the index is time based, the Time column will always be
 displayed.
 
 Click the right arrow to expand the first row, then scroll down to the
-homepage_url field and click the Toggle column icon:
+homepage_url field and click the *Toggle column* icon:
 
 image:15dad79290bfb7.png[Column positioning.]
 
@@ -323,16 +316,16 @@ displaying the URL.
 The table is preconfigured with a click handler on `+label+` that is
 used to select an entity in the SQLite database.
 
-Go into edit mode.
+. Go into edit mode.
 
-Scroll through the view options and click Add click handler.
+. Scroll through the view options and click Add click handler.
 
-From the Column box, select homepage_url.
+. From the Column box, select homepage_url.
 
-From the On click I want to box, select Follow the URL.
+. From the On click I want to box, select Follow the URL.
 
-Select homepage_url as the URL field,  then click *Apply
-Changes* (image:image/15dad7928ab3a2.png[image]).
+. Select homepage_url as the URL field,  then click *Apply
+Changes* (image:15dad7928ab3a2.png[image]).
 
 You can test the click handler immediately by clicking a cell displaying
 a homepage URL in the preview displayed on the right:
@@ -383,9 +376,7 @@ Query templates can be managed by clicking the Management icon, then
 select Advanced Settings followed by Templates.
 
 For more information about templates, see link:#[3.12. Legacy REST
-datasources]. For more information about visualization see link:#[3.5.3
-Siren Investigate query viewer].3.12. Legacy REST datasources3.5.3 Siren
-Investigate query viewer
+datasources]. For more information about visualization see xref:module-siren-investigate:visualizations.adoc#_record_table_visualization[Record Table visualization].
 
 
 
