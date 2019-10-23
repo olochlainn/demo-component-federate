@@ -755,7 +755,7 @@ possible that you do not _have_ any documents.
 === Checking Siren Investigate status
 
 You can reach the Siren Investigate server’s status page by navigating
-to http://localhost:5606/status. The status page displays information
+to \http://localhost:5606/status. The status page displays information
 about the server’s resource usage and lists the installed plugins.
 
 image:15d88cec7b682e.png[Siren Investigate status page.]
@@ -833,8 +833,7 @@ using Siren Investigate with your production nodes, see
 
 
 . Point your browser at port 5606 to access the Siren Investigate user
-interface. For example,
-http://localhost:5606 or http://example.com:5606[http://YOURDOMAIN.com:5606].
+interface. For example, \http://localhost:5606 or \http://example.com:5606.
 
 . Specify an index pattern search that matches the name of one or more of
 your Elasticsearch indices. You may have to access the index pattern
@@ -870,8 +869,7 @@ NOTE: Siren Investigate relies on dynamic mapping to use fields in
 visualizations and manage the `+.siren+` index. If you have switched off
 dynamic mapping, you need to manually provide mappings for the fields
 that Siren Investigate uses to create visualizations. For more
-information, see <<Siren
-Investigate and Elasticsearch Dynamic Mapping>>.
+information, see <<Connecting Siren Investigate to Elasticsearch>>.
 
 
 === Start exploring your data
