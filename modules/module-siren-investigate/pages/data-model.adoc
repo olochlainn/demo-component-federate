@@ -171,8 +171,8 @@ To access values in the document use the following format:
 
 Painless is powerful but easy to use. It provides access to many native
 Java APIs
-(www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-painless.html#painless-api)
-and has an easy to learn syntax.
+(https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-scripting-painless.html#painless-api)
+and has an easy-to-learn syntax.
 
 Currently, Siren Investigate does not support named functions in
 Painless scripts.
@@ -246,8 +246,8 @@ Note that multi-fields will incorrectly appear as matches in the table.
 These filters only apply to fields in the original source document, so
 that matching multi-fields are actually not filtered.
 
-Enter a string in the Source Filter in the box and click Add. Filters
-accept wildcards, for example `+user*+` will return fields starting with
+Enter a string in the Source Filter in the box and click *Add*. Filters
+accept wildcards; for example, `+user*+` will return fields starting with
 `+user+`.
 
 
@@ -255,7 +255,7 @@ accept wildcards, for example `+user*+` will return fields starting with
 
 . Select the index pattern search from the left menu.
 
-. Click Delete.
+. Click *Delete*.
 
 
 === Creating a child search
@@ -271,9 +271,9 @@ specific searches. For example, if your main index pattern search is
 
 . Search for `+New York+` and press Enter.
 
-. Click Create Child Search.
+. Click *Create Child Search*.
 
-. Enter `+Companies from New York+` and click Save.
+. Enter `+Companies from New York+` and click *Save*.
 
 The child search appears nested under Companies on the left side.
 
@@ -285,15 +285,15 @@ are always defined at Index Pattern Search (or EID) level, and are
 inherited by child searches.
 
 
-*Editing a child search*
+==== Editing a child search
 
-To save your changes, click Save.
+To save your changes, click *Save*.
 
 *Removing a child search*
 
 . Select the child search from the left menu.
 
-. Click Delete.
+. Click *Delete*.
 
 
 
@@ -353,7 +353,7 @@ Again, this is how the new relational button appears in action.
 
 image:dm10.png[Automatic relational buttons]
 
-*Creating an entity identifier*
+=== Creating an entity identifier
 
 . Click *Create Entity Identifier*.
 
@@ -363,11 +363,11 @@ The entity identifier appears on the left side.
 
 image:dm11.png[image]
 
-*Editing an entity identifier*
+=== Editing an entity identifier
 
 To save any changes, click *Save*.
 
-*Removing an entity identifier*
+=== Removing an entity identifier
 
 . Select the entity identifier from the left menu.
 
@@ -377,7 +377,7 @@ To save any changes, click *Save*.
 
 == Creating relationships
 
-Relationships are defined from a Class to other Classes. But, it is not
+Relationships are defined from a Class to other Classes. However, it is not
 possible to define a relationship between two entity identifiers.
 
 A relationship is defined as a join operation between two indices with
@@ -440,8 +440,8 @@ Siren Investigate can attempt to automatically identify the relational
 configuration between any set of Index Pattern Searches.
 
 Go to the *Management > Data Model > Relations* page and click the
-*Relations auto-discovery wizard* button which located on the right
-below the relations .
+*Relations auto-discovery wizard* button which is located on the right,
+below the relations.
 
 image:dm15.png[image]
 
@@ -451,9 +451,9 @@ other tabs for additional controls.
 
 image:dm16.png[image]
 
-In the **EID Patterns**tab, regular expression can be defined to
+In the **EID Patterns** tab, a regular expression can be defined to
 identify particular types of data to match to EIDs e.g URL, email
-address, IP address etc.
+address, IP address, and so on.
 
 image:dm17.png[image]
 
