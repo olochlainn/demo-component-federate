@@ -1059,12 +1059,9 @@ the Investigate objects first, and only then upgrade Elasticsearch.
 
 
 The recommended version of Elasticsearch is 6.8.0 (version 6.5.4 is also
-supported). Please see
-link:/document/preview/74614#UUID-614c3407-2425-bbec-d555-cf99fc9605ff[Breaking
-Changes] and the link:#UUID-c90c7882-8ae2-2392-260c-ef61485f6027[Search
+supported). See xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search
 Guard Integration and Siren Investigate access control] to configure
-Searchguard security settings correctly for Elasticsearch 6.8.0.8.
-Breaking changes
+Searchguard security settings correctly for Elasticsearch 6.8.0.
 
 IMPORTANT: Before you upgrade Siren Investigate, you must take account of the
 security implications of the new features installed. Details of the
