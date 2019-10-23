@@ -435,16 +435,16 @@ and records as entities.
 
 === Create an index pattern search
 
-In Siren Investigate, navigate to [.menuchoice]#Management > Data
+. In Siren Investigate, navigate to [.menuchoice]#Management > Data
 Model#.
 
-Click Create Index Pattern Search.
+. Click Create Index Pattern Search.
 
-Enter the index name in the Index pattern id box. This is either the
+. Enter the index name in the Index pattern id box. This is either the
 name of an existing index on Elasticsearch or the name that you have
 defined for the virtual index that connects an external table.
 
-Click Save.
+. Click Save.
 
 
 === Create a relationship
@@ -463,28 +463,28 @@ with.
 The examples given here are from the _Loading CSV and JSON data sets
 with Logstash_ quick start guide.
 
-Click Management (image:15dad792955923.png[image]).
+. Click Management (image:15dad792955923.png[image]).
 
-Click Data Model.
+. Click Data Model.
 
-Click an Index Pattern, for example company.
+. Click an Index Pattern, for example company.
 
-In the Relations tab, click Add relation.
+. In the Relations tab, click Add relation.
 
-Select a Field in the Source Entity, for example CompanyName.keyword.
+. Select a Field in the Source Entity, for example CompanyName.keyword.
 
-Select a Target Entity. This can be an index pattern or an entity
+. Select a Target Entity. This can be an index pattern or an entity
 identifier, for example persons-control.
 
-If you selected an index pattern as the Target Entity, select a Field,
+. If you selected an index pattern as the Target Entity, select a Field,
 for example data.name.keyword.
 
-Enter a short description of the relationship in the Labels boxes. For
+. Enter a short description of the relationship in the Labels boxes. For
 example, CompanyName.keyword in the company index pattern "is owned
 by" data.name.keyword in the persons-control index pattern and
 data.name.keyword "owns" CompanyName.keyword.
 
-Click Save.
+. Click Save.
 
 By default, the join type is automatic. You can click Edit to manually
 set the Join type and Relation join task timeout.
@@ -503,59 +503,56 @@ For example, you may have many indexes with IPs in multiple roles
 (source, destination) and want to join them with other roles and
 indexes.
 
-Click Management (image:image/15dad792955923.png[image]).
+. Click Management (image:15dad792955923.png[image]).
 
-Click Data Model.
+. Click Data Model.
 
-Click Create Entity Identifier.
+. Click Create Entity Identifier.
 
-Enter an Entity identifier name.
+. Enter an Entity identifier name.
 
-Enter a Short Description.
+. Enter a Short Description.
 
-Enter a Long Description.
+. Enter a Long Description.
 
-Select an Icon.
+. Select an Icon.
 
-Select a Color.
+. Select a Color.
 
-Click Save.
+. Click Save.
 
-For more information about entity identifiers, see link:#[3.2.1.
-Creating an index pattern or entity identifier].3.2.1. Creating an index
-pattern or entity identifier
-
+For more information about entity identifiers, see xref:module-siren-investigate:data-model.adoc#_creating_an_index_pattern_search[Creating an index pattern search].
 
 === Connect an entity identifier to the data model
 
 This example uses the Companies House data set.
 
-Create an entity identifier with the *ID* `+PostCode+` as described in
+. Create an entity identifier with the *ID* `+PostCode+` as described in
 the previous section.
 
-From the Relations tab, click Add relation.
+. From the Relations tab, click *Add relation*.
 
-Using the boxes, set the relationship so that the source entity is owned
+. Using the boxes, set the relationship so that the source entity is owned
 by the target entity and the target entity owns the source entity.
 
-Select company from the index box.
+. Select company from the index box.
 
-Select RegAddress.PostCode from the Field box.
+. Select RegAddress.PostCode from the Field box.
 
 
 === Next steps
 
-Create dashboards.
+* Create dashboards.
 
-Add a graph browser visualization to a dashboard.
+* Add a graph browser visualization to a dashboard.
 
 
 == Creating dashboards
 
 A dashboard displays a set of saved visualizations in a grid layout that
 you can customize. It requires at least one visualization (for more
-information, see link:#[3.5. Visualize]). You can save a dashboard to
-share or view at a later time.3.5. Visualize
+information, see xref:module-siren-investigate:visualizations.adoc[Visualizations]). You can save a dashboard to
+share or view at a later time.
 
 Click Dashboard (image:15dad79295e504.png[image]) to view the
 first dashboard in the list. You can drag and drop dashboards to change
@@ -564,50 +561,50 @@ the order of the list.
 
 === Generate a dashboard
 
-Click Discover (image:15dad79296ad45.png[image]).
+. Click *Discover* (image:15dad79296ad45.png[image]).
 
-Click New.
+. Click *New*.
 
-Click Autoselect Most Relevant.
+. Click *Autoselect Most Relevant*.
 
-Click Generate Dashboard.
+. Click *Generate Dashboard*.
 
-Click Create.
+. Click *Create*.
 
-Click OK.
+. Click *OK*.
 
 
 === Create a dashboard
 
-In Siren Investigate, click Dashboard
+. In Siren Investigate, click *Dashboard*
 (image:15dad79295e504.png[image]).
 
-Click Create new dashboard (image:15dad792973b0a.png[image]).
+. Click *Create new dashboard* (image:15dad792973b0a.png[image]).
 
-Enter a unique name for the dashboard in the box.
+. Enter a unique name for the dashboard in the box.
 
-(Optional) Select a saved search. Typically, dashboards without a saved
-search are used only for cross index summary pages.
+. (Optional) Select a saved search. Typically, dashboards without a saved
+search are used only for cross-index summary pages.
 
-Click Create.
+. Click *Create*.
 
 
 === Add visualizations to a dashboard
 
-Click Dashboard (image:15dad79295e504.png[image]) to display the
+. Click *Dashboard* (image:15dad79295e504.png[image]) to display the
 dashboards list.
 
-Click the dashboard in the list and then click Edit.
+. Click the dashboard in the list and then click *Edit*.
 
-Click Add to display the available visualizations. You can filter the
+. Click *Add* to display the available visualizations. You can filter the
 list of visualizations by typing a filter string into the Visualization
 Filter box.
 
-In the list, click a visualization to add it to your dashboard. The
+. In the list, click a visualization to add it to your dashboard. The
 visualization you select appears in a container on your dashboard.
 
-(Optional) Click Options, then select or clear the Use dark theme and
-Hide borders check boxes to configure how the dashboard is displayed.
+. (Optional) Click *Options*, then select or clear the *Use dark theme* and
+*Hide borders* checkboxes to configure how the dashboard is displayed.
 
 
 === Configure a container
@@ -628,18 +625,18 @@ dashboard does not remove the saved visualization in that container.
 
 === Save a dashboard
 
-Click Save.
+. Click *Save*.
 
-(Optional) Select Store time with dashboard to change the time filter to
+. (Optional) Select *Store time with dashboard* to change the time filter to
 the currently selected time each time the dashboard is loaded.
 
-(Optional) If you did not add a saved search when you created the
-dashboard you can do so now.
+. (Optional) If you did not add a saved search when you created the
+dashboard, you can do so now.
 
-Click Save.
+. Click *Save*.
 
 Dashboards can be saved with specific filters, custom queries and
-specific time ranges. You can click Reset
+specific time ranges. You can click *Reset*
 (image:15dad792989346.png[image]) to reset these properties to
 their saved state for _all_ dashboards.
 
@@ -655,9 +652,9 @@ users must be able to access Siren Investigate; keep this in mind if
 your Siren Investigate instance is protected by an authentication proxy.
 
 
-Click Share to display the Sharing panel.
+. Click *Share* to display the Sharing panel.
 
-Click Copy to copy the native URL or embedded HTML to the clipboard.
+. Click *Copy* to copy the native URL or embedded HTML to the clipboard.
 The Share Snapshot section contains shortened versions of the URLs in
 the Share saved dashboard section.
 
@@ -674,18 +671,18 @@ https://www.youtube.com/watch?v=uXAOknWpSFM[training video].
 
 === Create a graph dashboard
 
-In the Dashboards sidebar, click Create new dashboard
+In the Dashboards sidebar, click the *Create new dashboard* icon
 (image:15dad792973b0a.png[image]).
 
-Click Add then click Graph Browser and drag the lower right corner of
+Click *Add*, then click *Graph Browser* and drag the lower right corner of
 the tile to fill the view.
 
-Click Add all available lens and contextual scripts.
+Click *Add all available lens and contextual scripts*.
 
 Click the Play icon (image:15dad7928ab3a2.png[image]) at top left
 of the screen.
 
-Click Save, and name it General Graph Browser. Then click Save and Add
+Click *Save*, and name it General Graph Browser. Then click Save and Add
 to Dashboard.
 
 
