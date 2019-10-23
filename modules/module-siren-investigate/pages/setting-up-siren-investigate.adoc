@@ -869,7 +869,7 @@ NOTE: Siren Investigate relies on dynamic mapping to use fields in
 visualizations and manage the `+.siren+` index. If you have switched off
 dynamic mapping, you need to manually provide mappings for the fields
 that Siren Investigate uses to create visualizations. For more
-information, see <<Connecting Siren Investigate to Elasticsearch>>.
+information, see <<Siren Investigate and Elasticsearch dynamic mapping>>.
 
 
 === Start exploring your data
