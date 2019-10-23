@@ -1093,10 +1093,8 @@ security) if required.
 . Copy the previous configuration file to the `+config+` folder of the new
 installation.
 
-. Check for breaking changes to the configuration. Please see
-link:/document/preview/74614#UUID-614c3407-2425-bbec-d555-cf99fc9605ff[Breaking
-Changes] and the xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search
-Guard Integration and Siren Investigate access control]
+. Check for breaking changes to the configuration. See xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search
+Guard Integration and Siren Investigate access control].
 
 . Install the compatible versions of third party Siren Investigate/Kibana
 plugins that you may need into the `+/plugins+` folder.
