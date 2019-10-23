@@ -886,7 +886,7 @@ xref:dashboard.adoc[Dashboard] page.
 
 For a step-by-step introduction to these core Siren Investigate
 concepts, see the
-link:/document/preview/60141#UUID-697eb485-b896-3d67-f862-e125d7226e0b[Getting
+https://docs.google.com/document/d/1lRVII4OQiCIaCZJ4M57ykRro45S1QuhRruT1XhMiuTE[Getting
 Started] tutorial.
 
 
