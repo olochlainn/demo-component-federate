@@ -1084,9 +1084,9 @@ version 6.8.0
 
 . Before restarting each Elasticsearch node, ensure you install a
 compatible version of the
-link:/document/preview/104019#UUID-443698b7-dcb2-87fb-fd89-3e672f069521[Siren
-Federate] plugin and access control plugins (Searchguard or X-pack
-security) if required
+xref:module-siren-federate:getting-started.adoc#_installing_the_siren_federate_plugin[Siren
+Federate plugin] and access control plugins (Searchguard or X-pack
+security) if required.
 
 . Download and extract the new Siren Investigate version.
 
