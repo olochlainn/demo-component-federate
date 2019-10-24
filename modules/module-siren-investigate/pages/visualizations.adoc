@@ -1488,7 +1488,7 @@ value, or multi-value “tags” mode) as well as value ranges.
 Because input controls do not inherit the current dashboard filters,
 they will always list all possible values.
 
-image:15d7bb9d662ea1.png[Input controls]
+image:15d8b8ddb8c4b6.png[Input controls]
 
 
 == Analytic Table
