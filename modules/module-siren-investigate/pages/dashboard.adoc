@@ -249,7 +249,7 @@ the *Visualization Filter* field.
 The visualization you select appears in a _container_ on your dashboard.
 
 NOTE: If you see a message about the container’s height or width being too
-small, <<customizing-the-dashboard,resize the
+small, <<Customizing the dashboard,resize the
 container>>.
 
 
