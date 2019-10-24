@@ -278,7 +278,7 @@ reverse SSL proxy.
 * The Gremlin Server is running with HTTPS enabled.
 
 For information on how on to enable HTTPS in both components,
-see <<_section_title>>.
+see xref:_authentication_and_access_control[Authentication and access control]>>.
 
 
 
