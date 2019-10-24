@@ -987,7 +987,7 @@ with a relation between two of its children.
 ** Eigenvector
 ** Pagerank
 
-See <<graph-browser>> for more information on lens expressions.
+See <<Graph Browser>> for more information on lens expressions.
 
 *Lens parameters*
 
@@ -1011,14 +1011,11 @@ the condition:
 * Location
 * Node image
 +
-____
-*Note*
-
-Node icons that link to web images are not always shown properly due to
+NOTE: Node icons that link to web images are not always shown properly due to
 security restrictions. You may need to configure the
-xref:image-proxy.adoc[Image Proxy] feature to
+xref:image-proxy-ip.adoc[Image Proxy] feature to
 display them.
-____
+
 * Size
 * Time
 * Tooltip
@@ -1124,7 +1121,7 @@ The expression created within the lens is applied to each node of the
 selection. Each node contains an object named `+payload+` which contains
 the node’s data returned from Elasticsearch.
 
-[[UUID-317e0b15-9ef4-c449-0f78-2b93054aca35]]
+
 === Saving the Graph Browser configuration
 
 The Graph Browser panel allows the user to change configurations through
