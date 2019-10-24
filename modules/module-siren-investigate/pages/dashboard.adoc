@@ -806,7 +806,7 @@ experience.
 * To select one or more documents and go to the specific dashboard, you
 must:
 ** Click the check box for the creation of an individual
-document xref:getting-started-with-demo-data.adoc#_filtering_results[filter].
+document xref:module-getting-started:getting-started-with-demo-data.adoc#_filtering_results[filter].
 ** Select the documents.
 ** Click Create Filter, and then
 "xref:discover.adoc#_filtering_by_field[pin the filter]". This
