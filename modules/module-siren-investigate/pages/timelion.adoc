@@ -243,7 +243,7 @@ image:tl12.png[image]
 
 Utilizing the formatting functions `+.title()+`, `+.label()+`,
 `+.color()+`, `+.lines()+` and `+.legend()+` learned in
-link:#UUID-7e0ee801-ada1-691e-8ed7-f03fa24bc75f[the last section], let’s
+the last section, let’s
 clean up the visualization a bit. Use the following expression to update
 your visualization:
 
