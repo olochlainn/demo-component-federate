@@ -3622,7 +3622,7 @@ If one of the source queries requires an entity to be selected, you can
 set an entity URI for testing in the input field above the preview.
 
 If a source query is not
-link:#UUID-da4bad96-3043-850c-2758-f1b74cd5a949[activated], the
+xref:legacy-rest-datasources.adoc[activated], the
 corresponding template will not be rendered.
 
 The following image shows the configuration and output of a templated
@@ -3640,7 +3640,7 @@ It is possible to set additional template variables by writing them as
 JSON object properties in the _Template variables_ text area.
 
 For example, to customize the heading of the
-link:#UUID-92fbd47b-36df-9366-c6e5-ca536e139ca2[generic table template]
+xref:management.adoc#_templates[generic table template]
 (this is done automatically by the _Label_ input field above), which is
 set by default to the id of the source query, you can customize the
 `+label+` variable as follows:
