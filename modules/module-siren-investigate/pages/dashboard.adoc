@@ -317,7 +317,7 @@ TIP: When you have multiple dashboards created, you can organize them into
 Each visualization in your dashboard is stored in a _container_; you can
 resize and arrange the containers in the dashboard.
 
-*Resizing, moving, and removing containers*
+=== Resizing, moving, and removing containers 
 
 Normally only one control (Maximize) is available on the top left of the
 container's frame. Clicking this maximizes the container and hides all
@@ -342,7 +342,7 @@ size.
 to remove that container from the dashboard. Removing a container from a
 dashboard does not remove the saved visualization in that container.
 
-*Viewing detailed visualization information*
+=== Viewing detailed visualization information 
 
 To display the raw data behind the visualization, click the Spy Open
 icon at the bottom left of the container. You can select different types
@@ -402,7 +402,7 @@ data. There are several ways to do this:
 visualization.
 * Interact directly with the visualization. For example, click a chart
 segment - this will apply a filter based on the value selected.
-* Click the Add a filter + link.
+* Click the *Add a filter +* link.
 
 When you create a filter, the filter conditions display in an oval under
 the search text entry box:
@@ -460,7 +460,7 @@ Omitting the label displays the filter query in the filter bar:
 
 image:15d88cecab4833.png[London Companies Filter Bar]
 
-*Visualizations listen to filters*
+=== Visualizations listen to filters
 
 Most visualizations in Siren Investigate are connected to a search. The
 following screenshot shows two two visualizations (a heatmap and an
@@ -497,7 +497,7 @@ Siren 10.3 overcomes this limitation, however, allowing relationally
 connected visualizations with the use of the new Dashboard 360 feature,
 which is described in the Dashboard Data Model section.
 
-*JSON filter representation*
+=== JSON filter representation
 
 You can use a JSON filter representation to implement predicate logic,
 with `+should+` for OR, `+must+` for AND, and `+must_not+` for NOT:
@@ -600,7 +600,7 @@ Click *Copy* to copy the native URL or embed HTML to the clipboard. The
 `+Share Snapshot+` *link* field contains a preshortened URL for sharing
 or embedding.
 
-*Embedding a dashboard*
+=== Embedding a dashboard
 
 Copy the embed code from the _Share_ display into your external web
 application. Two options are available, *iframe with no sidebars* and
@@ -724,12 +724,9 @@ dashboard is a must have for most deployments.
 === Current Limitations
 
 As with Siren 10.0, the method described here work only for data which
-is stored in the
-link:/document/preview/60658#UUID-a59a2d0e-b67c-4627-6ba0-28629af316fd[Siren
-Elasticsearch nodes]. Currently, data that is stored outside these
-nodes, for example accessed directly using
-link:/document/preview/60699#UUID-795b7b5f-8ccc-c3f7-3425-1107ed5415cf[Virtual
-Indexes], is not shown in this search and must instead be searched
+is stored in the Siren Elasticsearch nodes. Currently, data that is stored outside these
+nodes, for example accessed directly using Virtual
+Indexes, is not shown in this search and must instead be searched
 independently in their own dashboards.
 
 === Prerequisite data in the Siren Elasticsearch nodes
@@ -748,7 +745,7 @@ Engine dashboards and across Siren.
 In Siren Investigate, this provides consistency for users in the general
 dashboards when using those attributes, for example creating filters
 that can be
-<<working-with-filters,pinned>>
+<<Working with filters,pinned>>
 and will work when moved from one dashboard to another. It is also
 useful in creating an over-all search engine page because it enables you
 to use widgets (for example an over-all "time stamp" date histogram)
@@ -784,8 +781,7 @@ over all".
 === Creating the search over all dashboard
 
 The "search over all" dashboard is a normal dashboard that has the
-"search over all" saved search as its core dashboard (see
-<<Dashboards>>). Here is an example configuration:
+"search over all" saved search as its core dashboard. Here is an example configuration:
 
 image:15d88cecb2a32e.png[image]
 
@@ -810,7 +806,7 @@ experience.
 * To select one or more documents and go to the specific dashboard, you
 must:
 ** Click the check box for the creation of an individual
-document xref:getting-started.adoc#_filtering_results[filter].
+document xref:getting-started-with-demo-data.adoc#_filtering_results[filter].
 ** Select the documents.
 ** Click Create Filter, and then
 "xref:discover.adoc#_filtering_by_field[pin the filter]". This
