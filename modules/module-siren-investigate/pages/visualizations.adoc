@@ -1144,6 +1144,9 @@ of the sidebar.
 // This graphic consists of three files side by side.
 
 image:15d7bb9d640cd6.png[image]
+image:15d8b8ddb542ae.png[image]
+image:15d8b8ddb5874a.png[image]
+image:15d8b8ddb5d491.png[image]
 
 If you switch to another dashboard without saving, and come back to the
 Graph Browser, the sidebar state remains the same: all configuration
