@@ -475,7 +475,7 @@ comma-separated-values (CSV) file, click either the *Raw* or *Formatted*
 links at the bottom of the detailed information tabs. A raw export
 contains the data as it is stored in Elasticsearch. A formatted export
 contains the results of any applicable
-xref:mamagement.adoc#_managing_fields[field formatters].
+xref:management.adoc#_managing_fields[field formatters].
 
 
 
@@ -491,17 +491,16 @@ following features:
 Elasticsearch index, select the Hide time column check box.
 * You can set a page size which is a count of rows displayed each page.
 To enable top pagination, select the Show top paginator check box.
-* To use aliases in place of the column names in the data, see .
-* It is possible to enable a column that indicates whether a search
-result is matched by a query on an external datasource. For more
-information, see .
-* It is possible to define click handlers on the cells in a column, for
-example to open the URL displayed in a cell. For more information, see .
-* To create filters from table rows, see .
+* You can use aliases in place of the column names in the data.
+* You can enable a column that indicates whether a search
+result is matched by a query on an external datasource.
+* You can define click handlers on the cells in a column, for
+example to open the URL displayed in a cell.
+* You can create filters from table rows.
 
 image:15d88cecb74d2a.png[image]
 
-*Rename columns*
+=== Rename columns
 
 It is possible to create an alias and set a minimum width for each
 column.
@@ -516,7 +515,7 @@ To configure the names of columns, you can set these parameters:
 name.
 * _Min width_ (optional): The minimum width of the column.
 
-*Relational column*
+=== Relational column
 
 The relational column can be used to display if a search result is
 matched by a query on an external datasource.
@@ -545,7 +544,7 @@ variable in the query results.
 * _Target query variable name_: the name of the query variable that will
 be compared to the index field specified in _Source field_.
 
-*Click handlers*
+=== Click handlers
 
 It is possible to define two different actions when clicking a cell;
 
@@ -553,7 +552,7 @@ It is possible to define two different actions when clicking a cell;
 * Select an entity in an external datasource matching the corresponding
 index field.
 
-*Follow URL*
+=== Follow URL
 
 Select the Follow URL action to open a URL stored in an index field in a
 new window.
@@ -582,7 +581,7 @@ URL will be _http://example.org/11_.
 
 image:15d88cecb9d795.png[image]
 
-*Select an entity*
+=== Select an entity 
 
 Select the _Select an entity_ action if you want to select an entity
 stored in an external datasource matching the selected Elasticsearch
@@ -612,7 +611,7 @@ Create Filter.
 
 image:15d88cecbb941e.png[image]
 
-*CSV/JSON Export*
+=== CSV/JSON Export
 
 If you would like to export the documents matched by a query on an
 Elasticsearch index, press the 'Export' link at the bottom of the
@@ -660,7 +659,7 @@ the 'Formatted' option.
 
 image:15d88cecbdf003.png[image]
 
-*Exporting Dashboard Visualizations*
+=== Exporting Dashboard Visualizations
 
 Dashboard visualizations can be exported as images or as a PDF document.
 
@@ -670,7 +669,7 @@ the export panel.
 
 image:15d88cecbe7829.png[image]
 
-*PDF snapshot or printing:*
+=== PDF snapshot or printing:
 
 Saving a PDF snapshot or printing is available from the export panel.
 Additional options are available, such as 'Include dashboard query in
@@ -682,7 +681,7 @@ printing (Print).
 Note: Panels without results or panels opened in spy mode will not be
 included in the document.
 
-*PNG capture of visualization:*
+=== PNG capture of visualization:
 
 image:15d88cecbeffcc.png[image]
 
@@ -695,7 +694,7 @@ The exported visualization will be saved as a PNG image.
 Note: Panels without results or panels opened in spy mode will not be
 available for capturing.
 
-*Note regarding nginx*
+=== Note regarding nginx
 
 Some settings for nginx can interfere with the functionality of the
 export feature, namely the `+proxy_buffering+` directive.
