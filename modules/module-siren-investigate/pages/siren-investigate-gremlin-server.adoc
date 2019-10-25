@@ -16,7 +16,7 @@ investigate_core:
 ----
 
 To use Gremlin Server with an authentication-enabled cluster, refer to
-the link:#UUID-a59771c0-3789-ea1c-beb1-64790476628d[Authentication and
+the xref:authentication-and-access-control.adoc[Authentication and
 access control] section.
 
 == Log4J file configuration path
