@@ -898,7 +898,7 @@ set at creation time to the number of data nodes - 1.
 
 For additional information on how to set replication settings and
 sgadmin in general, refer to
-http://floragunncom.github.io/search-guard-docs/sgadmin.html.
+http://floragunncom.github.io/search-guard-docs/sgadmin.html[Using sgadmin to configure Search Guard].
 
 If the command is executed successfully, a list of the actions executed
 and their outcome will be printed on screen, for example:
