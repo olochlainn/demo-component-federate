@@ -55,7 +55,7 @@ the Siren Alert configuration:
 *How can I use Siren Alert with Search Guard authentication?*
 
 Here is an example to use Siren Alert with Search Guard. For more
-information, see link:#[?xml_title].
+information, see xref:alerting-how-to.adoc#_using_siren_alert_with_search_guard[Using Siren Alert with Search Guard].
 
 [arabic]
 . Edit the `+sg_kibana_server+` role in `+sg_roles.yml+`:
