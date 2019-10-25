@@ -72,5 +72,5 @@ investigate_access_control:
 . Create a user called `+sirenalert+` and map that user to the
 `+sirenalert+` role by following the instructions under the *Access
 Control: ACL* section in
-xref:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search
+xref:modulie-siren-investigate:authentication-and-access-control.adoc#_search_guard_integration_and_siren_investigate_access_control[Search
 Guard integration and Siren Investigate access control].
