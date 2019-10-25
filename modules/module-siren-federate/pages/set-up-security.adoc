@@ -92,7 +92,7 @@ with `+cluster:admin/federate+`
 `+cluster:internal/federate+`
 
 [[UUID-e5e19efe-5c33-afa9-ea98-c7ef7debd569]]
-===== Configuring Role-Based Access Control
+==== Configuring Role-Based Access Control
 
 Given the action groups defined above, we can define two types of roles:
 
@@ -138,7 +138,7 @@ the Federate’s query engine will access index schema metadata using
 is required for every Federate users.
 
 [[UUID-4bf34f70-e5a2-3aaf-2013-5ebfd37136b3]]
-===== Securing Connector
+==== Securing Connector
 
 When using Search Guard, Federate will need to authenticate as a user
 with all the permissions on the indices storing link:#jdbc[datasources
