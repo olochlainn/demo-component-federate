@@ -365,7 +365,7 @@ Elasticsearch HTTP server.
 * `+signing-ca+`: the signing CA bundle in PEM format.
 
 In addition to the online generator, Floragunn provides a
-https://docs.search-guard.com/latest/offline-tls-tool [TLS tool] which
+https://docs.search-guard.com/latest/offline-tls-tool[TLS tool] which
 can be used to manage a private certification authority.
 
 
