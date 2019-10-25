@@ -3868,3 +3868,5 @@ You can still see the available layers for the WMS by running a
 
 `+http://localhost:8080/geoserver/wms?SERVICE=WMS&REQUEST=GetCapabilities+`
 ====
+
+Here are links to <<Creating a visualization>> and <<Visualizations>>.
