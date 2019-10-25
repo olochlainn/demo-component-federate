@@ -1,7 +1,7 @@
 = Siren Investigate Gremlin Server
 
 The *Siren Investigate Gremlin Server* component is a backend component
-required by the link:#UUID-c781ea33-07ef-8521-35a7-f830e0d1f632[Siren
+required by the xref:visualizations.adoc#_graph_browser[Siren
 Investigate Graph Browser] visualization.
 
 To enable the Gremlin Server, ensure that `+investigate.yml+` contains
