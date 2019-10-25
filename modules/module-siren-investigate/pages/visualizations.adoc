@@ -1,3 +1,4 @@
+[[Visualizations]]
 :imagesdir: ../assets/images
 = Visualizations
 
