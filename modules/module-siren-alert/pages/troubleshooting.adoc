@@ -2,7 +2,7 @@
 
 This section offers some common problem-solution pairs, dedicated to
 both new and existing users. For more information, see the
-link:#UUID-3632ec53-97f6-72b1-e2bf-1b683405894a[Siren Alert FAQ].
+xref:siren-alert-faq.adoc[Siren Alert FAQ].
 
 
 == Debug Siren Alert
