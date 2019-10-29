@@ -1,2 +1,2 @@
 * xref:whats-new-in-siren-10-3.adoc[What's New In Siren 10.3]
-* xref:document-conventions.adoc[Document Conventions]
+** xref:document-conventions.adoc[Document Conventions]
