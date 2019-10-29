@@ -106,7 +106,7 @@ image:15d88ced2a414b.png[Entity selection options]
 *Queries*
 
 Queries can be used to provide data to xref:management.adoc#_templates[templates],
-xref:visualizations.adoc#_tag_clouds[tag clouds] and filter
+xref:visualizations.adoc#_tag_cloud[tag cloud] and filter
 Elasticsearch documents.
 
 To create a new query, click to the _"Settings/Queries"_ tab.
