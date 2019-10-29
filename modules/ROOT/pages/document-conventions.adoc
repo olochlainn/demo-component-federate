@@ -10,9 +10,10 @@
 |Keyboard combination |[.keycombo]#Ctrl+S#
 |File names and paths |`+filename+`
 |Program listing |
-----
-//example
-----
+`+some code+`
+
+`+some more code+`
+
 
 |Procedure |
 1. First step
