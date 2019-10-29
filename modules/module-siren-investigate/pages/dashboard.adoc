@@ -678,7 +678,7 @@ visualization] to the dashboard, select the check box. Be aware that
 this can slow the generation of the dashboard.
 
 The generated dashboard will be associated to a
-xref:discover.adoc#searching-your-data[saved search], which by
+xref:discover.adoc#_searching_your_data[saved search], which by
 default is a new saved search created from the current state of the
 Discover page. If a saved search is currently open in the Discover page,
 however, you have the option to use it either before or after saving its
