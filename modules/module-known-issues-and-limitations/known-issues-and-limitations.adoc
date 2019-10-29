@@ -36,6 +36,6 @@ error message is displayed:
 
 === Solution
 
-Use a xref:Siren Investigate:data-reflection.adoc#_datasource_reflection_jobs[datasource
+Use a xref:module-siren-investigate:data-reflection.adoc#_datasource_reflection_jobs[datasource
 reflection job] to ingest the table in a concrete index. The aggregation
 can then run successfully on the index.
