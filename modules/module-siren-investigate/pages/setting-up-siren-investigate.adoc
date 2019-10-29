@@ -754,7 +754,7 @@ possible that you do not have any documents.
 === Checking Siren Investigate status
 
 You can reach the Siren Investigate server’s status page by navigating
-to \http://localhost:5606/status. The status page displays information
+to `+http://localhost:5606/status+`. The status page displays information
 about the server’s resource usage and lists the installed plugins.
 
 image:15d88cec7b682e.png[Siren Investigate status page.]
