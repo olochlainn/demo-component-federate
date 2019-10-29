@@ -138,7 +138,7 @@ indeterminate amount of time.
 One of the most useful features of queries is that it is possible to set
 some of their parameters before execution by using datasource specific
 variables, which can be set at run time by configuring
-xref:module-getting-started:getting_started_with_demo_data.adoc#_click_handlers[click
+xref:module-getting-started:getting-started-with-demo-data.adoc#_click_handlers[click
 handlers] in the xref:visualizations.adoc#_record_table_visualization[Record Table] visualization to select an
 entity.
 
