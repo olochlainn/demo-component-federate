@@ -1516,9 +1516,7 @@ select an aggregation from the list of types.
 You can use the up or down arrows to the right of the aggregation’s type
 to change the aggregation’s priority.
 
-You can customize your visualization. For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
-aggregations].
+You can customize your visualization. For more information, see <<Customizing aggregations>>.
 
 Select the *Options* tab to change the following aspects of the table:
 
@@ -1540,9 +1538,7 @@ NOTE: Enabling these behaviors may have a substantial effect on performance.
 [[UUID-cdc5ce52-b982-7acd-81ae-c38c8855647f_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
 === Viewing detailed information
 
-For information on displaying the raw data, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
-Spy].
+For information on displaying the raw data, see <<Visualization Spy>>.
 
 
 == Markdown Widget
@@ -1561,22 +1557,16 @@ previous version.
 A metric visualization displays a single number for each aggregation you
 select.
 
-For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
-aggregations].
+For more information, see <<Y-axis aggregations>>.
 
-You can customize your visualization. For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
-aggregations].
+You can customize your visualization. For more information, see <<Customizing aggregations>>.
 
 Click the *Options* tab to display the font size slider.
 
 [[UUID-07c3eacb-b0a4-7e18-a02b-45696eb11277_UUID-a29c93c8-f974-54d6-4689-0d11557a7b12]]
 === Viewing detailed information
 
-For information on displaying the raw data, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
-Spy].
+For information on displaying the raw data, see <<Visualization Spy>>.
 
 
 == Goal and Gauge
