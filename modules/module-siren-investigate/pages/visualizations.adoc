@@ -581,14 +581,14 @@ To configure an entity selection action you must set the following
 parameters:
 
 * Column: The name of the column to which the handler will be bound.
-* On click I want to: The action to perform on click. Select Select the
-document here.
+* On click I want to: The action to perform on click. Select *Select the
+document* here.
 * Redirect to dashboard: If set, clicking the cell selects the entity
 and displays the specified dashboard.
 
 image:15d88cecba5524.png[image]
 
-*Row filters*
+=== Row filters
 
 It is possible to create filters from table rows.
 
@@ -659,7 +659,7 @@ the export panel.
 
 image:15d88cecbe7829.png[image]
 
-=== PDF snapshot or printing:
+=== PDF snapshot or printing
 
 Saving a PDF snapshot or printing is available from the export panel.
 Additional options are available, such as 'Include dashboard query in
@@ -671,7 +671,7 @@ printing (Print).
 Note: Panels without results or panels opened in spy mode will not be
 included in the document.
 
-=== PNG capture of visualization:
+=== PNG capture of visualization
 
 image:15d88cecbeffcc.png[image]
 
@@ -681,10 +681,10 @@ export panel is open).
 
 The exported visualization will be saved as a PNG image.
 
-Note: Panels without results or panels opened in spy mode will not be
+NOTE: Panels without results or panels opened in spy mode will not be
 available for capturing.
 
-=== Note regarding nginx
+=== Avoiding issues with nginx
 
 Some settings for nginx can interfere with the functionality of the
 export feature, namely the `+proxy_buffering+` directive.
