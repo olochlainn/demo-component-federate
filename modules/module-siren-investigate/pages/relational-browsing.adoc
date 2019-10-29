@@ -27,7 +27,7 @@ all the possible relational connections with other dashboards which have
 related entities.
 
 NOTE: The relational filter visualization requires
-xref:module-siren-federate:siren-federate.adoc[Siren
+xref:module-siren-federate:introduction.adoc[Siren
 Federate].
 
 
