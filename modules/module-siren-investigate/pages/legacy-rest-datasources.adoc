@@ -196,8 +196,8 @@ WHERE id='@doc[_source][id]@' AND vehicle_type='Motorcycle'
 After you have configured query templates and queries, you can use them
 in the following visualizations:
 
-* The link:#[?xml_title] visualization
-* The link:#[?xml_title] visualization
+* The xref:visualizations.adoc#_record_table_visualization[Record Table] visualization
+* The xref:visualizations.adoc#_query_viewer[Query Viewer] visualization
 
 It is also possible to use queries as aggregations as explained as
 follows.
