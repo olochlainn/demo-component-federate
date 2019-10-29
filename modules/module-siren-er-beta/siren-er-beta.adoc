@@ -1,0 +1,5 @@
+= Siren ER (beta)
+
+Siren ER (beta) is an AI-powered feature that enables entity resolution—the ability to recognize that records across different tables and datasources, using different schemas and even in different languages are in fact referring to the same entity (which could be a person, company, or any other thing). Siren ER (beta) can remove ambiguity and reveal previously hidden relationships in the data.
+
+Siren ER (beta) is currently implemented as a Docker installation; instructions for using it are available at https://support.siren.io/support/solutions/articles/17000092368-siren-er.
