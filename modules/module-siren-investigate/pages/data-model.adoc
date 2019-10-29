@@ -289,7 +289,7 @@ inherited by child searches.
 
 To save your changes, click *Save*.
 
-*Removing a child search*
+==== Removing a child search
 
 . Select the child search from the left menu.
 
@@ -299,7 +299,7 @@ To save your changes, click *Save*.
 
 == How to use entity identifiers
 
-Siren 10 introduces the concept of an "Entity Identifier" (EID).
+Siren 10 introduces the concept of an _Entity Identifier_ (EID).
 Previously, in Siren, to be able to join between two indexes you had to
 specify that there existed a direct connection between them. For
 example, if you had two logs which could be connected by the IP value,
@@ -391,11 +391,11 @@ of the right index to join with; and
 
 image:dm12.png[Data model]
 
-New relations are created by clicking Add Relation. Relations do not
+New relations are created by clicking *Add Relation*. Relations do not
 need to be created in both originating and target classes as they appear
 automatically in both edit screens when created.
 
-Clicking Visualize data model as a graph will show it in a visual
+Clicking *Visualize data model as a graph* will show it in a visual
 representation where the currently selected class is highlighted, for
 example in this case
 
@@ -452,7 +452,7 @@ other tabs for additional controls.
 image:dm16.png[image]
 
 In the **EID Patterns** tab, a regular expression can be defined to
-identify particular types of data to match to EIDs e.g URL, email
+identify particular types of data to match to EIDs e.g. URL, email
 address, IP address, and so on.
 
 image:dm17.png[image]
@@ -494,7 +494,7 @@ The name of Entity Identifiers is also editable. Note that assigning the
 same Entity Identifier name on two different sources will merge them
 into a single output identifier.
 
-The *Already Existing Relations* tab in the report can be used to track
+The *Existing Relations* tab in the report can be used to track
 the situation of existing relations in the data set against the reported
 relations. Note that *Found relations* in this tab don’t also appear as
 *Suggested Relations*, since they already exist and should not be
