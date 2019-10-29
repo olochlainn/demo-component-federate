@@ -808,8 +808,8 @@ must:
 ** Click the check box for the creation of an individual
 document xref:module-getting-started:getting-started-with-demo-data.adoc#_filtering_results[filter].
 ** Select the documents.
-** Click Create Filter, and then
-"xref:discover.adoc#_filtering_by_field[pin the filter]". This
+** Click *Create Filter*, and then
+"xref:discover.adoc#_managing_filters[pin the filter]". This
 makes it possible to then go to the destination dashboard and see the
 search results in that environment.
 * The top right time filter has no effect unless a time filter variable
