@@ -151,7 +151,7 @@ user.
 user.
 
 [[UUID-4f7b24c4-0934-4e9c-3de8-0508e25a298f]]
-====== Federate system role
+===== Federate system role
 
 If your cluster is protected by Search Guard, it is required to define a
 role with access to the Federate indices and internal operations and to
@@ -199,7 +199,7 @@ Restart the nodes after setting the appropriate configuration
 parameters.
 
 [[UUID-a206de3e-f514-3659-b861-ccba7d2b6f6c]]
-====== Administrative role
+===== Administrative role
 
 In order to manage, search, read datasources and virtual indices, it is
 required to grant the following cluster and indices-level permissions:
@@ -247,7 +247,7 @@ datasource per se.
 ____
 
 [[UUID-bed3ca57-2138-8a9c-a33a-1189e7238d01]]
-====== Search role
+===== Search role
 
 In order to search virtual indices, a user needs
 `+indices:data/read/federate/connector/*+` permissions which are part of
