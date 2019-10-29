@@ -445,30 +445,20 @@ the raw data.
 
 image:15d88cecb6d85c.png[Spy panel.]
 
-*Table.*
-
-A representation of the underlying data, presented as a paginated data
+Table:: A representation of the underlying data, presented as a paginated data
 grid. You can sort the items in the table by clicking the table headers
 at the top of each column.
 
-*Request.*
+Request:: The raw request used to query the server, presented in JSON format.
 
-The raw request used to query the server, presented in JSON format.
+Response:: The raw response from the server, presented in JSON format.
 
-*Response.*
-
-The raw response from the server, presented in JSON format.
-
-*Statistics.*
-
-A summary of the statistics related to the request and the response,
+Statistics:: A summary of the statistics related to the request and the response,
 presented as a data grid. The data grid includes the query duration, the
 request duration, the total number of records found on the server, and
 the index pattern used to make the query.
 
-*Debug.*
-
-The visualization saved state presented in JSON format.
+Debug:: The visualization saved state presented in JSON format.
 
 To export the raw data behind the visualization as a
 comma-separated-values (CSV) file, click either the *Raw* or *Formatted*
@@ -505,7 +495,7 @@ image:15d88cecb74d2a.png[image]
 It is possible to create an alias and set a minimum width for each
 column.
 
-To enable renaming columns, select the Enable column rename check box.
+To enable renaming columns, select the *Enable column rename* check box.
 
 image:15d88cecb7d265.png[image]
 
@@ -546,7 +536,7 @@ be compared to the index field specified in _Source field_.
 
 === Click handlers
 
-It is possible to define two different actions when clicking a cell;
+It is possible to define two different actions when clicking a cell:
 
 * Open a URL defined in the corresponding index field.
 * Select an entity in an external datasource matching the corresponding
@@ -572,7 +562,7 @@ URL* here.
 * URL format: A custom format string to compose the URL, where _@URL@_
 is replaced with the value of the field set in _URL field_.
 
-URL format can be used to create dynamic URL. The following image shows
+URL format can be used to create a dynamic URL. The following image shows
 a configuration in which the value of the _id_ field is used to define
 the path of a URL on example.org.
 
