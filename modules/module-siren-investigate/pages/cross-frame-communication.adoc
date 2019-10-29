@@ -44,7 +44,7 @@ looking at the `+createDate+` attribute.
 === setJWTToken(token)
 
 Sets or updates the JWT token for the current session if
-link:#UUID-a5715cd2-f504-c681-7fc6-63db38db95bb[JWT authentication
+xref:authentication-and-access-control.adoc#_jwt_authentication_support[JWT authentication
 support] is enabled; returns a Promise after the token has been sent to
 the backend.
 
