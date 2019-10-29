@@ -269,7 +269,7 @@ specific searches. For example, if your main index pattern search is
 
 . Go to the Data tab.
 
-. Search for `+New York+` and press Enter.
+. Search for `+New York+` and press *Enter*.
 
 . Click *Create Child Search*.
 
