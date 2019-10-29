@@ -746,10 +746,9 @@ xref:discover.adoc[Discover] page loads by
 default with the default index pattern selected. The time filter is set
 to the last 15 minutes and the search query is set to match-all (`+*+`).
 
-If you do not see any documents, try
-xref:discover.adoc#_setting_the_time_filter[setting the time filter]
+If you do not see any documents, try xref:discover.adoc#_setting_the_time_filter[setting the time filter]
 to a wider time range. If you still do not see any results, it is
-possible that you do not _have_ any documents.
+possible that you do not have any documents.
 
 
 === Checking Siren Investigate status
