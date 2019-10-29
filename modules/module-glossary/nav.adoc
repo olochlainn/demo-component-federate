@@ -1,1 +1,1 @@
-* xref:siren-er-beta.adoc[Siren ER (beta)]
+* xref:glossary.adoc[Glossary]
