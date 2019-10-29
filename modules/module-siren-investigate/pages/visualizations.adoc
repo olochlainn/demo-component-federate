@@ -616,15 +616,15 @@ image:15d88cecbc8c45.png[image]
 The basic options allow you to choose between CSV (Comma-separated
 values) and JSON export formats.
 
-Pressing the 'Export' button in the dialog will begin exporting all the
+Clicking *Export* in the dialog will begin exporting all the
 documents matching a query on an Elasticsearch index in the format you
 have chosen.
 
-For more control over what gets exported, press the 'additional
-settings' link to list some more advanced options.
+For more control over what gets exported, click *Additional
+settings* to list some more advanced options.
 
 By default, all fields of an index will be exported. To limit the export
-to a specific set of fields, press the arrow next to 'Fields'. This will
+to a specific set of fields, click the arrow next to 'Fields'. This will
 display a list of all the fields in the index we’re exporting from.
 Simply select the checkbox next to the name of the fields you want to
 export.
@@ -734,9 +734,9 @@ Investigate relations as links of a graph.
 
 image:15d88cecc043d1.png[Graph Browser Example]
 
-*Configuration*
+=== Configuration
 
-*Big nodes threshold*
+==== Big nodes threshold
 
 If a node would expand into more than this configured number of nodes it
 will be considered a big node and the user will be given a choice to
@@ -744,12 +744,12 @@ proceed or to select a sample.
 
 image:15d88cecc0d3e5.png[Big Nodes Handling]
 
-*Relations*
+==== Relations
 
 You can configure the ontology relations you want to use in this
 visualization. If no relation gets set, they will all be used.
 
-*Scripts*
+==== Scripts 
 
 The Graph Browser supports three types of scripts:
 
@@ -813,19 +813,19 @@ image:15d88cecc15a9f.png[Scripts Management]
 
 Here you can configure new _scripts_ or modify the saved ones.
 
-*Fields to exclude*
+==== Fields to exclude
 
 You can configure a set of fields for each entity that you do not want
 to retrieve. Typically, you will exclude large fields that do not
 contribute to the link analysis (for example large textual blobs,
 technical metadata)for extra performance.
 
-*Navigating the Graph*
+=== Navigating the Graph
 
 After your Graph Browser visualization is ready, you can start your
 investigations.
 
-*Toolbar*
+==== Toolbar
 
 You have several operations available:
 
@@ -915,7 +915,7 @@ feature preserves the saved graph layout.
 +
 image:15d88cecc7fbe0.png[Open Graph]
 
-*Shortcuts*
+==== Shortcuts
 
 The Graph Browser supports shortcuts:
 
@@ -928,7 +928,7 @@ expandbutton)
 * `+Arrows+`: Move the selected elements in the input direction.
 * Mouse wheel: Changes the zoom level of the graph.
 
-*Navigation bar*
+==== Navigation bar
 
 image:15d88cecc86fc9.png[Navigation bar]
 
@@ -941,7 +941,7 @@ The navigation bar enables you to:
 * *Hand*: Enables you to move the graph regardless of selected elements.
 . Enables you to change the zoom level.
 
-*Side bar*
+==== Side bar
 
 image:15d88cecc8dcd6.png[Side bar]
 
@@ -951,7 +951,7 @@ The side bar enables you to:
 * Change the current selection.
 * Change node/links attributes (i.e: Color, label, tool tip, and so on).
 
-**Lenses tab**
+=== Lenses tab
 
 image:15d88cecc9558f.png[Side bar lenses tab]
 
