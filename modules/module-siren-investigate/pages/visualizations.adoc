@@ -3607,7 +3607,7 @@ JSON object properties in the _Template variables_ text area.
 
 For example, to customize the heading of the
 xref:management.adoc#_templates[generic table template]
-(this is done automatically by the _Label_ input field above), which is
+(this is done automatically by the Label input field above), which is
 set by default to the id of the source query, you can customize the
 `+label+` variable as follows:
 
