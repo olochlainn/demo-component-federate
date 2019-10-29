@@ -778,7 +778,8 @@ data).
 * Select - By Entity
 * Expand by relation
 
-You can press *Del* to remove selected nodes from the graph.
+:experimental:
+You can press kbd:[Del] to remove selected nodes from the graph.
 
 You can click *Crop* to remove all but the selected nodes from the graph.
 
