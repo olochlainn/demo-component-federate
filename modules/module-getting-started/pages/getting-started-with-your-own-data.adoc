@@ -421,9 +421,9 @@ Logstash and running the imports concurrently.
 
 === Next steps
 
-(Optional) Connect an external datasource with Siren Federate.
+. (Optional) Connect an external datasource with Siren Federate.
 
-Create a data model (ontology).
+. Create a data model (ontology).
 
 
 == Creating an initial data model
@@ -541,9 +541,9 @@ by the target entity and the target entity owns the source entity.
 
 === Next steps
 
-* Create dashboards.
+. Create dashboards.
 
-* Add a graph browser visualization to a dashboard.
+. Add a graph browser visualization to a dashboard.
 
 
 == Creating dashboards
@@ -681,8 +681,8 @@ the tile to fill the view.
 . Click the Play icon (image:15dad7928ab3a2.png[image]) at top left
 of the screen.
 
-. Click *Save*, and name it General Graph Browser. Then click Save and Add
-to Dashboard.
+. Click *Save*, and name it General Graph Browser. Then click *Save and Add
+to Dashboard*.
 
 
 === Save your changes
@@ -741,22 +741,22 @@ window. You can also pan by using the direction icons above the slider.
 If you open a large node you will be prompted to confirm that you want
 to open all the child nodes or only a selection of them.
 
-You can click standard or hierarchy to arrange the nodes.
+You can click *standard* or *hierarchy* to arrange the nodes.
 
-You can apply filters from existing dashboards by clicking the Expand
+You can apply filters from existing dashboards by clicking the *Expand*
 box and selecting the required dashboards.
 
 To expand a node or set of nodes, select the required nodes and click
-Expand. You can also select one or more nodes, right click and select
-Expand by relation from the context menu.
+*Expand*. You can also select one or more nodes, right click and select
+*Expand by relation* from the context menu.
 
-You can click Toggle map mode or Toggle timeline mode to change how the
+You can click *Toggle map mode* or *Toggle timeline mode* to change how the
 data is displayed.
 
-You can click Toggle relation direction to change which relationships
+You can click *Toggle relation direction* to change which relationships
 are displayed.
 
-You can click Toggle node highlight to toggle dimming of nodes that are
+You can click *Toggle node highlight* to toggle dimming of nodes that are
 not selected.
 
 
@@ -778,11 +778,11 @@ data).
 * Select - By Entity
 * Expand by relation
 
-You can press Del to remove selected nodes from the graph.
+You can press *Del* to remove selected nodes from the graph.
 
-You can click Crop to remove all but the selected nodes from the graph.
+You can click *Crop* to remove all but the selected nodes from the graph.
 
-You can click the Undo or Redo icons to step backward of forward through
+You can click the *Undo* or *Redo* icons to step backward or forward through
 your changes.
 
 
@@ -803,7 +803,7 @@ check box is selected, changes you make to the lens are shown
 immediately in the graph browser. If the check box is cleared you can
 click the Apply lens parameters icon to update the graph browser.
 
-. In the Parameters section, select an Entity Type.
+. In the Parameters section, select an *Entity Type*.
 
 . Select a match condition:
 +
@@ -811,7 +811,7 @@ click the Apply lens parameters icon to update the graph browser.
 * Only for the selected elements.
 * Only if the condition is true.
 +
-If you selected Only if the condition is true, enter a condition in the
+If you selected *Only if the condition is true*, enter a condition in the
 box.
 
 . Select the property to set from the list:
@@ -848,7 +848,7 @@ all nodes.
 For each field, you can enter a string to match from the selection in
 the box under the column heading.
 
-You can click Reset column and global filters
+You can click *Reset column and global filters*
 (image:15dad792989346.png[image]) to reset all filters.
 
 
@@ -1016,7 +1016,7 @@ jdbc input plugin]; You must
 https://www.elastic.co/guide/en/logstash/current/installing-logstash.html[download
 logstash] to the `+demo/example+` folder and install the required plugin
 
-_
+
 Open a text editor and paste the following:
 
 [source,text]
@@ -1075,15 +1075,13 @@ logstash/bin/logstash -f company-minimal.conf
 
 Logstash will execute the query and populate the index.
 
-For more information about Logstash, refer to
-the https://www.elastic.co/guide/en/logstash/current/index.html[Logstash
-reference] and
-the https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html[jdbc
+For more information about Logstash, refer to the https://www.elastic.co/guide/en/logstash/current/index.html[Logstash
+reference] and the https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html[jdbc
 input plugin] documentation.
 
 ==== Browsing the index in Siren Investigate
 
-Open http://localhost:5606 in your browser, then go
+Open \http://localhost:5606 in your browser, then go
 to [.menuchoice]##Management > Data Model##.
 
 Deselect _Index contains time-based events_, then
