@@ -1,0 +1,63 @@
+= Glossary
+
+acyclic:: A graph without a cycle.
+
+allocator:: A process that allocates resources.
+
+application programming interface (API):: A set of definitions that enable one piece of software to communicate with another.
+
+authenticator:: A process that performs authentication.
+
+backend:: Software running on a server that is not directly accessed by a user.
+
+bitwise:: An operation that modifies the individual bits of binary numeral.
+
+choropleth:: A map with areas shaded in proportion to a statistical variable. Also known as a regionmap.
+
+comention:: A pair of data items occurring together. 
+
+datasource:: A connection to a database.
+
+decrypt:: To convert encrypted data to plain text.
+
+deserialization:: Creating an object from structured data.
+
+formatter:: A process that performs formatting.
+
+geohash:: An alphanumeric string that encodes a geographic location.
+
+geopoint:: A geographic location, typically expressed in latitude and longitude.
+
+heatmap:: A graphical data display using colors to represent individual values.
+
+heteroscedastic:: The property of a variable whose variability is unequal across the range of values predicted by a second variable.
+
+hostname:: A domain name that can be translated into an IP address.
+
+iframe:: A frame used to place one HTML document inside another.
+
+jitter:: Deviation from standard distribution.
+
+keystore:: A repository of security certificates. See truststore.
+
+partitioner:: A process that performs partitioning.
+
+picosecond:: One thousandth of a nanosecond.
+
+regionmap:: A map with areas shaded in proportion to a statistical variable. Also known as a choropleth map.
+
+rollup:: An index of  preselected fields.
+
+templated:: The property of having a preset format.
+
+templating:: Applying a template. See templated.
+
+tilemap:: A geographic map overlaid with circles keyed to data specified in buckets.
+
+truststore:: A repository of certificates issued by Certificate Authorities. See keystore.
+
+truthy:: A value that returns true when treated as a Boolean value.
+
+unescaped:: Used to describe raw values that have not been encoded to avoid ambiguity.
+
+validator:: A process that performs validation.
