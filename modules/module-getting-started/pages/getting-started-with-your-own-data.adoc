@@ -1076,7 +1076,7 @@ logstash/bin/logstash -f company-minimal.conf
 Logstash will execute the query and populate the index.
 
 For more information about Logstash, refer to the https://www.elastic.co/guide/en/logstash/current/index.html[Logstash
-reference] and the https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html[jdbc
+reference] and the https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html[jdbc
 input plugin] documentation.
 
 ==== Browsing the index in Siren Investigate
@@ -1085,7 +1085,7 @@ Open \http://localhost:5606 in your browser, then go
 to [.menuchoice]##Management > Data Model##.
 
 Deselect _Index contains time-based events_, then
-enter `+company-minimal+` in the Index name or pattern field:
+enter `+company-minimal+` in the Index name or pattern field.
 
 Click *Create* to create the index reference, then go to the *Discover*
 tab and select *company-minimal* in the dark gray box:
