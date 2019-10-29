@@ -172,7 +172,7 @@ limit 500
 ----
 
 Click *Dashboard*, then *Edit*, and then *Edit*
-(image:15d764ed143f43.png[image]) in the heading of the *Query on
+(image:15dad79288e41a.png[image]) in the heading of the *Query on
 Companies* visualization to customize its configuration. The *metrics*
 section defines the aggregations on Elasticsearch documents, displayed
 as columns in the table. The *buckets* section defines the groups of
@@ -197,7 +197,7 @@ Let’s add a new aggregation to show the average number of employees.
 Click *Add metrics* inside the *metrics* section, then
 select *Metric* as the metric type; select *Average* as the aggregation
 and `+number_of_employees+` as the field, then click *Apply
-Changes* (image:15d764ed153f9c.png[image]).
+Changes* (image:15dad7928ab3a2.png[image]).
 
 Save the visualization by clicking *Save*, then click
 the *Dashboard* tab to see the updated visualization in
@@ -208,7 +208,7 @@ image:save-query-on-companies-visualization.png[image]
 Click *Add sub-buckets* at the bottom, then select *Split Rows* as the
 bucket type. Choose the *Terms* aggregation and the *countrycode* field
 from the boxes. Click *Apply
-Changes* (image:15d764ed153f9c.png[image]) to add an external ring
+Changes* (image:15dad7928ab3a2.png[image]) to add an external ring
 with the new results.
 
 image:add-subbuckets.png[image]
