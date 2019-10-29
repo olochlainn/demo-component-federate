@@ -1488,9 +1488,7 @@ image:15d8b8ddb8c4b6.png[Input controls]
 
 == Analytic Table
 
-For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
-aggregations].
+For more information, see <<Y-axis aggregations>>.
 
 The rows of the Analytic table are called _buckets_. You can define
 buckets to split the table into rows or to split the table into
@@ -1508,9 +1506,7 @@ Each bucket type supports the following aggregations:
 * Significant Terms
 * Geohash
 
-For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
-aggregations].
+For more information, see <<X-axis aggregations>>.
 
 After you have specified a bucket type aggregation, you can define
 sub-buckets to refine the visualization. Click *+ Add sub-buckets* to
