@@ -105,8 +105,8 @@ image:15d88ced2a414b.png[Entity selection options]
 
 *Queries*
 
-Queries can be used to provide data to link:#[?xml_title],
-link:#UUID-9c0be2e0-2099-d73c-791f-b4f2b843fa80[tag] and filter
+Queries can be used to provide data to xref:management.adoc#_templates[templates],
+xref:visualizations.adoc#_tag_clouds[tag clouds] and filter
 Elasticsearch documents.
 
 To create a new query, click to the _"Settings/Queries"_ tab.
@@ -138,9 +138,9 @@ indeterminate amount of time.
 One of the most useful features of queries is that it is possible to set
 some of their parameters before execution by using datasource specific
 variables, which can be set at run time by configuring
-link:/document/preview/60173#UUID-db904423-e774-d8ab-d0aa-711cae41f3e4[click
-handlers] in the link:#[?xml_title] visualization to select an
-entity.2.1.7.1 Click handlers
+xref:module-getting-started:getting_started_with_demo_data.adoc#_click_handlers[click
+handlers] in the xref:visualizations.adoc#_record_table_visualization[Record Table] visualization to select an
+entity.
 
 Variable values are taken from Elasticsearch document selected using
 selected entity URI.
