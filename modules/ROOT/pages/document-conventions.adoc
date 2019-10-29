@@ -3,20 +3,21 @@
 [cols=",",options="header",]
 |===
 |Item |Example
-|User interface label |Edit
-|User input |`+null+`
+|User interface label |*Edit*
+|User input |*`+null+`*
 |Navigation |[.menuchoice]#Management > Advanced settings#
-|Keyboard key |Enter
+|Keyboard key |*Enter*
 |Keyboard combination |[.keycombo]#Ctrl+S#
 |File names and paths |`+filename+`
-|Program listing a|
-....
+|Program listing |
+----
 //example
-....
+----
 
 |Procedure |
-. First step
-. Second step.
+1. First step
+
+2. Second step.
 |===
 
 
