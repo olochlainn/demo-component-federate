@@ -79,10 +79,10 @@ document, and ID is document ID.
 
 As explained in the following sections, queries on external datasources
 can extract variables from the selected entity URI; to enable the user
-to select an entity, you must add an link:#[?xml_title] visualization to
+to select an entity, you must add a xref:visualizations.adoc#_record_table_visualization[Record Table] visualization to
 a dashboard and configure at least one
 link:/document/preview/60173#UUID-db904423-e774-d8ab-d0aa-711cae41f3e4[click
-handler] to select an entity.2.1.7.1 Click handlers
+handler] to select an entity.
 
 After the visualization is configured, clicking the cell will display a
 purple box in the filter bar, and the variables stored in the entity URI
