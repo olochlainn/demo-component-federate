@@ -1576,12 +1576,9 @@ goal. A gauge visualization displays in which predefined range falls
 your metric.
 
 For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
-aggregations].
+<<Y-axis aggregations>>.
 
-You can customize your visualization. For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
-aggregations].
+You can customize your visualization. For more information, see <<Customizing aggregations>>.
 
 Click the *Options* tab to change the following options:
 
@@ -1614,9 +1611,7 @@ aggregation. The following aggregations are available for this axis:
 * Sum
 * Unique Count
 
-For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
-aggregations].
+For more information, see <<Y-axis aggregations>>.
 
 Enter a string in the *Custom Label* field to change the display label.
 
@@ -1641,9 +1636,7 @@ chart:
 * Filters
 * Significant Terms
 
-For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-20707ca0-83d7-fae1-c8c1-8debc199813c[X-axis
-aggregations].
+For more information, see <<X-axis aggregations>>.
 
 After defining an initial bucket aggregation, you can define sub-buckets
 to refine the visualization. Click *+ Add sub-buckets* to define a
@@ -1655,8 +1648,7 @@ the up or down arrows to the right of the aggregation’s type to change
 the aggregation’s priority.
 
 You can customize your visualization. For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
-aggregations].
+<<Customizing aggregations>>.
 
 Select the *Options* tab to change the following aspects of the table:
 
@@ -1673,8 +1665,7 @@ current state.
 === Viewing detailed information
 
 For information on displaying the raw data, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
-Spy].
+<<Visualization Spy>>.
 
 
 == Coordinate Map
@@ -1737,8 +1728,7 @@ metrics aggregation:
 * Unique Count
 
 For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-dee438e9-fbbe-b37c-329a-8ecfe9485e3b[Y-axis
-aggregations].
+<<Y-axis aggregations>>.
 
 Enter a string in the *Custom Label* field to change the display label.
 
@@ -1757,12 +1747,9 @@ https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-
 grid] aggregation for details on the area specified by each precision
 level.
 
-____
-*Note*
-
-Higher precision increases memory usage for the browser displaying Siren
+NOTE: Higher precision increases memory usage for the browser displaying Siren
 Investigate as well as for the underlying Elasticsearch cluster.
-____
+
 
 * The _place markers off grid (use
 https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-geocentroid-aggregation.html[geocentroid])_
@@ -1772,8 +1759,7 @@ the markers are placed in the center of the geohash grid cell. Leaving
 this checked generally results in a more accurate visualization.
 
 You can customize your visualization. For more information, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-c42130c9-4ce1-72b5-08fd-920c53ce4038[Customizing
-aggregations].
+<<Customizing aggregations>>.
 
 [[UUID-95b3d907-1a33-3b33-66c1-9bd600941b15]]
 ==== Options
@@ -1851,8 +1837,7 @@ the map, to create a filter for the box coordinates.
 ===== Viewing detailed information
 
 For information on displaying the raw data, see
-link:#UUID-5982c3be-5f0e-ec1e-4bb1-f4ac8bfd023b_UUID-6662fce3-3f93-f603-7593-185ccf2c7c3a[Visualization
-Spy].
+<<Visualization Spy>>.
 
 
 
