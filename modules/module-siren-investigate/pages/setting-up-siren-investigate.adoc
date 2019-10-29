@@ -999,7 +999,7 @@ Siren Investigate is compatible with Elastic x-pack and Search Guard to
 enable index and document level access control.
 
 For more information about access control features, see the
-xref:authentication-and-access-control.adoc[Access Control] section.
+xref:authentication-and-access-control.adoc[Authentication and access control] section.
 
 === Load balancing across multiple Elasticsearch nodes
 
