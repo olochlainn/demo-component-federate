@@ -81,7 +81,7 @@ As explained in the following sections, queries on external datasources
 can extract variables from the selected entity URI; to enable the user
 to select an entity, you must add a xref:visualizations.adoc#_record_table_visualization[Record Table] visualization to
 a dashboard and configure at least one
-xref:module-getting-started:getting_started_with_demo_data.adoc#_click_handlers[click
+xref:module-getting-started:getting-started-with-demo-data.adoc#_click_handlers[click
 handler] to select an entity.
 
 After the visualization is configured, clicking the cell will display a
