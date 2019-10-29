@@ -327,8 +327,7 @@ use these data sets, loading may take a long time to complete.
 === Prerequisites
 
 * Install the Siren platform as described in
-<<Installing Siren Platform[Installing Siren
-Platform].
+<<Installing Siren Platform>>.
 * Install Logstash (https://www.elastic.co/downloads/logstash).
 
 The example uses publicly available data from Companies House. If you
