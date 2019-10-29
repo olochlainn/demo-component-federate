@@ -147,7 +147,7 @@ We will now show you how to execute a relational query across the two indices. F
 to retrieve all the articles that mention companies whose name matches `orient`. This relational query can be decomposed in
 two search queries: the first one to find all the companies whose name matches `orient`, and a second
 query to filter out all articles that do not mention a company from the first result set. The Siren Federate plugin
-<<siren-federate-introduction,introduces a new Elasticsearch's filter>>, named `join`, that allows to
+xref:introduction.adoc[introduces a new Elasticsearch's filter], named `join`, that allows to
 define such a query plan and a new search API `siren/<index>/_search` that allows to execute this query plan.
 Below is the command to run the relational query:
 
