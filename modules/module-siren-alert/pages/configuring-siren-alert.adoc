@@ -25,8 +25,7 @@ sentinl:
       executable_path: '/usr/bin/chromium' # path to Chrome v59+ or Chromium v59+
 ....
 
-For more detail, see the
-link:#UUID-cf3eb79d-38f6-7357-fe08-a23eef1ba10b[extended example].
+For more detail, examine the following extended example.
 
 
 == Example (extended)
