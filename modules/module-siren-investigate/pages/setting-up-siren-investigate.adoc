@@ -731,6 +731,39 @@ overwritten by client-side headers, regardless of the
 `+elasticsearch.tribe.requestHeadersWhitelist+` configuration.
 |===
 
+== White-labelling constants and images in Siren
+
+_White-labelling_ is the process of changing some elements in a product to reflect the branding of a company or organization deploying that product. You can now label certain constants and modify images and icons in Siren Investigate to reflect the branding of your company or organization.
+
+=== Changing company and product names
+
+The company and product names default to ‘Siren’ and ‘Investigate’, respectively. To change them, on the server, go to kibi-internal > config and edit the `investigate.yml` file. Search for the term `whiteLabel` and you should find the company and product name keys as shown below.
+
+image:15db967c516721.png[image]
+
+NOTE: If the keys are not in `investigate.yml`, you can add them, ensuring they are formatted exactly as shown.
+
+Change the names as required, ensuring that the names are between double quotes (" ") as shown. Once done, restart the server and refresh Investigate to view the changes.
+
+=== Changing images and favicons
+
+The images and favicons are stored on the server in the folder `kibi-internal > assets`.
+
+To change the images like the logo or the loading graphic, go to `kibi-internal > assets > images` and replace the images in the folder.
+
+IMPORTANT: Ensure that the new image has exactly the same name as the image you are replacing it with. For example, if you change the loading graphic (normally an animated GIF file), ensure that the name of the new GIF file is siren_logo_loop.gif.
+
+To change the favicons, go to kibi-internal > assets > favicons and do the replacement in the same way as the images.
+
+=== Adding icons
+
+Siren provides the ability to import custom icons into the application. The details of how to do this are specified in xref:management.adoc#_adding_custom_icon_packs[Adding custom icon packs].
+
+=== Hiding the copyright
+
+The copyright text is normally visible on the user interface under *Management*. If you want to suppress the display of this text, go to kibi-internal > config and in the `investigate.yml` file change the value of the `whiteLabel.hideCopyright` key to `true`. If the key is not there, add it as shown below.
+
+image:15db967c51f616.png[image]
 
 
 == Accessing Siren Investigate
