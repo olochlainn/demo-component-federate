@@ -867,7 +867,7 @@ which represent the entities which make sense in the investment domain
 much more normalized as per the following structure.
 
 
-=== From a SQL database using Logstash
+*From a SQL database using Logstash*
 
 The indices in the Siren Platform demonstration distribution have been
 populated by running four
@@ -878,7 +878,7 @@ The database has the following schema:
 
 image:15dad792991f05.png[SQLite database schema]
 
-==== Index setup
+=== Index setup
 
 Before loading data, we need to setup indices and mappings; for example,
 let’s create an index called `+company-minimal+` in the Elasticsearch
@@ -909,7 +909,7 @@ following command:
 curl -X DELETE http://localhost:9220/company-minimal -H "Content-Type: application/json"-H "Content-Type: application/json"
 ----
 
-==== Mapping definition
+=== Mapping definition
 
 Mappings allow the user to configure how documents are stored in the
 index. For example, they allow you to define how fields are matched by
@@ -981,7 +981,7 @@ following response:
 {"acknowledged":true}
 ----
 
-==== SQL query definition
+=== SQL query definition
 
 To extract the values that will be loaded to the index by Logstash, we
 need to write a SQL query. Open a text editor and paste the following
@@ -1006,7 +1006,7 @@ SELECT id,
 Save the file to `+demo/example/company-minimal.sql+` inside the folder
 where you extracted the demonstration distribution.
 
-==== Logstash configuration
+=== Logstash configuration
 
 We now need to write a Logstash configuration to process the records
 returned by the query and populate the `+company-minimal+` index.
@@ -1080,7 +1080,7 @@ For more information about Logstash, refer to the https://www.elastic.co/guide/e
 reference] and the https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html[jdbc
 input plugin] documentation.
 
-==== Browsing the index in Siren Investigate
+=== Browsing the index in Siren Investigate
 
 Open \http://localhost:5606 in your browser, then go
 to [.menuchoice]##Management > Data Model##.
@@ -1098,7 +1098,7 @@ all the loaded fields:
 
 image:15dad7929afeb7.png[Viewing all the fields in a document]
 
-==== Script to load the demonstration data 
+=== Script to load the demonstration data 
 
 The complete demonstration data loading process can be repeated by
 running the `+demo/sql/bin/index_crunchbase_sqlite.sh+` script. The
