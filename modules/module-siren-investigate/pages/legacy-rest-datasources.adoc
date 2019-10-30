@@ -103,7 +103,7 @@ displayed in following image:
 
 image:15d88ced2a414b.png[Entity selection options]
 
-*Queries*
+=== Queries
 
 Queries can be used to provide data to xref:management.adoc#_templates[templates],
 xref:visualizations.adoc#_tag_cloud[tag cloud] and filter
