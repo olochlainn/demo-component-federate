@@ -53,7 +53,7 @@ different that UTC, specifying this parameter will instruct the plugin
 to convert dates and times to/from the specified timezone when
 performing queries and retrieving results.
 * `+Connection string+`: The JDBC connection string; see
-xref:module-siren-federate:connecting-to-jdbc-datasources.adoc#_jdbc_driver_installation_and_compatibility[JDBC
+xref:module-siren-federate:connecting-to-remote-datasources.adoc#_jdbc_driver_installation_and_compatibility[JDBC
 driver installation and compatibility] for information about
 database-specific connection string parameters.JDBC driver installation
 and compatibility
