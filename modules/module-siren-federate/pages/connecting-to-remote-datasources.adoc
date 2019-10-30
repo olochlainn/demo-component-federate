@@ -53,7 +53,7 @@ directory of the node (e.g. `+elasticsearch/config+` or
 
 Finally, copy the JDBC driver for your remote datasource and its
 dependencies to the `+jdbc-drivers+` directory created above and restart
-the node; see the link:#[?xml_title] section for a list of compatible
+the node; see the <<JDBC driver installation and compatibility>> section for a list of compatible
 drivers and dependencies.
 
 
@@ -359,18 +359,16 @@ Siren Federate provides the capability to query data from an
 Elasticsearch remote cluster through the
 https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-remote-clusters.html[Remote
 Clusters Module] and the
-link:#UUID-490f85a6-e88c-d304-31bb-44c6a17a4fd1[Federate Connector
+xref:connector-apis.adoc[Federate Connector
 APIs].
 
-Through link:#UUID-490f85a6-e88c-d304-31bb-44c6a17a4fd1[Federate
-Connector APIs], datasources and virtual indices can be managed using
+Through Federate Connector APIs], datasources and virtual indices can be managed using
 the
 link:connector-elasticsearch.xml#siren-federate-connector-datasource-api[Federate
 REST API] or the web user interface available from Siren Investigate.
 
 NOTE: This connector, unlike the JDBC connector, supports
-link:#UUID-62c7c384-a97b-9c80-961c-81780b2e90b3[wildcard index
-patterns].
+<<Using a Wildcard Index Pattern>>.
 
 
 === Configuring the Remote Cluster
