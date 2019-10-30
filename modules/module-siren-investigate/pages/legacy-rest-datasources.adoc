@@ -2,8 +2,8 @@
 
 Siren Investigate provides visualizations and aggregations to integrate
 data from REST APIs. This section explains how to configure
-link:#UUID-da4bad96-3043-850c-2758-f1b74cd5a949_datasource-queries[queries] and
-link:#UUID-92fbd47b-36df-9366-c6e5-ca536e139ca2[query templates].
+<<Queries>> and
+xref:management.adoc#_templates[query templates].
 
 == Configuration
 
