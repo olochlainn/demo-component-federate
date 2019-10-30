@@ -4,7 +4,7 @@
 *** xref:setting-up-siren-investigate.adoc#_installing_siren_investigate[Installing Siren Investigate]
 *** xref:setting-up-siren-investigate.adoc#_running_siren_investigate_on_docker[Running Siren Investigate on Docker]
 *** xref:setting-up-siren-investigate.adoc#_configuring_siren_investigate[Configuring Siren Investigate]
-*** xref:setting-up-siren-investigate.html#_white_labelling_constants_and_images_in_siren[White-labelling constants and images in siren]
+*** xref:setting-up-siren-investigate.html#_white_labelling_constants_and_images_in_siren[White-labelling constants and images in Siren]
 *** xref:setting-up-siren-investigate.adoc#_accessing_siren_investigate[Accessing Siren Investigate]
 *** xref:setting-up-siren-investigate.adoc#_connecting_siren_investigate_to_backend_datasources[Connecting Siren Investigate to backend datasources]
 *** xref:setting-up-siren-investigate.adoc#_using_siren_investigate_with_tribe_nodes[Using Siren Investigate with tribe nodes]
