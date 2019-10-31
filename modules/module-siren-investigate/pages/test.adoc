@@ -70,6 +70,7 @@ Here are links to <<Creating a visualization>> and xref:visualizations.adoc[Visu
 .Common settings
 [cols="~,40%,~",options="header",]
 |===
+
 |Name |Description |Example
 |`+sentinl:experimental+` |Enable experimental features in Siren Alert.
 |`+false+`
@@ -104,7 +105,7 @@ on. |`+Sunday+`
 |===
 
 
-[cols="~,40%,~",options="header",]
+[cols="30%,40%,40%"]
 |===
 |Name |Description |Example
 
