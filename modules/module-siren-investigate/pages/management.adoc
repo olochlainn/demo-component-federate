@@ -995,7 +995,7 @@ precision is needed, it can be set to s (second) or ms (millisecond).
 |`+s+`
 
 |`+siren:joinTaskTimeout+`
-|link:#UUID-92caeebf-3885-6a59-3692-1700f928f195[Default timeout] for
+|<<Advanced settings for relations,Default timeout>> for
 join task in milliseconds. Join tasks will return the results gathered
 at that point when the timeout expires. Set to 0 to disable the global
 timeout. Can be overwritten per relation in each relation's advanced
