@@ -131,7 +131,8 @@ Searches Dashboard. Highlighting makes request slow when working on big
 documents. Set this property to `+false+` to switch off highlighting.
 |`+true+`
 
-|`+doc_table:highlight:all_fields+` |Improves highlighting by using a
+|`+doc_table:highlight:
+all_fields+` |Improves highlighting by using a
 separate `+highlight_query+` that uses `+all_fields+` mode on
 `+query_string+` queries. Set to `+false+` if you are using a
 `+default_field+` in your index. |`+true+`
@@ -181,7 +182,8 @@ visualizations. |`+{"Count":"#6eadc1"}+`
 |`+visualization:loadingDelay+` |Time to wait before dimming
 visualizations during query. |`+2s+`
 
-|`+visualization:dimmingOpacity+` |When part of a visualization is
+|`+visualization:
+dimmingOpacity+` |When part of a visualization is
 highlighted, by moving the mouse pointer over it for example, this is
 the opacity applied to the other elements. A higher number means other
 elements will be less opaque. |`+0.5+`
