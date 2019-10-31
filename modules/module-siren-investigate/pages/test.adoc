@@ -159,12 +159,14 @@ interval, Siren Investigate attempts to generate this number of bars.
 |`+histogram:maxBars+` |Date histograms are not generated with more bars
 than the value of this property, scaling values when necessary. |`+100+`
 
-|`+visualization:tileMap:maxPrecision+` |The maximum geohash precision
+|`+visualization:tileMap:
+maxPrecision+` |The maximum geohash precision
 displayed on tile maps: 7 is high, 10 is very high, 12 is the maximum.
 https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html#_cell_dimensions_at_the_equator[Explanation
 of cell dimensions]. |`+7+`
 
-|`+visualization:tileMap:WMSdefaults+` |Default
+|`+visualization:tileMap:
+WMSdefaults+` |Default
 http://leafletjs.com/reference.html#tilelayer-wms[properties] for the
 WMS map server support in the coordinate map.
 |`+{ "enabled": false, "url": "https://basemap.nationalmap.gov/arcgis/
