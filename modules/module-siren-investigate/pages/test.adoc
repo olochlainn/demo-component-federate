@@ -105,7 +105,7 @@ on. |`+Sunday+`
 |===
 
 
-[cols=",,",options="header",]
+[cols="3,4,4",options="header",]
 [width=90%]
 |===
 |Name |Description |Example
