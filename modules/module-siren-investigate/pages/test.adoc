@@ -102,6 +102,14 @@ http://en.wikipedia.org/wiki/ISO_8601#Time_intervals[ISO8601 intervals].
 |`+dateFormat:dow+` |This property defines what day weeks should start
 on. |`+Sunday+`
 
+|===
+
+
+[cols=",,",options="header",]
+[width=90%]
+|===
+|Name |Description |Example
+
 |`+defaultIndex+` |Default is `+null+`. This property specifies the
 default index. |`+index-pattern:company +`
 
