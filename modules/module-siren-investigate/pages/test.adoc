@@ -173,3 +173,5 @@ visualizations during query. |`+2s+`
 highlighted, by moving the mouse pointer over it for example, this is
 the opacity applied to the other elements. A higher number means other
 elements will be less opaque. |`+0.5+`
+
+|===
