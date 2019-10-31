@@ -143,7 +143,8 @@ Elasticsearch cluster. This setting constrains the length of the segment
 list. Long segment lists can significantly increase request processing
 time. |`+30+`
 
-|`+courier:ignoreFilterIfFieldNotInIndex+` |Set this property to
+|`+courier:ignoreFilterIfField
+NotInIndex+` |Set this property to
 `+true+` to skip filters that apply to fields that do not exist in a
 visualization’s index. Useful when dashboards consist of visualizations
 from multiple index patterns. |`+false+`
