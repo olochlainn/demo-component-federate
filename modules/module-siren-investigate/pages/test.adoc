@@ -169,7 +169,12 @@ of cell dimensions]. |`+7+`
 WMSdefaults+` |Default
 http://leafletjs.com/reference.html#tilelayer-wms[properties] for the
 WMS map server support in the coordinate map.
-|`{ "enabled": false, "url": "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer", "options": { "version": "1.3.0", "layers": "0", "format": "image/png", "transparent": true, "attribution": "Maps provided by USGS", "styles": "" } }`
+|`{ "enabled": false,
+"url": "https://basemap.nationalmap.gov/arcgis/services/
+USGSTopo/MapServer/WMSServer",
+"options": { "version": "1.3.0", "layers": "0", 
+"format": "image/png", "transparent": true, "attribution": "Maps provided by USGS",
+"styles": "" } }`
 
 |`+visualization:regionMap:
 showWarnings+` |Whether the region map shows
