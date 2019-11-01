@@ -1014,7 +1014,7 @@ buttons. |`+true+`
 clicking the Dashboard tab for the first time. |`+null+`
 
 |`+siren:excludedIndices+` |Indices to exclude.
-|`+.kibi*,.siren*,.searchguard,.security,.monitoring*,watcher_alarms-*+`
+|`+.kibi*, .siren*, .searchguard, .security, .monitoring*, watcher_alarms-*+`
 
 |`+siren:graphUseWebGl+` |Set to false to switch off WebGL rendering.
 |`+true+`
@@ -1032,10 +1032,12 @@ retrieve after the graph expansion. |`+2500+`
 done by the Graph Browser. |`+15+`
 
 |`+siren:countFetchingStrategyDashboards+` |Strategy for fetching dashboard counts. The parameters instruct the count manager how to issue queries to Elasticsearch; this is used to improve performance when indices contain very large numbers of documents.`+name+` - Any string `+batchSize+` - how many counts to request in a single query `+retryOnError+` - how many retry attempts to make if any requests fail `+parallelRequests+` - how many requests to send together at any given time
-|`+{ "name": "default", "batchSize": 2, "retryOnError": 1, "parallelRequests": 1 }+`
+|`+{ "name": "default", "batchSize": 2, 
+"retryOnError": 1, "parallelRequests": 1 }+`
 
 |`+siren:countFetchingStrategyRelationalFilters+` |Strategy for fetching counts for relational filters. Parameters are the same as for `+countFetchingStrategyDashboards+`. If the `+name+` in both is the same, the count manager will mix the queries for counts on dashboards and relational buttons together.
-|`+{ "name": "default", "batchSize": 2, "retryOnError": 1, "parallelRequests": 1 }+`
+|`+{ "name": "default", "batchSize": 2,
+"retryOnError": 1, "parallelRequests": 1 }+`
 
 |`+siren:showVisualizationIndexPatternLinks+` |Show links to connect
 visualizations to index patterns as well as saved searches. |`+false+`
