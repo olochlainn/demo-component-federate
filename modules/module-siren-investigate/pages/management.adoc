@@ -762,7 +762,7 @@ default value of `+Browser+` uses the timezone detected by the browser.
 ordered time-based data. Formatted timestamps must adapt to the interval
 between measurements. Keys are
 http://en.wikipedia.org/wiki/ISO_8601#Time_intervals[ISO8601 intervals].
-|`+[ ["", "HH:mm:ss.SSS"], ["PT1S", "HH:mm:ss"], ["PT1M", "HH:mm"], ["PT1H", "YYYY-MM-DD HH:mm"], ["P1DT", "YYYY-MM-DD"], ["P1YT", "YYYY"] ] +`
+|`+[ ["", "HH:mm:ss.SSS"], ["PT1S", "HH:mm:ss"], ["PT1M", "HH:mm"], ["PT1H", "YYYY-MM-DD HH:mm"], ["P1DT", "YYYY-MM-DD"], ["P1YT", "YYYY"] ]+`
 
 |`+dateFormat:dow+` |This property defines what day weeks should start
 on. |`+Sunday+`
@@ -976,10 +976,10 @@ Timelion sheet. |`+2+`
 
 |`+timelion:graphite.url+` |[experimental] Used with graphite queries,
 this it the URL of your host
-|`+https://www.hostedgraphite.com/UID/ACCESS_KEY/graphite +`
+|`+https://www.hostedgraphite.com/UID/ACCESS_KEY/graphite+`
 
 |`+timelion:quandl.key+` |[experimental] Used with quandl queries, this
-is your API key from www.quandl.com |`+someKeyHere +`
+is your API key from www.quandl.com |`+someKeyHere+`
 |===
 
 .Siren Investigate settings
