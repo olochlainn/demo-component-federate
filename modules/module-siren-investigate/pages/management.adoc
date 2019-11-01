@@ -983,7 +983,7 @@ is your API key from www.quandl.com |`+someKeyHere +`
 |===
 
 .Siren Investigate settings
-[cols=",,",options="header",]
+[cols="m,a,m",options="header",]
 // [%autowidth]
 |===
 |Name |Description |Example
