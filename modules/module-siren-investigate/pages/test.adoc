@@ -68,7 +68,7 @@ Here are links to <<Creating a visualization>> and xref:visualizations.adoc[Visu
 
 
 .Common settings
-[cols="~,40%,~",options="header",]
+[cols="m,40%,m",options="header",]
 |===
 
 |Name |Description |Example
