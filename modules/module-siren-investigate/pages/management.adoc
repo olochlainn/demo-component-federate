@@ -733,7 +733,7 @@ permanently.
 
 
 .Common settings
-[cols="m,a,m",options="header",]
+[cols="m,40%,m",options="header",]
 [width=90%]
 |===
 |Name |Description |Example
