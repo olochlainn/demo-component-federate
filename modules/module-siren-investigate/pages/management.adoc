@@ -984,7 +984,7 @@ is your API key from www.quandl.com |`+someKeyHere +`
 
 .Siren Investigate settings
 [cols=",,",options="header",]
-[%autowidth]
+// [%autowidth]
 |===
 |Name |Description |Example
 |`+siren:timePrecision+` |Set to generate time filters with certain
