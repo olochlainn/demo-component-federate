@@ -105,7 +105,7 @@ on. |`+Sunday+`
 |===
 
 
-[cols="m,a,m"]
+[cols="m,40%,m"]
 |===
 |Name |Description |Example
 
