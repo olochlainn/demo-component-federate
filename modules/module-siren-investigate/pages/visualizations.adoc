@@ -38,14 +38,11 @@ documents in the selected indices.
 saved search you want to use. This opens the visualization builder and
 loads the selected query.
 +
-____
-*Note*
-
-When you build a visualization from a saved search, any subsequent
+NOTE: When you build a visualization from a saved search, any subsequent
 modifications to the saved search are automatically reflected in the
 visualization. To switch off automatic updates, you can disconnect a
 visualization from the saved search.
-____
+
 . In the visualization builder, choose the aggregation for the
 visualization’s y-axis. For more information, see
 <<Y-axis aggregations>>.
