@@ -7,7 +7,6 @@ nav:
 - modules/module-getting-started/nav.adoc
 - modules/module-siren-investigate/nav.adoc
 - modules/module-siren-alert/nav.adoc
-# - modules/module-siren-federate/nav.adoc
 - modules/ROOT/nav2.adoc
 - modules/module-siren-ml/nav.adoc
 - modules/module-siren-er-beta/nav.adoc
