@@ -1,7 +1,0 @@
-= Federation of External Databases
-
-Siren Federate provides a module, called "`Connector`", which transparently maps external database systems
-to "`Virtual Indices`" in Elasticsearch. Requests to the Elasticsearch APIs, such as the `Mapping` or `Search` APIs, are
-intercepted by the Connector module. These requests are translated to the external database dialect and executed
-against the external database. This enables Siren Investigate to create and
-display dashboards for data located in external databases as if they were Elasticsearch's indices.
