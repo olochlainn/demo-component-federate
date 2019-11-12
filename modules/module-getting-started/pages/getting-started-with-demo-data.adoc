@@ -235,8 +235,8 @@ image:dashboard-companies.png[image]
 
 It is possible to select a company entity (record) in the SQLite
 database (and entities in
-xref:module-siren-investigate:legacy-rest-datasources.adoc[external
-datasources] in general) by clicking its label in the Companies
+ifdef::output-html[xref:module-siren-investigate:legacy-rest-datasources.adoc[external datasources]]
+in general) by clicking its label in the Companies
 Table.
 
 The selected entity can be used as a parameter in queries;
@@ -266,15 +266,15 @@ Company Info visualization; by clicking the _(show)_ links you can
 toggle the list of companies in the same domain and competitors. The
 data in the tables is fetched from queries on the SQLite database, using
 the selected company ID as a parameter. The queries are rendered using
-xref:module-siren-investigate:visualizations.adoc#_query-viewer[customizable
-templates], which will be introduced later.
+ifdef::output-html[xref:module-siren-investigate:visualizations.adoc#_query-viewer[customizable templates,]]
+which will be introduced later.
 
 The selected entity appears as a light blue box on the right of the
 filter bar; to deselect an entity, click the bin icon displayed when
 moving the mouse pointer over the purple box.
 
-For more information about entity selection, see xref:module-siren-investigate:legacy-rest-datasources.adoc[Legacy
-REST datasources].
+For more information about entity selection, see 
+ifdef::output-html[xref:module-siren-investigate:legacy-rest-datasources.adoc[Legacy REST datasources.]]
 
 
 == Enhanced search results
