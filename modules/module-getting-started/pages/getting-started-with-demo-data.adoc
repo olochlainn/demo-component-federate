@@ -266,7 +266,7 @@ Company Info visualization; by clicking the _(show)_ links you can
 toggle the list of companies in the same domain and competitors. The
 data in the tables is fetched from queries on the SQLite database, using
 the selected company ID as a parameter. The queries are rendered using
-ifdef::output-html[xref:module-siren-investigate:visualizations.adoc#_query-viewer[customizable templates,]]
+ifdef::output-html[xref:module-siren-investigate:visualizations.adoc#_query_viewer[customizable templates,]]
 which will be introduced later.
 
 The selected entity appears as a light blue box on the right of the
