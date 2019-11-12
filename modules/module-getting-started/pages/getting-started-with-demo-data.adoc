@@ -112,7 +112,6 @@ click *Actions* then *Disable*.
 // Needs link to Relational Navigator
 
 The
-ifdef::output-html[xref:module-siren-investigate:relational-browsing.adoc#_relational_navigator[Relational Navigator]] 
 ifdef::output-html[xref:module-siren-investigate:relational-browsing.adoc#_relational_navigator[Relational Navigator]]
 visualization enables you to create cross-dashboard filters.
 For example, from *Companies* in the dashboard, you can see that there
