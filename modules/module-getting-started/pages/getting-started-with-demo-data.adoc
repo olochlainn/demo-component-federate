@@ -279,7 +279,9 @@ ifdef::output-html[xref:module-siren-investigate:legacy-rest-datasources.adoc[Le
 
 == Enhanced search results
 
-The xref:module-siren-investigate:visualizations.adoc#_record_table_visualization[Record Table visualization] displays the
+The 
+ifdef::output-html[xref:module-siren-investigate:visualizations.adoc#_record_table_visualization[Record Table visualization]]
+displays the
 current set of Elasticsearch documents as a table. For example,
 Companies Table is configured to display the following fields:
 
