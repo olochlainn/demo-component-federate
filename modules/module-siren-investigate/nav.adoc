@@ -1,3 +1,4 @@
+.Main Navigation
 * xref:siren-investigate.adoc[Siren Investigate]
 ** xref:setting-up-siren-investigate.adoc[Setting up Siren Investigate]
 *** xref:setting-up-siren-investigate.adoc#_supported_platforms[Supported platforms]
@@ -109,6 +110,5 @@
 *** xref:plugins.adoc#_switching_off_plugins[Switching off plugins]
 *** xref:plugins.adoc#_configuring_the_plugin_manager[Configuring the plugin manager]
 
-The following is a link to a page in another module:
-
+.Widget Navigation
 * xref:demo-component-distributed3:modules:ROOT:pages:siren-widgets.adoc
