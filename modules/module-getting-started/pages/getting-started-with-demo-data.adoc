@@ -1,4 +1,5 @@
 = Getting started with demo data
+:output-html:
 
 Download the Siren Platform preloaded demo from
 https://siren.io/downloads/?product=siren-platform-demo-data[www.siren.io/downloads].
