@@ -21,6 +21,6 @@ ifdef::output-html[xref:getting-started-with-demo-data.adoc[Getting started with
 .
 
 If you are ready to use Siren Platform in a production environment, follow the instructions in
-ifdef::output-pdf[<<module-siren-investigate/pages/setting-up-siren-investigate.adoc#,Setting up Siren Investigate>>]
-ifdef::output-html[xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting up Siren Investigate]]
-.
+ifdef::output-pdf[<<module-siren-investigate/pages/setting-up-siren-investigate.adoc#,Setting up Siren Investigate>>].
+ifdef::output-html[xref:module-siren-investigate:setting-up-siren-investigate.adoc[Setting up Siren Investigate]].
+
