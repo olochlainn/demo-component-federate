@@ -214,8 +214,8 @@ with the new results.
 
 image:add-subbuckets.png[image]
 
-For an in-depth explanation of aggregations, see xref:module-siren-investigate:visualizations.adoc#_creating_a_
-visualization[Creating a visualization].
+For an in-depth explanation of aggregations, see 
+ifdef::output-html[xref:module-siren-investigate:visualizations.adoc#_creating_a_visualization[Creating a visualization.]]
 
 In addition to defining groups to aggregate, queries can be used as
 filters. To see this click *Dashboard*, then in the *Query on
