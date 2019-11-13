@@ -12,5 +12,5 @@ nav:
 - modules/module-siren-ml/nav.adoc
 - modules/module-siren-er-beta/nav.adoc
 - modules/module-known-issues-and-limitations/nav.adoc
-- modules/ROOT/nav1.adoc
+- modules/module-glossary/nav.adoc
 
