@@ -109,4 +109,4 @@
 *** xref:plugins.adoc#_switching_off_plugins[Switching off plugins]
 *** xref:plugins.adoc#_configuring_the_plugin_manager[Configuring the plugin manager]
 ** xref:module-siren-alert:introduction.adoc[Alert Introduction]
-** xref:module-siren-widgets:siren-widgets[Siren Widgets]
+** xref:module-siren-widgets:siren-widgets.adoc[Siren Widgets]
