@@ -1,4 +1,4 @@
-* xref:siren-investigate.adoc[Siren Investigate Short Intro]
+* xref:siren-investigate.adoc[Siren Investigate]
 ** xref:siren-investigate.adoc[Siren Investigate]
 *** xref:setting-up-siren-investigate.adoc[Setting up Siren Investigate]
 **** xref:setting-up-siren-investigate.adoc#_supported_platforms[Supported platforms]
