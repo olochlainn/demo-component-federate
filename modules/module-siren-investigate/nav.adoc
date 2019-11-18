@@ -139,7 +139,7 @@
 *** xref:module-siren-alert:security-setup-for-siren-alert.adoc[Security setup for Siren Alert]
 *** xref:module-siren-alert:troubleshooting.adoc[Troubleshooting]
 *** xref:module-siren-alert:siren-alert-faq.adoc[Siren Alert FAQ]
-** xref:module-web-services:web-services-intro.adoc[Introduction to web services]
+** xref:module-web-services:webservices-intro.adoc[Introduction to web services]
 ** xref:module-scripting:scripting-intro.adoc[Introduction to scripting]
 
 
