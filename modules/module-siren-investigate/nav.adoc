@@ -110,7 +110,7 @@
 **** xref:plugins.adoc#_switching_off_plugins[Switching off plugins]
 **** xref:plugins.adoc#_configuring_the_plugin_manager[Configuring the plugin manager]
 *** xref:siren-widgets.adoc[Siren Widgets]
-** xref:module-siren-alert:siren-alert.adoc[Siren Alert]
+** xref:module-siren-alert:siren-alert.adoc[Alerting]
 *** xref:module-siren-alert:introduction.adoc[Introduction]
 **** xref:module-siren-alert:introduction.adoc#_siren_alert_compared_to_x_pack[Siren Alert compared to X-Pack]
 **** xref:module-siren-alert:introduction.adoc#_using_watchers[Using Watchers]
@@ -139,8 +139,8 @@
 *** xref:module-siren-alert:security-setup-for-siren-alert.adoc[Security setup for Siren Alert]
 *** xref:module-siren-alert:troubleshooting.adoc[Troubleshooting]
 *** xref:module-siren-alert:siren-alert-faq.adoc[Siren Alert FAQ]
-** xref:module-web-services:webservices-intro.adoc[Introduction to web services]
-** xref:module-scripting:scripting-intro.adoc[Introduction to scripting]
+** xref:module-web-services:webservices-intro.adoc[Web services]
+** xref:module-scripting:scripting-intro.adoc[Scripting]
 
 
 
