@@ -156,9 +156,9 @@ maps where a shape’s color intensity corresponds to a metric’s value.
 .Showing individual records
 [cols=",",]
 |===
-|<<_graph_browser,Graph Browser>> |Display
+|xref:module-graph-browser:graph-browser.adoc[Graph Browser] |Display
 Elasticsearch documents as nodes and Siren Investigate relations as
-links of a graph.
+links of a graph. *Note*: The Graph Browser is a very powerful visualization and is described in a separate section of the documentation.
 
 |<<_record_table_visualization,Record Table Visualization>> |Show the
 documents matched by a query on an Elasticsearch index with enhanced
