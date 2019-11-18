@@ -1,0 +1,708 @@
+= Graph Browser
+
+Graph Browser displays Elasticsearch documents as nodes and Siren
+Investigate relations as links of a graph.
+
+image:15d88cecc043d1.png[Graph Browser Example]
+
+== Configuration
+
+=== Big nodes threshold
+
+If a node would expand into more than this configured number of nodes it
+will be considered a big node and the user will be given a choice to
+proceed or to select a sample.
+
+image:15d88cecc0d3e5.png[Big Nodes Handling]
+
+=== Relations
+
+You can configure the ontology relations you want to use in this
+visualization. If no relation gets set, they will all be used.
+
+=== Scripts 
+
+The Graph Browser supports three types of scripts:
+
+* *Expansion*: Used to customize the expansion policy. The provided one
+(`+Default Expansion Policy+`) will retrieve the first level connected
+elements to the expanded nodes
+* *Contextual*: Displayed in the contextual menu (shown with a
+`+RIGHT CLICK+`). Enable you to perform operations on the graph.
+Provided _contextual_ scripts:
+** *Expand by relation*: Opens a popup that enables you to choose one or
+more of the available relations and expands the selected elements using
+only the selected ones. This does not override the graph browser
+configuration. You will see only the configured relations (if available
+for the selected nodes).
+** *Expand by top comention*: For use with `+company+` nodes from the
+Siren demonstration data. This script expands the selected nodes using
+an Elasticsearch aggregation to get the top comentioned `+company+`
+nodes.
+** *Replace investment with edge*: For use with the Siren demonstration
+data. This script replaces the investment nodes with a direct link
+between the company nodes and the investor nodes.
+** *Select - All*: Select all the elements (equivalent
+to [.keycombo]#Ctrl+A#).
+** *Select - By edge count*: Select nodes based on their link count. You
+can specify the count through the popup that appears.
+** *Select - By type*: Select nodes based on their type. You can specify
+the type through the popup that appears.
+** *Select - Extend*: Extends the current selection to the sibling
+elements.
+** *Select - Invert*: Inverts the current selection.
+** *Shortest Path*: Calculates the shortest path between two selected
+nodes by fetching the connected elements. See the
+<<_shortest_path_limitations,limitations for this
+script>>.
+** *Show nodes count by type*: Shows a popup with information about how
+many nodes per type are currently displayed.
+* *Lenses*:Lenses mutate the visual appearance of graph nodes and edges,
+can be cascaded as well as switched on and off at will during
+investigation. Provided _lens_ scripts:
+** *Size lens*: Set the size for all nodes using an expression.
+** *Color lens*: Define color for all nodes using a field.
+** *Conditional lens*: Set node properties using expressions.
+** *Label lens*: Set the label for all nodes using an expression.
+** *Associate records based on ontology lens*: Replaces a node with
+associated records based on ontology.
+** *Time and location lens*: Set time and location properties.
+* *On Update*: Modify the graph when new nodes are inserted. They can be
+cascaded. Provided _on update_ scripts:
+** *Add time fields*: Adds the time field used by the _timebar mode_.
+** *Add geo-locations for map visualization*: Adds the geographic field
+used by the _map mode_.
+** *Replace investment with edge*: Similar to the _contextual_ script
+`+Replace investment with edge+`, but executed automatically after every
+expansion.
+** *Signal dead companies*: Colors all the _company_ nodes that have a
+`+deadpooled_date+` black.
+
+To create a new _script_ go to `+Management+` → `+Scripts+`
+
+image:15d88cecc15a9f.png[Scripts Management]
+
+Here you can configure new _scripts_ or modify the saved ones.
+
+=== Fields to exclude
+
+You can configure a set of fields for each entity that you do not want
+to retrieve. Typically, you will exclude large fields that do not
+contribute to the link analysis (for example large textual blobs,
+technical metadata)for extra performance.
+
+== Navigating the Graph
+
+After your Graph Browser visualization is ready, you can start your
+investigations.
+
+=== Toolbar
+
+You have several operations available:
+
+image:15d88cecc1e641.png[Toolbar]
+
+[arabic]
+. *Undo*: By default, the Graph Browser saves the last five states. With
+this function you can go back one step at a time, until there are no
+more available. You can configure the steps number in
+[.menuchoice]#Management > Advanced Settings#.
+. *Redo*: Revert an undo. Note, if you undo and then perform any
+operation, the redo state will be lost.
+. *Filter*: Add a filter to the current dashboard synchronized with the
+graph selection. This enables you to:
+* Do your investigation on the graph, select the vertices you are
+interested into, activate the filter, pin it and go back to the related
+dashboard to get more detailed information about those vertices.
+* If you have other visualizations in the same dashboard, it will let
+you have more information on the selected nodes. For example, if you
+have the current dashboard associated with a companies saved search, you
+can do your investigation in the graph, activate the filter, select some
+vertices and get the visualizations to show information on the selected
+vertices.
+. *Crop*: Removes every element that is not selected
+. *Remove*: Removes all the selected elements. Next to the _Remove_
+button there is a box that shows the *Remove All* button. This will
+remove the entire graph, regardless of selected elements.
++
+image:15d88cecc25158.png[Remove all]
+. *Expand*: Expands the currently selected nodes. Next to the _expand_
+button, there is a box that shows advanced options for the expansion.
+. *Highlight mode*: This toggles the _Highlight mode_. The _Highlight
+mode_ moves everything to the background that is not selected or
+connected to a selected node or link.
++
+image:15d88cecc2c400.png[Highlighting on]
++
+image:15d88cecc35dad.png[Highlighting off]
+. *Layouts*: Enables you to change the current graph’s layout or redraw
+the current layout:
+* *Standard* (default): Selected nodes preserve their relative position.
+* *Hierarchy*: Nodes are displayed top down according to their
+connections. Requires at least one selected node to work. Selected nodes
+will be moved at the top of the hierarchy.
++
+image:15d88cecc3cdf3.gif[Standard layout]
++
+image:15d88cecc4f676.gif[Hierarchy layout]
+. *Add*: Opens a dialog with the following options:
+* *Selected document*: Add the currently selected document. You can see
+your selected document in the upper right purple selection box.
+* *Saved graph*: Opens a dialog showing the available saved graphs. This
+feature adds a set of nodes and links, but does not preserve the layout
+you had when you saved the graph.
+* *Manual Entity identifier*: Select an Entity identifier to add as a
+node.
+* *Dashboard*: Select a dashboard from the list to add it to the graph.
++
+NOTE: You can also drag a dashboard from the Dashboard menu on the left and
+drop it onto the graph.
+
++
+image:15d88cecc5ace5.png[Add from saved graph]
+
+. *Map Mode*: This toggles the _Map mode_. The _Map mode_ will move the
+nodes geographically on an interactive map. You must set up a script to
+configure the geographic properties of the nodes (See
+<<Graph Browser>>).
++
+image:15d88cecc62fa4.png[Map mode]
+. *Timebar Mode*: This toggles the _Timebar mode_. This mode displays a
+time bar at the bottom of the graph browser that enables time based
+filtering of nodes. After you enable this mode you can add or remove
+node types to the time bar:
++
+image:15d88cecc6b1bf.png[Timebar filter]
++
+You must set up a script to configure the time property of the nodes
+(See <<Graph Browser>>).
++
+image:15d88cecc7204b.png[Timebar mode]
+. *Save graph*: Save the current graph.
++
+image:15d88cecc796b3.png[Save graph]
+. *Open graph*: Open a saved graph. Unlike _add from saved graph_, this
+feature preserves the saved graph layout.
++
+image:15d88cecc7fbe0.png[Open Graph]
+
+=== Shortcuts
+
+The Graph Browser supports shortcuts:
+
+* [.keycombo]#Ctrl+A#: Select every element in the graph.
+* Del: Remove the selected elements (equivalent to the remove button).
+* [.keycombo]#Ctrl+click#: Enables you to add elements to the current
+selection. Can also be used to create an OR filter from a selection.
+* Double-click: Expands the selected nodes (equivalent to the
+expandbutton)
+* `+Arrows+`: Move the selected elements in the input direction.
+* Mouse wheel: Changes the zoom level of the graph.
+
+=== Navigation bar
+
+image:15d88cecc86fc9.png[Navigation bar]
+
+The navigation bar enables you to:
+
+[arabic]
+. Move the graph view in the clicked direction.
+. Switch between:
+* *Arrow*: Enables you to select elements.
+* *Hand*: Enables you to move the graph regardless of selected elements.
+. Enables you to change the zoom level.
+
+=== Side bar
+
+image:15d88cecc8dcd6.png[Side bar]
+
+The side bar enables you to:
+
+* Show, search, filter, sort, group and change node/links data.
+* Change the current selection.
+* Change node/links attributes (i.e: Color, label, tool tip, and so on).
+
+== Lenses tab
+
+image:15d88cecc9558f.png[Side bar lenses tab]
+
+The lenses tab enables you to make alterations on the displayed
+nodes/links:
+
+* Color: Enables you to select a field which is then used to color the
+nodes using a coloring schema.
+* Conditional: Enables you to change a node property value using
+configurable expressions.
+* Label: Enables you to set the node label using an expression.
+* Size: Use a log scale to adjust the node’s size according to an
+expression.
+* Spatio-Temporal: Enables you to set the node time and/or geographic
+location from field values.
+* Associate records based on ontology: Enables you to replace a node
+with a relation between two of its children.
+* Graph metric: Enables you to apply metrics to the graph including:
+** Betweenness
+** Closeness
+** Connectiveness
+** Degrees
+** Eigenvector
+** Pagerank
+
+See <<Graph Browser>> for more information on lens expressions.
+
+*Lens parameters*
+
+image:15d88cecc9cdcf.png[Lens parameters]
+
+Each lens has specific parameters which will be used for every graph
+node.
+
+*Conditional lens*
+
+image:15d88cecca3b88.png[Conditional lens]
+
+A conditional lens can change a property for all the nodes that satisfy
+the condition:
+
+* Color
+* Node font icon
+* Node glyphs
+* Hidden
+* Label
+* Location
+* Node image
++
+NOTE: Node icons that link to web images are not always shown properly due to
+security restrictions. You may need to configure the
+xref:image-proxy-ip.adoc[Image Proxy] feature to
+display them.
+
+* Size
+* Time
+* Tooltip
+
+*Associate records based on ontology lens*
+
+image:15d88ceccab8be.png[Side bar - associate records based on
+ontology lens]
+
+The `+associate records based on ontology+` lens can use the node’s
+underlying model, as in the following example, to replace a node with
+the relation between two of its children.
+
+*Investment model graph view*
+
+image:15d88ceccb4ef6.png[vestment model graph view]
+
+After you configure the lens, two nodes and its relationship will be
+displayed. For example, apply this lens an investment node:
+
+image:15d88ceccbdd18.png[Investment node]
+
+You could obtain the associate records based on ontology as a result:
+
+image:15d88ceccc60a4.png[Associate records based on ontology
+result]
+
+*Expansion tab*
+
+The expansion tab controls how nodes expand when you double-click them
+or select a group of nodes and click Expand.
+
+* Dashboard filters: Restrict nodes produced by an expansion to those
+present in the selected dashboard.
+* Relations - simple: Restrict nodes produced by an expansion to the
+selected relations.
+* Relations - aggregated: Quickly show aggregates on graph edges that
+summarize groups of intermediate nodes.
+
+**Selection tab**
+
+image:15d88ceccd4017.png[Selection tab]
+
+The selection tab enables you to show, search, filter, sort, group and
+change node/links data. When this tab is opened, it reacts with your
+current node selection and loads the data in rows and columns.
+
+The main component is the data grid, every grid’s row represents a node
+in the graph and every column a field data related information.
+
+*Document type selection*
+
+The *Main selection* combo box enables selection between the different
+document types in the selected nodes.
+
+*Selection change*
+
+The second column in the grid enables multiple row selection, once
+selected it will reflect on the graph turning each node bigger and
+changing the node’s border to red.
+
+After you complete the selection, you can click the *Make main
+selection* button floating over the grid to remove the non-selected
+nodes.
+
+*Global filter*
+
+Typing in the *Filter* input enables you to search/filter in all rows
+and columns.
+
+*Local filter*
+
+Typing inside of one column’s input enables you to search/filter in all
+rows of that column.
+
+*Grid menu*
+
+image:15d88ceccdd0aa.png[Grid menu]
+
+This menu enables you to show or hide columns and clear all local
+filters.
+
+*Column menu*
+
+image:15d88cecce3eaf.png[Column menu]
+
+The menu options enable you to:
+
+* Change the sort order -Multiple column order is supported by keeping
+shift key pressed on column selection-.
+* Hide the column.
+* Group the data.
+* Add aggregated function, the result of which will be displayed at the
+bottom.
+* Pin the column to the left or right side of the grid.
+
+*Lens Expressions*
+
+Siren Investigate’s lens expression parser is based on
+https://github.com/TomFrost/Jexl[Jexl].
+
+The expression created within the lens is applied to each node of the
+selection. Each node contains an object named `+payload+` which contains
+the node’s data returned from Elasticsearch.
+
+
+== Saving the Graph Browser configuration
+
+The Graph Browser panel allows the user to change configurations through
+the sidebar on the right. In the three tabs of the sidebar, the user can
+change Lenses, Expansions, and Selections.
+
+In the Lenses tab, you can add lenses, change the selected lens, remove
+one or more lenses, and modify lens settings.
+
+In the Expansions tab, you can check/uncheck the dashboard filters,
+check/uncheck the simple and the aggregated relations filters, and
+change aggregated relations options.
+
+In the Selection tab, the selected graph items are shown in a grid; you
+can hide columns, sort rows in a different order, by type and so on.
+
+When a configuration is modified, a Save button appears in the top right
+of the sidebar.
+
+// This graphic consists of three files side by side.
+
+
+[cols=", ,",]
+|===
+|image:15d8b8ddb542ae.png[image] |image:15d8b8ddb5874a.png[image] |image:15d8b8ddb5d491.png[image]
+|===
+
+
+If you switch to another dashboard without saving, and come back to the
+Graph Browser, the sidebar state remains the same: all configuration
+changes are kept and the Save button is still highlighted. In addition,
+the sidebar width and state (opened or closed) are kept. If you leave
+the session (log out) without saving the configurations, the next time
+you log in and open the Graph Browser, the configurations will be lost.
+
+If click the Save button, the current configurations are saved in the
+uiStateJSON of the saved visualizations object related to the Graph
+Browser visualization.
+
+image:15d88cecd0ed04.png[image]
+
+The structure of the saved JSON enables different configurations for the
+Graph Browser in different dashboards. All the configurations are stored
+under an id related to the dashboard id.
+
+*Cloning a Graph Browser dashboard*
+
+On the Graph Browser dashboard, click the Clone button in the top right.
+A dialog appears that allow to choose the title of the new cloned
+dashboard.
+
+image:15d88cecd1633e.png[image]
+
+Type a name and click the Confirm Clone button. This creates a new
+Dashboard with all the same configurations.
+
+image:15d88cecd1edb3.png[image]
+
+The same happens if you click the Edit button (top right) and then save
+the dashboard as new. It is possible to change the new dashboard
+configurations and save it; the original Graph Browser configurations
+will not change.
+
+
+== Shortest Path limitations
+
+You can run a script within Graph Browser to determine the shortest path
+between selected nodes in a dataset.
+
+The time to calculate the shortest path is dependent on the size and
+schema of the dataset. With this script, the ability to calculate the
+shortest path is limited by the graph expansion limit. You can modify
+this setting (`+siren:graphExpansionLimit+`), which is documented in
+xref:management.adoc#_setting_advanced_options[Setting advanced
+options].
+
+CAUTION: Increasing the `+siren:graphExpansionLimit+` value will negatively
+affect the Graph Browser performance.
+
+
+If you are working with Neo4j data, you can use a Neo4j Shortest Path
+script instead, which should provide better performance. See
+xref:data-reflection.adoc#_integrating_neo4j_data[Adding a Shortest Path
+script for Neo4j] for details.
+
+[[UUID-2fb5f13b-40fc-a057-308a-6dba2d1a8f58]]
+== Jexl operators
+
+There are a number of operators which can be applied to the `+payload+`
+data for transformation, comparison, and so on.
+
+Here are a selection, there are further details at the
+https://github.com/TomFrost/Jexl[Jexl] GitHub page.
+
+*Operators.*
+
+Use these operators to perform mathematical operations on values
+
+[cols=",,",options="header",]
+|===
+|Operation |Symbol |Example
+|Negate |`+!+` |`+!true+` ⇒ `+false+`
+|Add/Concat |`+++` |`+3 + 4+` ⇒ `+7+`
+|Subtract |`+-+` |`+4 - 3+` ⇒ `+1+`
+|Multiply |`+*+` |`+3 * 8+` ⇒ `+24+`
+|Divide |`+/+` |`+15 / 4+` ⇒ `+3.75+`
+|Divide and Floor |`+//+` |`+15 // 4+` ⇒ `+3+`
+|Modulus |`+%+` |`+23 % 2+` ⇒ `+1+`
+|Power of |`+^+` |`+2^3+` ⇒ `+8+`
+|Logical AND |`+&&+` |`+true && true+` ⇒ `+true+`
+|Logical OR |`+||+` |`true
+|===
+
+*Comparisons.*
+
+Use these expressions to compare two values, the Boolean results can be
+used for, for example filtering.
+
+[cols=",,",options="header",]
+|===
+|Operation |Symbol |Example
+|Equal |`+==+` |`+1 == 2+` ⇒ `+false+`
+
+|Not Equal |`+!=+` |`+1 != 2+` ⇒ `+true+`
+
+|Greater Than |`+>+` |`+2 > 3+` ⇒ `+false+`
+
+|Greater Than or Equal |`+>=+` |`+3 >= 3+` ⇒ `+true+`
+
+|Less Than |`+<+` |`+2 < 3+` ⇒ `+true+`
+
+|Less Than or Equal |`+<=+` |`+2 ⇐ 4+` ⇒ `+true+`
+
+|Element in array or string |`+in+`
+|`+"cat" in ["cat", "dog", "mouse"]+` ⇒ `+true+`
+|===
+
+*Conditional Operators.*
+
+Conditional operators return the second or third expression based on the
+result of the first expression. If the first expression
+(`+"Bob" in ["Bob", "Mary"]+` below) return `+true+`, "Yes" is returned.
+If it returns false, "No" is returned.
+
+[cols=",",options="header",]
+|===
+|Example |Result
+|"Bob" `+in+` ["Bob", "Mary"] ? "Yes" : "No" |"Yes"
+|===
+
+*Identifiers.*
+
+Access variables in the payload with dot notation or by using brackets,
+for example:
+
+....
+{
+  name: {
+    first: 'John'
+    last: 'Smith'
+  },
+  age: 55,
+  colleagues: [
+    'Mary',
+    'Bob',
+    'Ted'
+  ],
+  teammate: 2
+}
+....
+
+[cols=",",options="header",]
+|===
+|Example |Result
+|name.first |"John"
+|colleagues[teammate] |"Ted"
+|name['la' + 'st'] |"Smith"
+|===
+
+*Collection filtering.*
+
+Arrays of objects (Collections) can be filtered by including a filter
+expression in brackets. Properties of each collection can be referenced
+by prefixing them with a leading dot. The result is an array of objects
+for which the filter returns a truthy value.
+
+....
+{
+  users: [
+    { first: 'John', last: 'Smith', age: 20},
+    { first: 'Mary', last: 'Jones', age: 46},
+    { first: 'Ted', last: 'Cotter', age: 16},
+    { first: 'Bob', last: 'White', age: 66}
+  ],
+  adult: 21
+}
+....
+
+[cols=",",options="header",]
+|===
+|Example |Result
+|users[.last == 'Jones'] |[\{ first: 'Mary', last: 'Jones', age: 46}]
+
+|users[.age < adult] |[\{ first: 'John', last: 'Smith', age: 20}, first:
+'Ted', last: 'Cotter', age: 16}]
+
+|users[first == 'John'].last |"Smith"
+|===
+
+*Lens Expression Functions*
+
+In addition to the general Jexl parsing functionality, Siren Investigate
+also exposes a number of JavaScript-like functions for use in Lens
+Expressions. Payload values (or the results from earlier parsing) are
+piped into the function using the `+|+` character. These values become
+the `+val+` parameter for the functions below - meaning the `+val+` does
+not need to be added in the `+()+` after the function name. In some
+cases, this value is all that is needed by the function and some
+functions require extra parameters.
+
+Some functions require string inputs and some require integer or
+floating-point inputs
+
+.String Lens Expressions
+[cols=",,",options="header",]
+|===
+|Function |Example |Explanation
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split[split(val,
+delimiter[, limit])] |`+payload.IP \| split('.', 3)+` |Splits an IP
+address by the '.' and returns the first 3 entries as an array
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith[endsWith(val,
+substring[, length])] |`+payload.name \| endsWith('smith', 10)+` |Returns
+true if `+val+` ends with `+substring+`, if `+length+` is added, that
+number of characters from the beginning of `+val+` is checked.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith[startsWith(val,
+substring[, position])] |`+payload.name \| startsWith('smith', 10)+`
+|Returns true if `+val+` begins with `+substring+`, if `+position+` is
+added, the substring from that position to the end of `+val+` is
+checked.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf[indexOf(val,
+substring[, length])] |`+payload.name \| indexOf('smith', 10)+` |Returns
+the position of the first character of `+substring+` if `+val+` contains
+`+substring+`, if `+length+` is added, `+val+` is checked from that
+position.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase[upper(val)]
+|`+payload.name \| upper+` |Returns `+val+` in upper case.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase[lower(val)]
+|`+payload.name \| lower+` |Returns `+val+` in lower case.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring[indexOf(val,
+start, end)] |`+payload.name \| substring(5, 10)+` |Returns the string
+within `+val+` found between `+start+` and `+end+`.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace[replace(val,
+substring, newSubString)] |`+payload.name \| replace('smith', 'jones')+`
+|Replaces `+substring+` with `+newSubString+` in `+val+`.
+|===
+
+.Number lens Expressions
+[cols=",,",options="header",]
+|===
+|Function |Example |Explanation
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round[round(val)]
+|`+payload.range \| round+` |Returns `+val+` rounded to the nearest
+integer.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc[trunc(val)]
+|`+payload.range \| trunc+` |Returns the integer part of `+val+`.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt[sqrt(val)]
+|`+payload.range \| sqrt+` |Returns `+√val+`.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign[sign(val)]
+|`+payload.range \| sign+` |Returns 1 if `+val+` is positive, -1 if
+`+val+` is negative or 0 if `+val+` equals 0.
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil[ceil(val)]
+|`+payload.price \| ceil+` |Returns the nearest integer greater than
+`+val+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor[floor(val)]
+|`+payload.price \| floor+` |Returns the nearest integer less than
+`+val+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs[abs(val)]
+|`+payload.temperature_change \| abs+` |Returns the absolute value for a
+Number or 0 if the number is `+null+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/exp[exp(val)]
+|`+payload.difference \| exp+` |Returns `+ℯval+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log[log(val)]
+|`+payload.difference \| log+` |Returns the natural logarithm of `+val+`,
+for example `+ln(val)+`
+
+|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random[random(val)]
+|`+payload.range \| random+` |Returns `+val+` multiplied by a
+floating-point, pseudo-random number between 0 (inclusive) and 1
+(exclusive).
+|===
+
+[[UUID-769b3b8b-ae37-2a08-5b56-a45718934bb5]]
+== Link analysis
+
+Siren enables you to group nodes manually or automatically based on
+shared properties, for example:
+
+* All records located in France or Germany.
+* All IPs in server room A.
+* All patients from the placebo clinical trial arm.
+
+This can reduce graph clutter and make it easier to discover patterns
+and drill down into clusters during analysis.
+
+For example, the following image shows companies clustered by US state
+in which their headquarters are located.
+
+image:15d88cecd26f31.png[Grouping on nodes]
