@@ -456,7 +456,7 @@ The time to calculate the shortest path is dependent on the size and
 schema of the dataset. With this script, the ability to calculate the
 shortest path is limited by the graph expansion limit. You can modify
 this setting (`+siren:graphExpansionLimit+`), which is documented in
-xref:management.adoc#_setting_advanced_options[Setting advanced
+xref:module-siren-investigate:management.adoc#_setting_advanced_options[Setting advanced
 options].
 
 CAUTION: Increasing the `+siren:graphExpansionLimit+` value will negatively
@@ -465,10 +465,10 @@ affect the Graph Browser performance.
 
 If you are working with Neo4j data, you can use a Neo4j Shortest Path
 script instead, which should provide better performance. See
-xref:data-reflection.adoc#_integrating_neo4j_data[Adding a Shortest Path
+xref:module-siren-investigate:data-reflection.adoc#_integrating_neo4j_data[Adding a Shortest Path
 script for Neo4j] for details.
 
-[[UUID-2fb5f13b-40fc-a057-308a-6dba2d1a8f58]]
+
 == Jexl operators
 
 There are a number of operators which can be applied to the `+payload+`
@@ -689,7 +689,7 @@ floating-point, pseudo-random number between 0 (inclusive) and 1
 (exclusive).
 |===
 
-[[UUID-769b3b8b-ae37-2a08-5b56-a45718934bb5]]
+
 == Link analysis
 
 Siren enables you to group nodes manually or automatically based on
