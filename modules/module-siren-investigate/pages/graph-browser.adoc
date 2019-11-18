@@ -1,13 +1,13 @@
-== Graph Browser
+= Graph Browser
 
 Graph Browser displays Elasticsearch documents as nodes and Siren
 Investigate relations as links of a graph.
 
 image:15d88cecc043d1.png[Graph Browser Example]
 
-=== Configuration
+== Configuration
 
-==== Big nodes threshold
+=== Big nodes threshold
 
 If a node would expand into more than this configured number of nodes it
 will be considered a big node and the user will be given a choice to
@@ -15,12 +15,12 @@ proceed or to select a sample.
 
 image:15d88cecc0d3e5.png[Big Nodes Handling]
 
-==== Relations
+=== Relations
 
 You can configure the ontology relations you want to use in this
 visualization. If no relation gets set, they will all be used.
 
-==== Scripts 
+=== Scripts 
 
 The Graph Browser supports three types of scripts:
 
@@ -84,19 +84,19 @@ image:15d88cecc15a9f.png[Scripts Management]
 
 Here you can configure new _scripts_ or modify the saved ones.
 
-==== Fields to exclude
+=== Fields to exclude
 
 You can configure a set of fields for each entity that you do not want
 to retrieve. Typically, you will exclude large fields that do not
 contribute to the link analysis (for example large textual blobs,
 technical metadata)for extra performance.
 
-=== Navigating the Graph
+== Navigating the Graph
 
 After your Graph Browser visualization is ready, you can start your
 investigations.
 
-==== Toolbar
+=== Toolbar
 
 You have several operations available:
 
@@ -186,7 +186,7 @@ feature preserves the saved graph layout.
 +
 image:15d88cecc7fbe0.png[Open Graph]
 
-==== Shortcuts
+=== Shortcuts
 
 The Graph Browser supports shortcuts:
 
@@ -199,7 +199,7 @@ expandbutton)
 * `+Arrows+`: Move the selected elements in the input direction.
 * Mouse wheel: Changes the zoom level of the graph.
 
-==== Navigation bar
+=== Navigation bar
 
 image:15d88cecc86fc9.png[Navigation bar]
 
@@ -212,7 +212,7 @@ The navigation bar enables you to:
 * *Hand*: Enables you to move the graph regardless of selected elements.
 . Enables you to change the zoom level.
 
-==== Side bar
+=== Side bar
 
 image:15d88cecc8dcd6.png[Side bar]
 
@@ -222,7 +222,7 @@ The side bar enables you to:
 * Change the current selection.
 * Change node/links attributes (i.e: Color, label, tool tip, and so on).
 
-=== Lenses tab
+== Lenses tab
 
 image:15d88cecc9558f.png[Side bar lenses tab]
 
@@ -383,7 +383,7 @@ selection. Each node contains an object named `+payload+` which contains
 the node’s data returned from Elasticsearch.
 
 
-=== Saving the Graph Browser configuration
+== Saving the Graph Browser configuration
 
 The Graph Browser panel allows the user to change configurations through
 the sidebar on the right. In the three tabs of the sidebar, the user can
@@ -447,7 +447,7 @@ configurations and save it; the original Graph Browser configurations
 will not change.
 
 
-=== Shortest Path limitations
+== Shortest Path limitations
 
 You can run a script within Graph Browser to determine the shortest path
 between selected nodes in a dataset.
@@ -469,7 +469,7 @@ xref:data-reflection.adoc#_integrating_neo4j_data[Adding a Shortest Path
 script for Neo4j] for details.
 
 [[UUID-2fb5f13b-40fc-a057-308a-6dba2d1a8f58]]
-=== Jexl operators
+== Jexl operators
 
 There are a number of operators which can be applied to the `+payload+`
 data for transformation, comparison, and so on.
@@ -690,7 +690,7 @@ floating-point, pseudo-random number between 0 (inclusive) and 1
 |===
 
 [[UUID-769b3b8b-ae37-2a08-5b56-a45718934bb5]]
-=== Link analysis
+== Link analysis
 
 Siren enables you to group nodes manually or automatically based on
 shared properties, for example:
