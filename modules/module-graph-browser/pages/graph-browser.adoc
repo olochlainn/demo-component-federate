@@ -465,7 +465,7 @@ affect the Graph Browser performance.
 
 If you are working with Neo4j data, you can use a Neo4j Shortest Path
 script instead, which should provide better performance. See
-xref:module-siren-investigate:data-reflection.adoc#_integrating_neo4j_data[Adding a Shortest Path
+xref:module-siren-investigate:data-reflection.adoc#_adding_a_shortest_path_script_for_neo4j[Adding a Shortest Path
 script for Neo4j] for details.
 
 
