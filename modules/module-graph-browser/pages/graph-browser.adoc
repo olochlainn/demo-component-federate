@@ -292,7 +292,7 @@ the relation between two of its children.
 
 *Investment model graph view*
 
-image:15d88ceccb4ef6.png[vestment model graph view]
+image:15d88ceccb4ef6.png[Investment model graph view]
 
 After you configure the lens, two nodes and its relationship will be
 displayed. For example, apply this lens an investment node:
