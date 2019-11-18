@@ -137,8 +137,8 @@
 **** xref:module-siren-alert:alerting-how-to.adoc#_statistical_anomaly_detection[Statistical anomaly detection]
 **** xref:module-siren-alert:alerting-how-to.adoc#_outliers[Outliers]
 *** xref:module-siren-alert:security-setup-for-siren-alert.adoc[Security setup for Siren Alert]
-** xref:troubleshooting.adoc[Troubleshooting]
-** xref:siren-alert-faq.adoc[Siren Alert FAQ]
+*** xref:module-siren-alert:troubleshooting.adoc[Troubleshooting]
+*** xref:module-siren-alert:siren-alert-faq.adoc[Siren Alert FAQ]
 
 
 
