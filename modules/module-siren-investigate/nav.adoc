@@ -110,6 +110,7 @@
 **** xref:plugins.adoc#_switching_off_plugins[Switching off plugins]
 **** xref:plugins.adoc#_configuring_the_plugin_manager[Configuring the plugin manager]
 *** xref:siren-widgets.adoc[Siren Widgets]
+** xref:module-graph-browser:graph-browser-intro.adoc[Graph Browser]
 ** xref:module-siren-alert:siren-alert.adoc[Alerting]
 *** xref:module-siren-alert:introduction.adoc[Introduction]
 **** xref:module-siren-alert:introduction.adoc#_siren_alert_compared_to_x_pack[Siren Alert compared to X-Pack]
