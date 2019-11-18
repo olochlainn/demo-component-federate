@@ -1,5 +1,5 @@
 * xref:siren-investigate.adoc[Siren Investigate]
-** xref:siren-investigate.adoc[Siren Investigate]
+** xref:siren-investigate.adoc[Investigate]
 *** xref:setting-up-siren-investigate.adoc[Setting up Siren Investigate]
 **** xref:setting-up-siren-investigate.adoc#_supported_platforms[Supported platforms]
 **** xref:setting-up-siren-investigate.adoc#_installing_siren_investigate[Installing Siren Investigate]
