@@ -1,7 +1,9 @@
 = Graph Browser
 
-Graph Browser displays Elasticsearch documents as nodes and Siren
+Graph Browser is a visualization that displays Elasticsearch documents as nodes and Siren
 Investigate relations as links of a graph.
+
+NOTE: Because of Graph Browser's special features, it has its own section in the documentation. All other visualizations are described in the xref:module-siren-investigate:visualizations.adoc[Visualizations] section.
 
 image:15d88cecc043d1.png[Graph Browser Example]
 
