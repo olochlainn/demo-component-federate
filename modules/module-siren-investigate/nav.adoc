@@ -44,7 +44,6 @@
 *** xref:visualizations.adoc[Visualizations]
 **** xref:visualizations.adoc#_creating_a_visualization[Creating a visualization]
 **** xref:visualizations.adoc#_record_table_visualization[Record Table visualization]
-**** xref:visualizations.adoc#_graph_browser[Graph Browser]
 **** xref:visualizations.adoc#_multichart[Multichart]
 **** xref:visualizations.adoc#_analytic_table[Analytic Table]
 **** xref:visualizations.adoc#_markdown_widget[Markdown Widget]
