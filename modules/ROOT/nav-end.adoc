@@ -1,0 +1,2 @@
+* xref:troubleshooting.adoc[Troubleshooting]
+* xref:glassary.adoc[Glossary]
