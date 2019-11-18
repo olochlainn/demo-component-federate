@@ -112,7 +112,7 @@
 *** xref:siren-widgets.adoc[Siren Widgets]
 ** xref:module-graph-browser:graph-browser.adoc[Graph Browser]
 *** xref:module-graph-browser:graph-browser.adoc#_configuration[Configuration]
-*** xref:module-graph-browser:graph-browser#_navigating_the_graph.adoc[Navigating the Graph]
+*** xref:module-graph-browser:graph-browser#navigating_the_graph.adoc[Navigating the Graph]
 *** xref:module-graph-browser:graph-browser.adoc#_lenses_tab[Lenses tab]
 *** xref:module-graph-browser:graph-browser.adoc#_saving_the_graph_browser_configuration[Saving the Graph Browser configuration]
 *** xref:module-graph-browser:graph-browser.adoc#_shortest_path_limitations[Shortest Path limitations]
